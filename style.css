@@ -21,7 +21,9 @@
 :focus-visible {
     outline: none;
 }
-textarea {
-    background: #0c7ad4;
+#key {
+    font-size: 25px;
+    background: #c91212;
     color: #fff;
+    padding: 15px;
 }

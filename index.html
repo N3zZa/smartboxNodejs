@@ -10,10 +10,10 @@
 <script>
     function press() {
         var e = event.keyCode;
-        alert(e);
-    }
+        document.getElementById('key').innerHTML = e;
+    }   
 </script>
-<body onkeypress=press() nv-scope-current>
+<body onkeypress=press() onkeydown=press() nv-scope-current>
     
     <div class="app">
         <div nv-scope="menu">
@@ -23,7 +23,7 @@
             <p nv-el class="nv-el item">4</p>
             <p nv-el class="nv-el item">5</p>
         </div>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <div id="key"></div>
     </div>
     <script type="text/javascript" src="https://rawgit.com/ahiipsa/navigation/1.0.6/dist/navigation.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/ahiipsa/navigation/1.0.6/dist/navigation.min.js"></script>
