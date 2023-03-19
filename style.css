@@ -1,9 +1,12 @@
-.App {
+.app {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    background: #ff66009d;
+    gap: 20px;
+}
+.app div {
+    display: flex;
     gap: 20px;
 }
 
@@ -11,4 +14,10 @@
     padding: 20px;
     color: #fff;
     background: #c91212;
+}
+.nv-el-current {
+    background: #630505;
+}
+:focus-visible {
+    outline: none;
 }
