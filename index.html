@@ -7,7 +7,10 @@
     <title>tv</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body nv-scope-current>
+<body onclick="function press(){
+var e=event.keyCode;
+alert(e);
+}" nv-scope-current>
     <div class="app">
         <div nv-scope="menu">
             <p nv-el class="nv-el item">1</p>
