@@ -29,3 +29,7 @@ var keyMapping = [
 ];
 
 navigation.addKeyMapping(keyMapping);
+
+const area = getElementByTagName("textarea");
+
+if (area.)
