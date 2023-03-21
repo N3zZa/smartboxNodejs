@@ -1,36 +1,3 @@
-var keyMapping = [
-  [37, "left"],
-  [38, "up"],
-  [39, "right"],
-  [40, "down"],
-  [13, "enter"],
-  [8, "back"],
-  [112, "red"],
-  [113, "green"],
-  [114, "yellow"],
-  [115, "blue"],
-  [66, "rw"],
-  [83, "stop"],
-  [82, "play"],
-  [82, "pause"],
-  [417, "ff"],
-  [33, "ch_up"],
-  [34, "ch_down"],
-  [43, "volume_up"],
-  [45, "volume_down"],
-  [89, "info"],
-  [48, "numpad", 0],
-  [49, "numpad", 1],
-  [50, "numpad", 2],
-  [51, "numpad", 3],
-  [52, "numpad", 4],
-  [53, "numpad", 5],
-  [54, "numpad", 6],
-  [55, "numpad", 7],
-  [56, "numpad", 8],
-  [57, "numpad", 9],
-  [461, "back"], // return
-  [192, "mute"],
-];
 
-navigation.addKeyMapping(keyMapping);
+
+

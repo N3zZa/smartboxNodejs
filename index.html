@@ -16,12 +16,12 @@
 <body onkeypress=press() onkeydown=press() nv-scope-current>
     
     <div class="app">
-        <div nv-scope="menu">
-            <p nv-el class="nv-el item">1</p>
-            <p nv-el class="nv-el item">2</p>
-            <p nv-el class="nv-el item">3</p>
-            <p nv-el class="nv-el item">4</p>
-            <p nv-el class="nv-el item">5</p>
+        <div nv-scope="menu" nv-scope-current="true">
+            <p nv-el-current="true" nv-el class="item">1</p>
+            <p nv-el class="item">2</p>
+            <p nv-el class="item">3</p>
+            <p nv-el class="item">4</p>
+            <p nv-el class="item">5</p>
         </div>
         <div id="key"></div>
     </div>
