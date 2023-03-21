@@ -6,27 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tv</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./main.css">
 </head>
-<script>
-    function press() {
-        var e = event.keyCode;
-        document.getElementById('key').innerHTML = e;
-    }   
-</script>
-<body onkeypress=press() onkeydown=press() nv-scope-current>
-    
+<body>
     <div class="app">
-        <div nv-scope="menu" nv-scope-current="true">
-            <p nv-el-current="true" nv-el class="item">1</p>
-            <p nv-el class="item">2</p>
-            <p nv-el class="item">3</p>
-            <p nv-el class="item">4</p>
-            <p nv-el class="item">5</p>
+        <div class="wrapper">
+            <div class="main-logo">
+                <div class="bg-light"></div>
+                <img width="160" src="./images/UconCinemaLogo.png" alt="logoimg">
+                <div class="logo-text">
+                    <h1>Multiplex</h1>
+                    <h3>Домашний кинотеатр</h3>
+                </div>
+            </div>
+            <nav class="navbar" nv-scope="list" nv-scope-current>
+                <p nv-el nv-el-current>Поиск</p>
+                <a id="Premieres" nv-el href="./pages/Premieres.html">Премьеры</a>
+                <a id="Films" nv-el href="./pages/Films.html">Фильмы</a>
+                <a id="Serials" nv-el href="./pages/Serials.html">Сериалы</a>
+                <a id="Cartoons" nv-el href="./pages/Cartoons.html">Мультфильмы</a>
+                <a id="Anime" nv-el href="./pages/Anime.html">Аниме</a>
+                <a id="Compilations" nv-el href="./pages/Compilations.html">Подборки</a>
+            </nav>
         </div>
-        <div id="key"></div>
     </div>
     <script type="text/javascript" src="./navigation/navigation.js"></script>
     <script type="text/javascript" src="./navigation/navigation.min.js"></script>
+    <script type="text/javascript">
+        let premieres = document.getElementById('Premieres')
+        let films = document.getElementById('Films')
+        let serials = document.getElementById('Serials')
+        let cartoons = document.getElementById('Cartoons')
+        let anime = document.getElementById('Anime')
+        let compilations = document.getElementById('Compilations')
+
+        premieres.addEventListener('nv-enter', function (event) {
+                window.location='./pages/Premieres.html'
+        });
+        films.addEventListener('nv-enter', function (event) {
+                window.location='./pages/Films.html'
+        });
+        serials.addEventListener('nv-enter', function (event) {
+                window.location='./pages/Serials.html'
+        });
+        cartoons.addEventListener('nv-enter', function (event) {
+                window.location='./pages/Cartoons.html'
+        });
+        anime.addEventListener('nv-enter', function (event) {
+                window.location='./pages/Anime.html'
+        });
+        compilations.addEventListener('nv-enter', function (event) {
+                window.location='./pages/Compilations.html'
+        });
+
+
+    </script>
     <script src="./main.js"></script>
 </body>
 </html>
