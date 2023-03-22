@@ -90,7 +90,6 @@
             const moviesEl = document.getElementById("movies")
             !function (o) { console.old = console.log, console.log = function () { var n, e, t = ""; for (e = 0; e < arguments.length; e++)t += '<span class="log-' + typeof (n = arguments[e]) + '">', "object" == typeof n && "object" == typeof JSON && "function" == typeof JSON.stringify ? t += JSON.stringify(n) : t += n, t += "</span>&nbsp;"; o.innerHTML += t + "<br>", console.old.apply(void 0, arguments) } }
                 (document.body);
-            console.log(moviesEl)
             let i = 0;
             while (i < arr.results.length) {
                 const movieEl = document.createElement("div");
@@ -121,10 +120,12 @@
                 movieEl.appendChild(filmTitle);
                 movieEl.appendChild(year);
                 moviesEl.appendChild(movieEl);
+                 console.log(moviesEl)
 
                 i++
             }
             moviesEl.firstElementChild.setAttribute("nv-el-current", "true");
+            
         }
         showMovies(arr)
         let arrowBack = document.getElementById('arrowback');
@@ -148,8 +149,6 @@
     </script>
     <script type="text/javascript" src="../navigation/navigation.js"></script>
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>
-    <script data-consolejs-channel="d516aeb5-a17d-ae49-32bf-40b79fc48713"
-        src="https://remotejs.com/agent/agent.js"></script>
 </body>
 
 </html>
