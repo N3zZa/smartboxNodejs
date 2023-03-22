@@ -12,19 +12,144 @@
 
 <body>
     <div class="app">
-        <div class="header">
-            <div class="categories">
+        <div nv-scope="movies" nv-scope-current="true" class="header">
+            <img id="arrowback" nv-el onclick="window.history.back()" width="50" src="../images/arrowBack.svg"
+                alt="arrowback">
+            <a id="imglogo" nv-el href="/">
+                <img width="75" src="../images/UconCinemaLogo.png" alt="logoimg">
+            </a>
+            <div nv-el class="categories">
                 <h1>Категории</h1>
             </div>
-            <h2>Фильмы</h2>
+            <h2>Аниме</h2>
         </div>
-        <div class="movies" nv-scope="movies" nv-scope-current="true">
+        <div id="movies" class="movies" nv-scope="movies">
 
         </div>
     </div>
-    <script src="./main.js"></script>
+    <script type="text/javascript">
+        const API_KEY = 'a7e00fb04d6aee85906efd13422fc24a';
+        const API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+
+        /* getMovies(API_URL);
+         */
+        /* async function getMovies(url) {
+            return new Promise(function (resolve, reject) {
+                fetch(url)
+                .then((response) => {
+                  return response.json();
+                })
+                .then((data) => {
+                  resolve(data);
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+            })
+        } */
+
+        /* var xhr = new XMLHttpRequest();
+        xhr.open("GET", API_URL, true);
+        xhr.send()
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    showMovies(JSON.parse(xhr.responseText));
+                } else {
+                    console.error(xhr.statusText);
+                }
+            }
+        }; */
+        const arr = {
+            "results": [
+                { "link": "https:\/\/v1679409706.bazon.site\/embed\/79504d6c168839027464aaa90839a27f\/87006", "kinopoisk_id": "853301", "date": "1674687895", "camrip": "0", "ads": "0", "block": "", "serial": "0", "trailer": "0", "end": "0", "quality": "WEB-DLRip", "translation": "Українська", "studio": "AniUA", "max_qual": "1080", "files_count": 2, "info": { "rus": "Сэнкоролл коннект", "orig": "Cencoroll Connect", "alter": "", "ukr": "Сенкорол. Підключення", "year": "2019", "country": "Япония", "director": "Ацуя Уки", "genre": "аниме,мультфильм,короткометражка,боевик,фантастика", "actors": "Хиро Симоно,Кана Ханадзава,Рёхэй Кимура,Сатоми Мория,Нацуми Такамори,Кэндзи Акабанэ", "description": "В один из дней над городом появляется чудовище невероятных размеров, явно не земного происхождения. Служба безопасности оцепляет район, а население с недоумением следит за происходящим. Не удивляет происходящее только Юки и её одноклассника Тэцу, у которого есть своё странное существо Сэнко, умеющее трансформироваться в самые разные вещи. Вскоре они встречают Сю, контролирующего того самого монстра, угрожающего городу, с которым им придётся схлестнуться в жестокой битве.", "slogan": "", "premiere": "29 июня 2019", "age": "0", "time": "4500", "poster": "https:\/\/st.kp.yandex.net\/images\/film_iphone\/iphone360_853301.jpg", "screenshot": "https:\/\/w13t.bazonserver.site\/video\/87006\/poster.jpg", "rating": { "rating_kp": "0", "vote_num_kp": "217", "rating_imdb": "6.6", "vote_num_imdb": "131" } } },
+                { "link": "https:\/\/v1679409706.bazon.site\/embed\/79504d6c168839027464aaa90839a27f\/87006", "kinopoisk_id": "853301", "date": "1674687895", "camrip": "0", "ads": "0", "block": "", "serial": "0", "trailer": "0", "end": "0", "quality": "WEB-DLRip", "translation": "Українська", "studio": "AniUA", "max_qual": "1080", "files_count": 2, "info": { "rus": "Сэнкоролл коннект", "orig": "Cencoroll Connect", "alter": "", "ukr": "Сенкорол. Підключення", "year": "2019", "country": "Япония", "director": "Ацуя Уки", "genre": "аниме,мультфильм,короткометражка,боевик,фантастика", "actors": "Хиро Симоно,Кана Ханадзава,Рёхэй Кимура,Сатоми Мория,Нацуми Такамори,Кэндзи Акабанэ", "description": "В один из дней над городом появляется чудовище невероятных размеров, явно не земного происхождения. Служба безопасности оцепляет район, а население с недоумением следит за происходящим. Не удивляет происходящее только Юки и её одноклассника Тэцу, у которого есть своё странное существо Сэнко, умеющее трансформироваться в самые разные вещи. Вскоре они встречают Сю, контролирующего того самого монстра, угрожающего городу, с которым им придётся схлестнуться в жестокой битве.", "slogan": "", "premiere": "29 июня 2019", "age": "0", "time": "4500", "poster": "https:\/\/st.kp.yandex.net\/images\/film_iphone\/iphone360_853301.jpg", "screenshot": "https:\/\/w13t.bazonserver.site\/video\/87006\/poster.jpg", "rating": { "rating_kp": "0", "vote_num_kp": "217", "rating_imdb": "6.6", "vote_num_imdb": "131" } } },
+                { "link": "https:\/\/v1679409706.bazon.site\/embed\/79504d6c168839027464aaa90839a27f\/87006", "kinopoisk_id": "853301", "date": "1674687895", "camrip": "0", "ads": "0", "block": "", "serial": "0", "trailer": "0", "end": "0", "quality": "WEB-DLRip", "translation": "Українська", "studio": "AniUA", "max_qual": "1080", "files_count": 2, "info": { "rus": "Сэнкоролл коннект", "orig": "Cencoroll Connect", "alter": "", "ukr": "Сенкорол. Підключення", "year": "2019", "country": "Япония", "director": "Ацуя Уки", "genre": "аниме,мультфильм,короткометражка,боевик,фантастика", "actors": "Хиро Симоно,Кана Ханадзава,Рёхэй Кимура,Сатоми Мория,Нацуми Такамори,Кэндзи Акабанэ", "description": "В один из дней над городом появляется чудовище невероятных размеров, явно не земного происхождения. Служба безопасности оцепляет район, а население с недоумением следит за происходящим. Не удивляет происходящее только Юки и её одноклассника Тэцу, у которого есть своё странное существо Сэнко, умеющее трансформироваться в самые разные вещи. Вскоре они встречают Сю, контролирующего того самого монстра, угрожающего городу, с которым им придётся схлестнуться в жестокой битве.", "slogan": "", "premiere": "29 июня 2019", "age": "0", "time": "4500", "poster": "https:\/\/st.kp.yandex.net\/images\/film_iphone\/iphone360_853301.jpg", "screenshot": "https:\/\/w13t.bazonserver.site\/video\/87006\/poster.jpg", "rating": { "rating_kp": "0", "vote_num_kp": "217", "rating_imdb": "6.6", "vote_num_imdb": "131" } } }],
+        }
+
+        function showMovies(arr) {
+            const moviesEl = document.getElementById("movies")
+            /*  data.results.forEach(movie => {
+                 const movieEl = document.createElement('div')
+                 movieEl.className = "nv-el";
+                 movieEl.setAttribute("nv-el", "");
+                 const img = document.createElement('img')
+                 img.setAttribute('src', movie.info.poster)
+                 img.setAttribute('alt', 'img');
+         
+                 const filmTitle = document.createElement("div");
+                 filmTitle.className = 'film-title'
+         
+                 const h2 = document.createElement("h2");
+                 h2.appendChild(document.createTextNode(movie.info.rus));
+         
+                 const p = document.createElement("p");
+                 p.appendChild(document.createTextNode(movie.info.rating.rating_imdb));
+         
+                 filmTitle.appendChild(h2)
+                 filmTitle.appendChild(p);
+         
+                 const year = document.createElement("p");
+                 year.appendChild(document.createTextNode(movie.info.year));
+         
+                 movieEl.appendChild(img);
+                 movieEl.appendChild(filmTitle);
+                 movieEl.appendChild(year);
+         
+                 moviesEl.appendChild(movieEl);
+             }) */
+            let i = 0;
+            while (i < arr.results.length) {
+                const movieEl = document.createElement("div");
+                movieEl.className = ("nv-el", 'movieitem');
+                movieEl.setAttribute("nv-el", "");
+                const img = document.createElement("img");
+                img.setAttribute("src", arr.results[i].info.poster);
+                img.setAttribute("alt", "img");
+
+                const filmTitle = document.createElement("div");
+                filmTitle.className = "film-title";
+
+                const h2 = document.createElement("h2");
+                h2.appendChild(document.createTextNode(arr.results[i].info.rus));
+
+                const p = document.createElement("p");
+                p.appendChild(
+                    document.createTextNode(arr.results[i].info.rating.rating_imdb)
+                );
+
+                filmTitle.appendChild(h2);
+                filmTitle.appendChild(p);
+
+                const year = document.createElement("p");
+                year.appendChild(document.createTextNode(arr.results[i].info.year));
+
+                movieEl.appendChild(img);
+                movieEl.appendChild(filmTitle);
+                movieEl.appendChild(year);
+
+                moviesEl.appendChild(movieEl);
+
+                i++
+            }
+            moviesEl.firstElementChild.setAttribute("nv-el-current", "true");
+        }
+        showMovies(arr)
+        let arrowBack = document.getElementById('arrowback');
+        let imglogo = document.getElementById('imglogo');
+
+        arrowBack.addEventListener('nv-enter', function (event) {
+            window.history.back()
+        });
+        imglogo.addEventListener('nv-enter', function (event) {
+            window.location = '/'
+        });
+
+    </script>
     <script type="text/javascript" src="../navigation/navigation.js"></script>
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>
+    <script data-consolejs-channel="3c8538ec-1cc6-708b-6059-414226b168d2"
+        src="https://remotejs.com/agent/agent.js"></script>
 </body>
 
 </html>
