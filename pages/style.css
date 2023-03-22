@@ -108,6 +108,7 @@ h1 {
     flex-direction: column;
     gap: 10px;
     border-radius: 15px;
+    display: none;
 }
 
 
