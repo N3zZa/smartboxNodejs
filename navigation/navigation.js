@@ -1,4 +1,4 @@
-(function() {
+window.onload = (function() {
     if (typeof DEBUG === 'undefined') {
         var DEBUG = false;
     }

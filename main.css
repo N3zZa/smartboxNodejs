@@ -6,12 +6,9 @@ body {
     box-sizing: border-box;
     background: #41334c;
 }
-
 p,
-h1,
-h2,
-h3,
-li {
+h1, h2,
+h3, li {
     color: #fff;
     font-family: 'Inter', sans-serif;
 }

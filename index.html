@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./main.css">
 </head>
-
 <body>
     <div class="app">
         <div class="wrapper">
@@ -23,15 +21,16 @@
             </div>
             <nav class="navbar" nv-scope="list" nv-scope-current>
                 <p nv-el nv-el-current>Поиск</p>
-                <a id="Premieres" nv-el href="./pages/Premieres.html">Премьеры</a>
-                <a id="Films" nv-el href="./pages/Films.html">Фильмы</a>
-                <a id="Serials" nv-el href="./pages/Serials.html">Сериалы</a>
-                <a id="Cartoons" nv-el href="./pages/Cartoons.html">Мультфильмы</a>
-                <a id="Anime" nv-el href="./pages/Anime.html">Аниме</a>
+                <a id="Premieres" nv-el href="./pages/premieres/Premieres.html">Премьеры</a>
+                <a id="Films" nv-el href="./pages/films/Films.html">Фильмы</a>
+                <a id="Serials" nv-el href="./pages/serials/Serials.html">Сериалы</a>
+                <a id="Cartoons" nv-el href="./pages/cartoons/Cartoons.html">Мультфильмы</a>
+                <a id="Anime" nv-el href="./views/Anime.html">Аниме</a>
                 <a id="Compilations" nv-el href="./pages/Compilations.html">Подборки</a>
             </nav>
         </div>
     </div>
+    
     <script type="text/javascript" src="./navigation/navigation.js"></script>
     <script type="text/javascript" src="./navigation/navigation.min.js"></script>
     <script type="text/javascript">
@@ -43,26 +42,25 @@
         let compilations = document.getElementById('Compilations')
 
         premieres.addEventListener('nv-enter', function (event) {
-            window.location = './pages/Premieres.html'
+                window.location='./pages/premieres/Premieres.html'
         });
         films.addEventListener('nv-enter', function (event) {
-            window.location = './pages/Films.html'
+                window.location='./pages/films/Films.html'
         });
         serials.addEventListener('nv-enter', function (event) {
-            window.location = './pages/Serials.html'
+                window.location='./pages/serials/Serials.html'
         });
         cartoons.addEventListener('nv-enter', function (event) {
-            window.location = './pages/Cartoons.html'
+                window.location='./pages/cartoons/Cartoons.html'
         });
         anime.addEventListener('nv-enter', function (event) {
-            window.location = './pages/Anime.html'
+                window.location='./views/Anime.html'
         });
         compilations.addEventListener('nv-enter', function (event) {
-            window.location = './pages/Compilations.html'
+                window.location='./pages/compilations/Compilations.html'
         });
 
 
     </script>
 </body>
-
 </html>
