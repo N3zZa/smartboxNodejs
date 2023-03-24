@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 
-app.use(express.static(__dirname));
+app.use(express.static('/'));
 
 
 const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
