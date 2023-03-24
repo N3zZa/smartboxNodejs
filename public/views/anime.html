@@ -11,10 +11,6 @@
 </head>
 
 <body>
-    
-    <div id="app" class="app">
-        
-    </div>
     <script>
         const response = fetch('/anime')
             .then(function (response) {
@@ -24,8 +20,12 @@
             .catch(function (err) {
                 console.log('Failed to fetch page: ', err);
             });
-            
+
     </script>
+    <div id="app" class="app">
+        
+    </div>
+    
     <!-- <script type="text/javascript">
         let arrowBack = document.getElementById('arrowback');
         let imglogo = document.getElementById('imglogo');
