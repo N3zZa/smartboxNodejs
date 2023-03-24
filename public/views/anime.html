@@ -163,7 +163,7 @@ h1 {
             })
             .then(data => 
             {
-                document.getElementById('app').innerHTML = data
+                document.getElementById('app').textContent = data
             })
             .catch(function (err) {
                 console.log('Failed to fetch page: ', err);
