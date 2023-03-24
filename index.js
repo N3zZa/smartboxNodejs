@@ -3,10 +3,9 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 
-// set the view engine to ejs
-app.set("view engine", "ejs");
+app.use(express.static(__dirname));
 
-// use res.render to load up an ejs view file
+
 const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
 let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
 
@@ -69,8 +68,8 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
     </div>
 `;
 
-     app.get("/Anime", (req, res) => {
-        res.sendFile(path.join(__dirname + "/views/Anime.html"));
+     app.get("/anime", (req, res) => {
+        res.sendFile(path.join(__dirname + "/views/anime.html"));
        res.send(message); // Отправка ответа в виде HTML
      });
    } catch (error) {
@@ -80,11 +79,10 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
 
  getMovies();
 
-app.use(express.static(__dirname));
 
 
-app.get("/views", (req, res) => {
-  res.sendFile(path.join(__dirname + "/Anime.html"));
+app.get(("/"), (req, res) => {
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
 
 

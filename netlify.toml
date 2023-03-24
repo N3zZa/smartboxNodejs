@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/index.html"
-  to = "/views/Anime.html"
+  to = "/views/anime.html"
   status = 301
   force = false
   query = {path = ":path"} #  apply this rule for /old-path?path=example
