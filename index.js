@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 
-app.use(express.static('/'));
+app.use(express.static(__dirname));
 
 
 const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
@@ -68,7 +68,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
     </div>
 `;
 
-     app.get("/views/anime", (req, res) => {
+     app.get(("/anime"), (req, res) => {
         res.sendFile(path.join(__dirname + "/views/anime.html"));
        res.send(message); // Отправка ответа в виде HTML
      });
@@ -78,7 +78,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
  }
 
  getMovies();
-
+console.log(__dirname)
 
 
 app.get(("/"), (req, res) => {
