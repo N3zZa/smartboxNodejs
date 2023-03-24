@@ -160,7 +160,7 @@ h1 {
             .then(function (response) {
                 return response.text()
             })
-            .then(data => document.getElementById('app').innerHTML = data)
+            .then(data => document.getElementById('app').textContent = (data))
             .catch(function (err) {
                 console.log('Failed to fetch page: ', err);
             });
@@ -193,4 +193,4 @@ h1 {
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>
 </body>
 
-</html>+
+</html>
