@@ -156,14 +156,14 @@ h1 {
 </style>
 <body>
     <script type="text/javascript">
-       
+        var block = DocumentFragment()
         var response = fetch('/anime')
             .then(function (response) {
                 return response.text()
             })
             .then(data => 
-            {
-                document.getElementById('app').textContent = data
+            {   
+                document.getElementById('app').innerHTML = data
             })
             .catch(function (err) {
                 console.log('Failed to fetch page: ', err);
