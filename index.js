@@ -78,15 +78,14 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=Ð
  }
 
  getMovies();
-console.log(__dirname)
 
 
 app.get(("/"), (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-
-app.listen(8080);
-console.log("Server is listening on port 8080");
+const port = process.env.PORT || 3000;
+app.listen(port);
+console.log(`Server is listening on port ${port}`);
 
 module.exports = app;
