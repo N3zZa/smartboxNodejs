@@ -18,7 +18,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=Ð
    try {
     const commits = await fetchData;
       let items = commits.results.map((element) => 
-      `<div class='movieitem'>
+      `<div nv-el class='movieitem'>
         <img src='${element.info.poster}' alt='imglogo' />
         <h3>${element.info.rus}</h3>
         <p>${element.info.year}</p>
