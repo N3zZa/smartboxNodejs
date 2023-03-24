@@ -33,7 +33,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
  async function getMovies() {
    try {
      const movies = await showMovies();
-     
+     const moviesItems = movies.join('')
      // используем movies в шаблонной строке:
      const message = `<div nv-scope="movies" nv-scope-current="true" class="header">
         <img id="arrowback" nv-el onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
@@ -64,7 +64,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
         <h2>Аниме</h2>
     </div>
     <div id="movies" class="movies" nv-scope="movies">
-    ${movies}
+    ${moviesItems}
     </div>
 `;
 
