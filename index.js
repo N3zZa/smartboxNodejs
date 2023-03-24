@@ -69,9 +69,10 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
 `;
 
      app.get("/anime", (req, res) => {
-       res.sendFile(path.join(__dirname + "/views/anime"));
+       res.sendFile(path.join(__dirname + "/public/views/anime.html"));
        res.send(message); // Отправка ответа в виде HTML
      });
+
    } catch (error) {
      console.error(error);
    }
@@ -81,7 +82,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
 
 
 app.get("/public/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/index"));
+  res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
 const port = process.env.PORT || 3000;
