@@ -5,6 +5,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     background: #41334c;
+    height: 100vh;
 }
 p,
 h1, h2,
