@@ -68,8 +68,8 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
     </div>
 `;
 
-     app.get(("/anime"), (req, res) => {
-        res.sendFile(path.join(__dirname + "/views/anime"));
+     app.get("/views/anime", (req, res) => {
+       res.sendFile(path.join(__dirname + "/views/anime"));
        res.send(message); // Отправка ответа в виде HTML
      });
    } catch (error) {
