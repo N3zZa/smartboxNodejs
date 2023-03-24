@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + "/public/"));
 
 
 const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
@@ -69,7 +69,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
 `;
 
      app.get(("/anime"), (req, res) => {
-        res.sendFile(path.join(__dirname + "/views/anime.html"));
+        res.sendFile(path.join(__dirname + "/views/anime"));
        res.send(message); // Отправка ответа в виде HTML
      });
    } catch (error) {
@@ -81,7 +81,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
 
 
 app.get("/public/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/index.html"));
+  res.sendFile(path.join(__dirname + "/public/index"));
 });
 
 const port = process.env.PORT || 3000;
