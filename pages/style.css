@@ -1,31 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-</head>
-<style>
-
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background: #41334c;
-    height: 100vh;
-}
-p,
-h1, h2,
-h3, li {
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-}
 .app {
     max-width: 1000px;
     margin: 0 auto;
@@ -153,27 +125,3 @@ h1 {
     position: absolute;
         left: 50%;
 }
-</style>
-<body>
-    <script type="text/javascript">
-        var response = fetch('/anime')
-            .then(function (response) {
-                return response.text()
-            })
-            .then(data => 
-            {   
-                document.getElementById('app').innerHTML = data
-            })
-            .catch(function (err) {
-                console.log('Failed to fetch page: ', err);
-            });
-
-    </script>
-    <div id="app" class="app">
-        
-    </div>
-    <script type="text/javascript" src="../navigation/navigation.js"></script>
-    <script type="text/javascript" src="../navigation/navigation.min.js"></script>
-</body>
-
-</html>
