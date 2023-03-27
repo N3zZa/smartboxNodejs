@@ -287,21 +287,12 @@ h1 {
 
  getMovies();
 
- app.get(
-   "/.well-known/pki-validation/2E7CFB8586B2F8AEC2CCD41C8F0A02A4.txt",
-   (req, res) => {
-     res.sendFile(
-       "./key/2E7CFB8586B2F8AEC2CCD41C8F0A02A4.txt"
-     );
-   }
- );
-
 
 app.get("/public/", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
-const port = process.env.PORT || 3000;
+const port = 3000;
 app.listen(port);
 console.log(`Server is listening on port ${port}`);
 
