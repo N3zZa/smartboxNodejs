@@ -288,6 +288,14 @@ h1 {
 app.get("/public/", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/index.html"));
 });
+app.get(
+  "/.well-known/pki-validation/E4742C0E2E35C8216A30498627C5DF51.txt",
+  (req, res) => {
+    res.sendFile(
+      path.join(__dirname + "/E4742C0E2E35C8216A30498627C5DF51.txt")
+    );
+  }
+);
 
 const port = 3000;
 app.listen(port);
