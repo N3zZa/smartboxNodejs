@@ -291,7 +291,7 @@ h1 {
    "/.well-known/pki-validation/2E7CFB8586B2F8AEC2CCD41C8F0A02A4.txt",
    (req, res) => {
      res.sendFile(
-       "./2E7CFB8586B2F8AEC2CCD41C8F0A02A4.txt"
+       "./key/2E7CFB8586B2F8AEC2CCD41C8F0A02A4.txt"
      );
    }
  );
