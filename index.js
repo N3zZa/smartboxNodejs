@@ -20,7 +20,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=Ð
       let items = commits.results.map((element) => 
       `<div nv-el class='movieitem'>
         <img src='${element.info.poster}' alt='imglogo' />
-        <h3>${element.info.rus}</h3>
+        <h4>${element.info.rus}</h4>
         <p>${element.info.year}</p>
       </div>`
     );
@@ -59,7 +59,7 @@ body {
 }
 p,
 h1, h2,
-h3, li {
+h3, h4, li {
     color: #fff;
     font-family: 'Inter', sans-serif;
 }
@@ -112,8 +112,7 @@ h1 {
 
 .movieitem {
     background: #2b2a32;
-    width: 220px;
-    height: 350px;
+    width: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -135,7 +134,7 @@ h1 {
 }
 
 .film-title h2 {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .film-title p {
@@ -147,7 +146,7 @@ h1 {
 }
 
 .movieitem img {
-    height: 250px;
+    height: 180px;
 }
 
 .nv-el-current {
