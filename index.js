@@ -1,9 +1,12 @@
 const express = require("express");
 const fetch = require("node-fetch");
 var app = express();
+const fs = require("fs")
 const path = require("path");
 
 app.use(express.static(__dirname + "/public/"));
+
+const file = fs.readFileSync("./E4742C0E2E35C8216A30498627C5DF51.txt");
 
 const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
 let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
