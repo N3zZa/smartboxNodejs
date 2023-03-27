@@ -194,7 +194,7 @@ h1 {
 <body>
     <div id="app" class="app">
         <div nv-scope="movies" nv-scope-current="true" class="header">
-        <img id="arrowback" nv-el onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
+        <img id="arrowback" nv-el nv-el-current onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
         <a id="imglogo" nv-el href="/">
             <img width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
