@@ -316,6 +316,11 @@ h1 {
             }
     });
 
+    window.onkeydown = evt => {
+    if (evt.key === 'Tab') {
+        evt.preventDefault();
+    }
+}
     </script>
     <script type="text/javascript" src="../navigation/navigation.js"></script>
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>

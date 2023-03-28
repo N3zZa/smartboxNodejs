@@ -157,6 +157,11 @@ h1,h3 {
                 window.location='/compilations'
         });
 
+        window.onkeydown = evt => {
+                if (evt.key === 'Tab') {
+                    evt.preventDefault();
+                }
+            }
 
     </script>
 </body>
