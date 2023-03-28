@@ -22,7 +22,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=Ð
       let items = commits.results.map(
         (element) =>
           `
-          <iframe nv-el-current onload="this.width=(screen.width - 200);this.height=(screen.height - 200);" id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
+          <iframe nv-el-current onload="this.width=(screen.width);this.height=(screen.height);" id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
           <div onclick="
           var video = document.getElementById('${element.kinopoisk_id}'); 
           video.style.display = 'block'; 
@@ -37,7 +37,7 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=Ð
           var posterBlock = document.getElementById('movieblock')
             function getVideo() {
                 video.style.display = 'block'; 
-                video.contentWindow.focus()
+                video.contentWindow.document.body.focus()
             }
             posterBlock.addEventListener('nv-enter', function (event) {
                 setTimeout(getVideo, 100)
