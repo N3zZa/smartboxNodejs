@@ -24,10 +24,18 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
       let items = commits.results.map(
         (element) =>
           `
-          <iframe nv-el-current onload="this.width=(screen.width - 100);this.height=(screen.height - 100);" id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
+          <iframe allowfullscreen="true" webkitallowfullscreen="true" nv-el-current id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
           <div onclick="
           var video = document.getElementById('${element.kinopoisk_id}'); 
           video.style.display = 'block'; 
+          video.style.position = 'fixed'; 
+          video.style.right = '0'; 
+          video.style.bottom = '0'; 
+          video.style.left = '0'; 
+          video.style.width = '100%'; 
+          video.style.height = '100%'; 
+          video.style.margin = '0'; 
+
           video.contentWindow.focus()
           " nv-el class='movieitem' id='movieblock'>
           <img src='${element.info.poster}' alt='imglogo' />
