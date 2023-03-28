@@ -233,9 +233,9 @@ h1 {
 <body>
     <div id="app" class="app">
         <div nv-scope="movies" nv-scope-current="true" class="header">
-        <img id="arrowback" nv-el nv-el-current onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
+        <img id="arrowback" nv-el onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
-        <a id="imglogo" nv-el href="/">
+        <a id="imglogo" nv-el-current nv-el href="/">
             <img width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
         </a>
         <div id="categories" nv-el class="categories">
@@ -264,6 +264,15 @@ h1 {
     ${moviesItems}
     </div>
     </div>
+    <script type='text/javascript'>
+    
+    window.onkeydown = evt => {
+    if (evt.key === 'Tab') {
+        evt.preventDefault();
+     }
+    }
+
+    </script>
     <script type='text/javascript'>
     var arrowback = document.getElementById('arrowback')
     var imglogo = document.getElementById('imglogo')
@@ -316,11 +325,7 @@ h1 {
             }
     });
 
-    window.onkeydown = evt => {
-    if (evt.key === 'Tab') {
-        evt.preventDefault();
-    }
-}
+    
     </script>
     <script type="text/javascript" src="../navigation/navigation.js"></script>
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>
