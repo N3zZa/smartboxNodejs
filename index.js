@@ -24,7 +24,7 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
       let items = commits.results.map(
         (element) =>
           `
-          <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" nv-el-current id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
+          <iframe loading="lazy" nv-el-current id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
           <div onclick="
           var video = document.getElementById('${element.kinopoisk_id}'); 
           video.style.display = 'block'; 
@@ -323,6 +323,7 @@ h1 {
 </html>`;
 
      app.get("/anime", (req, res) => {
+        res.sendFile(path.join(__dirname + "/public/anime.html"));
        res.send(message); // Отправка ответа в виде HTML
      });
 
