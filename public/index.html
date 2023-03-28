@@ -119,12 +119,12 @@ h1,h3 {
             </div>
             <nav class="navbar" nv-scope="list" nv-scope-current>
                 <p nv-el nv-el-current>Поиск</p>
-                <a id="Premieres" nv-el href="./pages/premieres/Premieres.html">Премьеры</a>
-                <a id="Films" nv-el href="./pages/films/Films.html">Фильмы</a>
-                <a id="Serials" nv-el href="./pages/serials/Serials.html">Сериалы</a>
-                <a id="Cartoons" nv-el href="./pages/cartoons/Cartoons.html">Мультфильмы</a>
+                <a id="Premieres" nv-el href="/premieres">Премьеры</a>
+                <a id="Films" nv-el href="/films">Фильмы</a>
+                <a id="Serials" nv-el href="/serials">Сериалы</a>
+                <a id="Cartoons" nv-el href="/cartoons">Мультфильмы</a>
                 <a id="Anime" nv-el href="/anime">Аниме</a>
-                <a id="Compilations" nv-el href="./pages/Compilations.html">Подборки</a>
+                <a id="Compilations" nv-el href="/compilations">Подборки</a>
             </nav>
         </div>
     </div>
@@ -139,22 +139,22 @@ h1,h3 {
         let anime = document.getElementById('Anime')
         let compilations = document.getElementById('Compilations')
         premieres.addEventListener('nv-enter', function (event) {
-                window.location='./pages/premieres/Premieres.html'
+                window.location='/premieres'
         });
         films.addEventListener('nv-enter', function (event) {
-                window.location='./pages/films/Films.html'
+                window.location='/films'
         });
         serials.addEventListener('nv-enter', function (event) {
-                window.location='./pages/serials/Serials.html'
+                window.location='/serials'
         });
         cartoons.addEventListener('nv-enter', function (event) {
-                window.location='./pages/cartoons/Cartoons.html'
+                window.location='/cartoons'
         });
         anime.addEventListener('nv-enter', function (event) {
                 window.location='/anime'
         });
         compilations.addEventListener('nv-enter', function (event) {
-                window.location='./pages/compilations/Compilations.html'
+                window.location='/compilations'
         });
 
 

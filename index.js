@@ -1,24 +1,26 @@
 const express = require("express");
 const fetch = require("node-fetch");
 var app = express();
-const fs = require("fs")
 const path = require("path");
 
 app.use(express.static(__dirname + "/public/"));
 
-const file = fs.readFileSync("./E4742C0E2E35C8216A30498627C5DF51.txt");
 
 const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
-let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+let APIANIME_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+let APIFILMS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+let APISERIALS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+let APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
 
-    const fetchData = fetch(API_URL).then((response) => {
+    const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
       return response.json();
     });
 
 
- const showMovies = async () => {
+ const showAnime = async () => {
    try {
-    const commits = await fetchData;
+    const commits = await fetchDataAnime;
       let items = commits.results.map(
         (element) =>
           `
@@ -51,9 +53,9 @@ let API_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=�
    }
  };
 
- async function getMovies() {
+ async function getAnime() {
    try {
-     const movies = await showMovies();
+     const movies = await showAnime();
      const moviesItems = movies.join('')
 
      // используем movies в шаблонной строке:
@@ -224,19 +226,19 @@ h1 {
         <div id="categories" nv-el class="categories">
             <h1>Категории</h1>
             <ul id="categorylist" class="category-list">
-                <a href="../pages/Films.html">
+                <a id='Films' href="/films">
                     <li nv-el>Фильмы</li>
                 </a>
-                <a href="../pages/Serials.html">
+                <a id='Serials' href="/serials">
                     <li nv-el>Сериалы</li>
                 </a>
-                <a href="../pages/Cartoons.html">
+                <a id='Cartoons' href="/cartoons">
                     <li nv-el>Мультфильмы</li>
                 </a>
-                <a href="../pages/Premieres.html">
+                <a id='Premieres' href="/premieres">
                     <li nv-el>Премьеры</li>
                 </a>
-                <a href="../pages/Compilations.html">
+                <a id='Compilations' href="/compilations">
                     <li nv-el>Подборки</li>
                 </a>
             </ul>
@@ -253,6 +255,14 @@ h1 {
     var categories = document.getElementById('categories')
     var categorylist = document.getElementById('categorylist')
 
+
+    var cartoons = document.getElementById('Cartoons')
+    var serials = document.getElementById('Serials')
+    var films = document.getElementById('Films')
+    var premieres = document.getElementById('Premieres')
+    var compilations = document.getElementById('Compilations')
+
+
     arrowback.addEventListener('nv-enter', function (event) {
             window.history.go(-1)
     });
@@ -260,6 +270,28 @@ h1 {
     imglogo.addEventListener('nv-enter', function (event) {
             window.location='/'
     });
+
+
+    cartoons.addEventListener('nv-enter', function (event) {
+            window.location='/cartoons'
+    });
+
+    serials.addEventListener('nv-enter', function (event) {
+            window.location='/serials'
+    });
+
+    films.addEventListener('nv-enter', function (event) {
+            window.location='/films'
+    });
+
+    premieres.addEventListener('nv-enter', function (event) {
+            window.location='/premieres'
+    });
+
+    compilations.addEventListener('nv-enter', function (event) {
+            window.location='/compilations'
+    });
+
 
     categories.addEventListener('nv-enter', function (event) {
             if (categorylist.style.display = 'none') {
@@ -276,7 +308,6 @@ h1 {
 </html>`;
 
      app.get("/anime", (req, res) => {
-       res.sendFile(path.join(__dirname + "/public/views/anime.html"));
        res.send(message); // Отправка ответа в виде HTML
      });
 
@@ -285,21 +316,15 @@ h1 {
    }
  }
 
- getMovies();
+ getAnime();
 
+ 
 
 app.get("/public/", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
-app.get(
-  "/.well-known/pki-validation/E4742C0E2E35C8216A30498627C5DF51.txt",
-  (req, res) => {
-    res.sendFile(
-      path.join(__dirname + "/E4742C0E2E35C8216A30498627C5DF51.txt")
-    );
-  }
-);
+
 
 const port = process.env.PORT || 3000;
 app.listen(port);
