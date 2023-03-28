@@ -333,7 +333,6 @@ h1 {
 </html>`;
 
      app.get("/anime", (req, res) => {
-        res.sendFile(path.join(__dirname + "/public/anime.html"));
        res.send(message); // Отправка ответа в виде HTML
      });
 
