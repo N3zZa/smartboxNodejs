@@ -24,40 +24,39 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
       let items = commits.results.map(
         (element) =>
           `
-          <iframe loading="lazy" nv-el-current id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
-          <div onclick="
-          var video = document.getElementById('${element.kinopoisk_id}'); 
-          video.style.display = 'block'; 
-          video.style.position = 'fixed'; 
-          video.style.right = '0'; 
-          video.style.bottom = '0'; 
-          video.style.left = '0'; 
-          video.style.width = '100%'; 
-          video.style.height = '100%'; 
-          video.style.margin = '0'; 
-
-          video.contentWindow.focus()
-          " nv-el class='movieitem' id='movieblock'>
+          <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" nv-el-current id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
+          <div nv-el class='movieitem' id='movieblock${element.kinopoisk_id}' onclick="
+          let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
+          video${element.kinopoisk_id}.style.display = 'block'; 
+          video${element.kinopoisk_id}.style.position = 'fixed'; 
+          video${element.kinopoisk_id}.style.right = '0'; 
+          video${element.kinopoisk_id}.style.bottom = '0'; 
+          video${element.kinopoisk_id}.style.left = '0'; 
+          video${element.kinopoisk_id}.style.width = '100%'; 
+          video${element.kinopoisk_id}.style.height = '100%'; 
+          video${element.kinopoisk_id}.style.margin = '0'; 
+          video${element.kinopoisk_id}.contentWindow.focus()
+          " >
           <img src='${element.info.poster}' alt='imglogo' />
           <h4>${element.info.rus}</h4>
           <p>${element.info.year}</p>
           </div>
           <script type='text/javascript'>
-          var video = document.getElementById('${element.kinopoisk_id}')
-          var posterBlock = document.getElementById('movieblock')
-            function getVideo() {
-                 video.style.display = 'block'; 
-                 video.style.position = 'fixed'; 
-                video.style.right = '0'; 
-                 video.style.bottom = '0'; 
-                 video.style.left = '0'; 
-                video.style.width = '100%'; 
-                video.style.height = '100%'; 
-                 video.style.margin = '0'; 
-                video.contentWindow.focus()
+          let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
+          let posterBlock${element.kinopoisk_id} = document.getElementById('movieblock${element.kinopoisk_id}')
+            function getVideo${element.kinopoisk_id}() {
+                videoTv${element.kinopoisk_id}.style.display = 'block'; 
+          videoTv${element.kinopoisk_id}.style.position = 'fixed'; 
+          videoTv${element.kinopoisk_id}.style.right = '0'; 
+          videoTv${element.kinopoisk_id}.style.bottom = '0'; 
+          videoTv${element.kinopoisk_id}.style.left = '0'; 
+          videoTv${element.kinopoisk_id}.style.width = '100%'; 
+          videoTv${element.kinopoisk_id}.style.height = '100%'; 
+          videoTv${element.kinopoisk_id}.style.margin = '0'; 
+                videoTv${element.kinopoisk_id}.contentWindow.focus()
             }
-            posterBlock.addEventListener('nv-enter', function (event) {
-                setTimeout(getVideo, 100)
+            posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
+                setTimeout(getVideo${element.kinopoisk_id}, 100)
             });
           </script>
       `
@@ -233,9 +232,9 @@ h1 {
 <body>
     <div id="app" class="app">
         <div nv-scope="movies" nv-scope-current="true" class="header">
-        <img id="arrowback" nv-el onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
+        <img id="arrowback" nv-el nv-el-current onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
-        <a id="imglogo" nv-el-current nv-el href="/">
+        <a id="imglogo" nv-el href="/">
             <img width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
         </a>
         <div id="categories" nv-el class="categories">
@@ -264,15 +263,6 @@ h1 {
     ${moviesItems}
     </div>
     </div>
-    <script type='text/javascript'>
-    
-    window.onkeydown = evt => {
-    if (evt.key === 'Tab') {
-        evt.preventDefault();
-     }
-    }
-
-    </script>
     <script type='text/javascript'>
     var arrowback = document.getElementById('arrowback')
     var imglogo = document.getElementById('imglogo')
@@ -325,7 +315,6 @@ h1 {
             }
     });
 
-    
     </script>
     <script type="text/javascript" src="../navigation/navigation.js"></script>
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>
