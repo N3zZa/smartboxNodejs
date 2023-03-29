@@ -58,6 +58,7 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
             posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
                 setTimeout(getVideo${element.kinopoisk_id}, 100)
             });
+            console.log(${element.kinopoisk_id})
           </script>
       `
       );
@@ -260,6 +261,7 @@ h1 {
         <h2>Аниме</h2>
     </div>
     <div id="movies" class="movies" nv-scope="movies">
+      <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="position:absolute; left: 0; top:0; width:100%; height:100%;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=938742" frameborder="0"></iframe>
     ${moviesItems}
     </div>
     </div>
