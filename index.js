@@ -261,7 +261,10 @@ h1 {
         <h2>Аниме</h2>
     </div>
     <div id="movies" class="movies" nv-scope="movies">
-      <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=938742" frameborder="0"></iframe>
+
+    <iframe id="yohoho" data-kinopoisk="938742" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " frameborder="0"></iframe>
+    <script src="//yohoho.cc/yo.js"></script>
+    
     ${moviesItems}
     </div>
     </div>
