@@ -335,16 +335,7 @@ h1 {
             }
     });
 
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
-            var elem = document.querySelector('[nv-el-current]');
-            window.scrollTo(0, elem.offsetTop - 500);
-        } else if (key.keyCode === 40) {
-             var elem = document.querySelector('[nv-el-current]');
-             window.scrollTo(0, elem.offsetTop - 500);
-        }
-    }
+
 
     </script>
     <script type='text/javascript'>
@@ -396,9 +387,7 @@ function startUpdating(){
 }
 
     </script>
-    <script type="text/javascript" src="../navigationpages.js"></script>
-    <script type="text/javascript" src="../navigation/navigation.js"></script>
-    <script type="text/javascript" src="../navigation/navigation.min.js"></script>
+
 </body>
 </html>`;
 
