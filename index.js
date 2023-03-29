@@ -24,7 +24,7 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
       let items = commits.results.map(
         (element) =>
           `
-          <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" nv-el-current id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
+          <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
           <div nv-el class='movieitem' id='movieblock${element.kinopoisk_id}' onclick="
           let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           video${element.kinopoisk_id}.style.display = 'block'; 
@@ -315,10 +315,20 @@ h1 {
             }
     });
 
+    
+    window.document.onkeydown = key => {
+        if (key.keyCode === 38) {
+            var elem = document.querySelector('[nv-el-current]');
+            window.scrollTo(100, elem.offsetTop - 200);
+        } else if (key.keyCode === 40) {
+             var elem = document.querySelector('[nv-el-current]');
+             window.scrollTo(100, elem.offsetTop - 200);
+        }
+    }
+
     </script>
     <script type='text/javascript'>
      window.onkeydown = evt => {
-            console.log(evt.keyCode)
                 if (evt.keyCode === 9) {
                     evt.preventDefault();
                 }
