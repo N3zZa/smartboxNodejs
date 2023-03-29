@@ -158,7 +158,8 @@ h1,h3 {
         });
 
         window.onkeydown = evt => {
-                if (evt.key === 'Tab') {
+            console.log(evt.keyCode)
+                if (evt.keyCode === 9) {
                     evt.preventDefault();
                 }
             }

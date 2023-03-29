@@ -315,12 +315,14 @@ h1 {
             }
     });
 
+    </script>
+    <script type='text/javascript'>
      window.onkeydown = evt => {
-                if (evt.key === 'Tab') {
+            console.log(evt.keyCode)
+                if (evt.keyCode === 9) {
                     evt.preventDefault();
                 }
             }
-
     </script>
     <script type="text/javascript" src="../navigation/navigation.js"></script>
     <script type="text/javascript" src="../navigation/navigation.min.js"></script>
