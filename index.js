@@ -58,6 +58,11 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
             posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
                 setTimeout(getVideo${element.kinopoisk_id}, 100)
             });
+            window.onkeydown = e => {
+                if (e.keyCode === 13) {
+                    getVideo${element.kinopoisk_id}
+                }
+            }
             console.log(${element.kinopoisk_id})
           </script>
       `
@@ -264,7 +269,7 @@ h1 {
 
     <iframe id="yohoho" data-kinopoisk="938742" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " frameborder="0"></iframe>
     <script src="//yohoho.cc/yo.js"></script>
-    
+
     ${moviesItems}
     </div>
     </div>
