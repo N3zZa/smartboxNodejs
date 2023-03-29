@@ -267,7 +267,8 @@ h1 {
     </div>
     <div id="movies" class="movies" nv-scope="movies">
 
-    
+    <div id="kinoplayertop" data-kinopoisk="1112985"></div>
+    <script src="//kinoplayer.top/top.js"></script>
 
     ${moviesItems}
     </div>
