@@ -41,16 +41,8 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
           <h4>${element.info.rus}</h4>
           <p>${element.info.year}</p>
           </div>
-
           <script type='text/javascript'>
-           window.onkeydown = e => {
-             var key = e.keyCode || e.which;
-                  switch(key){
-        case 13:
-            e.preventDefault();
-            log('TARGET: '+e.target);
-            document.body.onkeydown = player_keyDown;
-            let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
+          let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           let posterBlock${element.kinopoisk_id} = document.getElementById('movieblock${element.kinopoisk_id}')
             function getVideo${element.kinopoisk_id}() {
                 videoTv${element.kinopoisk_id}.style.display = 'block'; 
@@ -66,26 +58,6 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
             posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
                 setTimeout(getVideo${element.kinopoisk_id}, 100)
             });
-        break;
-        case 37:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-            log('left');
-        break;
-        case 38:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-            log('up');
-        break;
-        case 39:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-            log('right');
-        break;
-        case 40:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-            log('down');
-        break;
-    }
-            }
-
           </script>
       `
       );
@@ -362,8 +334,8 @@ h1 {
                 }
             }
     </script>
-    <script type="text/javascript" src="./navigation/navigation.js"></script>
-    <script type="text/javascript" src="./navigation/navigation.min.js"></script>
+    <script type="text/javascript" src="../navigation/navigation.js"></script>
+    <script type="text/javascript" src="../navigation/navigation.min.js"></script>
 </body>
 </html>`;
 

@@ -106,7 +106,7 @@ h1,h3 {
 
     </style>
 </head>
-<body>
+<body onkeydown="body_keyDown(event);" onload="init()">
     <div class="app">
         <div class="wrapper">
             <div class="main-logo">
@@ -117,19 +117,20 @@ h1,h3 {
                     <h3>Домашний кинотеатр</h3>
                 </div>
             </div>
-            <nav class="navbar" nv-scope="list" nv-scope-current>
-                <p nv-el nv-el-current>Поиск</p>
-                <a id="Premieres" nv-el href="/premieres">Премьеры</a>
-                <a id="Films" nv-el href="/films">Фильмы</a>
-                <a id="Serials" nv-el href="/serials">Сериалы</a>
-                <a id="Cartoons" nv-el href="/cartoons">Мультфильмы</a>
-                <a id="Anime" nv-el href="/anime">Аниме</a>
-                <a id="Compilations" nv-el href="/compilations">Подборки</a>
+            <nav class="navbar">
+                <p>Поиск</p>
+                <a id="Premieres" href="/premieres">Премьеры</a>
+                <a id="Films" href="/films">Фильмы</a>
+                <a id="Serials" href="/serials">Сериалы</a>
+                <a id="Cartoons" href="/cartoons">Мультфильмы</a>
+                <a id="Anime" href="/anime">Аниме</a>
+                <a id="Compilations" href="/compilations">Подборки</a>
             </nav>
         </div>
     </div>
     
-    <script type="text/javascript" src="./navigation/navigation.js"></script>
+    <script src="./navigation2.js"></script>
+    <!-- <script type="text/javascript" src="./navigation/navigation.js"></script>
     <script type="text/javascript" src="./navigation/navigation.min.js"></script>
     <script type="text/javascript">
         let premieres = document.getElementById('Premieres')
@@ -163,6 +164,6 @@ h1,h3 {
                 }
             }
 
-    </script>
+    </script> -->
 </body>
 </html>
