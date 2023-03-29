@@ -261,7 +261,7 @@ h1 {
         <h2>Аниме</h2>
     </div>
     <div id="movies" class="movies" nv-scope="movies">
-      <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="position:absolute; left: 0; top:0; width:500px; " src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=938742" frameborder="0"></iframe>
+      <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=938742" frameborder="0"></iframe>
     ${moviesItems}
     </div>
     </div>
