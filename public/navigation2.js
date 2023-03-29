@@ -81,10 +81,7 @@ function body_keyDown(e){
     switch(key){
         case 13:
             e.preventDefault();
-            document.body.onkeydown = player_keyDown;
-            document.getElementById('info_footer_text').innerHTML = (v_idx*6+h_idx+1)+'. '+channelsObj[v_idx*6+h_idx].name;
-            footer_hide_tmo = window.setTimeout(function(){document.getElementById('info_footer').style.display = 'none';}, 4000);
-            volume_timer = window.setTimeout(function(){document.getElementById('volume_form').style.display = 'none';},1000)
+            window.location.href = '/anime'
         break;
         case 37:
             menuItem_unSelect()
