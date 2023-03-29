@@ -41,14 +41,8 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
           <h4>${element.info.rus}</h4>
           <p>${element.info.year}</p>
           </div>
-         
-          <script>
-        window.onkeydown = e => {
-             var key = e.keyCode || e.which;
-                  switch(key){
-        case 13:
-            e.preventDefault();
-            let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
+          <script type='text/javascript'>
+          let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           let posterBlock${element.kinopoisk_id} = document.getElementById('movieblock${element.kinopoisk_id}')
             function getVideo${element.kinopoisk_id}() {
                 videoTv${element.kinopoisk_id}.style.display = 'block'; 
@@ -64,20 +58,6 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
             posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
                 setTimeout(getVideo${element.kinopoisk_id}, 100)
             });
-        break;
-        case 37:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-        break;
-        case 38:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-        break;
-        case 39:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-        break;
-        case 40:
-            posterBlock${element.kinopoisk_id}.style.border = '5px solid yellow'
-        break;
-    }
           </script>
       `
       );
@@ -249,7 +229,7 @@ h1 {
         left: 50%;
 }
 </style>
-<body onload="init()">
+<body>
     <div id="app" class="app">
         <div nv-scope="movies" nv-scope-current="true" class="header">
         <img id="arrowback" nv-el nv-el-current onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
@@ -335,59 +315,20 @@ h1 {
             }
     });
 
-
-
-    </script>
-    <script type='text/javascript'>
-     var stb = gSTB,
-v_idx = 0,
-h_idx = 0,
-cur_page = 0,
-cur_volume = 0,
-standby = false,
-channel_set = false,
-button_blocked = false,
-debug = false,
-update_enable = false,
-update_url250 = 'http://mag.infomir.com.ua/250/imageupdate',
-update_url200 = '';
-
-function init(){
-    stb.InitPlayer();
-    stb.SetBufferSize(4000,2000000);
-    var model = stb.RDir("Model ");
-    if(update_enable && ((model == 'MAG250' && update_url250 != '')||(model == 'MAG200' && update_url200 != ''))){
-        var locupdateurl = stb.RDir('getenv autoupdateURL');
-        if(locupdateurl == ''){
-            stb.RDir('setenv autoupdate_cond 2');
+    
+    window.document.onkeydown = key => {
+        if (key.keyCode === 38) {
+            var elem = document.querySelector('[nv-el-current]');
+            window.scrollTo(0, elem.offsetTop - 500);
+        } else if (key.keyCode === 40) {
+             var elem = document.querySelector('[nv-el-current]');
+             window.scrollTo(0, elem.offsetTop - 500);
         }
-        if(model == 'MAG200'){
-            update_url = update_url200;
-        }else{
-            update_url = update_url250;
-        }
-        startUpdating();
     }
-    try{cur_volume = parseInt(stb.RDir('getenv audio_initial_volume'));}catch(e){cur_volume = 100;stb.RDir('setenv audio_initial_volume 70');}
-    if(isNaN(cur_volume)){cur_volume = 100;stb.RDir('setenv audio_initial_volume 70');}
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(true);
-    stb.SetTopWin(0);
-}
-var update_url = '';
-footer_hide_tmo = 0;
-
-
-chan_tmo = 0;
-volume_timer = 0;
-
-
-function startUpdating(){
-    stbUpdate.startCheck(update_url);
-}
 
     </script>
-
+    <script type="text/javascript" src="../navigation/navigation.js"></script>
+    <script type="text/javascript" src="../navigation/navigation.min.js"></script>
 </body>
 </html>`;
 
