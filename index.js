@@ -267,8 +267,7 @@ h1 {
     </div>
     <div id="movies" class="movies" nv-scope="movies">
 
-    <iframe id="yohoho" data-kinopoisk="938742" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " frameborder="0"></iframe>
-    <script src="//yohoho.cc/yo.js"></script>
+    
 
     ${moviesItems}
     </div>
