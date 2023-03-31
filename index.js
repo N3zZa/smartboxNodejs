@@ -50,12 +50,6 @@ let APIANIME_URL =
             posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
                 setTimeout(getVideo${element.kinopoisk_id}, 100)
             });
-            window.onkeydown = e => {
-                if (e.keyCode === 13) {
-                    getVideo${element.kinopoisk_id}
-                }
-            }
-            
           </script>
       `
       );
@@ -246,9 +240,7 @@ h1 {
         <div class="header">
         <img class='navigation-item nav-item' id="arrowback" onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
-        <a class='navigation-item nav-item' id="imglogo" href="/">
             <img width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
-        </a>
         <div id="categories" class="categories navigation-item nav-item">
             <h1>Категории</h1>
             <ul id="categorylist" class="category-list">
@@ -289,37 +281,37 @@ h1 {
     var compilations = document.getElementById('Compilations')
 
 
-    arrowback.addEventListener('nv-enter', function (event) {
+    arrowback.addEventListener('click', function (event) {
             window.history.go(-1)
     });
 
-    imglogo.addEventListener('nv-enter', function (event) {
+    imglogo.addEventListener('click', function (event) {
             window.location='/'
     });
 
 
-    cartoons.addEventListener('nv-enter', function (event) {
+    cartoons.addEventListener('click', function (event) {
             window.location='/cartoons'
     });
 
-    serials.addEventListener('nv-enter', function (event) {
+    serials.addEventListener('click', function (event) {
             window.location='/serials'
     });
 
-    films.addEventListener('nv-enter', function (event) {
+    films.addEventListener('click', function (event) {
             window.location='/films'
     });
 
-    premieres.addEventListener('nv-enter', function (event) {
+    premieres.addEventListener('click', function (event) {
             window.location='/premieres'
     });
 
-    compilations.addEventListener('nv-enter', function (event) {
+    compilations.addEventListener('click', function (event) {
             window.location='/compilations'
     });
 
 
-    categories.addEventListener('nv-enter', function (event) {
+    categories.addEventListener('click', function (event) {
             if (categorylist.style.display = 'none') {
                 categorylist.style.display = 'flex'
             } else if (categorylist.style.display = 'flex') {
