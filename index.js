@@ -21,7 +21,7 @@ let APIANIME_URL =
         (element) =>
           `
           <iframe loading='lazy' width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="${element.iframe_src}" frameborder="0"></iframe>
-          <div nv-el class='movieitem' id='movieblock${element.kinopoisk_id}' onclick="
+          <div class='movieitem navigation-item nav-item' id='movieblock${element.kinopoisk_id}' onclick="
           let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           video${element.kinopoisk_id}.style.display = 'block'; 
           video${element.kinopoisk_id}.style.position = 'fixed'; 
@@ -147,7 +147,7 @@ h1 {
     margin: 10px 0;
 }
 
-.movies {
+.navbar {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -196,10 +196,11 @@ h1 {
     height: 180px;
 }
 
-.nv-el-current {
-    outline: 5px solid yellow;
-    outline-offset: -4px;
+.focus {
+   outline: 5px solid yellow;
+   background: none;
 }
+
 
 .header img {
     cursor: pointer;
@@ -227,7 +228,10 @@ h1 {
     color: #fff;    
     font-size: 20px;
     text-align: left;
+}.focus {
+    background: #553c64;
 }
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -239,35 +243,35 @@ h1 {
 </style>
 <body>
     <div id="app" class="app">
-        <div nv-scope="movies" nv-scope-current="true" class="header">
-        <img id="arrowback" nv-el nv-el-current onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
+        <div class="header">
+        <img class='navigation-item nav-item' id="arrowback" onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
-        <a id="imglogo" nv-el href="/">
+        <a class='navigation-item nav-item' id="imglogo" href="/">
             <img width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
         </a>
-        <div id="categories" nv-el class="categories">
+        <div id="categories" class="categories navigation-item nav-item">
             <h1>Категории</h1>
             <ul id="categorylist" class="category-list">
                 <a id='Films' href="/films">
-                    <li nv-el>Фильмы</li>
+                    <li>Фильмы</li>
                 </a>
                 <a id='Serials' href="/serials">
-                    <li nv-el>Сериалы</li>
+                    <li>Сериалы</li>
                 </a>
                 <a id='Cartoons' href="/cartoons">
-                    <li nv-el>Мультфильмы</li>
+                    <li>Мультфильмы</li>
                 </a>
                 <a id='Premieres' href="/premieres">
-                    <li nv-el>Премьеры</li>
+                    <li>Премьеры</li>
                 </a>
                 <a id='Compilations' href="/compilations">
-                    <li nv-el>Подборки</li>
+                    <li>Подборки</li>
                 </a>
             </ul>
         </div>
         <h2>Аниме</h2>
     </div>
-    <div id="movies" class="movies" nv-scope="movies">
+    <div id="movies" class="navbar navigation-items">
     ${moviesItems}
     </div>
     </div>
@@ -326,10 +330,10 @@ h1 {
     
     window.document.onkeydown = key => {
         if (key.keyCode === 38) {
-            var elem = document.querySelector('[nv-el-current]');
+            var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 500);
         } else if (key.keyCode === 40) {
-             var elem = document.querySelector('[nv-el-current]');
+             var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 500);
         }
     }
