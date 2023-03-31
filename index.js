@@ -20,7 +20,7 @@ let APIANIME_URL =
       let items = commits.data.map(
         (element) =>
           `
-          <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
+          <iframe width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="${element.iframe_src}" frameborder="0"></iframe>
           <div nv-el class='movieitem' id='movieblock${element.kinopoisk_id}' onclick="
           let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           video${element.kinopoisk_id}.style.display = 'block'; 
@@ -28,11 +28,10 @@ let APIANIME_URL =
           video${element.kinopoisk_id}.style.right = '0'; 
           video${element.kinopoisk_id}.style.bottom = '0'; 
           video${element.kinopoisk_id}.style.left = '0'; 
-          video${element.kinopoisk_id}.style.width = '100%'; 
-          video${element.kinopoisk_id}.style.height = '100%'; 
           video${element.kinopoisk_id}.style.margin = '0'; 
           video${element.kinopoisk_id}.contentWindow.focus()
           " >
+          <img src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
           </div>
@@ -45,8 +44,6 @@ let APIANIME_URL =
           videoTv${element.kinopoisk_id}.style.right = '0'; 
           videoTv${element.kinopoisk_id}.style.bottom = '0'; 
           videoTv${element.kinopoisk_id}.style.left = '0'; 
-          videoTv${element.kinopoisk_id}.style.width = '100%'; 
-          videoTv${element.kinopoisk_id}.style.height = '100%'; 
           videoTv${element.kinopoisk_id}.style.margin = '0'; 
                 videoTv${element.kinopoisk_id}.contentWindow.focus()
             }
@@ -92,11 +89,9 @@ let APIANIME_URL =
     <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
     <script type="text/javascript" src="js/lib/smartbox.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="videos.js"></script>
     <script type="text/javascript" src="js/scenes/videos.js"></script>
     <script type="text/javascript" src="js/scenes/navigation.js"></script>
     <script type="text/javascript" src="js/scenes/input.js"></script>
-    <script type="text/javascript" src="js/legendTriggers.js"></script>
 </head>
 
 <style>
