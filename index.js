@@ -20,7 +20,7 @@ let APIANIME_URL =
       let items = commits.data.map(
         (element) =>
           `
-          <iframe loading='lazy' width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="${element.iframe_src}" frameborder="0"></iframe>
+          <iframe loading='lazy' width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="" src="${element.iframe_src}" frameborder="0"></iframe>
           <div class='movieitem navigation-item nav-item' id='movieblock${element.kinopoisk_id}' onclick="
           let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           video${element.kinopoisk_id}.style.display = 'block'; 
@@ -35,22 +35,6 @@ let APIANIME_URL =
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
           </div>
-          <script type='text/javascript'>
-          let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
-          let posterBlock${element.kinopoisk_id} = document.getElementById('movieblock${element.kinopoisk_id}')
-            function getVideo${element.kinopoisk_id}() {
-                videoTv${element.kinopoisk_id}.style.display = 'block'; 
-          videoTv${element.kinopoisk_id}.style.position = 'fixed'; 
-          videoTv${element.kinopoisk_id}.style.right = '0'; 
-          videoTv${element.kinopoisk_id}.style.bottom = '0'; 
-          videoTv${element.kinopoisk_id}.style.left = '0'; 
-          videoTv${element.kinopoisk_id}.style.margin = '0'; 
-                videoTv${element.kinopoisk_id}.contentWindow.focus()
-            }
-            posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
-                setTimeout(getVideo${element.kinopoisk_id}, 100)
-            });
-          </script>
       `
       );
       return items;
