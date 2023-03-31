@@ -47,9 +47,9 @@ let APIANIME_URL =
           videoTv${element.kinopoisk_id}.style.margin = '0'; 
                 videoTv${element.kinopoisk_id}.contentWindow.focus()
             }
-            posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
-                setTimeout(getVideo${element.kinopoisk_id}, 100)
-            });
+           posterBlock${element.kinopoisk_id}.on('nav_key:enter',function(e){
+            setTimeout(getVideo${element.kinopoisk_id}, 100)
+});
           </script>
       `
       );
@@ -240,7 +240,7 @@ h1 {
         <div class="header">
         <img class='navigation-item nav-item' id="arrowback" onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
-            <img width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
+            <img class='navigation-item nav-item' onclick="window.location.href = '/'" width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
         <div id="categories" class="categories navigation-item nav-item">
             <h1>Категории</h1>
             <ul id="categorylist" class="category-list">
@@ -318,6 +318,7 @@ h1 {
                 categorylist.style.display = 'none'
             }
     });
+
 
     
     window.document.onkeydown = key => {
