@@ -63,7 +63,7 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
                     getVideo${element.kinopoisk_id}
                 }
             }
-            console.log(${element.kinopoisk_id})
+            
           </script>
       `
       );
@@ -91,7 +91,19 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
+
+    <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
+    <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
+    <script type="text/javascript" src="js/lib/smartbox.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="videos.js"></script>
+    <script type="text/javascript" src="js/scenes/videos.js"></script>
+    <script type="text/javascript" src="js/scenes/navigation.js"></script>
+    <script type="text/javascript" src="js/scenes/input.js"></script>
+    <script type="text/javascript" src="js/legendTriggers.js"></script>
 </head>
+
 <style>
 
 body {
@@ -267,8 +279,10 @@ h1 {
     </div>
     <div id="movies" class="movies" nv-scope="movies">
 
-    <div id="kinoplayertop" data-kinopoisk="1112985"></div>
-    <script src="//kinoplayer.top/top.js"></script>
+    <iframe id="kinoplayertop"  data-kinopoisk="938742" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " frameborder="0"></iframe>
+    <div id="kinoplayertop" data-kinopoisk="401522"></div> 
+
+<script src="//kinoplayer.top/top.js"></script>
 
     ${moviesItems}
     </div>

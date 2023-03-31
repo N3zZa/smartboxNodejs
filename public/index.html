@@ -37,12 +37,11 @@ h3, li {
     color: #fff;
     background: #c91212;
 }
-.nv-el-current {
-    background: #630505;
+
+.navigation-item.focus {
+    background:  #553c64;
 }
-:focus-visible {
-    outline: none;
-}
+
 #key {
     font-size: 25px;
     background: #c91212;
@@ -91,25 +90,41 @@ p, a {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
 }
-a:hover {
-    border: 5px solid yellow;
-}
+
 p {
     margin: 0;
 }
-.nv-el-current {
-    background: #553c64;
-}
+
 
 h1,h3 {
     color: #fff;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
+.focus {
+    background: #553c64;
+}
+
 
     </style>
+
+    <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+    <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
+    <script type="text/javascript" src="./dist/smartbox.js"></script>
+    <script>
+        $(function () {
+
+                $$nav.on();
+
+                $('.nav-item').click(function () {
+                    window.location.href = $('.nav-item.focus').attr('href')
+                });
+            });
+    </script>
 </head>
-<body onkeydown="body_keyDown(event);" onload="init()">
+<body>
+   
     <div class="app">
         <div class="wrapper">
             <div class="main-logo">
@@ -120,53 +135,16 @@ h1,h3 {
                     <h3>Домашний кинотеатр</h3>
                 </div>
             </div>
-            <nav class="navbar">
-                <p>Поиск</p>
-                <a id="00" href="/premieres">Премьеры</a>
-                <a id="01" href="/films">Фильмы</a>
-                <a id="02" href="/serials">Сериалы</a>
-                <a id="03" href="/cartoons">Мультфильмы</a>
-                <a id="04" href="/anime">Аниме</a>
-                <a id="05" href="/compilations">Подборки</a>
+            <nav class="navbar navigation-items">
+                <p class="menu-item nav-item">Поиск</p>
+                <a class="menu-item nav-item" href="/premieres">Премьеры</a>
+                <a class="menu-item nav-item" href="/films">Фильмы</a>
+                <a class="menu-item nav-item" href="/serials">Сериалы</a>
+                <a class="menu-item nav-item" href="/cartoons">Мультфильмы</a>
+                <a class="menu-item nav-item" href="/anime">Аниме</a>
+                <a class="menu-item nav-item" href="/compilations">Подборки</a>
             </nav>
         </div>
     </div>
-    
-    <script src="./navigationmain.js"></script>
-    <!-- <script type="text/javascript" src="./navigation/navigation.js"></script>
-    <script type="text/javascript" src="./navigation/navigation.min.js"></script>
-    <script type="text/javascript">
-        let premieres = document.getElementById('Premieres')
-        let films = document.getElementById('Films')
-        let serials = document.getElementById('Serials')
-        let cartoons = document.getElementById('Cartoons')
-        let anime = document.getElementById('Anime')
-        let compilations = document.getElementById('Compilations')
-        premieres.addEventListener('nv-enter', function (event) {
-                window.location='/premieres'
-        });
-        films.addEventListener('nv-enter', function (event) {
-                window.location='/films'
-        });
-        serials.addEventListener('nv-enter', function (event) {
-                window.location='/serials'
-        });
-        cartoons.addEventListener('nv-enter', function (event) {
-                window.location='/cartoons'
-        });
-        anime.addEventListener('nv-enter', function (event) {
-                window.location='/anime'
-        });
-        compilations.addEventListener('nv-enter', function (event) {
-                window.location='/compilations'
-        });
-
-        window.onkeydown = evt => {
-                if (evt.keyCode === 9) {
-                    evt.preventDefault();
-                }
-            }
-
-    </script> -->
 </body>
 </html>
