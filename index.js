@@ -31,10 +31,26 @@ let APIANIME_URL =
           video${element.kinopoisk_id}.style.margin = '0'; 
           video${element.kinopoisk_id}.contentWindow.focus()
           " >
-          <img src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
+          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
           </div>
+          <script type='text/javascript'>
+          let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
+          let posterBlock${element.kinopoisk_id} = document.getElementById('movieblock${element.kinopoisk_id}')
+            function getVideo${element.kinopoisk_id}() {
+                videoTv${element.kinopoisk_id}.style.display = 'block'; 
+          videoTv${element.kinopoisk_id}.style.position = 'fixed'; 
+          videoTv${element.kinopoisk_id}.style.right = '0'; 
+          videoTv${element.kinopoisk_id}.style.bottom = '0'; 
+          videoTv${element.kinopoisk_id}.style.left = '0'; 
+          videoTv${element.kinopoisk_id}.style.margin = '0'; 
+                videoTv${element.kinopoisk_id}.contentWindow.focus()
+            }
+            posterBlock${element.kinopoisk_id}.addEventListener('nv-enter', function (event) {
+                setTimeout(getVideo${element.kinopoisk_id}, 100)
+            });
+          </script>
       `
       );
       return items;
