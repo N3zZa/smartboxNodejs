@@ -81,11 +81,11 @@ let APIANIME_URL =
     <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
     <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
-    <script type="text/javascript" src="js/lib/smartbox.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/scenes/videos.js"></script>
-    <script type="text/javascript" src="js/scenes/navigation.js"></script>
-    <script type="text/javascript" src="js/scenes/input.js"></script>
+    <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+    <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./js/scenes/videos.js"></script>
+    <script type="text/javascript" src="./js/scenes/navigation.js"></script>
+    <script type="text/javascript" src="./js/scenes/input.js"></script>
 </head>
 
 <style>
