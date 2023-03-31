@@ -111,7 +111,13 @@ h1,h3 {
     <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
     <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
-    <script type="text/javascript" src="./dist/smartbox.js"></script>
+
+    <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+    <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./js/scenes/videos.js"></script>
+    <script type="text/javascript" src="./js/scenes/navigation.js"></script>
+    <script type="text/javascript" src="./js/scenes/input.js"></script>
+
     <script>
         $(function () {
 
@@ -135,15 +141,17 @@ h1,h3 {
                     <h3>Домашний кинотеатр</h3>
                 </div>
             </div>
+            <div class="scene js-scene-navigation">
             <nav class="navbar navigation-items">
-                <p class="menu-item nav-item">Поиск</p>
-                <a class="menu-item nav-item" href="/premieres">Премьеры</a>
-                <a class="menu-item nav-item" href="/films">Фильмы</a>
-                <a class="menu-item nav-item" href="/serials">Сериалы</a>
-                <a class="menu-item nav-item" href="/cartoons">Мультфильмы</a>
-                <a class="menu-item nav-item" href="/anime">Аниме</a>
-                <a class="menu-item nav-item" href="/compilations">Подборки</a>
+                <p class="navigation-item nav-item">Поиск</p>
+                <a class="navigation-item nav-item" href="/premieres">Премьеры</a>
+                <a class="navigation-item nav-item" href="/films">Фильмы</a>
+                <a class="navigation-item nav-item" href="/serials">Сериалы</a>
+                <a class="navigation-item nav-item" href="/cartoons">Мультфильмы</a>
+                <a class="navigation-item nav-item" href="/anime">Аниме</a>
+                <a class="navigation-item nav-item" href="/compilations">Подборки</a>
             </nav>
+            </div>
         </div>
     </div>
 </body>

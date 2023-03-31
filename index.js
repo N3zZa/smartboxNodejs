@@ -5,13 +5,9 @@ const path = require("path");
 
 app.use(express.static(__dirname + "/public/"));
 
-
-const API_KEY = "a7e00fb04d6aee85906efd13422fc24a";
-let APIANIME_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
-let APIFILMS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
-let APISERIALS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
-let APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
-let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page=2&cat=аниме`;
+const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
+let APIANIME_URL =
+  `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
 
     const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
       return response.json();
@@ -21,7 +17,7 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
  const showAnime = async () => {
    try {
     const commits = await fetchDataAnime;
-      let items = commits.results.map(
+      let items = commits.data.map(
         (element) =>
           `
           <iframe loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="https://25548813.svetacdn.in/gLTQyQJtC98L?kp_id=${element.kinopoisk_id}" frameborder="0"></iframe>
@@ -37,9 +33,8 @@ let APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_KEY}&type=film&page
           video${element.kinopoisk_id}.style.margin = '0'; 
           video${element.kinopoisk_id}.contentWindow.focus()
           " >
-          <img src='${element.info.poster}' alt='imglogo' />
-          <h4>${element.info.rus}</h4>
-          <p>${element.info.year}</p>
+          <h4>${element.ru_title}</h4>
+          <p>${element.created}</p>
           </div>
           <script type='text/javascript'>
           let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
@@ -278,12 +273,6 @@ h1 {
         <h2>Аниме</h2>
     </div>
     <div id="movies" class="movies" nv-scope="movies">
-
-    <iframe id="kinoplayertop"  data-kinopoisk="938742" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" style="width:500px; " frameborder="0"></iframe>
-    <div id="kinoplayertop" data-kinopoisk="401522"></div> 
-
-<script src="//kinoplayer.top/top.js"></script>
-
     ${moviesItems}
     </div>
     </div>
