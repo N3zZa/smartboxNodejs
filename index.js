@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 
-app.use(express.static(__dirname + "/public/"));
+app.use(express.static(__dirname));
 
 const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
 let APIANIME_URL =
@@ -20,7 +20,7 @@ let APIANIME_URL =
       let items = commits.data.map(
         (element) =>
           `
-          <iframe width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="${element.iframe_src}" frameborder="0"></iframe>
+          <iframe loading='lazy' width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="display:none; position:absolute; left: 0; top:0;" src="${element.iframe_src}" frameborder="0"></iframe>
           <div nv-el class='movieitem' id='movieblock${element.kinopoisk_id}' onclick="
           let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
           video${element.kinopoisk_id}.style.display = 'block'; 
@@ -84,9 +84,9 @@ let APIANIME_URL =
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
 
-    <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
-    <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
+    <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+    <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
     <script type="text/javascript" src="js/lib/smartbox.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/scenes/videos.js"></script>
@@ -335,8 +335,6 @@ h1 {
     }
 
     </script>
-    <script type="text/javascript" src="../navigation/navigation.js"></script>
-    <script type="text/javascript" src="../navigation/navigation.min.js"></script>
 </body>
 </html>`;
 
@@ -353,8 +351,8 @@ h1 {
 
  
 
-app.get("/public/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/index.html"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
 
 
