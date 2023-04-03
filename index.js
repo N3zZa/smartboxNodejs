@@ -6,30 +6,54 @@ const path = require("path");
 app.use(express.static(__dirname));
 
 const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
+const APIANIMEVIDEO_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
 
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-/* const showAnimeVideos = async () => {
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+const showAnimeVideos = async () => {
   const videos = await fetchDataAnime;
-  videos.data.map(async (item) => {
-    const fetchDataAnimeVideos = await fetch(
-      `https://bazon.cc/api/playlist?token=${APIANIME_TOKEN}&kp=${item.kinopoisk_id}`
-    );
-    return await fetchDataAnimeVideos.json();
-  });
-}; */
+  const items = await videos.data.map((item) => setTimeout(() => {
+      const fetchDataAnimeVideos = fetch(
+        `https://bazon.cc/api/playlist?token=${APIANIMEVIDEO_TOKEN}&kp=${item.kinopoisk_id}`
+      ).then((response) => {
+        return response.text();
+      });
+      return fetchDataAnimeVideos
+  }, 2000));
+  const borderCountr = await Promise.all(items); 
+  return borderCountr
+};
 
 const showAnime = async () => {
   try {
-    /* const animeVideos = await showAnimeVideos(); */
+    const animeVideos = await showAnimeVideos();
     const commits = await fetchDataAnime;
     
-    let items = commits.data.map(
+    let items = await commits.data.map(
       (element) =>
         `
+        <script>
+          window.App.videos = []
+        let animeItems = ${animeVideos}.data.map((element) => { 
+        (function () {
+          "use strict";
+
+          window.App.videos.push({
+            title: 'video',
+            url: 's',
+            type: 'vod',
+          });
+            
+                })();
+            })
+          </script>
           <div class='movieitem navigation-item nav-item video-item'>
           <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${
             element.kinopoisk_id
@@ -37,27 +61,6 @@ const showAnime = async () => {
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
           </div>
-          <script type='text/javascript'>
-          /* let videoTv${element.kinopoisk_id} = document.getElementById('${
-          element.kinopoisk_id
-        }'); 
-            function getVideo${element.kinopoisk_id}() {
-                videoTv${element.kinopoisk_id}.style.display = 'block'; 
-          videoTv${element.kinopoisk_id}.style.position = 'fixed'; 
-          videoTv${element.kinopoisk_id}.style.right = '0'; 
-          videoTv${element.kinopoisk_id}.style.bottom = '0'; 
-          videoTv${element.kinopoisk_id}.style.left = '0'; 
-          videoTv${element.kinopoisk_id}.style.margin = '0'; 
-                videoTv${element.kinopoisk_id}.contentWindow.focus()
-            } */
-           /* ${`#movieblock${element.kinopoisk_id}`}.on('nav_key:enter',function(e){
-            setTimeout(getVideo${element.kinopoisk_id}, 100)
-            }); */
-
-
-           
-
-          </script>
       `
     );
     return items;
@@ -69,7 +72,7 @@ const showAnime = async () => {
 async function getAnime() {
   try {
     const movies = await showAnime();
-    const moviesItems = movies.join("");
+    const moviesItems = await movies.join("");
 
     // используем movies в шаблонной строке:
     const message = `<!DOCTYPE html>
@@ -90,7 +93,6 @@ async function getAnime() {
     <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
     <script type="text/javascript" src="./js/lib/smartbox.js"></script>
     <script type="text/javascript" src="./js/app.js"></script>
-    <script type="text/javascript" src="videos.js"></script>
     <script type="text/javascript" src="./js/scenes/videos.js"></script>
     <script type="text/javascript" src="./js/scenes/navigation.js"></script>
     <script type="text/javascript" src="./js/scenes/input.js"></script>
