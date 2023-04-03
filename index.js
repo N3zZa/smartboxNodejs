@@ -6,38 +6,76 @@ const path = require("path");
 app.use(express.static(__dirname));
 
 const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
-let APIANIME_URL =
-  `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
+let APIANIME_URL = `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
 
-    const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
-      return response.json();
-    });
+const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
+  return response.json();
+});
 
+/* const showAnimeVideos = async () => {
+  const videos = await fetchDataAnime;
+  videos.data.map(async (item) => {
+    const fetchDataAnimeVideos = await fetch(
+      `https://bazon.cc/api/playlist?token=${APIANIME_TOKEN}&kp=${item.kinopoisk_id}`
+    );
+    return await fetchDataAnimeVideos.json();
+  });
+}; */
 
- const showAnime = async () => {
-   try {
+const showAnime = async () => {
+  try {
+    /* const animeVideos = await showAnimeVideos(); */
     const commits = await fetchDataAnime;
-      let items = commits.data.map(
-        (element) =>
-          `
-          <iframe loading='lazy' width="640" height="480" allowfullscreen id="${element.kinopoisk_id}" style="" src="${element.iframe_src}" frameborder="0"></iframe>
-          <div class='movieitem navigation-item nav-item' id='movieblock${element.kinopoisk_id}' onclick="
-          let video${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
-          video${element.kinopoisk_id}.style.display = 'block'; 
-          video${element.kinopoisk_id}.style.position = 'fixed'; 
-          video${element.kinopoisk_id}.style.right = '0'; 
-          video${element.kinopoisk_id}.style.bottom = '0'; 
-          video${element.kinopoisk_id}.style.left = '0'; 
-          video${element.kinopoisk_id}.style.margin = '0'; 
-          video${element.kinopoisk_id}.contentWindow.focus()
-          " >
-          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
+    
+    let items = commits.data.map(
+      (element) =>
+        `
+          <script>
+          (function () {
+    "use strict";
+
+    window.App.videos = [
+        {
+            title: 'Big Buck Bunny',
+            url: 'http://smartimmo.ru/uploaded/big_buck_bunny_480p_h264.mp4',
+            type: 'vod'
+        },
+        {
+            title: 'Elephants Dream',
+            url: 'https://archive.org/download/ElephantsDream/ed_1024_512kb.mp4',
+            type: 'vod'
+        },
+        {
+            title: 'Europa plus',
+            url: 'http://europaplus.cdnvideo.ru/europaplus-live/eptv_main.sdp/playlist.m3u8',
+            type: 'hls'
+        },
+        {
+            title: 'PIK TV',
+            url: 'http://phone.pik-tv.com/live/mp4:piktv3pik3tv/playlist.m3u8',
+            type: 'hls'
+        },
+        {
+            title: 'Redbull',
+            url: 'http://live.iphone.redbull.de.edgesuite.net/webtvHD.m3u8',
+            type: 'hls'
+        }
+    ];
+      })();
+          </script>
+          <div class='movieitem navigation-item nav-item video-item' id='movieblock${
+            element.kinopoisk_id
+          }'>
+          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${
+            element.kinopoisk_id
+          }.jpg' />
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
           </div>
           <script type='text/javascript'>
-          let videoTv${element.kinopoisk_id} = document.getElementById('${element.kinopoisk_id}'); 
-          let posterBlock${element.kinopoisk_id} = document.getElementById('movieblock${element.kinopoisk_id}')
+          /* let videoTv${element.kinopoisk_id} = document.getElementById('${
+          element.kinopoisk_id
+        }'); 
             function getVideo${element.kinopoisk_id}() {
                 videoTv${element.kinopoisk_id}.style.display = 'block'; 
           videoTv${element.kinopoisk_id}.style.position = 'fixed'; 
@@ -46,26 +84,30 @@ let APIANIME_URL =
           videoTv${element.kinopoisk_id}.style.left = '0'; 
           videoTv${element.kinopoisk_id}.style.margin = '0'; 
                 videoTv${element.kinopoisk_id}.contentWindow.focus()
-            }
-           posterBlock${element.kinopoisk_id}.on('nav_key:enter',function(e){
+            } */
+           /* ${`#movieblock${element.kinopoisk_id}`}.on('nav_key:enter',function(e){
             setTimeout(getVideo${element.kinopoisk_id}, 100)
-});
+            }); */
+
+
+           
+
           </script>
       `
-      );
-      return items;
-   } catch (error) {
-     console.error(error);
-   }
- };
+    );
+    return items;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
- async function getAnime() {
-   try {
-     const movies = await showAnime();
-     const moviesItems = movies.join('')
+async function getAnime() {
+  try {
+    const movies = await showAnime();
+    const moviesItems = movies.join("");
 
-     // используем movies в шаблонной строке:
-      const message = `<!DOCTYPE html>
+    // используем movies в шаблонной строке:
+    const message = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -263,7 +305,7 @@ h1 {
         </div>
         <h2>Аниме</h2>
     </div>
-    <div id="movies" class="navbar navigation-items">
+    <div id="movies" class="navbar navigation-items js-scene-video" data-nav_type="vbox" data-nav_loop="true">
     ${moviesItems}
     </div>
     </div>
@@ -330,29 +372,24 @@ h1 {
              window.scrollTo(0, elem.offsetTop - 500);
         }
     }
-
+    
     </script>
 </body>
 </html>`;
 
-     app.get("/anime", (req, res) => {
-       res.send(message); // Отправка ответа в виде HTML
-     });
+    app.get("/anime", (req, res) => {
+      res.send(message); // Отправка ответа в виде HTML
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-   } catch (error) {
-     console.error(error);
-   }
- }
-
- getAnime();
-
- 
+getAnime();
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
-
-
 
 const port = process.env.PORT || 3000;
 app.listen(port);
