@@ -13,54 +13,55 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-const showAnimeVideos = async () => {
+const delay = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
+const getTodosSeries = async function () {
   const videos = await fetchDataAnime;
-  const items = await videos.data.map((item) => setTimeout(() => {
-      const fetchDataAnimeVideos = fetch(
-        `https://bazon.cc/api/playlist?token=${APIANIMEVIDEO_TOKEN}&kp=${item.kinopoisk_id}`
-      ).then((response) => {
-        return response.text();
-      });
-      return fetchDataAnimeVideos
-  }, 2000));
-  const borderCountr = await Promise.all(items); 
-  return borderCountr
+  let results = [];
+  for (let index = 0; index < videos.data.length; index++) {
+    await delay();
+    const fetchDataAnimeVideos = fetch(
+      `https://bazon.cc/api/playlist?token=${APIANIMEVIDEO_TOKEN}&kp=${videos.data[index].kinopoisk_id}`
+    )
+      .then((response) => response.json())
+      .then((data) => results.push(data));
+  }
+  return results;
 };
+
+
 
 const showAnime = async () => {
   try {
-    const animeVideos = await showAnimeVideos();
+    const results = await getTodosSeries();
+    const AppVideos = [];
+    let animeItems = results.map((element) => { 
+        `{
+            title: 'video',
+            url: '${
+              element.results[0] ? element.results[0].playlists[
+                Object.keys(element.results[0].playlists)[
+                  Object.keys(element.results[0].playlists).length - 1
+                ]
+              ] : 'no url available'
+            }',
+            type: "vod",
+          };`;
+    });
+    AppVideos.push(animeItems);
+    console.log(animeItems);
     const commits = await fetchDataAnime;
-    
-    let items = await commits.data.map(
+    let items = commits.data.map(
       (element) =>
         `
         <script>
-          window.App.videos = []
-        let animeItems = ${animeVideos}.data.map((element) => { 
-        (function () {
-          "use strict";
-
-          window.App.videos.push({
-            title: 'video',
-            url: 's',
-            type: 'vod',
-          });
-            
-                })();
-            })
+        window.App.videos = ${AppVideos}
           </script>
           <div class='movieitem navigation-item nav-item video-item'>
-          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${
-            element.kinopoisk_id
-          }.jpg' />
+          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
           </div>
+
       `
     );
     return items;
@@ -72,7 +73,7 @@ const showAnime = async () => {
 async function getAnime() {
   try {
     const movies = await showAnime();
-    const moviesItems = await movies.join("");
+    const moviesItems = movies.join("");
 
     // используем movies в шаблонной строке:
     const message = `<!DOCTYPE html>
