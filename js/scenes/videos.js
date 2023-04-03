@@ -3,7 +3,9 @@
   var _inited;
     _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
-  var itemHtml = _.template('<div data-url="{{url}}" data-type="{{type}}" class="video-item nav-item">{{title}}</div>');
+  var itemHtml = _.template(
+    '<div data-url="{{url}}" data-type="{{type}}" class="movieitem video-item nav-item">{{title}}</div>'
+  );
 
   window.App.scenes.video = {
 

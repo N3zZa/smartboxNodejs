@@ -21,7 +21,7 @@
     setEvents: function () {
       var self = this,
         $bg = $('.bg');
-
+      self.showContent('video');
       // click on menu item
       $('.menu').on('click', '.menu-item', function ( e ) {
         var scene = e.currentTarget.getAttribute('data-content');

@@ -30,42 +30,7 @@ const showAnime = async () => {
     let items = commits.data.map(
       (element) =>
         `
-          <script>
-          (function () {
-    "use strict";
-
-    window.App.videos = [
-        {
-            title: 'Big Buck Bunny',
-            url: 'http://smartimmo.ru/uploaded/big_buck_bunny_480p_h264.mp4',
-            type: 'vod'
-        },
-        {
-            title: 'Elephants Dream',
-            url: 'https://archive.org/download/ElephantsDream/ed_1024_512kb.mp4',
-            type: 'vod'
-        },
-        {
-            title: 'Europa plus',
-            url: 'http://europaplus.cdnvideo.ru/europaplus-live/eptv_main.sdp/playlist.m3u8',
-            type: 'hls'
-        },
-        {
-            title: 'PIK TV',
-            url: 'http://phone.pik-tv.com/live/mp4:piktv3pik3tv/playlist.m3u8',
-            type: 'hls'
-        },
-        {
-            title: 'Redbull',
-            url: 'http://live.iphone.redbull.de.edgesuite.net/webtvHD.m3u8',
-            type: 'hls'
-        }
-    ];
-      })();
-          </script>
-          <div class='movieitem navigation-item nav-item video-item' id='movieblock${
-            element.kinopoisk_id
-          }'>
+          <div class='movieitem navigation-item nav-item video-item'>
           <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${
             element.kinopoisk_id
           }.jpg' />
@@ -125,6 +90,7 @@ async function getAnime() {
     <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
     <script type="text/javascript" src="./js/lib/smartbox.js"></script>
     <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="videos.js"></script>
     <script type="text/javascript" src="./js/scenes/videos.js"></script>
     <script type="text/javascript" src="./js/scenes/navigation.js"></script>
     <script type="text/javascript" src="./js/scenes/input.js"></script>
@@ -305,7 +271,7 @@ h1 {
         </div>
         <h2>Аниме</h2>
     </div>
-    <div id="movies" class="navbar navigation-items js-scene-video" data-nav_type="vbox" data-nav_loop="true">
+    <div id="movies" class="navbar navigation-items js-scene-video" data-nav_loop="true">
     ${moviesItems}
     </div>
     </div>
