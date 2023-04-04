@@ -5,38 +5,10 @@ const path = require("path");
 
 app.use(express.static(__dirname));
 
-const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
-let APIANIME_URL = `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
 
-const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
-  return response.json();
-});
-
-const showAnime = async () => {
-  try {
-    const commits = await fetchDataAnime;
-    let items = commits.data.map(
-      (element) =>
-        `
-          <div id='${element.kinopoisk_id}' class='movieitem navigation-item nav-item video-item' data-url="{{url}}" data-type="{{type}}">
-          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
-          <h4>${element.ru_title}</h4>
-          <p>${element.created}</p>
-          </div>
-
-      `
-    );
-    return items;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 async function getAnime() {
   try {
-    const movies = await showAnime();
-    const moviesItems = movies.join("");
-
     // используем movies в шаблонной строке:
     const message = `<!DOCTYPE html>
 <html lang="en">
@@ -167,7 +139,10 @@ h1 {
    outline: 5px solid yellow;
    background: none;
 }
-
+video {
+    right:0;
+    width:100%;
+}
 
 .header img {
     cursor: pointer;
@@ -213,7 +188,7 @@ h1 {
         <div class="header">
         <img class='navigation-item nav-item' id="arrowback" onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
-            <img class='navigation-item nav-item' onclick="window.location.href = '/'" width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
+            <img id="imglogo" class='navigation-item nav-item' onclick="window.location.href = '/'" width="75" src="../../images/UconCinemaLogo.png" alt="logoimg">
         <div id="categories" class="categories navigation-item nav-item">
             <h1>Категории</h1>
             <ul id="categorylist" class="category-list">
@@ -236,8 +211,7 @@ h1 {
         </div>
         <h2>Аниме</h2>
     </div>
-    <div id="movies" class="navbar navigation-items js-scene-video" data-nav_loop="true">
-    ${moviesItems}
+    <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
     </div>
     <script type='text/javascript'>
