@@ -107,12 +107,9 @@ console.log(window.App.videos);
     renderItems: async function (items) {
       var html = "";
       const movies = await showAnime();
-       for (var j = 0, len = movies.length; j < len; j++) {
-         for (var i = 0, len = items.length; i < len; i++) {
-           console.log(movies[i](items[j]));
-           html += movies[i](items[j]);
-         }
-       }
+          for (var j = 0; j < items.length; j++) {
+          html += movies[j](items[j]);
+        }
       this.$el.empty().html(html);
     },
   };
