@@ -6,57 +6,19 @@ const path = require("path");
 app.use(express.static(__dirname));
 
 const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
-const APIANIMEVIDEO_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
 
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-const delay = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
-const getTodosSeries = async function () {
-  const videos = await fetchDataAnime;
-  let results = [];
-  for (let index = 0; index < videos.data.length; index++) {
-    await delay();
-    const fetchDataAnimeVideos = fetch(
-      `https://bazon.cc/api/playlist?token=${APIANIMEVIDEO_TOKEN}&kp=${videos.data[index].kinopoisk_id}`
-    )
-      .then((response) => response.json())
-      .then((data) => results.push(data));
-  }
-  return results;
-};
-
-
-
 const showAnime = async () => {
   try {
-    const results = await getTodosSeries();
-    const AppVideos = [];
-    let animeItems = results.map((element) => { 
-        `{
-            title: 'video',
-            url: '${
-              element.results[0] ? element.results[0].playlists[
-                Object.keys(element.results[0].playlists)[
-                  Object.keys(element.results[0].playlists).length - 1
-                ]
-              ] : 'no url available'
-            }',
-            type: "vod",
-          };`;
-    });
-    AppVideos.push(animeItems);
-    console.log(animeItems);
     const commits = await fetchDataAnime;
     let items = commits.data.map(
       (element) =>
         `
-        <script>
-        window.App.videos = ${AppVideos}
-          </script>
-          <div class='movieitem navigation-item nav-item video-item'>
+          <div id='${element.kinopoisk_id}' class='movieitem navigation-item nav-item video-item' data-url="{{url}}" data-type="{{type}}">
           <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
