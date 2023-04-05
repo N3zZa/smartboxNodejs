@@ -16,7 +16,6 @@
   const showAnime = async () => {
     try {
       const commits = await fetchDataAnime;
-      
       let items = commits.data.map(
         (element) =>
           (itemHtml = _.template(`
@@ -54,7 +53,6 @@ let animeItem = animeItems.map((item) => {
 animeItem.forEach((element) => {
   window.App.videos.push(element);
 })
-console.log(window.App.videos);
 
   window.App.scenes.video = {
     init: function () {
@@ -78,36 +76,21 @@ console.log(window.App.videos);
     hide: function () {
       this.$el.hide();
     },
-    /* "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4" */
-    // handler for click event
-    onItemClick: function (e) {
-      /* const fetchDataAnimeVideo = fetch(
-        `https://bazon.cc/api/playlist?token=${APIANIMEVIDEO_TOKEN}&kp=${e.currentTarget.getAttribute(
-          "id"
-        )}`
-      ).then((response) => {
-        return response.json();
-      }); */
-      /* ${results.results[0].playlists[
-              Object.keys(results.results[0].playlists)[
-                Object.keys(results.results[0].playlists).length - 1
-              ]
-            ]} */
 
+    onItemClick: function (e) {
           var url = e.currentTarget.getAttribute("data-url");
           Player.play({
             url: url,
             type: e.currentTarget.getAttribute("data-type"),
           });
-
-      
     },
 
     // showing items from videos.js
     renderItems: async function (items) {
       var html = "";
       const movies = await showAnime();
-          for (var j = 0; j < items.length; j++) {
+      console.log(movies)
+        for (var j = 0; j < items.length; j++) {
           html += movies[j](items[j]);
         }
       this.$el.empty().html(html);
