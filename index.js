@@ -42,7 +42,6 @@ async function getAnime() {
   try {
     // используем movies в шаблонной строке:
      const movies = await showAnime();
-     console.log("items", movies);
     const message = `<!DOCTYPE html>
 <html lang="en">
 
