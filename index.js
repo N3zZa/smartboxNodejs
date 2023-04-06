@@ -7,6 +7,7 @@ const fs = require("fs");
 
 app.use(express.static(__dirname));
 
+
   const APIANIMEVIDEO_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 
   const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
@@ -21,13 +22,15 @@ app.use(express.static(__dirname));
       const commits = await fetchDataAnime;
       let items = commits.data.map(
         (element) =>
+          `{
+            id: '${element.kinopoisk_id}',
+            url: 'https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg',
+            title: '${element.ru_title}',
+            created: '${element.created}'
+          },
           `
-          \`<div id='${element.kinopoisk_id}' class='movieitem navigation-item nav-item video-item' data-url="https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds" data-type="{{type}}">
-          <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
-          <h4>${element.ru_title}</h4>
-          <p>${element.created}</p>
-          </div>\`
-        `
       );
       return items;
     } catch (error) {
@@ -35,17 +38,28 @@ app.use(express.static(__dirname));
     }
   };
   
- 
+async function sendAnime() {
+   const movies = await showAnime();
+   const movieItems = movies.join(" ");
+   fs.writeFileSync(
+     "./js/videos.js",
+     `(function () {
+    "use strict"
+
+    window.App.videos = [
+      ${movieItems}
+    ] 
+  })();
+  `
+   );
+}
+sendAnime()
 
 
 async function getAnime() {
   try {
     // используем movies в шаблонной строке:
-    const movies = await showAnime();
-    fs.writeFileSync(
-      "./js/scenes/anime/videos.js",
-      `let animeArr = [${movies}]`
-    );
+    
     const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -59,46 +73,22 @@ async function getAnime() {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
 
-    <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
-    <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
-    <script type="text/javascript" src="./js/lib/smartbox.js"></script>
-    <script type="text/javascript" src="./js/app.js"></script>
+        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="./js/app.js"></script>
+        <script type="text/javascript" src="./js/videos.js"></script>
     <script type="text/javascript" src="./js/scenes/navigation.js"></script>
     <script type="text/javascript" src="./js/scenes/input.js"></script>
-    <script type="text/javascript" src="./js/scenes/anime/videos.js"></script>
 
     
   <script type="text/javascript">
-
-    
-
-
     (function () {
-      'use strict'
-  var _inited;
-  _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
+        var _inited;
+    _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
-
-    let animeItems = [
-    {
-      title: "video",
-      url: "https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds",
-      type: "vod",
-    },
-    {
-      title: "video",
-      url: "https://rr3---sn-p5qlsny6.googlevideo.com/videoplayback?expire=1680727196&ei=PIgtZJHmDqaP_9EPoM2UwAs&ip=216.131.104.167&id=o-AEv-T1zNClZxG0ChBg5SVOPBj_wqZ_6vQCqb66y58XWu&itag=22&source=youtube&requiressl=yes&mh=ua&mm=31%2C29&mn=sn-p5qlsny6%2Csn-p5qs7n6d&ms=au%2Crdu&mv=u&mvi=3&pl=25&spc=99c5CZTOXkGxCaGPI6So40avNAtxkXqYwxGTUovejQ&vprv=1&mime=video%2Fmp4&ns=sbx_5UoYz86WHRgjIUoLQ68M&cnr=14&ratebypass=yes&dur=311.727&lmt=1674161288557761&mt=1680704625&fvip=3&fexp=24007246&c=WEB&txp=5432434&n=xx9bdF4mjWLEeg&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIhAPMWYSt8-7jeAJ0j09OKvyzPnHWDv6_tpyHWc17UKO6kAiAGHqrD4nLuJ5ai2gQtHOzO4MVQWVuVRAuipQ6_ZZnn7g%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl&lsig=AG3C_xAwRQIgUtpUcM0m4VgUtGWu2MaN2C6dFABMbs0gbE8aLxB9oZICIQC550q0aNb3on1U-PE5V0SMQLR_sJtAIN37h8tGcxS62Q%3D%3D&title=What%20is%20JavaScript%3F",
-      type: "vod",
-    },
-  ];
-
-window.App.videos = [];
-for (var j = 0; j < animeItems.length; j++) {
-       window.App.videos.push(animeItems[j]);
-}
- 
-
+  var itemHtml = _.template('<div data-id="{{id}}" class="movieitem navigation-item nav-item video-item" data-url="https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds" data-type="{{type}}"><img id="imglogo" src="{{imgurl}}"/><h4>{{title}}</h4><p>{{created}}</p></div>');
 
   window.App.scenes.video = {
     init: function () {
@@ -136,11 +126,17 @@ for (var j = 0; j < animeItems.length; j++) {
     // showing items from videos.js
     renderItems: function (items) {
       var html = '';
-        for (var j = 0; j < items.length; j++) {
-          html += animeArr[2]
-        }
-        this.$el.empty().html(html);
-    },
+
+      // console.log(items, itemHtml.toString())
+      for ( var i = 0, len = items.length; i < len; i++ ) {
+        html += itemHtml(items[i]);
+        console.log(itemHtml(items[i]))
+      }
+
+      this.$el
+        .empty()
+        .html(html);
+    }
   };
 })();
 
