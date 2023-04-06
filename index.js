@@ -4,7 +4,6 @@ var app = express();
 const path = require("path");
 var _ = require("lodash");
 const fs = require("fs");
-_.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
 app.use(express.static(__dirname));
 
@@ -20,14 +19,15 @@ app.use(express.static(__dirname));
   const showAnime = async () => {
     try {
       const commits = await fetchDataAnime;
-      let items = commits.data.map((element) =>
-        _.template(`
-          <div id='${element.kinopoisk_id}' class='movieitem navigation-item nav-item video-item' data-url="https://rr2---sn-5hne6nzd.googlevideo.com/videoplayback?expire=1680727142&ei=BogtZLqfHcWA1waspY6wCw&ip=147.78.226.58&id=o-APGMeHdDkegkA8JGZ6whl1GlMKSPXX3w5N0FY3fc6pc2&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-5hne6nzd%2Csn-4g5ednld&ms=au%2Conr&mv=m&mvi=2&pl=23&initcwndbps=4340000&spc=99c5CfZ3zhR8MzO1WVsjlIBDkhjPhafdqpqMAJYPgdRET5DQTQ&vprv=1&mime=video%2Fmp4&ns=jfwtU0GmrdZwOxq5xRzq4WAM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680704961&fvip=3&fexp=24007246&c=WEB&txp=4532434&n=mVqMGNbvkMaLCw&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgdpB_mN6kFaKcXMpTe0t9151hkAKXmVzJl2KNOlCBPXsCIQC1do-4ISJZg888LERzY-Oth9c49uYHHrJhzFtSwlTmFA%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgOy7oyU7bCjD3GsPsnJ9ahTwEOZz954jWO3_upq4hySECIQDjH636DM5gU8jw5feyUfRK0VjOudIGdjleuS62LElMLw%3D%3D&title=JavaScript%20in%20100%20Seconds" data-type="{{type}}">
+      let items = commits.data.map(
+        (element) =>
+          `
+          \`<div id='${element.kinopoisk_id}' class='movieitem navigation-item nav-item video-item' data-url="https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds" data-type="{{type}}">
           <img id='imglogo' src='https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg' />
           <h4>${element.ru_title}</h4>
           <p>${element.created}</p>
-          </div>
-        `)
+          </div>\`
+        `
       );
       return items;
     } catch (error) {
@@ -41,7 +41,11 @@ app.use(express.static(__dirname));
 async function getAnime() {
   try {
     // используем movies в шаблонной строке:
-     const movies = await showAnime();
+    const movies = await showAnime();
+    fs.writeFileSync(
+      "./js/scenes/anime/videos.js",
+      `let animeArr = [${movies}]`
+    );
     const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -62,6 +66,7 @@ async function getAnime() {
     <script type="text/javascript" src="./js/app.js"></script>
     <script type="text/javascript" src="./js/scenes/navigation.js"></script>
     <script type="text/javascript" src="./js/scenes/input.js"></script>
+    <script type="text/javascript" src="./js/scenes/anime/videos.js"></script>
 
     
   <script type="text/javascript">
@@ -70,16 +75,15 @@ async function getAnime() {
 
 
     (function () {
+      'use strict'
   var _inited;
   _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
 
-    const movies = [${movies}]
-    console.log(movies)
     let animeItems = [
     {
       title: "video",
-      url: "https://rr2---sn-5hne6nzd.googlevideo.com/videoplayback?expire=1680727142&ei=BogtZLqfHcWA1waspY6wCw&ip=147.78.226.58&id=o-APGMeHdDkegkA8JGZ6whl1GlMKSPXX3w5N0FY3fc6pc2&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-5hne6nzd%2Csn-4g5ednld&ms=au%2Conr&mv=m&mvi=2&pl=23&initcwndbps=4340000&spc=99c5CfZ3zhR8MzO1WVsjlIBDkhjPhafdqpqMAJYPgdRET5DQTQ&vprv=1&mime=video%2Fmp4&ns=jfwtU0GmrdZwOxq5xRzq4WAM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680704961&fvip=3&fexp=24007246&c=WEB&txp=4532434&n=mVqMGNbvkMaLCw&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgdpB_mN6kFaKcXMpTe0t9151hkAKXmVzJl2KNOlCBPXsCIQC1do-4ISJZg888LERzY-Oth9c49uYHHrJhzFtSwlTmFA%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgOy7oyU7bCjD3GsPsnJ9ahTwEOZz954jWO3_upq4hySECIQDjH636DM5gU8jw5feyUfRK0VjOudIGdjleuS62LElMLw%3D%3D&title=JavaScript%20in%20100%20Seconds",
+      url: "https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds",
       type: "vod",
     },
     {
@@ -90,12 +94,11 @@ async function getAnime() {
   ];
 
 window.App.videos = [];
-animeItems.forEach((element) => {
-    window.App.videos.push(element);
-})
-
+for (var j = 0; j < animeItems.length; j++) {
+       window.App.videos.push(animeItems[j]);
+}
  
-console.log(window.App.videos);
+
 
   window.App.scenes.video = {
     init: function () {
@@ -131,12 +134,12 @@ console.log(window.App.videos);
     },
 
     // showing items from videos.js
-    renderItems: async function (items) {
-      var html = "";
-            for (var j = 0; j < items.length; j++) {
-              html += movies[j](items[j])
-            }
-             window.App.scenes.video.$el.empty().html(html);
+    renderItems: function (items) {
+      var html = '';
+        for (var j = 0; j < items.length; j++) {
+          html += animeArr[2]
+        }
+        this.$el.empty().html(html);
     },
   };
 })();
