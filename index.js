@@ -92,6 +92,7 @@ async function getAnime() {
     // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
     // handler for click event
     onItemClick: function (e) {
+      
       stb.InitPlayer();
 
     var u = 'https://www.ts.kg/ololo/18deb4b3ab051270e7097f409e06fd392bda0274.mp4'
