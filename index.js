@@ -293,7 +293,7 @@ video {
 }
 </style>
 <body>
-    <div id="app" class="app">
+    <div id="app" class="app bg">
         <div class="header">
         <img class='navigation-item nav-item' id="arrowback" onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
