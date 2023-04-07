@@ -7,43 +7,42 @@ const fs = require("fs");
 
 app.use(express.static(__dirname));
 
+const APIANIMEVIDEO_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 
-  const APIANIMEVIDEO_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
+const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
+let APIANIME_URL = `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
 
-  const APIANIME_TOKEN = "tiZIrLKGr6cEDt2zQekNOTQyB3uVNscj";
-  let APIANIME_URL = `https://videocdn.tv/api/animes?api_token=${APIANIME_TOKEN}`;
+const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
+  return response.json();
+});
 
-  const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
-    return response.json();
-  });
-  
-  const showAnime = async () => {
-    try {
-      const commits = await fetchDataAnime;
-      let items = commits.data.map(
-        (element) =>
-          `{
+const showAnime = async () => {
+  try {
+    const commits = await fetchDataAnime;
+    let items = commits.data.map(
+      (element) =>
+        `{
             id: '${element.kinopoisk_id}',
-            url: 'https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds',
+            url: 'https://rr4---sn-5uh5o-f5f6.googlevideo.com/videoplayback?expire=1680884401&ei=Ue4vZPykF5royAX34LuwBw&ip=176.67.86.152&id=o-AF8SOeWyFcEJb588UeNeQAE2EKbaTWTHPsQfH-ATNfEe&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-5uh5o-f5f6%2Csn-f5f7kn7z&ms=au%2Crdu&mv=m&mvi=4&pcm2cms=yes&pl=24&initcwndbps=808750&spc=99c5CTj7237n85SoMxBfzaugtIaWds-jkJd_xuH4-g&vprv=1&mime=video%2Fmp4&ns=y-iLKRUsxEs3hf0y9EMw_fQM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680862630&fvip=4&fexp=24007246&c=WEB&txp=4532434&n=9IQjXUUbLE5WKg&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhANDB6MW1-x0aNTPQV9CyP3Dec3iOikBrq6-_l1E3J3hcAiEA3l95OB9Ja5DBYshwDDbLnTHCEPCkAoqv-KGO4nLU0q0%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpcm2cms%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgRkviNXH4jP_PQmhCKV2Bc6MQSo70n2DfYQJ_38UMnc0CIQCMq5GqLAxvYWGxlZenQ4W2bbbslNPXjtxtvkfPMUxgLg%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg',
             title: '${element.ru_title}',
             created: '${element.created}'
           },
           `
-      );
-      return items;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
+    );
+    return items;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 async function sendAnime() {
-   const movies = await showAnime();
-   const movieItems = movies.join(" ");
-   fs.writeFileSync(
-     "./js/videos.js",
-     `(function () {
+  const movies = await showAnime();
+  const movieItems = movies.join(" ");
+  fs.writeFileSync(
+    "./js/anime/animeVideos.js",
+    `(function () {
     "use strict"
 
     window.App.videos = [
@@ -51,44 +50,21 @@ async function sendAnime() {
     ] 
   })();
   `
-   );
+  );
 }
-sendAnime()
+sendAnime();
 
 
 async function getAnime() {
   try {
     // используем movies в шаблонной строке:
-    
-    const message = `<!DOCTYPE html>
-<html lang="en">
+    fs.writeFileSync(
+      "./js/scenes/animeVideosRender.js",
+      `(function () {
+  var _inited;
+    _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-
-        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="./js/app.js"></script>
-        <script type="text/javascript" src="./js/videos.js"></script>
-    <script type="text/javascript" src="./js/scenes/navigation.js"></script>
-    <script type="text/javascript" src="./js/scenes/input.js"></script>
-
-    
-  <script type="text/javascript">
-    (function () {
-        var _inited;
-    _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
-
-  var itemHtml = _.template('<div data-id="{{id}}" class="movieitem navigation-item nav-item video-item" data-url="https://rr1---sn-cpux-30oe.googlevideo.com/videoplayback?expire=1680802992&ei=ULAuZLj9FaHX7QTp5Za4Dg&ip=194.32.122.48&id=o-AOqnm9y7WWA5No66guKAjXWpsxYeSgTqJxsNB_qnn0L7&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-cpux-30oe%2Csn-f5f7lnld&ms=au%2Crdu&mv=m&mvi=1&pl=25&initcwndbps=313750&spc=99c5CX926vV_WZiAUURkzezSrgdcn9XhVC93GVCJfA&vprv=1&mime=video%2Fmp4&ns=1yj2Y2cZBCMV64jv_sVicM4M&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680781028&fvip=1&fexp=24007246&c=WEB&txp=4532434&n=PaFLW1zgkV9DiA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAOdkeIMZTJeGHJ7wWWcKGu4KvqN04ajOyW4qyeX6n-G0AiEAgeoAfrmDGNYzR8npBI3Aszl97IRRdo5Pl48u6copwLs%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAIJAdO-crx7WqFcXvOgmATPBgLkjw1kWnfNxxvUkqCe9AiEAmy99mObud0hfVj9pMH6O4l_iiNpr-uqboetvinxyUiE%3D&title=JavaScript%20in%20100%20Seconds" data-type="{{type}}"><img id="imglogo" src="{{imgurl}}"/><h4>{{title}}</h4><p>{{created}}</p></div>');
+  var itemHtml = _.template('<div data-id="{{id}}" class="movieitem navigation-item nav-item video-item" data-url="{{url}}" data-type="{{type}}"><img id="imglogo" src="{{imgurl}}"/><h4>{{title}}</h4><p>{{created}}</p></div>');
 
   window.App.scenes.video = {
     init: function () {
@@ -113,35 +89,57 @@ async function getAnime() {
       this.$el.hide();
     },
 
-    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4" 
+    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
     // handler for click event
     onItemClick: function (e) {
-          var url = e.currentTarget.getAttribute("data-url");
-          Player.play({
-            url: url,
-            type: e.currentTarget.getAttribute("data-type"),
-          });
+      var url = e.currentTarget.getAttribute("data-url");
+      Player.play({
+        url: url,
+        type: e.currentTarget.getAttribute("data-type"),
+      });
     },
 
     // showing items from videos.js
     renderItems: function (items) {
-      var html = '';
+      var html = "";
 
       // console.log(items, itemHtml.toString())
-      for ( var i = 0, len = items.length; i < len; i++ ) {
+      for (var i = 0, len = items.length; i < len; i++) {
         html += itemHtml(items[i]);
-        console.log(itemHtml(items[i]))
       }
 
-      this.$el
-        .empty()
-        .html(html);
-    }
+      this.$el.empty().html(html);
+    },
   };
 })();
 
+    `
+    );
+    const message = `<!DOCTYPE html>
+<html lang="en">
 
-    </script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+
+        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="./js/app.js"></script>
+        <script type="text/javascript" src="./js/anime/animeVideos.js"></script>
+        <script type="text/javascript" src="./js/scenes/animeVideosRender.js"></script>
+        <script type="text/javascript" src="./js/scenes/navigation.js"></script>
+    <script type="text/javascript" src="./js/scenes/input.js"></script>
+
+    
+  
 </head>
 
 <style>
