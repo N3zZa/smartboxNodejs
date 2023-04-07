@@ -291,6 +291,9 @@ video {
     position: absolute;
         left: 50%;
 }
+.log_pane {
+  margin-left: 100px;
+}
 </style>
 <body>
     <div id="app" class="app bg">
