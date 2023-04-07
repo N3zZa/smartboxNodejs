@@ -13,7 +13,7 @@
       if (typeof readyCallbacks[i] === 'function') {
         readyCallbacks[i].call(this);
       }
-    }
+    }а
     // no need anymore
     readyCallbacks = null;
   };

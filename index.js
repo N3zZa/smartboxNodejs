@@ -39,7 +39,7 @@ const showAnime = async () => {
 
 async function sendAnime() {
   const movies = await showAnime();
-  const movieItems = movies.join(" ");
+  const movieItems = movies[0]
   fs.writeFileSync(
     "./js/anime/animeVideos.js",
     `(function () {
