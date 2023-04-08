@@ -23,7 +23,7 @@ const showAnime = async () => {
       (element) =>
         `{
             id: '${element.kinopoisk_id}',
-            url: 'https://rr4---sn-5uh5o-f5f6.googlevideo.com/videoplayback?expire=1680884401&ei=Ue4vZPykF5royAX34LuwBw&ip=176.67.86.152&id=o-AF8SOeWyFcEJb588UeNeQAE2EKbaTWTHPsQfH-ATNfEe&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-5uh5o-f5f6%2Csn-f5f7kn7z&ms=au%2Crdu&mv=m&mvi=4&pcm2cms=yes&pl=24&initcwndbps=808750&spc=99c5CTj7237n85SoMxBfzaugtIaWds-jkJd_xuH4-g&vprv=1&mime=video%2Fmp4&ns=y-iLKRUsxEs3hf0y9EMw_fQM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680862630&fvip=4&fexp=24007246&c=WEB&txp=4532434&n=9IQjXUUbLE5WKg&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhANDB6MW1-x0aNTPQV9CyP3Dec3iOikBrq6-_l1E3J3hcAiEA3l95OB9Ja5DBYshwDDbLnTHCEPCkAoqv-KGO4nLU0q0%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpcm2cms%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgRkviNXH4jP_PQmhCKV2Bc6MQSo70n2DfYQJ_38UMnc0CIQCMq5GqLAxvYWGxlZenQ4W2bbbslNPXjtxtvkfPMUxgLg%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            url: 'https://rr1---sn-q0c7rn76.googlevideo.com/videoplayback?expire=1680967595&ei=SzMxZNi2KNXJx_APvo2H-AU&ip=91.197.235.183&id=o-ANyANiwdPvnDMcuUbwsYmS2zXSF5JjmjyD3GWOmIz3ER&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-q0c7rn76%2Csn-aigzrnsr&ms=au%2Conr&mv=m&mvi=1&pl=23&initcwndbps=355000&spc=99c5Cc2fowRzvFXQ1rwLUk-yA5Gc645jh4UAe6UoWQ&vprv=1&mime=video%2Fmp4&ns=svgVuxs-7r9Uf0_z6F537_gM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1680945440&fvip=4&fexp=24007246&c=WEB&txp=4532434&n=4QaWZGCZYSsJqg&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgF99g4nu4tUaofcXOWqAq_vebNqGSSL0GrbPw4Wna83ICIQD_JqnukaKMLLHEf7KBWqx1gcgijNgsQgcZSqfr08g59A%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIga0OdmIHVIrb0AzEnaHQrrOrqi9mWqodaxbr1Qep_jgkCICkwgw1sTXYpaGgWNn2SSSzJEJZdZ97p0QIt36YVXoAF&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://kinopoiskapiunofficial.tech/images/posters/kp/${element.kinopoisk_id}.jpg',
             title: '${element.ru_title}',
@@ -39,7 +39,7 @@ const showAnime = async () => {
 
 async function sendAnime() {
   const movies = await showAnime();
-  const movieItems = movies[0]
+  const movieItems = movies[0];
   fs.writeFileSync(
     "./js/anime/animeVideos.js",
     `(function () {
@@ -54,7 +54,6 @@ async function sendAnime() {
 }
 sendAnime();
 
-
 async function getAnime() {
   try {
     // используем movies в шаблонной строке:
@@ -63,7 +62,7 @@ async function getAnime() {
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-  var stb = gSTB;
+    var stb = gSTB;
   var itemHtml = _.template('<div data-id="{{id}}" class="movieitem navigation-item nav-item video-item" data-url="{{url}}" data-type="{{type}}"><img id="imglogo" src="{{imgurl}}"/><h4>{{title}}</h4><p>{{created}}</p></div>');
 
   window.App.scenes.video = {
@@ -92,16 +91,13 @@ async function getAnime() {
     // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
     // handler for click event
     onItemClick: function (e) {
-      
-      stb.InitPlayer();
-
-    var u = 'https://www.ts.kg/ololo/18deb4b3ab051270e7097f409e06fd392bda0274.mp4'
-
+       var url = e.currentTarget.getAttribute("data-url");
+    stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
-    stb.Play(u);
+    stb.Play(url);
     },
 
     // showing items from videos.js
@@ -153,8 +149,16 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #41334c;
     height: 100vh;
+}
+.bg {
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    z-index:-5;
+    top:0;
+    left:0;
+    background: #41334c;
 }
 p,
 h1, h2,
@@ -162,7 +166,7 @@ h3, h4, li {
     color: #fff;
     font-family: 'Inter', sans-serif;
 }
-.app {
+.wrap {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
@@ -256,6 +260,7 @@ h1 {
 video {
     right:0;
     width:100%;
+    z-index: 5;
 }
 
 .header img {
@@ -296,12 +301,10 @@ video {
     position: absolute;
         left: 50%;
 }
-.log_pane {
-  margin-left: 100px;
-}
 </style>
 <body>
-    <div id="app" class="app bg">
+    <div class='bg'></div>
+    <div id="app" class="wrap">
         <div class="header">
         <img class='navigation-item nav-item' id="arrowback" onclick="window.history.go(-1)" width="50" src="../../images/arrowBack.svg"
             alt="arrowback">
@@ -388,10 +391,10 @@ video {
     window.document.onkeydown = key => {
         if (key.keyCode === 38) {
             var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 500);
+            window.scrollTo(0, elem.offsetTop - 200);
         } else if (key.keyCode === 40) {
              var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 500);
+             window.scrollTo(0, elem.offsetTop - 200);
         }
     }
     
