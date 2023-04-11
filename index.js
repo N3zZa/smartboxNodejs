@@ -326,12 +326,12 @@ body {
     overflow-x: hidden;
 }
 .bg {
-    width: 100vw;
+    width: 1280px;
     height: 100%;
     position:absolute;
     z-index:-5;
     top:0;
-    left:-20.1vw;
+    left: 0;
     
     background: url('./images/bg.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
