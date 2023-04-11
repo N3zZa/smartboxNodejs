@@ -18,13 +18,17 @@
     setEvents: function () {
       var self = this,
         $bg = $(".bg");
-      var body = $("body");
       var wrap = this.$wrap;
+      var filmContainer = $(".film-container");
       self.showContent("video");
       // click on menu item
-      $(".menu").on("click", ".menu-item", function (e) {
+      $(".navbar").on("click", ".movieitem", function (e) {
+        var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
+        $(".header").hide();
         self.showContent(scene);
+        $(".filmInfoPage").hide();
+        $(`#${filmPage}`).show();
       });
 
       $(document.body).on({
@@ -47,6 +51,8 @@
       Player.on("ready", function () {
         $bg.hide();
         wrap.hide();
+        filmContainer.hide()
+        $(".filmInfoPage").hide();
         $$log("player ready");
       });
       Player.on("stop", function () {
