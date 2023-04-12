@@ -137,8 +137,6 @@ async function getAnime() {
     },
     onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
-      var header = $(".header");
-      header.show();
       window.App.showContent(scene);
     },
     onItemClick: function (e) {
@@ -532,12 +530,9 @@ video {
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
-    </div>
     <div class="scene scene_filmInfo film-container js-scene-filmInfo"></div>
+    </div>
     <script type='text/javascript'>
-     
-
-
     var cartoons = document.getElementById('Cartoons')
     var serials = document.getElementById('Serials')
     var films = document.getElementById('Films')
