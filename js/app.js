@@ -18,20 +18,10 @@
 
     setEvents: function () {
       var self = this,
-        $bg = $(".bg"),
-        $header = $(".header");
+        $bg = $(".bg");
       var wrap = this.$wrap
       self.showContent('video');
       
-        // click on menu item
-        $('.navbar').on("click", ".movieitem", function (e) {
-          var filmPage = e.currentTarget.getAttribute("data-film");
-          var scene = e.currentTarget.getAttribute("data-content");
-          $header.hide();
-          self.showContent(scene);
-
-        });
-
        
       $(document.body).on({
         // on keyboard 'd' by default
