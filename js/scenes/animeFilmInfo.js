@@ -19,7 +19,7 @@
       var url = e.currentTarget.getAttribute("data-url");
          Player.play({
            url: url,
-           type: vod,
+           type: "vod",
          });
     },
     show: function () {

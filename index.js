@@ -95,7 +95,7 @@ async function getAnime() {
       var url = e.currentTarget.getAttribute("data-url");
          Player.play({
            url: url,
-           type: vod,
+           type: "vod",
          });
     },
     show: function () {
@@ -201,128 +201,23 @@ async function getAnime() {
 </head>
 
 <style>
-.film-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-     background: url('./images/bg.jpg');
-    background-size: cover;
-    background-repeat:repeat;
-    }
-
-    li {
-        list-style-type: none;
-    }
-.film-info_inner {
-    display: flex;
-    padding: 40px;
-}
-.UconCinema_logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-p {
-    margin: 0;
-}
-.logo_text h4 {
-    margin: 0;
-    color: #fff;
-}
-
-.film-main {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    max-width: 75%;
-}
-.film-info {
-    display: flex;
-    gap: 20px;
-}
-
-.film-info img {
-    width: 25%;
-    margin-bottom: 10px;
-}
-
-
-.film-dscrtn {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    padding-bottom: 40px;
-}
-
-.actors {
-    margin-bottom: 15px;
-}
-.film-description {
-  max-width: 80%;
-}
-
-.film-dscrtn h2 {
-    color: yellow;
-}
-.film-nav {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 0;
-    top: 0;
-    background: #553c64;
-    width: 30%;
-    height: 100%;
-}
-.film-nav_logo {
-    background: #3b3041;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.back {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 22px;
-        padding: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.151);
-        margin-left: -40px;
-}
-
-.voiceover {
-    font-size: 22px;
-    padding: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.151);
-    margin-left: -40px;
-    padding-left: 40px;
-}
-
 
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     height: 100vh;
-    overflow-x: hidden;
 }
 .bg {
-    width: 1280px;
+    width: 100%;
     height: 100%;
     position:absolute;
     z-index:-5;
     top:0;
-    left: 0;
-    
+    left:0;
     background: url('./images/bg.jpg');
-    background-size: cover;
-    background-repeat:repeat;
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 p,
 h1, h2,
@@ -334,19 +229,15 @@ h3, h4, li {
     max-width: 1000px;
     margin: 0 auto;
     padding: 30px;
-    position: relative;
 }
-
 a {
     text-decoration: none;
 }
-
 h2,
 h1 {
     font-weight: 400;
     margin: 10px 0;
 }
-
 .navbar {
     display: flex;
     flex-wrap: wrap;
@@ -354,9 +245,6 @@ h1 {
     margin-top: 30px;
     width: 100%;
 }
-
-
-
 .movieitem {
     width: 180px;
     height: 260px;
@@ -373,8 +261,6 @@ h1 {
 .movieitem p {
   display: none;
 }
-
-
 .movieitem:hover h4{
   display: block;
   color: #fff;
@@ -395,13 +281,11 @@ h1 {
 -1px 0 1px #000, 
 0 -1px 1px #000;;
 }
-
 .movieitem:hover {
     border-bottom: 5px solid yellow;
     margin-bottom: -1px;
     border-radius: 10px;
 }
-
 .film-title {
     display: flex;
     width: 100%;
@@ -409,28 +293,135 @@ h1 {
     justify-content: space-around;
     flex-direction: column;
 }
-
 .film-title h2 {
     font-size: 12px;
 }
-
 .film-title p {
     color: yellow;
 }
-
 .movieitem p {
     margin: 0;
 }
-
 .movieitem img {
     height: 180px;
 }
-
 .header h2 {
     text-transform: uppercase;
     text-decoration: underline;
     text-decoration-color: yellow;
     font-size: 35px;
+}
+
+video {
+    right:0;
+    width:100%;
+    z-index: 5;
+}
+.header img {
+    cursor: pointer;
+}
+.header {
+  display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 1200px;
+}
+.header li {
+    list-style-type: none;
+    color: #fff;    
+    font-size: 23px;
+}
+.log-string {
+    position: absolute;
+    left: 50%;
+}
+.log-object {
+    position: absolute;
+        left: 50%;
+}
+.film-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    }
+    li {
+        list-style-type: none;
+    }
+.film-info_inner {
+    display: flex;
+    padding: 40px;
+}
+.UconCinema_logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+p {
+    margin: 0;
+}
+.logo_text h4 {
+    margin: 0;
+    color: #fff;
+}
+.film-main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+}
+.film-info {
+    display: flex;
+    gap: 20px;
+}
+.film-info img {
+    width: 25%;
+    margin-bottom: 10px;
+}
+.film-dscrtn {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+.actors {
+    margin-bottom: 15px;
+}
+.film-dscrtn h2 {
+    color: yellow;
+}
+.film-nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #553c64;
+    width: 30%;
+    height: 100%;
+}
+.film-nav_logo {
+    background: #3b3041;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.back {
+    font-size: 22px;
+        padding: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.151);
+        margin-left: -40px;
+}
+.voiceover {
+    font-size: 22px;
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.151);
+    margin-left: -40px;
+    padding-left: 40px;
 }
 
 .focus p {
@@ -460,39 +451,7 @@ h1 {
     margin-bottom: -5px;
     border-radius: 5px;
 }
-video {
-    right:0;
-    width:100%;
-    z-index: 5;
-}
 
-.header img {
-    cursor: pointer;
-}
-.header {
-  display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-around;
-    max-width: 1200px;
-}
-
-
-.header li {
-    list-style-type: none;
-    color: #fff;    
-    font-size: 23px;
-}
-
-
-.log-string {
-    position: absolute;
-    left: 50%;
-}
-.log-object {
-    position: absolute;
-        left: 50%;
-}
 </style>
 <body>
 <div id="app" class="wrap">
