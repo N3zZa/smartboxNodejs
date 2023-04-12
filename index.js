@@ -78,7 +78,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p>Год:{{created}}</p></div><h2>{{title}}</h2></div></div></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo">logoimg<div class="logo_text"><h4>Ucon Cinema</h4><p>Домашний кинотеатр</p></div></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><= Назад</li><li data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
-  
+  var stb = gSTB;
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -92,11 +92,14 @@ async function getAnime() {
       window.App.showContent(scene);
     },
     onItemClick: function (e) {
-      var url = e.currentTarget.getAttribute("data-url");
-         Player.play({
-           url: url,
-           type: "vod",
-         });
+       var url = e.currentTarget.getAttribute("data-url");
+    stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
+       });
     },
     show: function () {
       if (!_inited) {
@@ -215,8 +218,6 @@ body {
     top:0;
     left:0;
     background: url('./images/bg.jpg');
-    background-repeat:no-repeat;
-    background-size:cover;
 }
 p,
 h1, h2,

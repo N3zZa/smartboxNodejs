@@ -25,7 +25,9 @@
       $(".navbar").on("click", ".movieitem", function (e) {
         var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
+        var header = $(".header");
         var item = "#" + filmPage;
+        header.hide();
         self.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();
@@ -51,6 +53,7 @@
       Player.on("ready", function () {
         $bg.hide();
         wrap.hide();
+        $(".filmInfoPage").hide();
         $$log("player ready");
       });
       Player.on("stop", function () {
