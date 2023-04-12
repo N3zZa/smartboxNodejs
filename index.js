@@ -31,7 +31,6 @@ const showAnime = async () => {
             filmPageId: 'filmid${element.kinopoisk_id}',
             actors: '${element.info.actors}',
             director: '${element.info.director}',
-            description: '${element.info.description.toString()}',
             country: '${element.info.country}',
           },
           `
