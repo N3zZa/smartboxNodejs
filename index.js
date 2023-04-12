@@ -208,11 +208,8 @@ async function getAnime() {
     width: 100%;
     height: 100%;
     display: none;
-     background: url('./images/bg.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+     background: url('./images/bg.jpg');
+    background-size: cover;
     background-repeat:repeat;
     }
 
@@ -323,7 +320,7 @@ body {
     top:0;
     left: 0;
     
-    background: url('./images/bg.jpg') no-repeat center center fixed;
+    background: url('./images/bg.jpg');
     background-size: cover;
     background-repeat:repeat;
 }
