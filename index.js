@@ -137,6 +137,8 @@ async function getAnime() {
     },
     onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
+      var header = $(".header");
+      header.show();
       window.App.showContent(scene);
     },
     onItemClick: function (e) {

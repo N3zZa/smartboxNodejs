@@ -5,13 +5,15 @@
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
-      this.$el.on("click", ".back", this.onItemBackClick)
-      this.$el.on("click", ".voiceover", this.onItemClick)
+      this.$el.on("click", ".back", this.onItemBackClick);
+      this.$el.on("click", ".voiceover", this.onItemClick);
       this.renderItems(App.filmInfo);
       _inited = true;
     },
     onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
+      var header = $(".header");
+      header.show();
       window.App.showContent(scene);
     },
     onItemClick: function (e) {
