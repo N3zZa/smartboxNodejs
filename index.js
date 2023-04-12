@@ -116,6 +116,7 @@ async function getAnime() {
       for (var i = 0, len = items.length; i < len; i++) {
         filmhtml += filmPageHtml(items[i]);
       }
+      
       this.$el.empty().html(filmhtml);
     },
   };
@@ -128,12 +129,10 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-url="{{url}}" data-type="{{type}}"><h4>{{title}}</h4></div>');
-  
     
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
-
 
       this.renderItems(App.videos);
       _inited = true;
@@ -457,22 +456,12 @@ p {
 <div id="app" class="wrap">
     <div class='bg'></div>
         <div class="header navigation-items">
-                <a class="navigation-item nav-item" id='Films' href="/films">
-                    <li>Фильмы</li>
-                </a>
-                <a class="navigation-item nav-item" id='Serials' href="/serials">
-                    <li>Сериалы</li>
-                </a>
-                <a class="navigation-item nav-item" id='Cartoons' href="/cartoons">
-                    <li>Мультфильмы</li>
-                </a>
+                  <li class="navigation-item nav-item" id='Films'>Фильмы</li>
+                  <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
+                  <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
                 <h2>Аниме</h2>
-                <a class="navigation-item nav-item" id='Premieres' href="/premieres">
-                    <li>Премьеры</li>
-                </a>
-                <a class="navigation-item nav-item" id='Compilations' href="/compilations">
-                    <li>Подборки</li>
-                </a>
+                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
+                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
         
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
