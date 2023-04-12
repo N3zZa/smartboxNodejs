@@ -23,12 +23,8 @@
       // click on menu item
 
       $(".navbar").on("click", ".movieitem", function (e) {
-        var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
-        var item = "#" + filmPage;
         self.showContent(scene);
-        $(".filmInfoPage").hide();
-        $(item).show();
       });
 
       $(document.body).on({
