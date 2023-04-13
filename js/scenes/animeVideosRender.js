@@ -7,10 +7,21 @@
     init: function () {
       this.$el = $(".js-scene-video");
 
+      this.$el.on("click", ".movieitem", this.onItemClick)
+
       this.renderItems(App.videos);
       _inited = true;
     },
 
+    onItemClick: function (e) {
+        var filmPage = e.currentTarget.getAttribute("data-film");
+        var scene = e.currentTarget.getAttribute("data-content");
+        var item = "#" + filmPage;
+        $(".header").hide();
+        window.App.showContent(scene);
+        $(".filmInfoPage").hide();
+        $(item).show();
+    },
 
     show: function () {
       if (!_inited) {
@@ -40,5 +51,4 @@
     },
   };
 })();
-
     

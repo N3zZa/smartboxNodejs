@@ -32,6 +32,7 @@ const showAnime = async () => {
             actors: '${element.info.actors}',
             director: '${element.info.director}',
             country: '${element.info.country}',
+            text: '${element.info.description.replace(/[\n\r]+/g, '')}',
           },
           `
     );
@@ -73,59 +74,6 @@ async function getAnime() {
   try {
     // используем movies в шаблонной строке:
     fs.writeFileSync(
-      "./js/scenes/animeFilmInfo.js",
-      `(function () {
-  var _inited;
-    _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-  var filmPageHtml = _.template('<div id="{{filmPageId}}"  data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2>{{title}}</h2></div></div><p class="film-description">{{description}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img src="" alt="logoimg"><div class="logo_text"><h4>Ucon Cinema</h4><p>Домашний кинотеатр</p></div></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
-  var stb = gSTB;
-  window.App.scenes.filmInfo = {
-    init: function () {
-      this.$el = $(".js-scene-filmInfo");
-      this.$el.on("click", ".back", this.onItemBackClick)
-      this.$el.on("click", ".voiceover", this.onItemClick)
-      this.renderItems(App.filmInfo);
-      _inited = true;
-    },
-      onItemBackClick: function (e) {
-      var scene = e.currentTarget.getAttribute("data-content");
-      window.App.showContent(scene);
-    },
-    onItemClick: function (e) {
-       var url = e.currentTarget.getAttribute("data-url");
-    stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
-    },
-    show: function () {
-      if (!_inited) {
-        this.init();
-      }
-      this.$el.show();
-    },
-    hide: function () {
-      this.$el.hide();
-    },
-    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
-    // handler for click event
-    // showing items from videos.js
-    renderItems: function (items) {
-      var filmhtml = "";
-      // console.log(items, itemHtml.toString())
-      for (var i = 0, len = items.length; i < len; i++) {
-        filmhtml += filmPageHtml(items[i]);
-      }
-      
-      this.$el.empty().html(filmhtml);
-    },
-  };
-})();
-    `
-    );
-    fs.writeFileSync(
       "./js/scenes/animeVideosRender.js",
       `(function () {
   var _inited;
@@ -136,10 +84,21 @@ async function getAnime() {
     init: function () {
       this.$el = $(".js-scene-video");
 
+      this.$el.on("click", ".movieitem", this.onItemClick)
+
       this.renderItems(App.videos);
       _inited = true;
     },
 
+    onItemClick: function (e) {
+        var filmPage = e.currentTarget.getAttribute("data-film");
+        var scene = e.currentTarget.getAttribute("data-content");
+        var item = "#" + filmPage;
+        $(".header").hide();
+        window.App.showContent(scene);
+        $(".filmInfoPage").hide();
+        $(item).show();
+    },
 
     show: function () {
       if (!_inited) {
@@ -169,9 +128,58 @@ async function getAnime() {
     },
   };
 })();
-
     `
     );
+    fs.writeFileSync(
+      "./js/scenes/animeFilmInfo.js",
+      `(function () {
+  var _inited;
+    _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2>{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
+  window.App.scenes.filmInfo = {
+    init: function () {
+      this.$el = $(".js-scene-filmInfo");
+      this.$el.on("click", ".back", this.onItemBackClick)
+      this.$el.on("click", ".voiceover", this.onItemClick)
+      this.renderItems(App.filmInfo);
+      _inited = true;
+    },
+      onItemBackClick: function (e) {
+      var scene = e.currentTarget.getAttribute("data-content");
+      $(".header").show();
+      window.App.showContent(scene);
+    },
+    onItemClick: function (e) {
+      var url = e.currentTarget.getAttribute("data-url");
+
+    },
+
+    show: function () {
+      if (!_inited) {
+        this.init();
+      }
+      this.$el.show();
+    },
+    hide: function () {
+      this.$el.hide();
+    },
+    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
+    // handler for click event
+    // showing items from videos.js
+    renderItems: function (items) {
+      var filmhtml = "";
+      // console.log(items, itemHtml.toString())
+      for (var i = 0, len = items.length; i < len; i++) {
+        filmhtml += filmPageHtml(items[i]);
+      }
+      
+      this.$el.empty().html(filmhtml);
+    },
+  };
+})();
+    `
+    );
+
     const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -208,15 +216,16 @@ body {
     padding: 0;
     box-sizing: border-box;
     height: 100vh;
-    background: url('./images/bg.jpg');
+    
 }
 .bg {
-    width: 100%;
+    width: 1280px;
     height: 100%;
-    position:absolute;
-    z-index:-5;
-    top:0;
+    position: absolute;
     left:0;
+    top: 0;
+    z-index:-5;
+     background: url("./images/bg.webp"); 
 }
 p,
 h1, h2,
@@ -228,6 +237,7 @@ h3, h4, li {
     max-width: 1000px;
     margin: 0 auto;
     padding: 30px;
+    background: url("./images/bg.webp"); 
 }
 a {
     text-decoration: none;
@@ -245,8 +255,8 @@ h1 {
     width: 100%;
 }
 .movieitem {
-    width: 180px;
-    height: 260px;
+    width: 140px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -257,9 +267,7 @@ h1 {
 .movieitem h4 {
   display: none;
 }
-.movieitem p {
-  display: none;
-}
+
 .movieitem:hover h4{
   display: block;
   color: #fff;
@@ -270,19 +278,10 @@ h1 {
 -1px 0 1px #000, 
 0 -1px 1px #000;;
 }
-.movieitem:hover p{
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  text-shadow: 2px 0 2px #000, 
-0 3px 3px #000, 
--1px 0 1px #000, 
-0 -1px 1px #000;;
-}
+
 .movieitem:hover {
     border-bottom: 5px solid yellow;
-    margin-bottom: -1px;
+    margin-bottom: -5px;
     border-radius: 10px;
 }
 .film-title {
@@ -310,6 +309,26 @@ h1 {
     text-decoration-color: yellow;
     font-size: 35px;
 }
+.focus p {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 2px 0 2px #000, 
+0 3px 3px #000, 
+-1px 0 1px #000, 
+0 -1px 1px #000;;
+ }
+ .focus h4{
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 2px 0 2px #000, 
+0 3px 3px #000, 
+-1px 0 1px #000, 
+0 -1px 1px #000;;
+ }
 
 video {
     right:0;
@@ -362,6 +381,11 @@ video {
 p {
     margin: 0;
 }
+
+.description {
+  max-width: 80%;
+}
+
 .logo_text h4 {
     margin: 0;
     color: #fff;
@@ -387,6 +411,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
+    max-width: 80%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -410,6 +435,8 @@ p {
     justify-content: center;
 }
 .back {
+  display: flex;
+  align-items: center;
     font-size: 22px;
         padding: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
@@ -423,42 +450,19 @@ p {
     padding-left: 40px;
 }
 
-.focus p {
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  text-shadow: 2px 0 2px #000, 
-0 3px 3px #000, 
--1px 0 1px #000, 
-0 -1px 1px #000;;
- }
-
- .focus h4{
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  text-shadow: 2px 0 2px #000, 
-0 3px 3px #000, 
--1px 0 1px #000, 
-0 -1px 1px #000;;
- }
-
 .focus {
     border-bottom: 5px solid yellow;
     margin-bottom: -5px;
     border-radius: 5px;
 }
-
 </style>
 <body>
 <div id="app" class="wrap">
     <div class='bg'></div>
         <div class="header navigation-items">
-                  <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                  <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                  <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
+                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
+                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
+                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
                 <h2>Аниме</h2>
                 <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
                 <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
@@ -466,9 +470,10 @@ p {
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
-    </div>
     <div class="scene scene_filmInfo film-container js-scene-filmInfo"></div>
+    </div>
     <script type='text/javascript'>
+
     var cartoons = document.getElementById('Cartoons')
     var serials = document.getElementById('Serials')
     var films = document.getElementById('Films')
@@ -507,6 +512,8 @@ p {
         }
     }
     
+    
+
     </script>
 </body>
 </html>`;
