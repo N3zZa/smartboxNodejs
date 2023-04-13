@@ -23,7 +23,7 @@ const showAnime = async () => {
       (element) =>
         `{
             id: '${element.kinopoisk_id}',
-            url: 'https://rr5---sn-q4flrnld.googlevideo.com/videoplayback?expire=1681334091&ei=68o2ZKq9Fajj4QSVp4DoAw&ip=216.131.106.22&id=o-AIRb4KzmOJ4IwT7Z6wlUEWhnwue4co-W5E_YmPPIJz_t&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C29&mn=sn-q4flrnld%2Csn-q4fl6nsl&ms=au%2Crdu&mv=m&mvi=5&pl=23&initcwndbps=785000&spc=99c5CTWxHQgZVPkIU9lV2STMHZD3wBK52xhxgey55g&vprv=1&mime=video%2Fmp4&ns=Zyt2ZH96IoFok-p4iUim1bkM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681312127&fvip=3&fexp=24007246&c=WEB&txp=4532434&n=-PIMnhP4g7QKYA&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgFFDrUn7Eas52nIBiSxmoUFPp6k6HLHlMMCmal7hTv5sCIAumK0v3njQJ5CkGHRtFRf0oXFrLV6uPbJh-gG3xaUeo&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAN2hP3DP-7WkdpI1Frp8jUMat4SD8zgRqMG9P8Fd5P-0AiAWImf4E2bSybmpKUkCO573TDSIAp2TSyfNfNQpDNwbzA%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: '${element.info.poster}',
             title: '${element.info.rus}',
@@ -32,7 +32,7 @@ const showAnime = async () => {
             actors: '${element.info.actors}',
             director: '${element.info.director}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, '')}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
           },
           `
     );
@@ -135,6 +135,7 @@ async function getAnime() {
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+     var stb = gSTB;
   var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2>{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
   window.App.scenes.filmInfo = {
     init: function () {
@@ -152,6 +153,12 @@ async function getAnime() {
     onItemClick: function (e) {
       var url = e.currentTarget.getAttribute("data-url");
 
+    stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
     },
 
     show: function () {
