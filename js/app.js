@@ -16,7 +16,8 @@
     },
 
     setEvents: function () {
-      var self = this;
+      var self = this,
+        $bg = $(".bg");
       var wrap = this.$wrap;
       self.showContent("video");
       // click on menu item
@@ -39,10 +40,12 @@
 
       // toggling background when player start/stop
       Player.on("ready", function () {
+        $bg.hide();
         wrap.hide();
         $$log("player ready");
       });
       Player.on("stop", function () {
+        $bg.show();
         wrap.show();
         $$log("player stop");
       });

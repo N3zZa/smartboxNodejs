@@ -16,6 +16,8 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
+
+
 const showAnime = async () => {
   try {
     const commits = await fetchDataAnime;
@@ -150,15 +152,21 @@ async function getAnime() {
       $(".header").show();
       window.App.showContent(scene);
     },
-    onItemClick: function (e) {
+    onItemClick: async function (e) {
       var url = e.currentTarget.getAttribute("data-url");
-
-    stb.InitPlayer();
+      async function logJSONData() {
+      var response = await fetch("https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=1005878&ref=&ip=178.121.34.101");
+      var jsonData = await response.json();
+      return jsonData
+    }
+    var video = await logJSONData();
+    var data = video.results[0].playlists[Object.keys(video.results[0].playlists)[2]]
+     stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
-    stb.Play(url);
+    stb.Play(data);
     },
 
     show: function () {
@@ -221,9 +229,7 @@ async function getAnime() {
 body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     height: 100vh;
-    
 }
 
 p,
@@ -236,9 +242,6 @@ h3, h4, li {
     max-width: 1000px;
     margin: 0 auto;
     padding: 30px;
-    background: url(./images/bg.webp); 
-    background-repeat:no-repeat;
-    background-size:contain;
 }
 a {
     text-decoration: none;
@@ -264,7 +267,7 @@ h1 {
     justify-content: flex-end;
     padding: 10px;
     cursor: pointer;
-    margin: 0 20px 0 20px;
+    margin: 0 20px 10px 20px;
 }
 .movieitem h4 {
   display: none;
@@ -455,8 +458,20 @@ p {
     margin-bottom: -5px;
     border-radius: 5px;
 }
+.bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+        }
+
 </style>
 <body>
+
+<div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <li class="navigation-item nav-item" id='Films'>Фильмы</li>

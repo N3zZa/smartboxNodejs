@@ -1,118 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-    
-    
-        <title>tv</title>
+
+
+    <title>tv</title>
     <style>
+        html,
+        body {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
 
-html, body {
-    width: 1280px;
-    height: 720px;
-    position: relative;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-p,
-h1, h2,
-h3, li {
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-}
-.bg {
-    position: absolute;
-    left : 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: url(./images/bg.webp);
-    z-index: -1;
-}
+        p,
+        h1,
+        h2,
+        h3,
+        li {
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
 
-.app {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    height: 90vh;
-}
+        .bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+        }
 
-.item {
-    padding: 20px;
-    color: #fff;
-    background: #c91212;
-}
+        .app {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            height: 90vh;
+        }
 
-.navigation-item.focus {
-    background:  #553c64;
-}
+        .item {
+            padding: 20px;
+            color: #fff;
+            background: #c91212;
+        }
 
-#key {
-    font-size: 25px;
-    background: #c91212;
-    color: #fff;
-    padding: 15px;
-}
+        .navigation-item.focus {
+            background: #553c64;
+        }
 
-.wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 50%;
-}
-.main-logo {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: relative;
-}
+        #key {
+            font-size: 25px;
+            background: #c91212;
+            color: #fff;
+            padding: 15px;
+        }
 
+        .wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 50%;
+        }
 
-
-.navbar {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    background: #3b3041;
-    width: 200px;
-}
-.navbar p, a {
-    width: 100%;
-    padding: 20px 0;
-    background: #3b3041;
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-    font-family: 'Inter', sans-serif;
-}
-
-.app p {
-    margin: 0;
-}
+        .main-logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
 
 
-h1,h3 {
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-}
-.focus {
-    background: #553c64;
-}
+
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            background: #3b3041;
+            width: 200px;
+        }
+
+        .navbar p,
+        a {
+            width: 100%;
+            padding: 20px 0;
+            background: #3b3041;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .app p {
+            margin: 0;
+        }
 
 
+        h1,
+        h3 {
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .focus {
+            background: #553c64;
+        }
     </style>
 
     <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
@@ -125,33 +131,35 @@ h1,h3 {
 
     <script>
         $(function () {
-                $$nav.on();
+            $$nav.on();
 
-                $('.nav-item').click(function () {
-                    window.location.href = $('.nav-item.focus').attr('href')
-                });
+            $('.nav-item').click(function () {
+                window.location.href = $('.nav-item.focus').attr('href')
             });
+        });
     </script>
 </head>
+
 <body>
+    <div class="bg"></div>
     <div class="app">
-        <div class="bg"></div>
         <div class="wrapper">
             <div class="main-logo">
                 <img width="380" height="100" src="./images/UCS.svg" alt="logoimg">
             </div>
             <div class="scene js-scene-navigation">
-            <nav class="navbar navigation-items">
-                <p class="navigation-item nav-item">Поиск</p>
-                <p id="Premieres"  class="navigation-item nav-item" href="/premieres">Премьеры</p>
-                <p id="Films" class="navigation-item nav-item" href="/films">Фильмы</p>
-                <p id="Serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
-                <p id="Cartoons"  class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
-                <p id="Anime" class="navigation-item nav-item" href="/anime">Аниме</p>
-                <p id="Compilations" class="navigation-item nav-item" href="/compilations">Подборки</p>
-            </nav>
+                <nav class="navbar navigation-items">
+                    <p class="navigation-item nav-item">Поиск</p>
+                    <p id="Premieres" class="navigation-item nav-item" href="/premieres">Премьеры</p>
+                    <p id="Films" class="navigation-item nav-item" href="/films">Фильмы</p>
+                    <p id="Serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
+                    <p id="Cartoons" class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
+                    <p id="Anime" class="navigation-item nav-item" href="/anime">Аниме</p>
+                    <p id="Compilations" class="navigation-item nav-item" href="/compilations">Подборки</p>
+                </nav>
             </div>
         </div>
     </div>
 </body>
+
 </html>
