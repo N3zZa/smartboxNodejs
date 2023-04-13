@@ -236,7 +236,9 @@ h3, h4, li {
     max-width: 1000px;
     margin: 0 auto;
     padding: 30px;
-    background: url("./images/bg.webp"); 
+    background: url('./images/bg.webp'); 
+    background-repeat:no-repeat;
+    background-size:contain;
 }
 a {
     text-decoration: none;
