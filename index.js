@@ -262,6 +262,7 @@ h1 {
     justify-content: flex-end;
     padding: 10px;
     cursor: pointer;
+    margin: 0 20px 0 20px;
 }
 .movieitem h4 {
   display: none;
