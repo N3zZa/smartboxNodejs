@@ -16,9 +16,6 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: url(./images/bg.webp);
-    background-repeat:no-repeat;
-    background-size:cover;
 }
 p,
 h1, h2,
@@ -26,6 +23,16 @@ h3, li {
     color: #fff;
     font-family: 'Inter', sans-serif;
 }
+.bg {
+    position: absolute;
+    left : 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url(./images/bg.webp);
+    z-index: -1;
+}
+
 .app {
     display: flex;
     align-items: center;
@@ -122,7 +129,7 @@ h1,h3 {
     </script>
 </head>
 <body>
-   
+    <div class="bg"></div>
     <div class="app">
         <div class="wrapper">
             <div class="main-logo">
@@ -131,16 +138,15 @@ h1,h3 {
             <div class="scene js-scene-navigation">
             <nav class="navbar navigation-items">
                 <p class="navigation-item nav-item">Поиск</p>
-                <a class="navigation-item nav-item" href="/premieres">Премьеры</a>
-                <a class="navigation-item nav-item" href="/films">Фильмы</a>
-                <a class="navigation-item nav-item" href="/serials">Сериалы</a>
-                <a class="navigation-item nav-item" href="/cartoons">Мультфильмы</a>
-                <a class="navigation-item nav-item" href="/anime">Аниме</a>
-                <a class="navigation-item nav-item" href="/compilations">Подборки</a>
+                <p id="Premieres"  class="navigation-item nav-item" href="/premieres">Премьеры</p>
+                <p id="Films" class="navigation-item nav-item" href="/films">Фильмы</p>
+                <p id="Serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
+                <p id="Cartoons"  class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
+                <p id="Anime" class="navigation-item nav-item" href="/anime">Аниме</p>
+                <p id="Compilations" class="navigation-item nav-item" href="/compilations">Подборки</p>
             </nav>
             </div>
         </div>
     </div>
-    
 </body>
 </html>
