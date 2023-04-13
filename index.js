@@ -374,7 +374,6 @@ video {
 .UconCinema_logo {
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 p {
     margin: 0;
@@ -396,11 +395,11 @@ p {
 }
 .film-info {
     display: flex;
-    gap: 20px;
 }
 .film-info img {
     width: 25%;
     margin-bottom: 10px;
+    margin-right: 20px;
 }
 .film-dscrtn {
     display: flex;
