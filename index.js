@@ -225,15 +225,7 @@ body {
     height: 100vh;
     
 }
-.bg {
-    width: 1280px;
-    height: 100%;
-    position: absolute;
-    left:0;
-    top: 0;
-    z-index:-5;
-     background: url("./images/bg.webp"); 
-}
+
 p,
 h1, h2,
 h3, h4, li {
@@ -257,9 +249,9 @@ h1 {
 .navbar {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     margin-top: 30px;
     width: 100%;
+    justify-content: space-between;
 }
 .movieitem {
     width: 140px;
@@ -347,7 +339,6 @@ video {
 }
 .header {
   display: flex;
-    gap: 10px;
     align-items: center;
     justify-content: space-around;
     max-width: 1200px;
@@ -465,7 +456,6 @@ p {
 </style>
 <body>
 <div id="app" class="wrap">
-    <div class='bg'></div>
         <div class="header navigation-items">
                 <li class="navigation-item nav-item" id='Films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
