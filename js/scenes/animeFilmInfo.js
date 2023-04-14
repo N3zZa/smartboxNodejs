@@ -15,21 +15,22 @@
       $(".header").show();
       window.App.showContent(scene);
     },
-    onItemClick: async function (e) {
+    onItemClick: function (e) {
       var url = e.currentTarget.getAttribute("data-url");
-      var results = [];
-      async function logJSONData() {
-      var response = await fetch("https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=1005878&ref=&ip=178.121.34.101");
-      var jsonData = await response.json();
-      return jsonData
-    }
-    var video = await logJSONData();
-    var data = video.results[0].playlists[Object.keys(video.results[0].playlists)[2]].toString();
-    console.log(data)
-    Player.play({
-        url: data,
-        type: 'm3u8',
+     
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=1005878&ref=&ip=178.121.34.101');
+      xhr.responseType = 'json';
+      xhr.send();
+      xhr.onload  = function() {
+         var jsonResponse = xhr.response;
+         var data = jsonResponse.results[0].playlists[Object.keys(jsonResponse.results[0].playlists)[2]] 
+         console.log(data)
+        Player.play({
+          url: data,
+          type: e.currentTarget.getAttribute('data-type')
       });
+      };
     },
 
     show: function () {
