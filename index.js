@@ -16,8 +16,6 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-
-
 const showAnime = async () => {
   try {
     const commits = await fetchDataAnime;
@@ -162,6 +160,7 @@ async function getAnime() {
       xhr.onload  = function() {
          var jsonResponse = xhr.response;
          var data = jsonResponse.results[0].playlists[Object.keys(jsonResponse.results[0].playlists)[2]] 
+         $$log(data)
         stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
@@ -469,7 +468,10 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
-
+.log-row {
+  color: white;
+  font-size: 24px;
+}
 </style>
 <body>
 
@@ -486,7 +488,8 @@ p {
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
-    <div class="scene scene_filmInfo film-container js-scene-filmInfo"></div>
+    <div class="scene scene_filmInfo film-container js-scene-filmInfo">
+    </div>
     </div>
     <script type='text/javascript'>
 

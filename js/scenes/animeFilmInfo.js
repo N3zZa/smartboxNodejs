@@ -25,11 +25,13 @@
       xhr.onload  = function() {
          var jsonResponse = xhr.response;
          var data = jsonResponse.results[0].playlists[Object.keys(jsonResponse.results[0].playlists)[2]] 
-         console.log(data)
-        Player.play({
-          url: data,
-          type: e.currentTarget.getAttribute('data-type')
-      });
+         $$log(data)
+        stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(data);
       };
     },
 
