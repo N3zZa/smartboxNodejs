@@ -19,7 +19,7 @@
 
     setEvents: function () {
       var stb = gSTB;
-      var url = "`https://d35r.bazonserver.site/manifest/89427/1/s1e1_720.mp4/index.m3u8?hash=jr7gC7boeJoEr_AP408bzQ&expires=1681692124&id=89427&s=1&name=s1e1_720.mp4`"
+      var url = "`https://c45n.bazonserver.site/manifest/92519/1/s1e1_720.mp4/index.m3u8?hash=91CWCKHmtGAAN0lbg7eEdQ&expires=1681692414&id=92519&s=1&name=s1e1_720.mp4`"
       stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
