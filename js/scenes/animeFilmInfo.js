@@ -1,7 +1,7 @@
 (function () {
   var _inited;
     _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2>{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2>{{title}}</h2></div></div><p class="description">{{text}}</p><div id="videotitle"></div></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -17,22 +17,19 @@
     },
     onItemClick: function (e) {
       var url = e.currentTarget.getAttribute("data-url");
-     
-      var xhr = new XMLHttpRequest();
+     var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=1005878&ref=&ip=178.121.34.101');
       xhr.responseType = 'json';
       xhr.send();
       xhr.onload  = function() {
          var jsonResponse = xhr.response;
          var data = jsonResponse.results[0].playlists[Object.keys(jsonResponse.results[0].playlists)[2]] 
-         $$log(data)
-        stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(data);
+         var colors = document.getElementById("videotitle");
+         const p2 = document.createElement('p');
+         p2.textContent = jsonResponse;
+         e.currentTarget.append(p2)
       };
+
     },
 
     show: function () {
