@@ -196,9 +196,10 @@ async function getAnime() {
            xhr.onload = function () {
              var jsonResponse = JSON.parse(xhr.responseText);
              var data = jsonResponse.results[0].playlists;
+             console.log('data', data)
              var data2 = data[Object.keys(data)];
-             var data3 = data2[Object.keys(data2)[0]]
-             var data4 = data3[Object.keys(data3)[1]];
+             console.log('data222', data2)
+             
                  fs.writeFileSync(
                    "./js/animevideos/animevideo.js",
                    `(function () {

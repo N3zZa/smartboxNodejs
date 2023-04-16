@@ -18,10 +18,14 @@
     },
 
     setEvents: function () {
-        Player.play({
-            url: "`https://d35r.bazonserver.site/manifest/89427/1/s1e1_720.mp4/index.m3u8?hash=kEHWghx6npvDbLJhDNZKnA&expires=1681691842&id=89427&s=1&name=s1e1_720.mp4`",
-            type: 'vod',
-      });
+      var stb = gSTB;
+      var url = "`https://d35r.bazonserver.site/manifest/89427/1/s1e1_720.mp4/index.m3u8?hash=jr7gC7boeJoEr_AP408bzQ&expires=1681692124&id=89427&s=1&name=s1e1_720.mp4`"
+      stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
