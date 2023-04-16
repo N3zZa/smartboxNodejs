@@ -36,7 +36,8 @@
     "lodash.template": "^4.5.0",
     "node-fetch": "^2.6.9",
     "now": "^21.0.1",
-    "xhr2": "^0.2.1"
+    "xhr2": "^0.2.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "grunt-contrib-cssmin": "~0.7.0",

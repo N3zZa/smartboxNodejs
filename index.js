@@ -4,6 +4,7 @@ var app = express();
 const path = require("path");
 var _ = require("lodash");
 const fs = require("fs");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 app.use(express.static(__dirname));
 
@@ -15,6 +16,7 @@ let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&p
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
+
 
 
 const showAnime = async () => {
@@ -73,6 +75,9 @@ sendAnime();
 
 async function getAnime() {
   try {
+    const videosId = await fetchDataAnime
+    const movies = await showAnime();
+    const movieItems = movies.join("");
     // используем movies в шаблонной строке:
     fs.writeFileSync(
       "./js/scenes/animeVideosRender.js",
@@ -136,12 +141,11 @@ async function getAnime() {
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2>{{title}}</h2></div></div><p class="description">{{text}}</p><div id="videotitle"></div></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/id={{id}}"}); </script>');
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      this.$el.on("click", ".voiceover", this.onItemClick)
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -150,22 +154,7 @@ async function getAnime() {
       $(".header").show();
       window.App.showContent(scene);
     },
-    onItemClick: function (e) {
-      var url = e.currentTarget.getAttribute("data-url");
-     var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=1005878&ref=&ip=178.121.34.101');
-      xhr.responseType = 'json';
-      xhr.send();
-      xhr.onload  = function() {
-         var jsonResponse = xhr.response;
-         var data = jsonResponse.results[0].playlists[Object.keys(jsonResponse.results[0].playlists)[2]] 
-         var colors = document.getElementById("videotitle");
-         const p2 = document.createElement('p');
-         p2.textContent = jsonResponse;
-         e.currentTarget.append(p2)
-      };
 
-    },
 
     show: function () {
       if (!_inited) {
@@ -192,6 +181,143 @@ async function getAnime() {
 })();
     `
     );
+   
+    videosId.results.map((item) => {
+      app.get("/anime/id=" + item.kinopoisk_id, (req, res) => {
+        var id = req.url.split("=").pop();
+        if (item.kinopoisk_id === id) {
+           var xhr = new XMLHttpRequest();
+           xhr.open(
+             "GET",
+             `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.34.101`
+           );
+           xhr.responseType = "json";
+           xhr.send();
+           xhr.onload = function () {
+             var jsonResponse = JSON.parse(xhr.responseText);
+             var data = jsonResponse.results[0].playlists;
+             var data2 = data[Object.keys(data)];
+             var data3 = data2[Object.keys(data2)[0]]
+             var data4 = data3[Object.keys(data3)[1]];
+                 fs.writeFileSync(
+                   "./js/animevideos/animevideo.js",
+                   `(function () {
+  "use strict";
+
+  window.App = {
+    currentScene: null,
+    scenes: {},
+    isShown: true,
+
+    initialize: function () {
+      this.$wrap = $(".wrap");
+
+      $$legend.show();
+
+      this.setEvents();
+
+      // start navigation
+      $$nav.on();
+    },
+
+    setEvents: function () {
+      var stb = gSTB;
+      var url = "\`${data4}\`"
+      stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
+      $(document.body).on({
+        // on keyboard 'd' by default
+        "nav_key:blue": _.bind(this.toggleView, this),
+
+        // remote events
+        "nav_key:stop": function () {
+          Player.stop();
+        },
+        "nav_key:pause": function () {
+          Player.togglePause();
+        },
+        "nav_key:exit": function () {
+          SB.exit();
+        },
+      });
+
+      // toggling background when player start/stop
+      Player.on("ready", function () {
+        $$log("player ready");
+      });
+      Player.on("stop", function () {
+        $$log("player stop");
+      });
+    },
+
+    toggleView: function () {
+      if (this.isShown) {
+        this.$wrap.hide();
+        $$legend.hide();
+      } else {
+        this.$wrap.show();
+        $$legend.show();
+      }
+      this.isShown = !this.isShown;
+    },
+
+    showContent: function (scene) {
+      var cur = this.currentScene,
+        newScene = this.scenes[scene];
+
+      if (cur !== newScene) {
+        if (!newScene) {
+          $$error("Scene " + scene + " doesn't exist");
+        } else {
+          if (cur) {
+            cur.hide();
+          }
+          newScene.show();
+          this.currentScene = newScene;
+        }
+      }
+    },
+  };
+
+  // main app initialize when smartbox ready
+  SB(_.bind(App.initialize, App));
+})();
+`
+                 );
+           };
+        } else console.log('id !== videoid')
+         const playerPage = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
+</head>
+
+<body>
+  <div class="wrap"></div>
+</body>
+</html>`;
+        res.send(playerPage); // Отправка ответа в виде HTML
+      });
+    });
+    
      
 
     const message = `<!DOCTYPE html>
