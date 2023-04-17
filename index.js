@@ -212,10 +212,10 @@ async function getAnime() {
     },
 
     setEvents: function () {
-      var url = "ffmpeg ${data4}"
+      var stb = gSTB;
+      var url = "auto ${data4}"
       console.log(url)
       $$log(url)
-      var stb = gSTB;
       stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
