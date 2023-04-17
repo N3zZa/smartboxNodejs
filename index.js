@@ -221,7 +221,7 @@ async function getAnime() {
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
-    stb.PlaySolution(url);
+    stb.Play(url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),

@@ -18,7 +18,7 @@
     },
 
     setEvents: function () {
-      var url = "ffmpeg https://c45n.bazonserver.site/manifest/92316/1/s1e1_720.mp4/index.m3u8?hash=cTSM5nTzu3S_uzO90fXB8g&expires=1681803829&id=92316&s=1&name=s1e1_720.mp4"
+      var url = "ffmpeg https://f16u.bazonserver.site/manifest/14097/1/s1e1_720.mp4/index.m3u8?hash=XZRD-nWgsbJo3s913VZMNA&expires=1681803901&id=14097&s=1&name=s1e1_720.mp4"
       console.log(url)
       $$log(url)
       var stb = gSTB;
