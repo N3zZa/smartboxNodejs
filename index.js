@@ -212,7 +212,7 @@ async function getAnime() {
     },
 
     setEvents: function () {
-      var url = "ffmpeg ${data4}"
+      var url = "${data4}"
       $$log(url)
       var stb = gSTB;
       stb.InitPlayer();
@@ -220,7 +220,7 @@ async function getAnime() {
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
-    stb.Play(url);
+    stb.PlaySolution("ffmpeg", url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),

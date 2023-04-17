@@ -18,7 +18,7 @@
     },
 
     setEvents: function () {
-      var url = "ffmpeg https://d35r.bazonserver.site/manifest/92616/1/s1e1_720.mp4/index.m3u8?hash=_Ccs3TIRcDoS6VxolfwMsQ&expires=1681785006&id=92616&s=1&name=s1e1_720.mp4"
+      var url = "https://d35r.bazonserver.site/manifest/92616/1/s1e1_720.mp4/index.m3u8?hash=_Ccs3TIRcDoS6VxolfwMsQ&expires=1681785006&id=92616&s=1&name=s1e1_720.mp4"
       $$log(url)
       var stb = gSTB;
       stb.InitPlayer();
@@ -26,7 +26,7 @@
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
-    stb.Play(url);
+    stb.PlaySolution(url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
