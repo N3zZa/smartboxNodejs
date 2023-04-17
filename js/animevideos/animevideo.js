@@ -18,16 +18,16 @@
     },
 
     setEvents: function () {
-      var url = "ffmpeg https://f16u.bazonserver.site/manifest/14097/1/s1e1_720.mp4/index.m3u8?hash=XZRD-nWgsbJo3s913VZMNA&expires=1681803901&id=14097&s=1&name=s1e1_720.mp4"
+      var stb = gSTB;
+      var url = "auto https://c45n.bazonserver.site/manifest/92316/1/s1e1_720.mp4/index.m3u8?hash=YJFdG-Ntq6ECYfMOKEfVag&expires=1681805387&id=92316&s=1&name=s1e1_720.mp4"
       console.log(url)
       $$log(url)
-      var stb = gSTB;
       stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
-    stb.PlaySolution(url);
+    stb.Play(url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
