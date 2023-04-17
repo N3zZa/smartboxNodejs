@@ -4,11 +4,8 @@ var app = express();
 const path = require("path");
 var _ = require("lodash");
 const fs = require("fs");
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 app.use(express.static(__dirname));
-
-const APIANIMEVIDEO_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
@@ -16,8 +13,6 @@ let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&p
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
-
-
 
 const showAnime = async () => {
   try {
@@ -75,9 +70,7 @@ sendAnime();
 
 async function getAnime() {
   try {
-    const videosId = await fetchDataAnime
-    const movies = await showAnime();
-    const movieItems = movies.join("");
+    const videosId = await fetchDataAnime;
     // используем movies в шаблонной строке:
     fs.writeFileSync(
       "./js/scenes/animeVideosRender.js",
@@ -181,28 +174,25 @@ async function getAnime() {
 })();
     `
     );
-   
+
     videosId.results.map((item) => {
       app.get("/anime/id=" + item.kinopoisk_id, (req, res) => {
         var id = req.url.split("=").pop();
         if (item.kinopoisk_id === id) {
-           var xhr = new XMLHttpRequest();
-           xhr.open(
-             "GET",
-             `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.34.101`
-           );
-           xhr.responseType = "json";
-           xhr.send();
-           xhr.onload = function () {
-             var jsonResponse = JSON.parse(xhr.responseText);
-             var data = jsonResponse.results[0].playlists;
-             console.log('data', data)
-             var data2 = data[Object.keys(data)[0]];
-             var data3 = data2[Object.keys(data2)[0]];
-             var data4 = data3[Object.keys(data3)[1]];
-                 fs.writeFileSync(
-                   "./js/animevideos/animevideo.js",
-                   `(function () {
+          fetch(
+            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.32.136`
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((jsonResponse) => {
+              var data = jsonResponse.results[0].playlists;
+              var data2 = data[Object.keys(data)[0]];
+              var data3 = data2[Object.keys(data2)[0]];
+              var data4 = data3[Object.keys(data3)[1]];
+              fs.writeFileSync(
+                "./js/animevideos/animevideo.js",
+                `(function () {
   "use strict";
 
   window.App = {
@@ -222,14 +212,11 @@ async function getAnime() {
     },
 
     setEvents: function () {
-      var stb = gSTB;
-      var url = "\`${data4}\`"
-      stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
+      var url = "${data4}"
+      Player.play({
+        url: url,
+        type: "m3u8",
+      });
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
@@ -288,10 +275,11 @@ async function getAnime() {
   SB(_.bind(App.initialize, App));
 })();
 `
-                 );
-           };
-        } else console.log('id !== videoid')
-         const playerPage = `<!DOCTYPE html>
+              );
+            });
+           
+        } else console.log("id !== videoid");
+        const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -303,10 +291,15 @@ async function getAnime() {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-
+         <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
         <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        
+        <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+<script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
         <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
 </head>
@@ -318,8 +311,6 @@ async function getAnime() {
         res.send(playerPage); // Отправка ответа в виде HTML
       });
     });
-    
-     
 
     const message = `<!DOCTYPE html>
 <html lang="en">

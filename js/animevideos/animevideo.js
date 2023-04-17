@@ -18,14 +18,11 @@
     },
 
     setEvents: function () {
-      var stb = gSTB;
-      var url = "`https://c45n.bazonserver.site/manifest/92519/1/s1e1_720.mp4/index.m3u8?hash=91CWCKHmtGAAN0lbg7eEdQ&expires=1681692414&id=92519&s=1&name=s1e1_720.mp4`"
-      stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
+      var url = "https://f16u.bazonserver.site/manifest/14097/1/s1e1_720.mp4/index.m3u8?hash=OUJ0c5X17vTzKqI-EvPiGQ&expires=1681778798&id=14097&s=1&name=s1e1_720.mp4"
+      Player.play({
+        url: url,
+        type: "m3u8",
+      });
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
