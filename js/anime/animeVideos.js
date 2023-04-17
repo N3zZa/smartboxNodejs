@@ -3,6 +3,19 @@
 
     window.App.videos = [
       {
+            id: '408659',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_408659.jpg',
+            title: 'Когда плачут цикады',
+            created: '2006',
+            filmPageId: 'filmid408659',
+            actors: 'Соитиро Хоси,Маи Накахара,Сацуки Юкино,Юкари Тамура,Мика Канаи,Тяфурин,Тосихико Сэки,Мики Ито,Такуо Кавамура,Фумико Орикаса',
+            director: 'Тиаки Кон',
+            country: 'Япония',
+            text: 'В том, что в тихом омуте черти водятся, юному Кэйити пришлось убедиться на своём собственном опыте. Переехав с родителями из города в живописную деревушку Хинамидзаву и подружившись в маленькой местной школе с очаровательными одноклассницами, он даже не подозревал, насколько обманчиво его представление об этом безмятежном крае и его обитателях. Но, как позднее выяснил Кэйити, за фасадом деревенской идиллии скрывается тёмная история зверских убийств и бесследных исчезновений, а под покровом благостной тиши действуют какие-то ужасные силы.',
+          },
+          {
             id: '1111858',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -638,19 +651,6 @@
             director: 'Юки Ито',
             country: 'Япония',
             text: 'В мире, где в небе дрейфуют острова, живут юный Гран и говорящая крылатая ящерица Вирн. Однажды они встречают Лирию, сбежавшую от военного правительства. Чтобы спастись от преследования, Гран и Лирия отправляются в бескрайнее небо на поиски отца Грана, обещавшего ждать сына на острове звезд Эсталусии.',
-          },
-          {
-            id: '400020',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_400020.jpg',
-            title: 'Сельский врач',
-            created: '2007',
-            filmPageId: 'filmid400020',
-            actors: 'Сэнсаку Сигэяма,Сигэру Сигэяма,Додзи Сигэяма,Симэ Сигэяма,Хитоми Канэхара,Иппэй Сигэяма,Кодзи Ямамура,Марика Сэто,Фуми Тэраниси',
-            director: 'Кодзи Ямамура',
-            country: 'Япония',
-            text: 'Однажды ночью сельский врач отправляется на вызов к пациенту. Череда событий приводит доктора в смятение, и во время осмотра он не замечает у больного серьёзной раны.',
           },
           
     ] 

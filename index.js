@@ -301,6 +301,12 @@ async function getAnime() {
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
         <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
 </head>
+<style>
+body {
+  background: #c43c06;
+}
+
+</style>
 
 <body>
   <div class="wrap"></div>

@@ -18,10 +18,9 @@
     },
 
     setEvents: function () {
+      var url = "ffmpeg https://d35r.bazonserver.site/manifest/92616/1/s1e1_720.mp4/index.m3u8?hash=_Ccs3TIRcDoS6VxolfwMsQ&expires=1681785006&id=92616&s=1&name=s1e1_720.mp4"
       $$log(url)
       var stb = gSTB;
-      var url =
-        "ffmpeg https://x45y.bazonserver.site/manifest/31255/1/s1e1_720.mp4/index.m3u8?hash=ZNtLW5bPR_IZuh7fKqHe3w&expires=1681782852&id=31255&s=1&name=s1e1_720.mp4";
       stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
