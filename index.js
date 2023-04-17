@@ -180,7 +180,7 @@ async function getAnime() {
         var id = req.url.split("=").pop();
         if (item.kinopoisk_id === id) {
           fetch(
-            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.32.136`
+            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=192.168.0.107`
           )
             .then((response) => {
               return response.json();
@@ -212,9 +212,16 @@ async function getAnime() {
     },
 
     setEvents: function () {
-      var url = "${data4}"
+      var getUrl = "${data4}"
+      var url = "ffmpeg" + url
       $$log(url)
-      
+      var stb = gSTB;
+      stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.PlaySolution(url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
