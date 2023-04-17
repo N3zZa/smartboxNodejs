@@ -18,8 +18,8 @@
     },
 
     setEvents: function () {
-      var getUrl = "https://c45n.bazonserver.site/manifest/92316/1/s1e1_720.mp4/index.m3u8?hash=Vup5HTc4lVUrbZoTTR-T6g&expires=1681802918&id=92316&s=1&name=s1e1_720.mp4"
-      var url = "ffmpeg" + " " + url
+      var url = "ffmpeg https://c45n.bazonserver.site/manifest/92316/1/s1e1_720.mp4/index.m3u8?hash=cTSM5nTzu3S_uzO90fXB8g&expires=1681803829&id=92316&s=1&name=s1e1_720.mp4"
+      console.log(url)
       $$log(url)
       var stb = gSTB;
       stb.InitPlayer();
