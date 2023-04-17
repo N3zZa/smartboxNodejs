@@ -2978,8 +2978,8 @@ SB.readyForPlatform("browser", function () {
       var ww = 1280;
       var wh = 720;
 
-      this.$video_container = $( '<video id="smart_player" style="position: absolute; left: 0; top: 0;width: ' +ww +"px; height: " +wh +'px;"><source type="application/x-mpegURL"></video>');
-      var video = this.$video_container;
+      this.$video_container = $('<video id="smart_player" style="position: absolute; left: 0; top: 0;width: ' +ww +"px; height: " +wh +'px;"></video>');
+      var video = this.$video_container[0];
       $("body").append(this.$video_container);
 
       this.$video_container.on("loadedmetadata", function () {
@@ -3038,9 +3038,8 @@ SB.readyForPlatform("browser", function () {
              */
     },
     _play: function (options) {
-      this.$video_container.children("source").attr("src", options.url);
-      var player = videojs("smart_player");
-      player.play();
+      this.$video_container.attr("src", options.url);
+      this.$video_container[0].play();
     },
     _stop: function () {
       this.$video_container[0].pause();

@@ -213,10 +213,14 @@ async function getAnime() {
 
     setEvents: function () {
       var url = "${data4}"
-      Player.play({
-        url: url,
-        type: "m3u8",
-      });
+      $$log(url)
+      var stb = gSTB;
+      stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(ffmpeg url);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
@@ -291,15 +295,9 @@ async function getAnime() {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-         <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
         <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        
-        <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
-<script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
-
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
         <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
 </head>
