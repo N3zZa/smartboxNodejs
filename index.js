@@ -214,13 +214,7 @@ async function getAnime() {
     setEvents: function () {
       var url = "${data4}"
       $$log(url)
-      var stb = gSTB;
-      stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.PlaySolution("ffmpeg", url);
+      
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
