@@ -19,11 +19,14 @@
 
     setEvents: function () {
       var url = "../js/animevideos/animeVideo.mp4"
+      var stb = gSTB;
       function playVideo() {
-        Player.play({
-        url: url,
-        type: 'vod',
-      })
+      stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)

@@ -8,7 +8,6 @@ var m3u8ToMp4 = require("m3u8-to-mp4");
 var converter = new m3u8ToMp4();
 
 app.use(express.static(__dirname));
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
