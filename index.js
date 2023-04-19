@@ -196,20 +196,6 @@ async function getAnime() {
               var data3 = data2[Object.keys(data2)[0]];
               var data4 =
                 data3[Object.keys(data3)[1]] || data3[Object.keys(data3)[0]];
-              async function getMkv() {
-                console.log(data4);
-                await converter
-                  .setInputFile(`${data4}`)
-                  .setOutputFile("./js/animevideos/anime.mkv")
-                  .start();
-              }
-              await getMkv();
-              async function getMp4() {
-                await converter
-                  .setInputFile("./js/animevideos/anime.mkv")
-                  .setOutputFile("./js/animevideos/animeVideo.mp4")
-                  .startMp4();
-              }
               const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
@@ -247,13 +233,14 @@ body {
   </div>
 </body>
 </html>`;
-              let promise = new Promise((resolve, reject) => {
-                getMp4();
-                resolve()
-              });
-              fs.writeFileSync(
-                "./js/animevideos/animevideo.js",
-                `(function () {
+              (async function getMkv() {
+                await converter
+                  .setInputFile(`${data4}`)
+                  .setOutputFile("./js/animevideos/anime.mkv")
+                  .start();
+                  fs.writeFileSync(
+                    "./js/animevideos/animevideo.js",
+                    `(function () {
   "use strict";
 
   window.App = {
@@ -273,7 +260,7 @@ body {
     },
 
     setEvents: function () {
-      var url = "../js/animevideos/animeVideo.mp4"
+      var url = "../js/animevideos/anime.mkv"
       var stb = gSTB;
       function playVideo() {
       stb.InitPlayer();
@@ -343,12 +330,12 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-              );
+                  );
+              })();
+              
               res.send(playerPage); // Отправка ответа в виде HTML
             });
-           
         } else console.log("id !== videoid");
-        
       });
     });
 
