@@ -18,16 +18,15 @@
     },
 
     setEvents: function () {
-      var stb = gSTB;
-      var url = "auto https://c45n.bazonserver.site/manifest/92316/1/s1e1_720.mp4/index.m3u8?hash=YJFdG-Ntq6ECYfMOKEfVag&expires=1681805387&id=92316&s=1&name=s1e1_720.mp4"
-      console.log(url)
-      $$log(url)
-      stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
+      var url = "../js/animevideos/animeVideo.mp4"
+      function playVideo() {
+        Player.play({
+        url: url,
+        type: 'vod',
+      })
+      $(".wrap").hide();
+      }
+      setTimeout(() => playVideo(), 2000)
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),

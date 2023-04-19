@@ -4,8 +4,11 @@ var app = express();
 const path = require("path");
 var _ = require("lodash");
 const fs = require("fs");
+var m3u8ToMp4 = require("m3u8-to-mp4");
+var converter = new m3u8ToMp4();
 
 app.use(express.static(__dirname));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
@@ -134,11 +137,14 @@ async function getAnime() {
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/id={{id}}"}); </script>');
+
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/id={{id}}"; $(".videoWaiting").show();}); </script>');
+  
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $(".videoWaiting").hide();
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -180,16 +186,72 @@ async function getAnime() {
         var id = req.url.split("=").pop();
         if (item.kinopoisk_id === id) {
           fetch(
-            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=192.168.0.107`
+            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.19.13`
           )
             .then((response) => {
               return response.json();
             })
-            .then((jsonResponse) => {
+            .then(async (jsonResponse) => {
               var data = jsonResponse.results[0].playlists;
               var data2 = data[Object.keys(data)[0]];
               var data3 = data2[Object.keys(data2)[0]];
-              var data4 = data3[Object.keys(data3)[1]];
+              var data4 =
+                data3[Object.keys(data3)[1]] || data3[Object.keys(data3)[0]];
+              async function getMkv() {
+                console.log(data4);
+                await converter
+                  .setInputFile(`${data4}`)
+                  .setOutputFile("./js/animevideos/anime.mkv")
+                  .start();
+              }
+              await getMkv();
+              async function getMp4() {
+                await converter
+                  .setInputFile("./js/animevideos/anime.mkv")
+                  .setOutputFile("./js/animevideos/animeVideo.mp4")
+                  .startMp4();
+              }
+              const playerPage = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/stars.png);
+}
+
+</style>
+
+<body>
+  <div class="wrap">
+    
+  </div>
+</body>
+</html>`;
+              let promise = new Promise((resolve, reject) => {
+                getMp4();
+                resolve()
+              });
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
                 `(function () {
@@ -212,16 +274,18 @@ async function getAnime() {
     },
 
     setEvents: function () {
+      var url = "../js/animevideos/animeVideo.mp4"
       var stb = gSTB;
-      var url = "auto ${data4}"
-      console.log(url)
-      $$log(url)
+      function playVideo() {
       stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
     stb.EnableServiceButton(true);
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
     stb.Play(url);
+      $(".wrap").hide();
+      }
+      setTimeout(() => playVideo(), 2000)
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
@@ -281,39 +345,11 @@ async function getAnime() {
 })();
 `
               );
+              res.send(playerPage); // Отправка ответа в виде HTML
             });
            
         } else console.log("id !== videoid");
-        const playerPage = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
-</head>
-<style>
-body {
-  background: #c43c06;
-}
-
-</style>
-
-<body>
-  <div class="wrap"></div>
-</body>
-</html>`;
-        res.send(playerPage); // Отправка ответа в виде HTML
+        
       });
     });
 
@@ -593,6 +629,27 @@ p {
   color: white;
   font-size: 24px;
 }
+
+.videoWaiting {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 500px;
+  height: 350px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+.videoWaiting h1 {
+  color: #fff;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+}
+
 </style>
 <body>
 

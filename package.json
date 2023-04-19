@@ -22,9 +22,12 @@
     "url": "https://github.com/immosmart/smartbox/issues"
   },
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "cors": "^2.8.5",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "ffmpeg": "^0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
     "grunt": "~0.4.2",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-concat": "~0.3.0",
@@ -35,6 +38,9 @@
     "load-grunt-tasks": "~0.2.1",
     "lodash": "^4.17.21",
     "lodash.template": "^4.5.0",
+    "m3u8_to_mpegts": "^1.0.1",
+    "m3u8-to-mp4": "^1.0.0",
+    "m3u8stream": "^0.8.6",
     "node-fetch": "^2.6.9",
     "now": "^21.0.1",
     "xhr2": "^0.2.1",

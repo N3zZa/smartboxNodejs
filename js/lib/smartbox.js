@@ -3039,7 +3039,7 @@ SB.readyForPlatform("browser", function () {
     },
     _play: function (options) {
       this.$video_container.attr("src", options.url);
-      this.$video_container[0].play();
+      this.$video_container[0].play()
     },
     _stop: function () {
       this.$video_container[0].pause();
