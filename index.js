@@ -9,7 +9,7 @@ var converter = new m3u8ToMp4();
 const AWS = require("aws-sdk");
 app.use(express.static(__dirname));
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
-
+const http = require("http");
 
 
 let s3 = new AWS.S3({
@@ -241,13 +241,16 @@ body {
     
   </div>
 </body>
-</html>`;
+</html>`;   const file = fs.createWriteStream("./js/animevideos/anime.m3u8");
+              http.get(`${data4}`, (response) => {
+              response.pipe(file);
+            });
             (async () => {
               s3.putObject({
                 Bucket: "videobucketnodejs",
                 key: "m3u8",
-                Body: `${data4}`,
-              })
+                Body: file,
+              });
             })
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
