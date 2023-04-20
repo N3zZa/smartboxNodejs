@@ -13,8 +13,8 @@ require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 
 let s3 = new AWS.S3({
   region: "eu-north-1",
-  accessKeyId: "AKIA5BIBGJSQZQVUQDW5",
-  secretAccessKey: "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",
+  accessKeyId: "AKIA5BIBGJSQ4BPSGX7B",
+  secretAccessKey: "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",
 });
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
@@ -250,13 +250,14 @@ body {
                  file.on("finish", function () {
                    // Upload the File
                    var params = {
-                     Bucket: "videobucketnodejs",
+                     Bucket: "smartbox",
                      Key: "animevideo.m3u8",
                      Body: file,
                    };
-                    s3.upload(params, function (err, data) {
-                      console.log(err, data);
-                    });
+                   s3.putObject(params, function (err, data) {
+                     console.log("err", err);
+                     console.log("data", data);
+                   });
                  });
                }
              );
