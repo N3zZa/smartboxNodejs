@@ -20,10 +20,6 @@
     setEvents: function () {
       var url = "../js/animevideos/anime.mkv"
       function playVideo() {
-      Player.play({
-        url: url,
-        type: 'vod'
-      });
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)

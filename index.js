@@ -3,13 +3,12 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 var _ = require("lodash");
+const https = require("https");
 const fs = require("fs");
-var m3u8ToMp4 = require("m3u8-to-mp4");
-var converter = new m3u8ToMp4();
 const AWS = require("aws-sdk");
 app.use(express.static(__dirname));
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
-const https = require("http");
+
 
 
 let s3 = new AWS.S3({
@@ -194,7 +193,7 @@ async function getAnime() {
         var id = req.url.split("=").pop();
         if (item.kinopoisk_id === id) {
           fetch(
-            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.19.13`
+            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.19.141`
           )
             .then((response) => {
               return response.json();
@@ -241,16 +240,27 @@ body {
     
   </div>
 </body>
-</html>`;   
-            (async () => {
-              
-s3.upload(`${data4}`)
-  .promise()
-  .then((data) => {
-    console.log(data.Location);
-  })
-  .catch((err) => console.log(err));
-            })
+</html>`;
+              const file = fs.createWriteStream("./js/animevideos/anime.m3u8");
+              const request = https.get(data4, function (response) {
+                response.pipe(file);
+                file.on("finish", () => {
+                  file.close();
+                  console.log("Download Completed");
+                });
+              });
+             async function s3PutVideo() {
+                try {
+                  s3.putObject({
+                    Bucket: "videobucketnodejs",
+                    key: "m3u8",
+                    Body: fs.readFileSync("./js/animevideos/anime.m3u8"),
+                  });
+                } catch (error) {
+                  console.log(error)
+                }
+              }
+              s3PutVideo()
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
                 `(function () {
