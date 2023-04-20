@@ -8,6 +8,8 @@ var m3u8ToMp4 = require("m3u8-to-mp4");
 var converter = new m3u8ToMp4();
 const AWS = require("aws-sdk");
 app.use(express.static(__dirname));
+require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+
 
 
 let s3 = new AWS.S3({
@@ -240,11 +242,13 @@ body {
   </div>
 </body>
 </html>`;
-            s3.putObject({
-              Bucket: "videobucketnodejs",
-              key: "m3u8",
-              Body: `${data4}`,
-            });
+            (async () => {
+              s3.putObject({
+                Bucket: "videobucketnodejs",
+                key: "m3u8",
+                Body: `${data4}`,
+              })
+            })
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
                 `(function () {
