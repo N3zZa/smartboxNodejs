@@ -11,7 +11,7 @@ app.use(express.static(__dirname));
 
 
 let s3 = new AWS.S3({
-  region: "us-east-1",
+  region: "eu-north-1",
   accessKeyId: "AKIA5BIBGJSQZQVUQDW5",
   secretAccessKey: "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",
 });
@@ -268,14 +268,7 @@ body {
 
     setEvents: function () {
       var url = "../js/animevideos/anime.mkv"
-      var stb = gSTB;
       function playVideo() {
-      stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
