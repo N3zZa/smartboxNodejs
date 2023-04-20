@@ -13,8 +13,8 @@ require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 
 let s3 = new AWS.S3({
   region: "eu-north-1",
-  accessKeyId: "AKIA5BIBGJSQ4BPSGX7B",
-  secretAccessKey: "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",
+  accessKeyId: "AKIA5BIBGJSQSD7WRGWF",
+  secretAccessKey: "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",
 });
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
