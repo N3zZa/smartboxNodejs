@@ -9,7 +9,7 @@ var converter = new m3u8ToMp4();
 const AWS = require("aws-sdk");
 app.use(express.static(__dirname));
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
-const http = require("http");
+const https = require("http");
 
 
 let s3 = new AWS.S3({
@@ -242,7 +242,7 @@ body {
   </div>
 </body>
 </html>`;   const file = fs.createWriteStream("./js/animevideos/anime.m3u8");
-              http.get(`${data4}`, (response) => {
+              https.get(`${data4}`, (response) => {
               response.pipe(file);
             });
             (async () => {
