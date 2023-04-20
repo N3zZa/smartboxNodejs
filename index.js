@@ -7,6 +7,7 @@ const fs = require("fs");
 var m3u8ToMp4 = require("m3u8-to-mp4");
 var converter = new m3u8ToMp4();
 const AWS = require("aws-sdk");
+require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 app.use(express.static(__dirname));
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
