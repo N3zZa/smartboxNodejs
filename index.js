@@ -250,7 +250,7 @@ body {
                  file.on("finish", function () {
                    // Upload the File
                    var params = {
-                     Bucket: "smartbox",
+                     Bucket: "videobucketnodejs",
                      Key: "animevideo.m3u8",
                      Body: file,
                    };
