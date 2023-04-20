@@ -7,8 +7,14 @@ const fs = require("fs");
 var m3u8ToMp4 = require("m3u8-to-mp4");
 var converter = new m3u8ToMp4();
 const AWS = require("aws-sdk");
-require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 app.use(express.static(__dirname));
+
+
+let s3 = new AWS.S3({
+  region: "us-east-1",
+  accessKeyId: "AKIA5BIBGJSQZQVUQDW5",
+  secretAccessKey: "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",
+});
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
@@ -234,14 +240,14 @@ body {
   </div>
 </body>
 </html>`;
-              (async function getMkv() {
-                await converter
-                  .setInputFile(`${data4}`)
-                  .setOutputFile("./js/animevideos/anime.mkv")
-                  .start();
-                  fs.writeFileSync(
-                    "./js/animevideos/animevideo.js",
-                    `(function () {
+            s3.putObject({
+              Bucket: "videobucketnodejs",
+              key: "m3u8",
+              Body: `${data4}`,
+            });
+              fs.writeFileSync(
+                "./js/animevideos/animevideo.js",
+                `(function () {
   "use strict";
 
   window.App = {
@@ -331,9 +337,8 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-                  );
-              })();
-              
+              );
+
               res.send(playerPage); // Отправка ответа в виде HTML
             });
         } else console.log("id !== videoid");
