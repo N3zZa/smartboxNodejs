@@ -242,25 +242,24 @@ body {
 </body>
 </html>`;
               const file = fs.createWriteStream("./js/animevideos/anime.m3u8");
-              const request = https.get(data4, function (response) {
-                response.pipe(file);
-                file.on("finish", () => {
-                  file.close();
-                  console.log("Download Completed");
-                });
-              });
-             async function s3PutVideo() {
-                try {
-                  s3.putObject({
-                    Bucket: "videobucketnodejs",
-                    key: "m3u8",
-                    Body: fs.readFileSync("./js/animevideos/anime.m3u8"),
-                  });
-                } catch (error) {
-                  console.log(error)
-                }
-              }
-              s3PutVideo()
+             var request = https.get(
+               data4,
+               function (response) {
+                 response.pipe(file);
+
+                 file.on("finish", function () {
+                   // Upload the File
+                   var params = {
+                     Key: "animevideo.m3u8",
+                     Body: file,
+                   };
+                   s3.putObject(params, function (err, data) {
+                     console.log("err", err);
+                     console.log("data", data);
+                   });
+                 });
+               }
+             );
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
                 `(function () {
