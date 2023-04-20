@@ -241,16 +241,15 @@ body {
     
   </div>
 </body>
-</html>`;   const file = fs.createWriteStream("./js/animevideos/anime.m3u8");
-              https.get(`${data4}`, (response) => {
-              response.pipe(file);
-            });
+</html>`;   
             (async () => {
-              s3.putObject({
-                Bucket: "videobucketnodejs",
-                key: "m3u8",
-                Body: file,
-              });
+              
+s3.upload(`${data4}`)
+  .promise()
+  .then((data) => {
+    console.log(data.Location);
+  })
+  .catch((err) => console.log(err));
             })
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
