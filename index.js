@@ -254,10 +254,9 @@ body {
                      Key: "animevideo.m3u8",
                      Body: file,
                    };
-                   s3.putObject(params, function (err, data) {
-                     console.log("err", err);
-                     console.log("data", data);
-                   });
+                    s3.upload(params, function (err, data) {
+                      console.log(err, data);
+                    });
                  });
                }
              );
