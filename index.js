@@ -5,16 +5,11 @@ const path = require("path");
 var _ = require("lodash");
 const https = require("https");
 const fs = require("fs");
-const AWS = require("aws-sdk");
-app.use(express.static(__dirname));
-require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+app.use('/', express.static(path.join(__dirname + '/public')));
 
 
-
-let s3 = new AWS.S3({
-  region: "eu-north-1",
-  accessKeyId: "AKIA5BIBGJSQSD7WRGWF",
-  secretAccessKey: "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",
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "/index.html")); // Отправка ответа в виде HTML
 });
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
@@ -65,7 +60,7 @@ async function sendAnime() {
   `
   );
   fs.writeFileSync(
-    "./js/anime/animeFilmPage.js",
+    "/public/js/anime/animeFilmPage.js",
     `(function () {
     "use strict"
 
@@ -83,7 +78,7 @@ async function getAnime() {
     const videosId = await fetchDataAnime;
     // используем movies в шаблонной строке:
     fs.writeFileSync(
-      "./js/scenes/animeVideosRender.js",
+      "/public/js/scenes/animeVideosRender.js",
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
@@ -140,7 +135,7 @@ async function getAnime() {
     `
     );
     fs.writeFileSync(
-      "./js/scenes/animeFilmInfo.js",
+      "/public/js/scenes/animeFilmInfo.js",
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
@@ -242,25 +237,22 @@ body {
 </body>
 </html>`;
               const file = fs.createWriteStream("./js/animevideos/anime.m3u8");
-             var request = https.get(
-               data4,
-               function (response) {
-                 response.pipe(file);
+              var request = https.get(data4, function (response) {
+                response.pipe(file);
 
-                 file.on("finish", function () {
-                   // Upload the File
-                   var params = {
-                     Bucket: "videobucketnodejs",
-                     Key: "animevideo.m3u8",
-                     Body: file,
-                   };
-                   s3.putObject(params, function (err, data) {
-                     console.log("err", err);
-                     console.log("data", data);
-                   });
-                 });
-               }
-             );
+                file.on("finish", function () {
+                  // Upload the File
+                  var params = {
+                    Bucket: "videobucketnodejs",
+                    Key: "animevideo.m3u8",
+                    Body: file,
+                  };
+                  s3.putObject(params, function (err, data) {
+                    console.log("err", err);
+                    console.log("data", data);
+                  });
+                });
+              });
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
                 `(function () {
@@ -354,370 +346,9 @@ body {
       });
     });
 
-    const message = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-
-        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="./js/app.js"></script>
-        <script type="text/javascript" src="./js/anime/animeFilmPage.js"></script>
-        <script type="text/javascript" src="./js/anime/animeVideos.js"></script>
-        <script type="text/javascript" src="./js/scenes/animeVideosRender.js"></script>
-        <script type="text/javascript" src="./js/scenes/animeFilmInfo.js"></script>
-        <script type="text/javascript" src="./js/scenes/navigation.js"></script>
-    <script type="text/javascript" src="./js/scenes/input.js"></script>
-
-    
-  
-</head>
-
-<style>
-
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-}
-
-p,
-h1, h2,
-h3, h4, li {
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-}
-.wrap {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 30px;
-}
-a {
-    text-decoration: none;
-}
-h2,
-h1 {
-    font-weight: 400;
-    margin: 10px 0;
-}
-.navbar {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    width: 100%;
-    justify-content: space-between;
-}
-.movieitem {
-    width: 140px;
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px;
-    cursor: pointer;
-    margin: 0 20px 10px 20px;
-}
-.movieitem h4 {
-  display: none;
-}
-
-.movieitem:hover h4{
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  text-shadow: 2px 0 2px #000, 
-0 3px 3px #000, 
--1px 0 1px #000, 
-0 -1px 1px #000;;
-}
-
-.movieitem:hover {
-    border-bottom: 5px solid yellow;
-    margin-bottom: -5px;
-    border-radius: 10px;
-}
-.film-title {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-}
-.film-title h2 {
-    font-size: 12px;
-}
-.film-title p {
-    color: yellow;
-}
-.movieitem p {
-    margin: 0;
-}
-.movieitem img {
-    height: 180px;
-}
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
-.focus p {
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  text-shadow: 2px 0 2px #000, 
-0 3px 3px #000, 
--1px 0 1px #000, 
-0 -1px 1px #000;;
- }
- .focus h4{
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  text-shadow: 2px 0 2px #000, 
-0 3px 3px #000, 
--1px 0 1px #000, 
-0 -1px 1px #000;;
- }
-
-video {
-    right:0;
-    width:100%;
-    z-index: 5;
-}
-.header img {
-    cursor: pointer;
-}
-.header {
-  display: flex;
-    align-items: center;
-    justify-content: space-around;
-    max-width: 1200px;
-}
-.header li {
-    list-style-type: none;
-    color: #fff;    
-    font-size: 23px;
-}
-.log-string {
-    position: absolute;
-    left: 50%;
-}
-.log-object {
-    position: absolute;
-        left: 50%;
-}
-.film-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-    }
-    li {
-        list-style-type: none;
-    }
-.film-info_inner {
-    display: flex;
-    padding: 40px;
-}
-.UconCinema_logo {
-    display: flex;
-    align-items: center;
-}
-p {
-    margin: 0;
-}
-
-.description {
-  max-width: 80%;
-}
-
-.logo_text h4 {
-    margin: 0;
-    color: #fff;
-}
-.film-main {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    max-width: 75%;
-}
-.film-info {
-    display: flex;
-}
-.film-info img {
-    width: 25%;
-    margin-bottom: 10px;
-    margin-right: 20px;
-}
-.film-dscrtn {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    padding-bottom: 40px;
-}
-.actors {
-    max-width: 80%;
-    margin-bottom: 15px;
-}
-.film-dscrtn h2 {
-    color: yellow;
-}
-.film-nav {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 0;
-    top: 0;
-    background: #553c64;
-    width: 30%;
-    height: 100%;
-}
-.film-nav_logo {
-    background: #3b3041;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.back {
-  display: flex;
-  align-items: center;
-    font-size: 22px;
-        padding: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.151);
-        margin-left: -40px;
-}
-.voiceover {
-    font-size: 22px;
-    padding: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.151);
-    margin-left: -40px;
-    padding-left: 40px;
-}
-
-.focus {
-    border-bottom: 5px solid yellow;
-    margin-bottom: -5px;
-    border-radius: 5px;
-}
-.bg {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url(./images/stars.png);
-            z-index: -1;
-        }
-.log-row {
-  color: white;
-  font-size: 24px;
-}
-
-.videoWaiting {
-  display: none;
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  width: 500px;
-  height: 350px;
-  background: #553c64;
-  border: 2px solid #fff;
-  border-radius: 10px;
-}
-.videoWaiting h1 {
-  color: #fff;
-  font-weight: bold;
-  font-family: 'Inter', sans-serif;
-}
-
-</style>
-<body>
-
-<div class="bg"></div>
-<div id="app" class="wrap">
-        <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-                <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
-    </div>
-    <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
-    </div>
-    <div class="scene scene_filmInfo film-container js-scene-filmInfo">
-    </div>
-    </div>
-    <script type='text/javascript'>
-
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
-        }
-    }
-    
-    
-
-    </script>
-</body>
-</html>`;
 
     app.get("/anime", (req, res) => {
-      res.send(message); // Отправка ответа в виде HTML
+      res.sendFile(path.join(__dirname + "/public/pages/anime.html")); // Отправка ответа в виде HTML
     });
   } catch (error) {
     console.error(error);
@@ -726,9 +357,7 @@ p {
 
 getAnime();
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
-});
+
 
 const port = process.env.PORT || 3000;
 app.listen(port);

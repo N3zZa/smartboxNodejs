@@ -4,3 +4,4 @@
 !aws-sdk/
 /doc/
 /nbproject/
+.vercel
