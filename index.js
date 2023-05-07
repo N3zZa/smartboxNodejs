@@ -15,7 +15,7 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-
+let animeVideoSeasons;
 // запросы для получения ссылок на видеофайл
 const fetchAnimeVideos = async () => {
   const videosId = await fetchDataAnime;
@@ -23,7 +23,8 @@ const fetchAnimeVideos = async () => {
     videosId.results.map((item) => {
       sParameter = encodeURIComponent(item.info.orig.trim());
       app.get("/anime/name=" + sParameter, (req, res) => {
-
+        console.log(item.info.orig);
+        animeVideoSeasons = item.episodes;
         for (var key of Object.keys(item.episodes)) {
           const requestData = {
             name: item.info.rus,
@@ -32,6 +33,7 @@ const fetchAnimeVideos = async () => {
             season: key,
             episode: Object.keys(item.episodes[key])[1],
           };
+          console.log(requestData.name);
           fetch(url, {
             method: "POST",
             body: JSON.stringify(requestData),
@@ -39,6 +41,7 @@ const fetchAnimeVideos = async () => {
           })
             .then((response) => response.json())
             .then((jsonResponse) => {
+              console.log(jsonResponse);
               const link = jsonResponse["1"];
               const videos = link["1080p"];
               const playerPage = `<!DOCTYPE html>
@@ -77,7 +80,8 @@ body {
     
   </div>
 </body>
-</html>`;
+</html>`; 
+
 
               fs.writeFileSync(
                 "./js/animevideos/animevideo.js",
@@ -171,11 +175,11 @@ body {
             })
             .catch((error) => console.error(error));
         }
+        return animeVideoSeasons;
       });
     });
 }
 fetchAnimeVideos()
-
 
 
 
@@ -198,6 +202,7 @@ const showAnime = async () => {
             director: '${element.info.director}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            seasons: '${element.episodes}'
           },
           `
     );
