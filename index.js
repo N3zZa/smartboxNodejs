@@ -17,28 +17,164 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 
 
 // запросы для получения ссылок на видеофайл
-const showAnimeVideos = async () => {
-  const fetch = require("node-fetch");
-
+const fetchAnimeVideos = async () => {
+  const videosId = await fetchDataAnime;
   const url = "http://localhost:8000/api/link";
-  const requestData = {
-    name: "Человек бензопила",
-    year: "2022",
-    country: "США",
-    season: "1",
-    episode: "5",
+    videosId.results.map((item) => {
+      sParameter = encodeURIComponent(item.info.orig.trim());
+      app.get("/anime/name=" + sParameter, (req, res) => {
+
+        for (var key of Object.keys(item.episodes)) {
+          const requestData = {
+            name: item.info.rus,
+            year: item.info.year,
+            country: item.info.country,
+            season: key,
+            episode: Object.keys(item.episodes[key])[1],
+          };
+          fetch(url, {
+            method: "POST",
+            body: JSON.stringify(requestData),
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+              const link = jsonResponse["1"];
+              const videos = link["1080p"];
+              const playerPage = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/stars.png);
+}
+
+</style>
+
+<body>
+  <div class="wrap">
+    
+  </div>
+</body>
+</html>`;
+
+              fs.writeFileSync(
+                "./js/animevideos/animevideo.js",
+                `(function () {
+  "use strict";
+
+  window.App = {
+    currentScene: null,
+    scenes: {},
+    isShown: true,
+
+    initialize: function () {
+      this.$wrap = $(".wrap");
+
+      $$legend.show();
+
+      this.setEvents();
+
+      // start navigation
+      $$nav.on();
+    },
+
+    setEvents: function () {
+      var url = ${videos}
+      function playVideo() {
+
+      $(".wrap").hide();
+      }
+      setTimeout(() => playVideo(), 2000)
+      $(document.body).on({
+        // on keyboard 'd' by default
+        "nav_key:blue": _.bind(this.toggleView, this),
+
+        // remote events
+        "nav_key:stop": function () {
+          Player.stop();
+        },
+        "nav_key:pause": function () {
+          Player.togglePause();
+        },
+        "nav_key:exit": function () {
+          SB.exit();
+        },
+      });
+
+      // toggling background when player start/stop
+      Player.on("ready", function () {
+        $$log("player ready");
+      });
+      Player.on("stop", function () {
+        $$log("player stop");
+      });
+    },
+
+    toggleView: function () {
+      if (this.isShown) {
+        this.$wrap.hide();
+        $$legend.hide();
+      } else {
+        this.$wrap.show();
+        $$legend.show();
+      }
+      this.isShown = !this.isShown;
+    },
+
+    showContent: function (scene) {
+      var cur = this.currentScene,
+        newScene = this.scenes[scene];
+
+      if (cur !== newScene) {
+        if (!newScene) {
+          $$error("Scene " + scene + " doesn't exist");
+        } else {
+          if (cur) {
+            cur.hide();
+          }
+          newScene.show();
+          this.currentScene = newScene;
+        }
+      }
+    },
   };
 
-  fetch(url, {
-    method: "POST",
-    body: JSON.stringify(requestData),
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error(error));
+  // main app initialize when smartbox ready
+  SB(_.bind(App.initialize, App));
+})();
+`
+              );
+
+              res.send(playerPage); // Отправка ответа в виде HTML
+            })
+            .catch((error) => console.error(error));
+        }
+      });
+    });
 }
-showAnimeVideos()
+fetchAnimeVideos()
 
 
 
@@ -47,7 +183,6 @@ showAnimeVideos()
 const showAnime = async () => {
   try {
     const commits = await fetchDataAnime;
-    
     let items = commits.results.map(
       (element) =>
         `{
@@ -56,6 +191,7 @@ const showAnime = async () => {
             type: 'vod',
             imgurl: '${element.info.poster}',
             title: '${element.info.rus}',
+            titleEng: '${element.info.orig}',
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
             actors: '${element.info.actors}',
@@ -168,7 +304,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/id={{id}}"; $(".videoWaiting").show();}); </script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/name={{titleEng}}"; $(".videoWaiting").show();}); </script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
@@ -210,155 +346,56 @@ async function getAnime() {
 })();
     `
     );
+    fs.writeFileSync(
+      "./js/scenes/animeFilmVideos.js",
+      `(function () {
+  var _inited;
+    _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-   /*  videosId.results.map((item) => {
-      app.get("/anime/id=" + item.kinopoisk_id, (req, res) => {
-        var id = req.url.split("=").pop();
-        if (item.kinopoisk_id === id) {
-          fetch(
-            `https://bazon.cc/api/playlist?token=a88d97e1788ae00830c4665ab33b7f87&kp=${id}&ref=&ip=178.121.19.141`
-          )
-            .then((response) => {
-              return response.json();
-            })
-            .then(async (jsonResponse) => {
-              console.log(jsonResponse.results);
-              var data = jsonResponse.results ? jsonResponse.results[0].playlists : 'none';
-              var data2 = data[Object.keys(data)[0]] ? data[Object.keys(data)[0]] : 'none second';
-              var data3 = data2[Object.keys(data2)[0]] ? data2[Object.keys(data2)[0]] : 'none third';
-              var data4 =
-                data3 !== 'none third' ? data3[Object.keys(data3)[1]] || data3[Object.keys(data3)[0]] : 'none fourth';
-              const playerPage = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
-</head>
-<style>
-body {
-  padding: 0;
-  margin: 0;
-}
-.wrap {
-  width: 100%;
-  height: 100%;
-  background-image: url(../images/stars.png);
-}
-
-</style>
-
-<body>
-  <div class="wrap">
-    
-  </div>
-</body>
-</html>`;
-            
-              fs.writeFileSync(
-                "./js/animevideos/animevideo.js",
-                `(function () {
-  "use strict";
-
-  window.App = {
-    currentScene: null,
-    scenes: {},
-    isShown: true,
-
-    initialize: function () {
-      this.$wrap = $(".wrap");
-
-      $$legend.show();
-
-      this.setEvents();
-
-      // start navigation
-      $$nav.on();
+  var videos = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-url="{{url}}" data-type="{{type}}"><h4>{{title}}</h4></div>')
+  
+  window.App.scenes.filmInfo = {
+    init: function () {
+      this.$el = $(".js-scene-filmInfo");
+      this.$el.on("click", ".back", this.onItemBackClick)
+      $(".videoWaiting").hide();
+      this.renderItems(App.filmInfo);
+      _inited = true;
+    },
+      onItemBackClick: function (e) {
+      var scene = e.currentTarget.getAttribute("data-content");
+      $(".header").show();
+      window.App.showContent(scene);
     },
 
-    setEvents: function () {
-      var url = ${data4}
-      function playVideo() {
-      $(".wrap").hide();
+
+    show: function () {
+      if (!_inited) {
+        this.init();
       }
-      setTimeout(() => playVideo(), 2000)
-      $(document.body).on({
-        // on keyboard 'd' by default
-        "nav_key:blue": _.bind(this.toggleView, this),
-
-        // remote events
-        "nav_key:stop": function () {
-          Player.stop();
-        },
-        "nav_key:pause": function () {
-          Player.togglePause();
-        },
-        "nav_key:exit": function () {
-          SB.exit();
-        },
-      });
-
-      // toggling background when player start/stop
-      Player.on("ready", function () {
-        $$log("player ready");
-      });
-      Player.on("stop", function () {
-        $$log("player stop");
-      });
+      this.$el.show();
     },
-
-    toggleView: function () {
-      if (this.isShown) {
-        this.$wrap.hide();
-        $$legend.hide();
-      } else {
-        this.$wrap.show();
-        $$legend.show();
-      }
-      this.isShown = !this.isShown;
+    hide: function () {
+      this.$el.hide();
     },
-
-    showContent: function (scene) {
-      var cur = this.currentScene,
-        newScene = this.scenes[scene];
-
-      if (cur !== newScene) {
-        if (!newScene) {
-          $$error("Scene " + scene + " doesn't exist");
-        } else {
-          if (cur) {
-            cur.hide();
-          }
-          newScene.show();
-          this.currentScene = newScene;
-        }
+    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
+    // handler for click event
+    // showing items from videos.js
+    renderItems: function (items) {
+      var filmhtml = "";
+      // console.log(items, itemHtml.toString())
+      for (var i = 0, len = items.length; i < len; i++) {
+        filmhtml += videos(items[i]);
       }
+      
+      this.$el.empty().html(filmhtml);
     },
   };
-
-  // main app initialize when smartbox ready
-  SB(_.bind(App.initialize, App));
 })();
-`
-              );
+    `
+    );
 
-              res.send(playerPage); // Отправка ответа в виде HTML
-            });
-        } else console.log("id !== videoid");
-      });
-    });
- */
+  
     const message = `<!DOCTYPE html>
 <html lang="en">
 

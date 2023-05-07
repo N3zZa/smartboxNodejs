@@ -18,7 +18,6 @@
     },
 
     setEvents: function () {
-      var url = n
       function playVideo() {
       $(".wrap").hide();
       }
