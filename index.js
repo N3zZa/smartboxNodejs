@@ -3,17 +3,9 @@ const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
 var _ = require("lodash");
-const https = require("https");
 const fs = require("fs");
-const AWS = require("aws-sdk");
 app.use(express.static(__dirname));
-require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 
-let s3 = new AWS.S3({
-  region: "eu-north-1",
-  accessKeyId: "AKIA5BIBGJSQSD7WRGWF",
-  secretAccessKey: "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",
-});
 
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
@@ -51,7 +43,7 @@ showAnimeVideos()
 
 
 
-
+// получение данных с запроса и создание объекта с данными запроса
 const showAnime = async () => {
   try {
     const commits = await fetchDataAnime;
@@ -79,6 +71,8 @@ const showAnime = async () => {
   }
 };
 
+
+// создание файлов, в которых будут массивы с объектами, для работы с document
 async function sendAnime() {
   const movies = await showAnime();
   const movieItems = movies.join("");
@@ -107,10 +101,10 @@ async function sendAnime() {
 }
 sendAnime();
 
+
+// создание двух файлов, в которых передаются элементы html фильмов со своими данными, а также вывод полной страницы 
 async function getAnime() {
   try {
-    const videosId = await fetchDataAnime;
-    // используем movies в шаблонной строке:
     fs.writeFileSync(
       "./js/scenes/animeVideosRender.js",
       `(function () {
