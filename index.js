@@ -18,13 +18,44 @@ let s3 = new AWS.S3({
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
 
+ // Делаем запрос для получения списка аниме
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
+
+// запросы для получения ссылок на видеофайл
+const showAnimeVideos = async () => {
+  const fetch = require("node-fetch");
+
+  const url = "http://localhost:8000/api/link";
+  const requestData = {
+    name: "Человек бензопила",
+    year: "2022",
+    country: "США",
+    season: "1",
+    episode: "5",
+  };
+
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify(requestData),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
+}
+showAnimeVideos()
+
+
+
+
+
 const showAnime = async () => {
   try {
     const commits = await fetchDataAnime;
+    
     let items = commits.results.map(
       (element) =>
         `{
