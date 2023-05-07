@@ -3,6 +3,21 @@
 
     window.App.filmInfo = [
       {
+            id: '1432450',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1432450.jpg',
+            title: 'Нулевой Эдем',
+            titleEng: 'Edens Zero',
+            created: '2021',
+            filmPageId: 'filmid1432450',
+            actors: 'Такума Тэрасима,Микако Комацу,Риэ Кугимия',
+            director: 'Синдзи Исихира,Юдзи Судзуки',
+            country: 'Япония',
+            text: 'Сики — единственный человек в королевстве Гранбелл, населённом исключительно роботами. Однажды туда приезжает девушка Ребекка с котом Хэппи, и пока парень радуется первому увиденному человеку, его соседи решают устроить робовосстание, и обстановка накаляется. Тогда Сики присоединяется к новым друзьям и на звездолете отправляется исследовать космос.',
+            seasons: '[object Object]'
+          },
+          {
             id: '5072545',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -165,21 +180,6 @@
             director: 'Хироси Икэхата',
             country: 'Япония',
             text: 'Наса Юзаки — без пяти минут выпускник школы с очень забавным именем. Он работает над собой не покладая рук, желая перестать быть объектом насмешек окружающих и поступить в самую престижную академию страны. Наса Юзаки свято верит, что судьба в его руках. Но за день до экзаменов он случайно встречает загадочную девушку по имени Цукаса, которая очаровывает его. В этот же день Наса признаётся девушке в чувствах, на что она отвечает: «Я буду встречаться с тобой, только если ты женишься на мне». После этого она исчезает и появляется лишь через несколько лет на пороге дома Юзаки. Так и началась красивая и очаровательная история любви молодожён.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1432450',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1432450.jpg',
-            title: 'Нулевой Эдем',
-            titleEng: 'Edens Zero',
-            created: '2021',
-            filmPageId: 'filmid1432450',
-            actors: 'Такума Тэрасима,Микако Комацу,Риэ Кугимия',
-            director: 'Синдзи Исихира,Юдзи Судзуки',
-            country: 'Япония',
-            text: 'Сики — единственный человек в королевстве Гранбелл, населённом исключительно роботами. Однажды туда приезжает девушка Ребекка с котом Хэппи, и пока парень радуется первому увиденному человеку, его соседи решают устроить робовосстание, и обстановка накаляется. Тогда Сики присоединяется к новым друзьям и на звездолете отправляется исследовать космос.',
             seasons: '[object Object]'
           },
           {

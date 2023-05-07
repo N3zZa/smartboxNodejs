@@ -15,7 +15,6 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-let animeVideoSeasons;
 // запросы для получения ссылок на видеофайл
 const fetchAnimeVideos = async () => {
   const videosId = await fetchDataAnime;
@@ -23,15 +22,16 @@ const fetchAnimeVideos = async () => {
     videosId.results.map((item) => {
       sParameter = encodeURIComponent(item.info.orig.trim());
       app.get("/anime/name=" + sParameter, (req, res) => {
-        animeVideoSeasons = item.episodes;
+        let animeVideoSeasons = item.episodes;
         for (var key of Object.keys(item.episodes)) {
           const requestData = {
             name: item.info.rus,
             year: item.info.year,
             country: item.info.country,
             season: key,
-            episode: Object.keys(item.episodes[key])[1],
+            episode: Object.keys(animeVideoSeasons)[key],
           };
+          console.log(requestData);
           fetch(url, {
             method: "POST",
             body: JSON.stringify(requestData),
@@ -40,9 +40,8 @@ const fetchAnimeVideos = async () => {
             .then((response) => response.json())
             .then((jsonResponse) => {
               console.log(jsonResponse);
-              const link = jsonResponse[key.toString()];
-              console.log(link);
-              const videos = link["1080p"];
+              const link = jsonResponse.Link.videos;
+              const video = link["1080p"]
               const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +103,7 @@ body {
     },
 
     setEvents: function () {
-      var url = ${videos}
+      var url = ${video}
       function playVideo() {
 
       $(".wrap").hide();
@@ -178,7 +177,6 @@ body {
       });
     });
 }
-fetchAnimeVideos()
 
 
 
@@ -210,6 +208,9 @@ const showAnime = async () => {
     console.error(error);
   }
 };
+
+// вызов функции для получения ссылок
+fetchAnimeVideos();
 
 
 // создание файлов, в которых будут массивы с объектами, для работы с document
