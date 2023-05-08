@@ -18,12 +18,12 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 const fetchAnimeVideos = async () => {
   const videosId = await fetchDataAnime;
   const url = "http://localhost:8000/api/link";
-  videosId.results.map((item) => {
+  videosId.results.map((item, index) => {
     sParameter = encodeURIComponent(item.info.orig.trim());
+     let animeVideoSeasons = item.episodes ? item.episodes : "no episodes";
     app.get(
-      "/anime/name=" + sParameter + "&season=" + season + "&episode=" + episode,
+      "/anime/name=" + sParameter + "&season=" + Object.keys(animeVideoSeasons)[index] + "&episode=" + Object.keys(Object.keys(animeVideoSeasons)[index])[index],
       (req, res) => {
-        let animeVideoSeasons = item.episodes ? item.episodes : "no episodes";
         if (animeVideoSeasons !== "no episodes") {
           for (var key of Object.keys(animeVideoSeasons)) {
             const requestData = {
@@ -185,6 +185,7 @@ body {
               `{
                      season: '${element[0]}',
                      episode: '${Object.keys(element[1])[index]}',
+                     id: '${item.kinopoisk_id}';
                   },
           `
           );
@@ -479,7 +480,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li id="{{id}}" data-url="{{url}}" class="voiceover menu-item nav-item video-item">Озвучка 1</div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/name={{titleEng}}"; $(".videoWaiting").show();}); </script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" data-id="{{id}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items js-scene-serialSeasons" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li></div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div>');
   
   window.App.scenes.filmInfo = {
     init: function () {
@@ -527,21 +528,16 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var videos = _.template('<div data-content="serialSeasons" class="movieitem navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div>')
+  var videos = _.template('<div id="{{id}}" data-content="serialSeasons" class="movieitem navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/name={{titleEng}}"; $(".videoWaiting").show();}); </script>')
   
   window.App.scenes.serialSeasons = {
     init: function () {
-      this.$el = $(".js-scene-filmInfo");
-      this.$el.on("click", ".back", this.onItemBackClick)
+      this.$el = $(".js-scene-serialSeasons");
       $(".videoWaiting").hide();
-      this.renderItems(App.filmInfo);
+      this.renderItems(App.animeSerialSeasons);
       _inited = true;
     },
-      onItemBackClick: function (e) {
-      var scene = e.currentTarget.getAttribute("data-content");
-      $(".header").show();
-      window.App.showContent(scene);
-    },
+
 
 
     show: function () {
@@ -590,8 +586,10 @@ async function getAnime() {
         <script type="text/javascript" src="./js/app.js"></script>
         <script type="text/javascript" src="./js/anime/animeFilmPage.js"></script>
         <script type="text/javascript" src="./js/anime/animeVideos.js"></script>
+        <script type="text/javascript" src="./js/anime/animeSerialSeasons.js"></script>
         <script type="text/javascript" src="./js/scenes/animeVideosRender.js"></script>
         <script type="text/javascript" src="./js/scenes/animeFilmInfo.js"></script>
+        <script type="text/javascript" src="./js/scenes/animeFilmSeasons.js"></script>
         <script type="text/javascript" src="./js/scenes/navigation.js"></script>
     <script type="text/javascript" src="./js/scenes/input.js"></script>
 
