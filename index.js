@@ -6,11 +6,10 @@ var _ = require("lodash");
 const fs = require("fs");
 app.use(express.static(__dirname));
 
-
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
 
- // Делаем запрос для получения списка аниме
+// Делаем запрос для получения списка аниме
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
@@ -19,30 +18,39 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 const fetchAnimeVideos = async () => {
   const videosId = await fetchDataAnime;
   const url = "http://localhost:8000/api/link";
-    videosId.results.map((item) => {
-      sParameter = encodeURIComponent(item.info.orig.trim());
-      app.get("/anime/name=" + sParameter, (req, res) => {
-        let animeVideoSeasons = item.episodes;
-        for (var key of Object.keys(item.episodes)) {
-          const requestData = {
-            name: item.info.rus,
-            year: item.info.year,
-            country: item.info.country,
-            season: key,
-            episode: Object.keys(animeVideoSeasons)[key],
-          };
-          console.log(requestData);
-          fetch(url, {
-            method: "POST",
-            body: JSON.stringify(requestData),
-            headers: { "Content-Type": "application/json" },
-          })
-            .then((response) => response.json())
-            .then((jsonResponse) => {
-              console.log(jsonResponse);
-              const link = jsonResponse.Link.videos;
-              const video = link["1080p"]
-              const playerPage = `<!DOCTYPE html>
+  videosId.results.map((item) => {
+    sParameter = encodeURIComponent(item.info.orig.trim());
+    app.get(
+      "/anime/name=" + sParameter + "&season=" + season + "&episode=" + episode,
+      (req, res) => {
+        let animeVideoSeasons = item.episodes ? item.episodes : "no episodes";
+        if (animeVideoSeasons !== "no episodes") {
+          for (var key of Object.keys(animeVideoSeasons)) {
+            const requestData = {
+              name: item.info.rus,
+              year: item.info.year,
+              country: item.info.country,
+              season: key,
+              episode:
+                animeVideoSeasons !== "no seasons" &&
+                Object.keys(animeVideoSeasons)[key]
+                  ? Object.keys(animeVideoSeasons)[key]
+                  : "no episodes",
+            };
+            console.log("request data", requestData);
+            fetch(url, {
+              method: "POST",
+              body: JSON.stringify(requestData),
+              headers: { "Content-Type": "application/json" },
+            })
+              .then((response) => response.json())
+              .then((jsonResponse) => {
+                console.log("jsonResponse.Link", jsonResponse.Link);
+                const link = jsonResponse.Link.videos;
+                console.log("link", link);
+                const video = link["1080p"];
+                console.log("videoLink", video);
+                const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -78,12 +86,11 @@ body {
     
   </div>
 </body>
-</html>`; 
+</html>`;
 
-
-              fs.writeFileSync(
-                "./js/animevideos/animevideo.js",
-                `(function () {
+                fs.writeFileSync(
+                  "./js/animevideos/animevideo.js",
+                  `(function () {
   "use strict";
 
   window.App = {
@@ -167,18 +174,183 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
+                );
+
+                res.send(playerPage); // Отправка ответа в виде HTML
+              })
+              .catch((error) => console.error(error));
+          }
+          let items = Object.entries(animeVideoSeasons).map(
+            (element, index) =>
+              `{
+                     season: '${element[0]}',
+                     episode: '${Object.keys(element[1])[index]}',
+                  },
+          `
+          );
+          fs.writeFileSync(
+            "./js/anime/animeSerialSeasons.js",
+            `(function () {
+    "use strict"
+
+    window.App.animeSerialSeasons = [
+      ${items}
+    ] 
+  })();
+  `
+          );
+        } else {
+          const requestData = {
+            name: item.info.rus,
+            year: item.info.year,
+            country: item.info.country,
+          };
+          fetch(url, {
+            method: "POST",
+            body: JSON.stringify(requestData),
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+              console.log(jsonResponse);
+              const link = jsonResponse.Link.videos;
+              const video = link["1080p"];
+              const playerPage = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/stars.png);
+}
+
+</style>
+
+<body>
+  <div class="wrap">
+    
+  </div>
+</body>
+</html>`;
+
+              fs.writeFileSync(
+                "./js/animevideos/animevideo.js",
+                `(function () {
+  "use strict";
+
+  window.App = {
+    currentScene: null,
+    scenes: {},
+    isShown: true,
+
+    initialize: function () {
+      this.$wrap = $(".wrap");
+
+      $$legend.show();
+
+      this.setEvents();
+
+      // start navigation
+      $$nav.on();
+    },
+
+    setEvents: function () {
+      var url = ${video}
+      function playVideo() {
+        Player.play({
+            url: url,
+        });
+      $(".wrap").hide();
+      }
+      setTimeout(() => playVideo(), 1000)
+      $(document.body).on({
+        // on keyboard 'd' by default
+        "nav_key:blue": _.bind(this.toggleView, this),
+
+        // remote events
+        "nav_key:stop": function () {
+          Player.stop();
+        },
+        "nav_key:pause": function () {
+          Player.togglePause();
+        },
+        "nav_key:exit": function () {
+          SB.exit();
+        },
+      });
+
+      // toggling background when player start/stop
+      Player.on("ready", function () {
+        $$log("player ready");
+      });
+      Player.on("stop", function () {
+        $$log("player stop");
+      });
+    },
+
+    toggleView: function () {
+      if (this.isShown) {
+        this.$wrap.hide();
+        $$legend.hide();
+      } else {
+        this.$wrap.show();
+        $$legend.show();
+      }
+      this.isShown = !this.isShown;
+    },
+
+    showContent: function (scene) {
+      var cur = this.currentScene,
+        newScene = this.scenes[scene];
+
+      if (cur !== newScene) {
+        if (!newScene) {
+          $$error("Scene " + scene + " doesn't exist");
+        } else {
+          if (cur) {
+            cur.hide();
+          }
+          newScene.show();
+          this.currentScene = newScene;
+        }
+      }
+    },
+  };
+
+  // main app initialize when smartbox ready
+  SB(_.bind(App.initialize, App));
+})();
+`
               );
 
               res.send(playerPage); // Отправка ответа в виде HTML
             })
             .catch((error) => console.error(error));
         }
-        return animeVideoSeasons;
-      });
-    });
-}
-
-
+      }
+    );
+  });
+};
 
 // получение данных с запроса и создание объекта с данными запроса
 const showAnime = async () => {
@@ -212,7 +384,6 @@ const showAnime = async () => {
 // вызов функции для получения ссылок
 fetchAnimeVideos();
 
-
 // создание файлов, в которых будут массивы с объектами, для работы с document
 async function sendAnime() {
   const movies = await showAnime();
@@ -242,8 +413,7 @@ async function sendAnime() {
 }
 sendAnime();
 
-
-// создание двух файлов, в которых передаются элементы html фильмов со своими данными, а также вывод полной страницы 
+// создание двух файлов, в которых передаются элементы html фильмов со своими данными, а также вывод полной страницы
 async function getAnime() {
   try {
     fs.writeFileSync(
@@ -352,14 +522,14 @@ async function getAnime() {
     `
     );
     fs.writeFileSync(
-      "./js/scenes/animeFilmVideos.js",
+      "./js/scenes/animeFilmSeasons.js",
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var videos = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-url="{{url}}" data-type="{{type}}"><h4>{{title}}</h4></div>')
+  var videos = _.template('<div data-content="serialSeasons" class="movieitem navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div>')
   
-  window.App.scenes.filmInfo = {
+  window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
@@ -400,7 +570,6 @@ async function getAnime() {
     `
     );
 
-  
     const message = `<!DOCTYPE html>
 <html lang="en">
 
