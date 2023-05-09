@@ -3,6 +3,36 @@
 
     window.App.filmInfo = [
       {
+            id: '5125425',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5125425.jpg',
+            title: 'Моя любовь 999 уровня к Ямаде',
+            titleEng: 'Yamada-kun to Lv999 no Koi wo Suru',
+            created: '2023',
+            filmPageId: 'filmid5125425',
+            actors: 'Инори Минасэ,Коки Утияма',
+            director: 'Морио Асака',
+            country: 'Япония',
+            text: 'Парень бросил Аканэ ради подружки по онлайн-игре. Раздосадованная девушка решает выпустить пар и оторваться на мобах, как вдруг сталкивается с нелюдимым Акито Ямадой, который, как выясняется, состоит с ней в одной гильдии. Постепенно Аканэ начинает испытывать к нему романтические чувства, но до замкнутого Акито, зацикленного на игре и работе, достучаться не так просто.',
+            seasons: '[object Object]'
+          },
+          {
+            id: '1115689',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1115689.jpg',
+            title: 'Свиной рамэн из Хакаты',
+            titleEng: 'Hakata Tonkotsu Ramens',
+            created: '2018',
+            filmPageId: 'filmid1115689',
+            actors: 'Даисукэ Оно,Юки Кадзи,Нацуми Фудзивара,Кэнсё Оно,Нобунага Симадзаки,Такэхито Коясу,Ацуси Имаруока,Сёта Ямамото,Даисукэ Намикава,Такая Курода',
+            director: 'Кэндзи Ясуда',
+            country: 'Япония',
+            text: 'На первый взгляд Фукуока – довольно мирный город, но на самом деле это пристанище опасных личностей, таких как убийцы, детективы и профессиональные мстители. Среди них - детектив Дзэндзи Банба и наемный убийца Линь Сяньмин, который сыт по горло отсутствием работы и маленькой зарплатой.Однажды, после того как цель Линя покончила жизнь самоубийством до того, как он смог до неё добраться, компания отказалась ему платить. Разочарованный убийца просит другую работу, и ему заказывают Банбу, который, как считает его организация, мешает их бизнесу. Однако вместо этого Линь предлагает детективу объединиться.  ',
+            seasons: '[object Object]'
+          },
+          {
             id: '1228854',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -603,21 +633,6 @@
             seasons: 'undefined'
           },
           {
-            id: '5125425',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5125425.jpg',
-            title: 'Моя любовь 999 уровня к Ямаде',
-            titleEng: 'Yamada-kun to Lv999 no Koi wo Suru',
-            created: '2023',
-            filmPageId: 'filmid5125425',
-            actors: 'Инори Минасэ,Коки Утияма',
-            director: 'Морио Асака',
-            country: 'Япония',
-            text: 'Парень бросил Аканэ ради подружки по онлайн-игре. Раздосадованная девушка решает выпустить пар и оторваться на мобах, как вдруг сталкивается с нелюдимым Акито Ямадой, который, как выясняется, состоит с ней в одной гильдии. Постепенно Аканэ начинает испытывать к нему романтические чувства, но до замкнутого Акито, зацикленного на игре и работе, достучаться не так просто.',
-            seasons: '[object Object]'
-          },
-          {
             id: '47245',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -735,21 +750,6 @@
             director: 'Такуя Игараси',
             country: 'Япония',
             text: 'Ацуси Накадзиму размашистым пинком выставили из сиротского приюта. В порыве безудержного гнева вперемешку с горькой обидой он решил, что единственный способ выжить — грабеж средь бела дня. На счастье возле реки, где пару минут назад Ацуси готов был покончить с собой, пролегала дорога. Осталось только затаиться и ждать. Плюх. Что это? Чьи-то ноги торчат из воды. Бульк. Режим «спасатель» активирован! И вот, мгновенно позабыв о грабеже уставших путников и караванов, Ацуси бросается в реку на выручку незадачливому «поплавку». Которым оказывается молодой человек, недовольный тем, что его причудливую попытку самоубийства сорвали. Позже озадаченный Ацуси узнает, что имя несостоявшегося утопленника — Осаму Дадзай, и что он работает в специальном Вооруженном детективном агентстве, штатные сыщики которого обладают сверхъестественными способностями. Когда полиция и военные бессильны — обращаются к ним. В этот раз Осаму и его напарнику предстоит охота на опасного зверя, терроризирующего округу. И как-то так получилось, что именно этот зверь стал причиной изгнания Ацуси.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '425928',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_425928.jpg',
-            title: 'Мобильный воин Гандам 00',
-            titleEng: 'Kidô Senshi Gundam 00',
-            created: '2007',
-            filmPageId: 'filmid425928',
-            actors: 'Сэм Винсент,Мамору Мияно,Синъитиро Мики,Хироюки Ёсино,Хироси Камия,Брэд Свэйл,Алекс Захара,Ричард Иэн Кокс,Гейб Хаут,Лиза Энн Бели',
-            director: 'Сэидзи Мидзусима',
-            country: 'Япония',
-            text: 'Когда запасы полезных ископаемых на планете начали иссякать, на околоземной орбите был построен огромный комплекс по переработке солнечной энергии. С Землёй комплекс был соединён тремя орбитальными лифтами. Каждый из лифтов контролируется одной из трёх международных организаций (Союз, Реформационная лига, Новый Европейский Союз), вокруг которых сосредоточены все остальные страны мира. Появление практически неисчерпаемого источника энергии, однако, не привело к прекращению войн и конфликтов. В 2307 году начинает действовать таинственная организация «Celestial Being». Она обладает отрядом мобильных доспехов Gundam, превосходящих все существующие образцы и объявляет своей целью прекращение всех военных конфликтов на планете.',
             seasons: '[object Object]'
           },
           

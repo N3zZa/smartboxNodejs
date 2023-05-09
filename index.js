@@ -176,6 +176,26 @@ const fetchAnimeVideos = async () => {
      let videoSeasonsArrays = item.episodes ? Object.keys(item.episodes).map((item) => item) : "no episodes";
      const videoSeasons = videoSeasonsArrays !== "no episodes" ? videoSeasonsArrays.map(season => {
       const videoEpisodesArr = Object.keys(videoSeasonsArrays).map((episode) => {
+        let items = Object.entries(videoSeasons).map(
+          (element, index) =>
+            `{
+                     season: '${element[0]}',
+                     episode: '${Object.keys(element[1])[index]}',
+                     id: '${item.kinopoisk_id}';
+                  },
+          `
+        );
+        fs.writeFileSync(
+          "./js/anime/animeSerialSeasons.js",
+          `(function () {
+    "use strict"
+
+    window.App.animeSerialSeasons = [
+      ${items}
+    ] 
+  })();
+  `
+        );
            app.get(
              "/anime/name=" +
                sParameter +
@@ -187,27 +207,6 @@ const fetchAnimeVideos = async () => {
                  for (var key of Object.keys(item.episodes)) {
                   getMp4Videos(item, season, episode, "animevideos", "animevideo");
                  }
-                 let items = Object.entries(videoSeasons).map(
-                   (element, index) =>
-                     `{
-                     season: '${element[0]}',
-                     episode: '${Object.keys(element[1])[index]}',
-                     id: '${item.kinopoisk_id}';
-                  },
-          `
-                 );
-                 fs.writeFileSync(
-                   "./js/anime/animeSerialSeasons.js",
-                   `(function () {
-    "use strict"
-
-    window.App.animeSerialSeasons = [
-      ${items}
-    ] 
-  })();
-  `
-                 );
-               
              }
            );
       }
