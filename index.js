@@ -15,42 +15,29 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 });
 
 // запросы для получения ссылок на видеофайл
-const fetchAnimeVideos = async () => {
-  const videosId = await fetchDataAnime;
-  const url = "http://localhost:8000/api/link";
-  videosId.results.map((item, index) => {
-    sParameter = encodeURIComponent(item.info.orig.trim());
-     let animeVideoSeasons = item.episodes ? item.episodes : "no episodes";
-    app.get(
-      "/anime/name=" + sParameter + "&season=" + Object.keys(animeVideoSeasons)[index] + "&episode=" + Object.keys(Object.keys(animeVideoSeasons)[index])[index],
-      (req, res) => {
-        if (animeVideoSeasons !== "no episodes") {
-          for (var key of Object.keys(animeVideoSeasons)) {
-            const requestData = {
-              name: item.info.rus,
-              year: item.info.year,
-              country: item.info.country,
-              season: key,
-              episode:
-                animeVideoSeasons !== "no seasons" &&
-                Object.keys(animeVideoSeasons)[key]
-                  ? Object.keys(animeVideoSeasons)[key]
-                  : "no episodes",
-            };
-            console.log("request data", requestData);
-            fetch(url, {
-              method: "POST",
-              body: JSON.stringify(requestData),
-              headers: { "Content-Type": "application/json" },
-            })
-              .then((response) => response.json())
-              .then((jsonResponse) => {
-                console.log("jsonResponse.Link", jsonResponse.Link);
-                const link = jsonResponse.Link.videos;
-                console.log("link", link);
-                const video = link["1080p"];
-                console.log("videoLink", video);
-                const playerPage = `<!DOCTYPE html>
+
+function getMp4Videos(item, season, episode, way, file) {
+  const requestData = {
+    name: item.info.rus,
+    year: item.info.year,
+    country: item.info.country,
+    season: season,
+    episode: episode,
+  };
+  console.log("request data", requestData);
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify(requestData),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      console.log("jsonResponse.Link", jsonResponse.Link);
+      const link = jsonResponse.Link.videos;
+      console.log("link", link);
+      const video = link["1080p"];
+      console.log("videoLink", video);
+      const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -66,7 +53,7 @@ const fetchAnimeVideos = async () => {
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
+        <script type="text/javascript" src="../js/playVideo.js"></script>
 </head>
 <style>
 body {
@@ -88,9 +75,9 @@ body {
 </body>
 </html>`;
 
-                fs.writeFileSync(
-                  "./js/animevideos/animevideo.js",
-                  `(function () {
+      fs.writeFileSync(
+        `./js/${way}/${file}.js`,
+        `(function () {
   "use strict";
 
   window.App = {
@@ -174,24 +161,44 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-                );
+      );
 
-                res.send(playerPage); // Отправка ответа в виде HTML
-              })
-              .catch((error) => console.error(error));
-          }
-          let items = Object.entries(animeVideoSeasons).map(
-            (element, index) =>
-              `{
+      res.send(playerPage); // Отправка ответа в виде HTML
+    })
+    .catch((error) => console.error(error));
+} 
+
+const fetchAnimeVideos = async () => {
+  const videosId = await fetchDataAnime;
+  const url = "http://localhost:8000/api/link";
+  videosId.results.map((item) => {
+    sParameter = encodeURIComponent(item.info.orig.trim());
+     let videoSeasonsArrays = item.episodes ? Object.keys(item.episodes).map((item) => item) : "no episodes";
+     const videoSeasons = videoSeasonsArrays !== "no episodes" ? videoSeasonsArrays.map(season => {
+      const videoEpisodesArr = Object.keys(videoSeasonsArrays).map((episode) => {
+           app.get(
+             "/anime/name=" +
+               sParameter +
+               "&season=" +
+               season +
+               "&episode=" +
+               episode,
+             (req, res) => {
+                 for (var key of Object.keys(item.episodes)) {
+                  getMp4Videos(item, season, episode, "animevideos", "animevideo");
+                 }
+                 let items = Object.entries(videoSeasons).map(
+                   (element, index) =>
+                     `{
                      season: '${element[0]}',
                      episode: '${Object.keys(element[1])[index]}',
                      id: '${item.kinopoisk_id}';
                   },
           `
-          );
-          fs.writeFileSync(
-            "./js/anime/animeSerialSeasons.js",
-            `(function () {
+                 );
+                 fs.writeFileSync(
+                   "./js/anime/animeSerialSeasons.js",
+                   `(function () {
     "use strict"
 
     window.App.animeSerialSeasons = [
@@ -199,24 +206,30 @@ body {
     ] 
   })();
   `
-          );
-        } else {
-          const requestData = {
-            name: item.info.rus,
-            year: item.info.year,
-            country: item.info.country,
-          };
-          fetch(url, {
-            method: "POST",
-            body: JSON.stringify(requestData),
-            headers: { "Content-Type": "application/json" },
-          })
-            .then((response) => response.json())
-            .then((jsonResponse) => {
-              console.log(jsonResponse);
-              const link = jsonResponse.Link.videos;
-              const video = link["1080p"];
-              const playerPage = `<!DOCTYPE html>
+                 );
+               
+             }
+           );
+      }
+      );
+      return videoEpisodesArr;
+     }) : () => {
+        const requestData = {
+          name: item.info.rus,
+          year: item.info.year,
+          country: item.info.country,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(requestData),
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            console.log(jsonResponse);
+            const link = jsonResponse.Link.videos;
+            const video = link["1080p"];
+            const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -232,7 +245,7 @@ body {
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/animevideos/animevideo.js"></script>
+        <script type="text/javascript" src="../js/playVideo.js"></script>
 </head>
 <style>
 body {
@@ -254,9 +267,9 @@ body {
 </body>
 </html>`;
 
-              fs.writeFileSync(
-                "./js/animevideos/animevideo.js",
-                `(function () {
+            fs.writeFileSync(
+              "./js/playVideo.js",
+              `(function () {
   "use strict";
 
   window.App = {
@@ -342,14 +355,15 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-              );
+            );
 
-              res.send(playerPage); // Отправка ответа в виде HTML
-            })
-            .catch((error) => console.error(error));
-        }
-      }
-    );
+            res.send(playerPage); // Отправка ответа в виде HTML
+          })
+          .catch((error) => console.error(error));
+     };
+     
+     
+   
   });
 };
 

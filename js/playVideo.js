@@ -19,9 +19,10 @@
 
     setEvents: function () {
       function playVideo() {
-      $(".wrap").hide();
+        
+        $(".wrap").hide();
       }
-      setTimeout(() => playVideo(), 2000)
+      setTimeout(() => playVideo(), 2000);
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
