@@ -173,13 +173,13 @@ const fetchAnimeVideos = async () => {
   const url = "http://localhost:8000/api/link";
   videosId.results.map((item) => {
     sParameter = encodeURIComponent(item.info.orig.trim());
-     let videoSeasonsArrays = item.episodes ? Object.keys(item.episodes).map((item) => item) : "no episodes";
-     const videoSeasons = videoSeasonsArrays !== "no episodes" ? videoSeasonsArrays.map(season => {
-      const videoEpisodesArr = Object.keys(videoSeasonsArrays).map((episode) => {
-        let items = Object.entries(videoSeasons).map(
+    let videoSeasonsArrays = item.episodes ? Object.keys(item.episodes).map((item) => item) : "no episodes";
+     videoSeasonsArrays !== "no episodes" ? videoSeasonsArrays.map(season => {
+      Object.keys(videoSeasonsArrays).map((episode) => {
+        let items = videoSeasonsArrays.map(
           (element, index) =>
             `{
-                     season: '${element[0]}',
+                     season: '${element[index]}',
                      episode: '${Object.keys(element[1])[index]}',
                      id: '${item.kinopoisk_id}';
                   },
@@ -211,7 +211,6 @@ const fetchAnimeVideos = async () => {
            );
       }
       );
-      return videoEpisodesArr;
      }) : () => {
         const requestData = {
           name: item.info.rus,
