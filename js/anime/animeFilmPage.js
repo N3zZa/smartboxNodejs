@@ -3,6 +3,51 @@
 
     window.App.filmInfo = [
       {
+            id: '676946',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_676946.jpg',
+            title: 'Санка Рэа',
+            titleEng: 'Sankarea',
+            created: '2012',
+            filmPageId: 'filmid676946',
+            actors: 'Аарон Дисмьюк,Тиа Линн Баллард,Джейми Марчи,Фелесиа Анджелл,Сиро Саито,Моника Риал,Майк МакФарланд,Райан Рейнольдс,Дэйв Троско,Дэвид Уолд',
+            director: 'Мамору Хатакэяма,Хироаки Нисимура,Сюндзи Ёсида',
+            country: 'Япония',
+            text: 'Фуруя, сын священника, одержим зомби. Он коллекционирует статуэтки, фильмы, видеоигры на зомби-тематику и мечтает о подружке нежити. Когда его любимого кота сбивает грузовик, Фуруя пытается оживить питомца с помощью оккультного ритуала в заброшенном доме. Там он и встречает Рею, красивую, но несчастную девушку из богатой семьи, которая желает умереть и переродиться  другим человеком.',
+            seasons: '[object Object]'
+          },
+          {
+            id: '1274280',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1274280.jpg',
+            title: 'Сага о Винланде',
+            titleEng: 'Vinland Saga',
+            created: '2019',
+            filmPageId: 'filmid1274280',
+            actors: 'Юто Уэмура',
+            director: 'Сюхэй Ябута',
+            country: 'Япония',
+            text: '1013 год. Исландский юноша Торфинн — сын одного из величайших воинов викингов. И когда его отца убивает в схватке предводитель дружины Аскеладд, юноша становится на путь воина и отправляется мстить. Будучи гордым и не желая бесчестной схватки, он вступает в дружину Аскеладда с целью победить его в поединке, но в итоге судьба затягивает его в водоворот кровавых событий эпохи, ставка в которых — корона Англии.',
+            seasons: '[object Object]'
+          },
+          {
+            id: '5238430',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5238430.jpg',
+            title: 'Бессонница после школы',
+            titleEng: 'Kimi wa Hokago Insomnia',
+            created: '2023',
+            filmPageId: 'filmid5238430',
+            actors: 'Гэн Сато,Konomi Tamura',
+            director: 'Yuki Ikeda',
+            country: 'Япония',
+            text: 'Сначала Наками и Исаки несколько неудобно чувствуют себя рядом друг с другом и стараются не мешать друг другу. Однако по мере того, как они проводят время вместе, они начинают лучше понимать друг друга и находить общие интересы. Они говорят о своих проблемах с бессонницей и о том, что их беспокоит в жизни. Они начинают помогать друг другу, чтобы справиться с этими проблемами.<br /><br />Вскоре Наками и Исаки становятся настоящими друзьями, и обсерватория становится их укрытием от шумного и тревожного мира вокруг них. Они проводят много времени в обсерватории, где обсуждают свои мечты и цели в жизни, делятся своими опасениями и находят утешение в друг друге.<br /><br />Таким образом, они нашли тот комфорт, который искали, и нашли друга, который помог им преодолеть их проблемы с бессонницей.',
+            seasons: '[object Object]'
+          },
+          {
             id: '5125425',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -438,21 +483,6 @@
             seasons: '[object Object]'
           },
           {
-            id: '1274280',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1274280.jpg',
-            title: 'Сага о Винланде',
-            titleEng: 'Vinland Saga',
-            created: '2019',
-            filmPageId: 'filmid1274280',
-            actors: 'Юто Уэмура',
-            director: 'Сюхэй Ябута',
-            country: 'Япония',
-            text: '1013 год. Исландский юноша Торфинн — сын одного из величайших воинов викингов. И когда его отца убивает в схватке предводитель дружины Аскеладд, юноша становится на путь воина и отправляется мстить. Будучи гордым и не желая бесчестной схватки, он вступает в дружину Аскеладда с целью победить его в поединке, но в итоге судьба затягивает его в водоворот кровавых событий эпохи, ставка в которых — корона Англии.',
-            seasons: '[object Object]'
-          },
-          {
             id: '5098559',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -720,36 +750,6 @@
             director: 'Такаюки Инагаки,Макото Мориваки,Тосикацу Токоро',
             country: 'Япония',
             text: 'Старшеклассник Канадэ Амакуса уже давно стал обладателем редкого дара. Любая мысль о выборе из двух вариантов, которая непроизвольно возникает в его голове, моментально воплощается в реальности. В результате жизнь парня превращается в сущий кошмар, а одноклассники считают его форменным психом. Однажды при очередном мультивыборе уставший Канадэ сгоряча желает, чтобы на него из ниоткуда свалилась красивая девушка. Что, собственно, тут же и происходит.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '5270353',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5270353.jpg',
-            title: 'Кулинарные скитания в параллельном мире',
-            titleEng: 'Tondemo Skill de Isekai Hourou Meshi',
-            created: '2023',
-            filmPageId: 'filmid5270353',
-            actors: 'Юма Утида,Сатоси Хино,Хина Кино,Маая Утида,Мотои Коянаги,Юко Каида,Рёта Такэути,Хисао Эгава,Ё Таити,Сахо Сирасу',
-            director: 'Киёси Мацуда,Парако Синохара,Тацуя Сасаки',
-            country: 'Япония',
-            text: 'Однажды обычный парень и умелый кулинар Цуёси Мукода волшебным образом переносится в сказочное королевство, которому позарез нужны герои. Вскоре выясняется, что Цуёси переместили по ошибке, ведь его главный навык — возможность приобретать современные продукты питания онлайн, а он в бою совершенно бесполезен. Покинув королевство, парень отправляется исследовать новый мир, а его кулинарные таланты вскоре окажутся весьма востребованными.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '975895',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_975895.jpg',
-            title: 'Проза бродячих псов',
-            titleEng: 'Bungo sutorei doggusu',
-            created: '2016',
-            filmPageId: 'filmid975895',
-            actors: 'Мамору Мияно,Юто Уэмура,Кэнсё Оно,Ёсимаса Хосоя,Тиаки Омигава,Тосиюки Тоёнага,Хироюки Кагура,Рикия Кояма,Мицуру Миямото,Сора Амамия',
-            director: 'Такуя Игараси',
-            country: 'Япония',
-            text: 'Ацуси Накадзиму размашистым пинком выставили из сиротского приюта. В порыве безудержного гнева вперемешку с горькой обидой он решил, что единственный способ выжить — грабеж средь бела дня. На счастье возле реки, где пару минут назад Ацуси готов был покончить с собой, пролегала дорога. Осталось только затаиться и ждать. Плюх. Что это? Чьи-то ноги торчат из воды. Бульк. Режим «спасатель» активирован! И вот, мгновенно позабыв о грабеже уставших путников и караванов, Ацуси бросается в реку на выручку незадачливому «поплавку». Которым оказывается молодой человек, недовольный тем, что его причудливую попытку самоубийства сорвали. Позже озадаченный Ацуси узнает, что имя несостоявшегося утопленника — Осаму Дадзай, и что он работает в специальном Вооруженном детективном агентстве, штатные сыщики которого обладают сверхъестественными способностями. Когда полиция и военные бессильны — обращаются к ним. В этот раз Осаму и его напарнику предстоит охота на опасного зверя, терроризирующего округу. И как-то так получилось, что именно этот зверь стал причиной изгнания Ацуси.',
             seasons: '[object Object]'
           },
           

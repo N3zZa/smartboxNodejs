@@ -179,8 +179,8 @@ const fetchAnimeVideos = async () => {
         let items = videoSeasonsArrays.map(
           (element, index) =>
             `{
-                     season: '${element[index]}',
-                     episode: '${Object.keys(element[1])[index]}',
+                     season: '${season}',
+                     episode: '${episode}',
                      id: '${item.kinopoisk_id}';
                   },
           `
