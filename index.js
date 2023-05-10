@@ -6,6 +6,7 @@ var _ = require("lodash");
 const fs = require("fs");
 app.use(express.static(__dirname));
 
+// API TOKEN
 const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
 
