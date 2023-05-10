@@ -3,6 +3,21 @@
 
     window.App.videos = [
       {
+            id: '1111673',
+            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1111673.jpg',
+            title: 'В другом мире со смартфоном',
+            titleEng: 'Isekai wa smartphone to tomo ni.',
+            created: '2017',
+            filmPageId: 'filmid1111673',
+            actors: 'Тинацу Акасаки,Сумирэ Уэсака,Кацуми Фукухара,Маая Утида,Юи Фукуо,Марика Коно,Нанами Ямасита,Маю Ёсиока,Кэндзи Хамада,Минако Котобуки',
+            director: 'Юдзи Янасэ',
+            country: 'Япония',
+            text: '15-летний Тоя случайно погиб от удара молнии. Так как этого не должно было случится, Бог предложил парню переродиться в фэнтезийном мире и предоставил ему в качестве извинения одно желание, которое парень обменял на возможность взять с собой смартфон.',
+            seasons: '[object Object]'
+          },
+          {
             id: '676946',
             url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
@@ -465,21 +480,6 @@
             director: 'Yuki Ikeda',
             country: 'Япония',
             text: 'Сначала Наками и Исаки несколько неудобно чувствуют себя рядом друг с другом и стараются не мешать друг другу. Однако по мере того, как они проводят время вместе, они начинают лучше понимать друг друга и находить общие интересы. Они говорят о своих проблемах с бессонницей и о том, что их беспокоит в жизни. Они начинают помогать друг другу, чтобы справиться с этими проблемами.<br /><br />Вскоре Наками и Исаки становятся настоящими друзьями, и обсерватория становится их укрытием от шумного и тревожного мира вокруг них. Они проводят много времени в обсерватории, где обсуждают свои мечты и цели в жизни, делятся своими опасениями и находят утешение в друг друге.<br /><br />Таким образом, они нашли тот комфорт, который искали, и нашли друга, который помог им преодолеть их проблемы с бессонницей.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1111673',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1111673.jpg',
-            title: 'В другом мире со смартфоном',
-            titleEng: 'Isekai wa smartphone to tomo ni.',
-            created: '2017',
-            filmPageId: 'filmid1111673',
-            actors: 'Тинацу Акасаки,Сумирэ Уэсака,Кацуми Фукухара,Маая Утида,Юи Фукуо,Марика Коно,Нанами Ямасита,Маю Ёсиока,Кэндзи Хамада,Минако Котобуки',
-            director: 'Юдзи Янасэ',
-            country: 'Япония',
-            text: '15-летний Тоя случайно погиб от удара молнии. Так как этого не должно было случится, Бог предложил парню переродиться в фэнтезийном мире и предоставил ему в качестве извинения одно желание, которое парень обменял на возможность взять с собой смартфон.',
             seasons: '[object Object]'
           },
           {

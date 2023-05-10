@@ -2,17 +2,16 @@
   var _inited;
     _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
-  var videos = _.template('<div id="{{id}}" data-content="serialSeasons" class="movieitem navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script type="text/javascript">var animeMovieId = document.getElementById("{{id}}"); animeMovieId.addEventListener("click", function (event) {document.location.href = "/anime/name={{titleEng}}"; $(".videoWaiting").show();}); </script>')
+  var videos = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div>')
   
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
+      this.$el.css('display', 'flex');
       $(".videoWaiting").hide();
       this.renderItems(App.animeSerialSeasons);
       _inited = true;
     },
-
-
 
     show: function () {
       if (!_inited) {
