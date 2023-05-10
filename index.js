@@ -14,30 +14,30 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
   return response.json();
 });
 
-// запросы для получения ссылок на видеофайл
-
+// функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
 function getMp4Videos(item, season, episode, way, file) {
-  const requestData = {
-    name: item.info.rus,
-    year: item.info.year,
-    country: item.info.country,
-    season: season,
-    episode: episode,
-  };
-  console.log("request data", requestData);
-  fetch(url, {
-    method: "POST",
-    body: JSON.stringify(requestData),
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-      console.log("jsonResponse.Link", jsonResponse.Link);
-      const link = jsonResponse.Link.videos;
-      console.log("link", link);
-      const video = link["1080p"];
-      console.log("videoLink", video);
-      const playerPage = `<!DOCTYPE html>
+  if (season !== undefined && episode !== undefined) {
+    const requestData = {
+      name: item.info.rus,
+      year: item.info.year,
+      country: item.info.country,
+      season: season,
+      episode: episode,
+    };
+    console.log("request data", requestData);
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(requestData),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        console.log("jsonResponse.Link", jsonResponse.Link);
+        const link = jsonResponse.Link.videos;
+        console.log("link", link);
+        const video = link["1080p"];
+        console.log("videoLink", video);
+        const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -75,9 +75,9 @@ body {
 </body>
 </html>`;
 
-      fs.writeFileSync(
-        `./js/${way}/${file}.js`,
-        `(function () {
+        fs.writeFileSync(
+          `./js/${way}/${file}.js`,
+          `(function () {
   "use strict";
 
   window.App = {
@@ -161,73 +161,31 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-      );
+        );
 
-      res.send(playerPage); // Отправка ответа в виде HTML
+        res.send(playerPage); // Отправка ответа в виде HTML
+      })
+      .catch((error) => console.error(error));
+  } else {
+    const requestData = {
+      name: item.info.rus,
+      year: item.info.year,
+      country: item.info.country,
+    };
+    console.log("request data", requestData);
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(requestData),
+      headers: { "Content-Type": "application/json" },
     })
-    .catch((error) => console.error(error));
-} 
-
-const fetchAnimeVideos = async () => {
-  const videosId = await fetchDataAnime;
-  const url = "http://localhost:8000/api/link";
-  videosId.results.map((item) => {
-    sParameter = encodeURIComponent(item.info.orig.trim());
-    let videoSeasonsArrays = item.episodes ? Object.keys(item.episodes).map((item) => item) : "no episodes";
-     videoSeasonsArrays !== "no episodes" ? videoSeasonsArrays.map(season => {
-      Object.keys(videoSeasonsArrays).map((episode) => {
-        let items = videoSeasonsArrays.map(
-          (element, index) =>
-            `{
-                     season: '${season}',
-                     episode: '${episode}',
-                     id: '${item.kinopoisk_id}';
-                  },
-          `
-        );
-        fs.writeFileSync(
-          "./js/anime/animeSerialSeasons.js",
-          `(function () {
-    "use strict"
-
-    window.App.animeSerialSeasons = [
-      ${items}
-    ] 
-  })();
-  `
-        );
-           app.get(
-             "/anime/name=" +
-               sParameter +
-               "&season=" +
-               season +
-               "&episode=" +
-               episode,
-             (req, res) => {
-                 for (var key of Object.keys(item.episodes)) {
-                  getMp4Videos(item, season, episode, "animevideos", "animevideo");
-                 }
-             }
-           );
-      }
-      );
-     }) : () => {
-        const requestData = {
-          name: item.info.rus,
-          year: item.info.year,
-          country: item.info.country,
-        };
-        fetch(url, {
-          method: "POST",
-          body: JSON.stringify(requestData),
-          headers: { "Content-Type": "application/json" },
-        })
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            console.log(jsonResponse);
-            const link = jsonResponse.Link.videos;
-            const video = link["1080p"];
-            const playerPage = `<!DOCTYPE html>
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        console.log("jsonResponse.Link", jsonResponse.Link);
+        const link = jsonResponse.Link.videos;
+        console.log("link", link);
+        const video = link["1080p"];
+        console.log("videoLink", video);
+        const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -265,9 +223,9 @@ body {
 </body>
 </html>`;
 
-            fs.writeFileSync(
-              "./js/playVideo.js",
-              `(function () {
+        fs.writeFileSync(
+          `./js/${way}/${file}.js`,
+          `(function () {
   "use strict";
 
   window.App = {
@@ -289,12 +247,10 @@ body {
     setEvents: function () {
       var url = ${video}
       function playVideo() {
-        Player.play({
-            url: url,
-        });
+
       $(".wrap").hide();
       }
-      setTimeout(() => playVideo(), 1000)
+      setTimeout(() => playVideo(), 2000)
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
@@ -353,15 +309,61 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-            );
+        );
 
-            res.send(playerPage); // Отправка ответа в виде HTML
-          })
-          .catch((error) => console.error(error));
+        res.send(playerPage); // Отправка ответа в виде HTML
+      })
+      .catch((error) => console.error(error));
+  }
+  
+} 
+
+const fetchAnimeVideos = async () => {
+  const videosId = await fetchDataAnime;
+  const url = "http://localhost:8000/api/link";
+  videosId.results.map((item) => {
+    sParameter = encodeURIComponent(item.info.orig.trim());
+    let videoSeasonsArrays = item.episodes ? Object.keys(item.episodes).map((item) => item) : "no episodes";
+     videoSeasonsArrays !== "no episodes" ? videoSeasonsArrays.map(season => {
+      Object.keys(videoSeasonsArrays).map((episode) => {
+        let items = videoSeasonsArrays.map(
+          (element, index) =>
+            `{
+                     season: '${season}',
+                     episode: '${episode}',
+                     id: '${item.kinopoisk_id}',
+                  },
+          `
+        );
+        fs.writeFileSync(
+          "./js/anime/animeSerialSeasons.js",
+          `(function () {
+    "use strict"
+
+    window.App.animeSerialSeasons = [
+      ${items}
+    ] 
+  })();
+  `
+        );
+           app.get(
+             "/anime/name=" +
+               sParameter +
+               "&season=" +
+               season +
+               "&episode=" +
+               episode,
+             (req, res) => {
+                 for (var key of Object.keys(item.episodes)) {
+                  getMp4Videos(item, season, episode, "animevideos", "animevideo");
+                 }
+             }
+           );
+      }
+      );
+     }) : () => {
+        getMp4Videos(item, ...[,,], "animevideos", "animevideo");
      };
-     
-     
-   
   });
 };
 
