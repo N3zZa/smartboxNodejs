@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config() // Config file
 const fetch = require("node-fetch");
 var app = express();
 const path = require("path");
@@ -6,7 +7,8 @@ var _ = require("lodash");
 const fs = require("fs");
 app.use(express.static(__dirname));
 
-const APIANIME_TOKEN = "a88d97e1788ae00830c4665ab33b7f87";
+// API BAZON_TOKEN
+const APIANIME_TOKEN = process.env.BAZON_TOKEN;
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
 
 // Делаем запрос для получения списка аниме
