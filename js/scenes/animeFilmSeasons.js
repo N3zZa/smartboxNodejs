@@ -7,8 +7,6 @@
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.$el.css('display', 'flex');
-      $(".videoWaiting").hide();
       this.renderItems(App.animeSerialSeasons);
       _inited = true;
     },

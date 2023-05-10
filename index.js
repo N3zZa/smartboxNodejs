@@ -315,44 +315,72 @@ body {
 const fetchAnimeVideos = async () => {
   const videosId = await fetchDataAnime;
   const url = "http://localhost:8000/api/link";
-  let videos = [];
   videosId.results.map((item) => {
+    let videos = [];
     sParameter = encodeURIComponent(item.info.orig.trim());
-    let videoSeasonsArrays = item.episodes ? item.episodes : 'no episodes'
-    let episodes = [];
-    if (videoSeasonsArrays !== "no episodes") {
-      const seasonsArr = []
-      for (let key of Object.keys(item.episodes)) {
-        const episodesArr = [];
-        seasonsArr.push(key);
-        for (let value of Object.values(item.episodes[key])) {
-          episodesArr.push(value);
+    let videoSeasonsArrays = item.episodes ? item.episodes : "no episodes";
+    app.get("/anime/selectepisodeId=" + item.kinopoisk_id, (req, res) => {
+      let episodes = [];
+      if (videoSeasonsArrays !== "no episodes") {
+        const seasonsArr = [];
+        for (let key of Object.keys(item.episodes)) {
+          const episodesArr = [];
+          seasonsArr.push(key);
+          for (let value of Object.values(item.episodes[key])) {
+            episodesArr.push(value);
+          }
+          episodes.push(episodesArr);
         }
-        episodes.push(episodesArr);
-      }
-      
-      let items = episodes.map((value, seasonIndex) => {
-           let videoObject = value.map(
-             (element, episodeIndex) =>
-               `{
+        let items = episodes.map((value, seasonIndex) => {
+          let videoObject = value.map(
+            (element, episodeIndex) =>
+              `{
                      season: '${seasonIndex + 1}' + 'сезон',
                      episode: '${episodeIndex + 1}' + 'серия',
                      id: '${item.kinopoisk_id}',
                      name: '${item.info.orig}',
                   },
           `
-           );
-          return videoObject.join('');
-      });
-      videos.push(items)
-      /* var picked = items.find((o) => o.city === "Amsterdam"); */
-      
-      app.get("/anime/selectepisodeId=" + item.kinopoisk_id, (req, res) => {
-        const playerPage = `<!DOCTYPE html>
-<html lang="en">
+          );
+          return videoObject.join("");
+        });
+        videos.push(items.join(""));
+        
+      } else {
+        fs.writeFileSync(
+          "./js/anime/animeSerialSeasons.js",
+          `(function () {
+    "use strict"
 
-<head>
-    <meta charset="UTF-8">
+    window.App.animeSerialSeasons = [
+      {
+        season: "Смотреть",
+        episode: "",
+      }
+    ] 
+  })();
+  `
+        );
+        /*  getMp4Videos(item, ...[, ,], "animevideos", "animevideo"); */
+      }
+
+      fs.writeFile(
+        "./js/anime/animeSerialSeasons.js",
+        `(function () {
+    "use strict"
+
+    window.App.animeSerialSeasons = [${videos}]
+  })();
+  `,
+        function (err) {
+          if (err) {
+            return console.log(err);
+          }
+          const playerPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tv</title>
@@ -364,64 +392,72 @@ const fetchAnimeVideos = async () => {
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/mainApp.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
         <script type="text/javascript" src="../js/anime/animeSerialSeasons.js"></script>
         <script type="text/javascript" src="../js/scenes/animeFilmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
 </head>
 <style>
 body {
   padding: 0;
   margin: 0;
 }
-.wrap {
-  width: 100%;
-  height: 100%;
-  background-image: url(../images/stars.png);
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  padding: 10px;
+  width: 980px;
+  height: 480px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  width: 150px;
+  height: 35px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  border-radius: 5px;
+
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
 }
 
 </style>
 
 <body>
-  <div class="wrap">
-    
-  </div>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
 </body>
 </html>`;
-
-        res.send(playerPage); // Отправка ответа в виде HTML
-      });
-    } else {
-           fs.writeFileSync(
-             "./js/anime/animeSerialSeasons.js",
-             `(function () {
-    "use strict"
-
-    window.App.animeSerialSeasons = [
-      {
-        season: "Смотреть",
-        episode: "",
-      }
-    ] 
-  })();
-  `
-           );
-          /*  getMp4Videos(item, ...[, ,], "animevideos", "animevideo"); */
-    };
-
+          res.send(playerPage); // Отправка ответа в виде HTML
+        }
+      );
+    });
+  
   });
-  fs.writeFileSync(
-    "./js/anime/animeSerialSeasons.js",
-    `(function () {
-    "use strict"
 
-    window.App.animeSerialSeasons = [${videos} ]
-  })();
-  `
-  );
+  
 };
 
-// вызов функции для получения ссылок
-fetchAnimeVideos();
 
 
 // получение данных с запроса и создание объекта с данными запроса
@@ -487,7 +523,6 @@ sendAnime();
 // создание двух файлов, в которых передаются элементы html фильмов со своими данными, а также вывод полной страницы
 async function getAnime() {
   try {
-    
     fs.writeFileSync(
       "./js/scenes/animeVideosRender.js",
       `(function () {
@@ -551,7 +586,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script>let watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/anime/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script>let watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {window.App.showContent("serialSeasons"); document.location.href = "/anime/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
@@ -603,8 +638,6 @@ async function getAnime() {
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.$el.css('display', 'flex');
-      $(".videoWaiting").hide();
       this.renderItems(App.animeSerialSeasons);
       _inited = true;
     },
@@ -634,6 +667,9 @@ async function getAnime() {
 })();
     `
     );
+
+    // вызов функции для получения ссылок
+    fetchAnimeVideos();
 
     const message = `<!DOCTYPE html>
 <html lang="en">
@@ -925,35 +961,6 @@ p {
 }
 
 
-.selectEpisode {
-  display:none;
-  padding: 10px;
-  width: 980px;
-  height: 480px;
-  background: #553c64;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-
-.episodeBlock {
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  background: #a200ff;
-  border-radius: 5px;
-  width: 150px;
-  height: 35px;
-  margin-right: 10px;
-  margin-bottom: 3px;
-  margin-top: 3px;
-}
-.episodeBlock h4 {
-  font-weight: bold;
-  margin-right: 3px;
-}
-
 </style>
 <body>
 
@@ -971,8 +978,6 @@ p {
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
     <div class="scene scene_filmInfo film-container js-scene-filmInfo" data-nav_loop="true">
-    </div>
-    <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
     </div>
     <script type='text/javascript'>
