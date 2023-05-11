@@ -177,7 +177,9 @@ body {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
+        console.log("jsonResponse", jsonResponse);
         const link = jsonResponse.Link.videos;
+        console.log("jsonResponse.Link", jsonResponse.Link);
         const video = link["1080p"];
         fs.writeFileSync(
           `./js/playVideo.js`,
