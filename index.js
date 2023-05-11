@@ -18,7 +18,6 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 
 // функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
 function getMp4Videos(item, season, episode, url) {
-  console.log(season, episode);
   if (season) {
     const requestData = {
       name: item.info.rus,
@@ -27,6 +26,7 @@ function getMp4Videos(item, season, episode, url) {
       season: season,
       episode: episode,
     };
+  console.log(requestData);
     fetch(url, {
       method: "POST",
       body: JSON.stringify(requestData),
@@ -34,6 +34,7 @@ function getMp4Videos(item, season, episode, url) {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
+        console.log(jsonResponse);
         const link = jsonResponse.Link.videos;
         const video = link["1080p"];
         const playerPage = `<!DOCTYPE html>
