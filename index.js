@@ -18,6 +18,7 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 
 // функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
 function getMp4Videos(item, season, episode, url) {
+  console.log(season, episode);
   if (season) {
     const requestData = {
       name: item.info.rus,
@@ -26,7 +27,6 @@ function getMp4Videos(item, season, episode, url) {
       season: season,
       episode: episode,
     };
-    console.log("requestData", requestData);
     fetch(url, {
       method: "POST",
       body: JSON.stringify(requestData),
@@ -34,8 +34,6 @@ function getMp4Videos(item, season, episode, url) {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
-         console.log("jsonResponse", jsonResponse);
-         console.log("jsonResponse.Link", jsonResponse.Link);
         const link = jsonResponse.Link.videos;
         const video = link["1080p"];
         const playerPage = `<!DOCTYPE html>
@@ -335,12 +333,15 @@ const fetchAnimeVideos = async () => {
           episodes.push(episodesArr);
         }
         let items = episodes.map((value, seasonIndex) => {
+          
           let videoObject = value.map(
             (element, episodeIndex) =>
               `{
                      season: '${seasonIndex + 1}' + 'сезон',
                      episode: '${episodeIndex + 1}' + 'серия',
-                     id: '${item.kinopoisk_id}',
+                     seasonNum: '${seasonIndex + 1}',
+                     episodeNum: '${episodeIndex + 1}', 
+                     id: '${item.kinopoisk_id}&${seasonIndex + 1}&${episodeIndex + 1}',
                      name: '${item.info.orig}',
                   },
           `
@@ -348,7 +349,20 @@ const fetchAnimeVideos = async () => {
           return videoObject.join("");
         });
         videos.push(items.join(""));
-        
+        episodes.map((value, seasonIndex) => {
+          value.map((element, episodeIndex) => {
+            app.get(
+              "/anime/player=" +
+                item.kinopoisk_id +
+                `&${seasonIndex + 1}&${episodeIndex + 1}&season=${
+                  seasonIndex + 1
+                }&episode=${episodeIndex + 1}`,
+              (req, res) => {
+                getMp4Videos(item, seasonIndex + 1, episodeIndex + 1, url);
+              }
+            );
+          });
+        });
       fs.writeFile(
         "./js/anime/animeSerialSeasons.js",
         `(function () {
@@ -437,11 +451,7 @@ h4,p {
           res.send(episodesPage); // Отправка ответа в виде HTML
         }
       );
-        videos.map((video, index) => {
-          app.get("/anime/player=" + item.kinopoisk_id, (req, res) => {
-            getMp4Videos(item, video.season, video.episode, url);
-          })
-        })
+          
       } else {
         fs.writeFileSync(
           "./js/anime/animeSerialSeasons.js",
@@ -461,7 +471,7 @@ h4,p {
       }
 
     });
-  
+       
   });
 
   
@@ -642,7 +652,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var videos = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>let selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/anime/player={{id}}"})</script>')
+  var videos = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>let selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/anime/player={{id}}&season={{seasonNum}}&episode={{episodeNum}}"})</script>')
   
   window.App.scenes.serialSeasons = {
     init: function () {
