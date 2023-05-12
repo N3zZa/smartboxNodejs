@@ -97,11 +97,14 @@ body {
     },
 
     setEvents: function () {
+      stb.InitPlayer();
       var url = '${video}'
-      function playVideo() {
-        Player.play({
-        url: url,
-      });
+     stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(u);
+    },
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
