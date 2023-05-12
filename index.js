@@ -97,9 +97,11 @@ body {
     },
 
     setEvents: function () {
-      var url = ${video}
+      var url = '${video}'
       function playVideo() {
-
+        Player.play({
+        url: url,
+      });
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
