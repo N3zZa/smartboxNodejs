@@ -18,7 +18,6 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 
 // функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
 function getMp4Videos(item, season, episode, url, res) {
-  console.log(season)
   if (season) {
     const requestData = {
       name: item.info.rus,
@@ -77,7 +76,7 @@ body {
 </html>`;
 
         fs.writeFileSync(
-          `./js/${way}/${file}.js`,
+          `./js/playVideo.js`,
           `(function () {
   "use strict";
 
