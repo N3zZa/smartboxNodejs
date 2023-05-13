@@ -8,7 +8,6 @@
 
     initialize: function () {
       this.$wrap = $(".app");
-
       $$legend.show();
 
       this.setEvents();

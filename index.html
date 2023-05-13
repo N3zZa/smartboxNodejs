@@ -119,6 +119,55 @@
         .focus {
             background: #553c64;
         }
+         .searchBlock {
+            display: none;
+            position: absolute;
+            top: 40%;
+            right: 60%;
+            left: 40%;
+            bottom: 60%;
+            width: 400px;
+        }
+        .searchBlock-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: #553c64;
+            border-radius: 10px;
+        }
+        .search-input {
+            position: relative;
+            margin-right: 10px;
+            width: 350px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background: #3b3041;
+            color: #fff;
+            border: none;
+            outline: none;
+        } 
+        .search-button {
+            position: relative;
+            background: #3b3041;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .search-button.focus {
+            margin-bottom: -3px;
+            border-bottom: 3px solid yellow;
+        }
+        .search-input.focus {
+            margin-bottom: -3px;
+            border-bottom: 3px solid yellow;
+        }
+        input::placeholder {
+            color: #f3f3f381;
+        }
+
     </style>
 
     <script type="text/javascript" src="/src/libs/jquery-1.10.2.min.js"></script>
@@ -127,15 +176,15 @@
     <script type="text/javascript" src="/js/lib/smartbox.js"></script>
     <script type="text/javascript" src="/js/mainApp.js"></script>
     <script type="text/javascript" src="/js/scenes/navigation.js"></script>
-    <script type="text/javascript" src="/js/scenes/input.js"></script>
+    <script type="text/javascript" src="./js/scenes/inputScene.js"></script>
 
     <script>
         $(function () {
             $$nav.on();
-
             $('.nav-item').click(function () {
                 window.location.href = $('.nav-item.focus').attr('href')
             });
+
         });
     </script>
 </head>
@@ -149,8 +198,8 @@
             </div>
             <div class="scene js-scene-navigation">
                 <nav class="navbar navigation-items">
-                    <p class="navigation-item nav-item">Поиск</p>
-                    <p id="Premieres" class="navigation-item nav-item" href="/premieres">Премьеры</p>
+                    <p class="navigation-item nav-item search" href="/search">Поиск</p>
+                    <p id="Premieres" class="navigation-item nav-item"  href="/premieres">Премьеры</p>
                     <p id="Films" class="navigation-item nav-item" href="/films">Фильмы</p>
                     <p id="Serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
                     <p id="Cartoons" class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
@@ -158,6 +207,7 @@
                     <p id="Compilations" class="navigation-item nav-item" href="/compilations">Подборки</p>
                 </nav>
             </div>
+        </div>
         </div>
     </div>
 </body>

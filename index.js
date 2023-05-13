@@ -7,9 +7,160 @@ var _ = require("lodash");
 const fs = require("fs");
 app.use(express.static(__dirname));
 
+
+
 // API BAZON_TOKEN
 const APIANIME_TOKEN = process.env.BAZON_TOKEN;
 let APIANIME_URL = `https://bazon.cc/api/json?token=${APIANIME_TOKEN}&type=all&page=1&cat=аниме`;
+let APISEARCH_URL = `https://bazon.cc/api/search?token=a88d97e1788ae00830c4665ab33b7f87&title=`;
+
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
+
+
+
+const searchVideo = async () => {
+  try {
+    const commits = await searchMovie;
+    let items = commits.results.map(
+      (element) =>
+        `{
+            id: '${element.kinopoisk_id}',
+            title: '${element.info.rus}',
+            titleEng: '${element.info.orig}',
+          },
+          `
+    );
+    return items;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+async function searchPage() {
+  try {
+    app.get("/search", (req, res) => {
+
+          const message = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+       <link rel="stylesheet" href="./css/input.css"/>
+        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="./js/mainApp.js"></script>
+        <script type="text/javascript" src="./js/search/searchItem.js"></script>
+        <script type="text/javascript" src="./js/scenes/navigation.js"></script>
+        <script type="text/javascript" src="./js/scenes/inputScene.js"></script>
+
+       <script>
+        $(function () {
+            $$nav.on();
+        });
+    </script>
+  
+</head>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+p,
+h1, h2,
+h3, h4, li {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+}
+.bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+        }
+        .searchBlock {
+            position: absolute;
+            top: 40%;
+            right: 60%;
+            left: 40%;
+            bottom: 60%;
+            width: 400px;
+        }
+        .searchBlock-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: #553c64;
+            border-radius: 10px;
+        }
+        .search-input {
+            position: relative;
+            margin-right: 10px;
+            width: 350px;
+            padding: 10px 20px;
+        } 
+        .search-button {
+            position: relative;
+        }
+.focus {
+  border: 1px solid yellow;
+}
+</style>
+<body>
+
+<div class="bg"></div>
+<div id="app" class="wrap">
+       <div class="scene js-scene-input searchBlock">
+            <div class="navigation-items searchBlock-container" data-nav_loop="true">
+                <input type="text" id="input" class="nav-item search-input input-item" name="newItem"
+                    placeholder="Please enter your task">
+                <button type="submit" name="button" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
+            </div>
+        </div>
+        <script>
+        var inputValue = $("#input").attr('value');
+        $("#inputBtn").click(function() {
+          window.location.href = "/name=" + inputValue
+        })
+        
+        </script>
+</div>
+
+</body>
+</html>`;
+      res.send(message); // Отправка ответа в виде HTML
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+searchPage();
+
 
 // Делаем запрос для получения списка аниме
 const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
@@ -485,7 +636,6 @@ h4,p {
 };
 
 
-
 // получение данных с запроса и создание объекта с данными запроса
 const showAnime = async () => {
   try {
@@ -494,7 +644,6 @@ const showAnime = async () => {
       (element) =>
         `{
             id: '${element.kinopoisk_id}',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: '${element.info.poster}',
             title: '${element.info.rus}',
@@ -505,7 +654,7 @@ const showAnime = async () => {
             director: '${element.info.director}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "")}',
-            seasons: '${element.episodes}'
+            seasons: '${element.episodes ? Object.keys(element.episodes).length : 'none'}'
           },
           `
     );
@@ -554,7 +703,7 @@ async function getAnime() {
       `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-  var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-url="{{url}}" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
+  var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
   window.App.scenes.video = {
     init: function () {
@@ -588,9 +737,6 @@ async function getAnime() {
       this.$el.hide();
     },
 
-    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
-    // handler for click event
-
     // showing items from videos.js
     renderItems: function (items) {
       var html = "";
@@ -612,7 +758,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></div></ul></nav></div><div class="videoWaiting"><h1>Видео скоро загрузится...</h1></div></div><script>let watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/anime/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="60" src="./images/UCS.svg" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>let watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/anime/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
@@ -677,8 +823,6 @@ async function getAnime() {
     hide: function () {
       this.$el.hide();
     },
-    // "https://a54t.bazonserver.site/manifest/22655/2160.mp4/index.m3u8?hash=bwIIa3zdRMQAyWs9noh5PQ&expires=1680659139&id=22655&name=2160.mp4"
-    // handler for click event
     // showing items from videos.js
     renderItems: function (items) {
       var filmhtml = "";
@@ -720,9 +864,6 @@ async function getAnime() {
         <script type="text/javascript" src="./js/scenes/animeVideosRender.js"></script>
         <script type="text/javascript" src="./js/scenes/animeFilmInfo.js"></script>
         <script type="text/javascript" src="./js/scenes/navigation.js"></script>
-    <script type="text/javascript" src="./js/scenes/input.js"></script>
-
-    
   
 </head>
 
@@ -1062,9 +1203,6 @@ p {
 
 getAnime();
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
-});
 
 const port = process.env.PORT || 3000;
 app.listen(port);

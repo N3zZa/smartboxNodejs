@@ -3,248 +3,7 @@
 
     window.App.filmInfo = [
       {
-            id: '1177503',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1177503.jpg',
-            title: 'Ультрамен: Новый герой',
-            titleEng: 'Ultraman',
-            created: '2019',
-            filmPageId: 'filmid1177503',
-            actors: 'Рёхэй Кимура,Хидэюки Танака,Такуя Эгути,Мэгуми Хан,Эйдзи Ханава,Сумирэ Морохоси,Хирокадзу Сэкидо,Минору Сираиси,Кайдзи Содзэ,Рёта Такэути',
-            director: 'Синдзи Арамаки,Кэндзи Камияма',
-            country: 'Япония',
-            text: 'Синдзиро Хаята — сын Сина Хаяты, который был первым Ультраменом — наделён особенной силой. Однако узнаёт он об этом лишь когда подвергается нападению неизвестных. Ультрамен спасает Синдзиру и рассказывает о том, что он — его отец. Синдзиро надевает костюм Ультрамена, предоставленный мистером Идом, бывшим членом Специального научного поискового отряда, и решает отныне во всём помогать отцу. Впереди их ждёт большая битва.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1072966',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1072966.jpg',
-            title: 'Невеста чародея',
-            titleEng: 'Mahoutsukai no Yome',
-            created: '2017',
-            filmPageId: 'filmid1072966',
-            actors: 'Ацуми Танэдзаки, Рёта Такэути, Ая Эндо, Дзюнъити Сувабэ, Ёсиаки Хасэгава, Ая Хисакава, Макото Ясумура, Ами Наито, Нацуми Фудзивара, Хана Сато',
-            director: 'Норихиро Наганума, Ёко Канамори, Рюта Кавахара',
-            country: 'Япония',
-            text: 'В свои 16 Хатори Тисэ уже потеряла гораздо больше, чем остальные. Не имея ни семьи, ни надежды, она понимает: все двери для неё закрыты. Но случайная встреча приводит в движение ржавые колёса судьбы. В самый тёмный час перед Хатори появляется таинственный чародей, который предлагает ей всё изменить. Поможет ли он несчастной девушке выйти к свету или погрузит в ещё больший мрак?',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1249511',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1249511.jpg',
-            title: 'Доктор Стоун',
-            titleEng: 'Dr. Stone',
-            created: '2019',
-            filmPageId: 'filmid1249511',
-            actors: 'Аарон Дисмьюк, Рикко Фахардо, Бриттани Лауда',
-            director: '-',
-            country: 'Япония',
-            text: 'В один роковой день все человечество превратилось в камень. Много тысячелетий спустя старшеклассник Тайдзю освобождается от окаменения и оказывается окруженным статуями. Однако он не одинок: его другу Сэнку также удалось сбросить каменную оболочку. Вместе они начинают восстанавливать былую цивилизацию, используя при этом науку.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '584034',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_584034.jpg',
-            title: 'Внук Нурарихёна',
-            titleEng: 'Nurarihyon no Mago',
-            created: '2010',
-            filmPageId: 'filmid584034',
-            actors: 'Дзюн Фукуяма,Ая Хирано,Хироки Ясумото,Аи Маэда,Такахиро Сакурай,Косукэ Ториуми,Юи Хориэ',
-            director: 'Дзюндзи Нисимура,Масахито Отани,Синобу Тагасира',
-            country: 'Япония',
-            text: 'Нурарихён — пожилой глава клана ёкаев Нура. Несмотря на возраст, он всё еще не объявил имя наследника. Члены клана возлагают больше надежды на 13-летнего внука Нурарихёна по имени Рикуо Нура. Вот только парень не горит желанием принимать власть, твёрдо решив жить как обычный человек. Однако жизнь вскоре внесёт в планы Рикуо свои коррективы.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1437647',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://bazon.cc/download/poster/1437647.jpg',
-            title: 'Унеси меня на луну',
-            titleEng: 'Tonikaku Kawaii',
-            created: '2020',
-            filmPageId: 'filmid1437647',
-            actors: 'Дзюнъя Эноки,Акари Кито,Лиззи Фриман,Масаси Эбара,Масуми Асано,Ито Канаэ,Умэка Сёдзи,Sakura Kawaguchi,Miyari Nemoto,Сюндзо Миясака',
-            director: 'Хироси Икэхата',
-            country: 'Япония',
-            text: 'Наса Юзаки — без пяти минут выпускник школы с очень забавным именем. Он работает над собой не покладая рук, желая перестать быть объектом насмешек окружающих и поступить в самую престижную академию страны. Наса Юзаки свято верит, что судьба в его руках. Но за день до экзаменов он случайно встречает загадочную девушку по имени Цукаса, которая очаровывает его. В этот же день Наса признаётся девушке в чувствах, на что она отвечает: «Я буду встречаться с тобой, только если ты женишься на мне». После этого она исчезает и появляется лишь через несколько лет на пороге дома Юзаки. Так и началась красивая и очаровательная история любви молодожён.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1177503',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1177503.jpg',
-            title: 'Ультрамен: Новый герой',
-            titleEng: 'Ultraman',
-            created: '2019',
-            filmPageId: 'filmid1177503',
-            actors: 'Рёхэй Кимура,Хидэюки Танака,Такуя Эгути,Мэгуми Хан,Эйдзи Ханава,Сумирэ Морохоси,Хирокадзу Сэкидо,Минору Сираиси,Кайдзи Содзэ,Рёта Такэути',
-            director: 'Синдзи Арамаки,Кэндзи Камияма',
-            country: 'Япония',
-            text: 'Синдзиро Хаята — сын Сина Хаяты, который был первым Ультраменом — наделён особенной силой. Однако узнаёт он об этом лишь когда подвергается нападению неизвестных. Ультрамен спасает Синдзиру и рассказывает о том, что он — его отец. Синдзиро надевает костюм Ультрамена, предоставленный мистером Идом, бывшим членом Специального научного поискового отряда, и решает отныне во всём помогать отцу. Впереди их ждёт большая битва.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '5238430',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5238430.jpg',
-            title: 'Бессонница после школы',
-            titleEng: 'Kimi wa Hokago Insomnia',
-            created: '2023',
-            filmPageId: 'filmid5238430',
-            actors: 'Гэн Сато,Konomi Tamura',
-            director: 'Yuki Ikeda',
-            country: 'Япония',
-            text: 'Сначала Наками и Исаки несколько неудобно чувствуют себя рядом друг с другом и стараются не мешать друг другу. Однако по мере того, как они проводят время вместе, они начинают лучше понимать друг друга и находить общие интересы. Они говорят о своих проблемах с бессонницей и о том, что их беспокоит в жизни. Они начинают помогать друг другу, чтобы справиться с этими проблемами.<br /><br />Вскоре Наками и Исаки становятся настоящими друзьями, и обсерватория становится их укрытием от шумного и тревожного мира вокруг них. Они проводят много времени в обсерватории, где обсуждают свои мечты и цели в жизни, делятся своими опасениями и находят утешение в друг друге.<br /><br />Таким образом, они нашли тот комфорт, который искали, и нашли друга, который помог им преодолеть их проблемы с бессонницей.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '5018660',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5018660.jpg',
-            title: 'Долой безделье!',
-            titleEng: 'Skip to Loafer',
-            created: '2023',
-            filmPageId: 'filmid5018660',
-            actors: '',
-            director: 'Котоми Дэай',
-            country: 'Япония',
-            text: 'Мицуми Ивакура всегда мечтала о том, чтобы покинуть свой маленький городок и начать новую жизнь в Токио. Ее сердце горело жаждой получить высшее образование в элитном университете, а затем использовать свои знания и умения, чтобы внести вклад в благо своей страны. Также она мечтала вернуться домой и помочь своему городку развиваться.<br /><br />Она была настолько решительна и целеустремлена, что забывала о многих других вещах, что вызывало беспокойство и огорчение у ее друзей и семьи. Некоторые из них считали, что она слишком молода и наивна, чтобы понимать, как трудно будет достичь своих целей в Токио.<br /><br />Но Мицуми была готова пройти через все трудности и испытания, которые возникнут на ее пути. Она уверена, что смогла бы осуществить свою мечту, если только она не потеряет свою решимость и оптимизм, и будет работать упорно и настойчиво.<br /><br />Таким образом, можно сказать, что Мицуми Ивакура - это пример того, как человек может добиваться своих мечт и целей, если он обладает достаточным уровнем решимости и усердия.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1111673',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1111673.jpg',
-            title: 'В другом мире со смартфоном',
-            titleEng: 'Isekai wa smartphone to tomo ni.',
-            created: '2017',
-            filmPageId: 'filmid1111673',
-            actors: 'Тинацу Акасаки,Сумирэ Уэсака,Кацуми Фукухара,Маая Утида,Юи Фукуо,Марика Коно,Нанами Ямасита,Маю Ёсиока,Кэндзи Хамада,Минако Котобуки',
-            director: 'Юдзи Янасэ',
-            country: 'Япония',
-            text: '15-летний Тоя случайно погиб от удара молнии. Так как этого не должно было случится, Бог предложил парню переродиться в фэнтезийном мире и предоставил ему в качестве извинения одно желание, которое парень обменял на возможность взять с собой смартфон.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '676946',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_676946.jpg',
-            title: 'Санка Рэа',
-            titleEng: 'Sankarea',
-            created: '2012',
-            filmPageId: 'filmid676946',
-            actors: 'Аарон Дисмьюк,Тиа Линн Баллард,Джейми Марчи,Фелесиа Анджелл,Сиро Саито,Моника Риал,Майк МакФарланд,Райан Рейнольдс,Дэйв Троско,Дэвид Уолд',
-            director: 'Мамору Хатакэяма,Хироаки Нисимура,Сюндзи Ёсида',
-            country: 'Япония',
-            text: 'Фуруя, сын священника, одержим зомби. Он коллекционирует статуэтки, фильмы, видеоигры на зомби-тематику и мечтает о подружке нежити. Когда его любимого кота сбивает грузовик, Фуруя пытается оживить питомца с помощью оккультного ритуала в заброшенном доме. Там он и встречает Рею, красивую, но несчастную девушку из богатой семьи, которая желает умереть и переродиться  другим человеком.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1274280',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1274280.jpg',
-            title: 'Сага о Винланде',
-            titleEng: 'Vinland Saga',
-            created: '2019',
-            filmPageId: 'filmid1274280',
-            actors: 'Юто Уэмура',
-            director: 'Сюхэй Ябута',
-            country: 'Япония',
-            text: '1013 год. Исландский юноша Торфинн — сын одного из величайших воинов викингов. И когда его отца убивает в схватке предводитель дружины Аскеладд, юноша становится на путь воина и отправляется мстить. Будучи гордым и не желая бесчестной схватки, он вступает в дружину Аскеладда с целью победить его в поединке, но в итоге судьба затягивает его в водоворот кровавых событий эпохи, ставка в которых — корона Англии.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '5238430',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5238430.jpg',
-            title: 'Бессонница после школы',
-            titleEng: 'Kimi wa Hokago Insomnia',
-            created: '2023',
-            filmPageId: 'filmid5238430',
-            actors: 'Гэн Сато,Konomi Tamura',
-            director: 'Yuki Ikeda',
-            country: 'Япония',
-            text: 'Сначала Наками и Исаки несколько неудобно чувствуют себя рядом друг с другом и стараются не мешать друг другу. Однако по мере того, как они проводят время вместе, они начинают лучше понимать друг друга и находить общие интересы. Они говорят о своих проблемах с бессонницей и о том, что их беспокоит в жизни. Они начинают помогать друг другу, чтобы справиться с этими проблемами.<br /><br />Вскоре Наками и Исаки становятся настоящими друзьями, и обсерватория становится их укрытием от шумного и тревожного мира вокруг них. Они проводят много времени в обсерватории, где обсуждают свои мечты и цели в жизни, делятся своими опасениями и находят утешение в друг друге.<br /><br />Таким образом, они нашли тот комфорт, который искали, и нашли друга, который помог им преодолеть их проблемы с бессонницей.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '5125425',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5125425.jpg',
-            title: 'Моя любовь 999 уровня к Ямаде',
-            titleEng: 'Yamada-kun to Lv999 no Koi wo Suru',
-            created: '2023',
-            filmPageId: 'filmid5125425',
-            actors: 'Инори Минасэ,Коки Утияма',
-            director: 'Морио Асака',
-            country: 'Япония',
-            text: 'Парень бросил Аканэ ради подружки по онлайн-игре. Раздосадованная девушка решает выпустить пар и оторваться на мобах, как вдруг сталкивается с нелюдимым Акито Ямадой, который, как выясняется, состоит с ней в одной гильдии. Постепенно Аканэ начинает испытывать к нему романтические чувства, но до замкнутого Акито, зацикленного на игре и работе, достучаться не так просто.',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1115689',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1115689.jpg',
-            title: 'Свиной рамэн из Хакаты',
-            titleEng: 'Hakata Tonkotsu Ramens',
-            created: '2018',
-            filmPageId: 'filmid1115689',
-            actors: 'Даисукэ Оно,Юки Кадзи,Нацуми Фудзивара,Кэнсё Оно,Нобунага Симадзаки,Такэхито Коясу,Ацуси Имаруока,Сёта Ямамото,Даисукэ Намикава,Такая Курода',
-            director: 'Кэндзи Ясуда',
-            country: 'Япония',
-            text: 'На первый взгляд Фукуока – довольно мирный город, но на самом деле это пристанище опасных личностей, таких как убийцы, детективы и профессиональные мстители. Среди них - детектив Дзэндзи Банба и наемный убийца Линь Сяньмин, который сыт по горло отсутствием работы и маленькой зарплатой.Однажды, после того как цель Линя покончила жизнь самоубийством до того, как он смог до неё добраться, компания отказалась ему платить. Разочарованный убийца просит другую работу, и ему заказывают Банбу, который, как считает его организация, мешает их бизнесу. Однако вместо этого Линь предлагает детективу объединиться.  ',
-            seasons: '[object Object]'
-          },
-          {
-            id: '1228854',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1228854.jpg',
-            title: 'Записи о магии. Девочка-волшебница Мадока: Волшебство Гайдэн',
-            titleEng: 'Magia Rekodo: Maho Shojo Madoka Magika Gaiden',
-            created: '2020',
-            filmPageId: 'filmid1228854',
-            actors: 'Аои Юки,Момо Асакура,Сора Амамия,Эмири Като,Сиина Нацукава,Аянэ Сакура,Каори Исихара,Аяка Охаси,Манака Ивами,Юи Хориэ',
-            director: 'Гэкидан Ину Карри',
-            country: 'Япония',
-            text: 'Девочки-волшебницы сражаются в безвестной войне ради исполнения своих заветных желаний. Но Ироха Тамаки позабыла, что она загадала… — О чём же я просила, когда стала волшебницей?.. — задаётся она вопросом. В её жизни словно зияет огромная дыра. Она утратила нечто важное, дорогое… Но что? День за днём Ироха сражается, понятия не имея, зачем. Но тут среди девочек-волшебниц поползли слухи: говорят, что в Камихаме они могут найти своё спасение. Город, в котором собираются волшебницы и слухи — Камихама. Здесь и начнётся история Ирохи, мечтающей отыскать своё забытое желание…',
-            seasons: '[object Object]'
-          },
-          {
-            id: '4716623',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
-            type: 'vod',
-            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_4716623.jpg',
-            title: 'Рейтинг короля',
-            titleEng: 'Osama Ranking',
-            created: '2021',
-            filmPageId: 'filmid4716623',
-            actors: 'Хината Минами,Аюму Мурасэ,Юки Кадзи,Маая Сакамото,Такуя Эгути,Luis Bermudez,Даики Ямасита,Хироки Ясумото,Такахиро Сакурай,Кэнта Миякэ',
-            director: 'Ёсукэ Хатта',
-            country: 'Япония',
-            text: 'Главным героем аниме «Рейтинг короля» оказывается Бодзи, главный наследник трона, пытающийся научиться быть мудрым и сильным правителем. Но для него это непростая задача. Бодзи знает, что статус короля не даёт гарантии на счастливую и безоблачную жизнь. <br /><br />Ситуация для главного героя ухудшается тем, что он ещё слишком юн и не обладает ни опытом, ни властью. Он даже не способен удержать в руках игрушечный меч. Глухота лишь делает всё ещё сложнее. <br /><br />Люди продолжают шептать за спиной главного героя аниме «Рейтинг короля». Они считают её никчёмным принцем и уверены, что он никогда не будет достойным правителем. Находясь под постоянным давлением, Бодзи удаётся найти поддержку в тени с именем Кагэ. <br /><br />Когда-то в прошлом тень была человеком из клана ассасинов. Но сообщество было полностью уничтожено. В живых удалось остаться только Кагэ. После этого он растерял все свои навыки. А теперь ему приходится перебиваться воровством. <br /><br />Двое покинутых всеми друзей продолжают жить и стараться, несмотря на испытания. Вместе им предстоит пройти серию непростых приключений. И только после них они найду своё место в жизни.',
-            seasons: '[object Object]'
-          },
-          {
             id: '397356',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_397356.jpg',
             title: 'Юная революционерка Утэна',
@@ -255,11 +14,150 @@
             director: 'Кунихико Икухара,Тоору Такахаси,Юкио Окадзаки',
             country: 'Япония',
             text: 'Утэна Тэндзё - бодрая 14-летняя школьница, у которой есть мечта: стать героическим принцем, спасающим девушек, попавших в беду. И хотя это кажется невероятным, такой цели достичь оказывается не так уж сложно: когда Утэна попадает в величественную Академию Отори и знакомится со странной смуглянкой Анфи, перед ними распахивается целый потайной мир со своими правилами, где рыцарство Утэны придется как нельзя кстати.',
-            seasons: '[object Object]'
+            seasons: '1'
+          },
+          {
+            id: '1177503',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1177503.jpg',
+            title: 'Ультрамен: Новый герой',
+            titleEng: 'Ultraman',
+            created: '2019',
+            filmPageId: 'filmid1177503',
+            actors: 'Рёхэй Кимура,Хидэюки Танака,Такуя Эгути,Мэгуми Хан,Эйдзи Ханава,Сумирэ Морохоси,Хирокадзу Сэкидо,Минору Сираиси,Кайдзи Содзэ,Рёта Такэути',
+            director: 'Синдзи Арамаки,Кэндзи Камияма',
+            country: 'Япония',
+            text: 'Синдзиро Хаята — сын Сина Хаяты, который был первым Ультраменом — наделён особенной силой. Однако узнаёт он об этом лишь когда подвергается нападению неизвестных. Ультрамен спасает Синдзиру и рассказывает о том, что он — его отец. Синдзиро надевает костюм Ультрамена, предоставленный мистером Идом, бывшим членом Специального научного поискового отряда, и решает отныне во всём помогать отцу. Впереди их ждёт большая битва.',
+            seasons: '3'
+          },
+          {
+            id: '1072966',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1072966.jpg',
+            title: 'Невеста чародея',
+            titleEng: 'Mahoutsukai no Yome',
+            created: '2017',
+            filmPageId: 'filmid1072966',
+            actors: 'Ацуми Танэдзаки, Рёта Такэути, Ая Эндо, Дзюнъити Сувабэ, Ёсиаки Хасэгава, Ая Хисакава, Макото Ясумура, Ами Наито, Нацуми Фудзивара, Хана Сато',
+            director: 'Норихиро Наганума, Ёко Канамори, Рюта Кавахара',
+            country: 'Япония',
+            text: 'В свои 16 Хатори Тисэ уже потеряла гораздо больше, чем остальные. Не имея ни семьи, ни надежды, она понимает: все двери для неё закрыты. Но случайная встреча приводит в движение ржавые колёса судьбы. В самый тёмный час перед Хатори появляется таинственный чародей, который предлагает ей всё изменить. Поможет ли он несчастной девушке выйти к свету или погрузит в ещё больший мрак?',
+            seasons: '2'
+          },
+          {
+            id: '1249511',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1249511.jpg',
+            title: 'Доктор Стоун',
+            titleEng: 'Dr. Stone',
+            created: '2019',
+            filmPageId: 'filmid1249511',
+            actors: 'Аарон Дисмьюк, Рикко Фахардо, Бриттани Лауда',
+            director: '-',
+            country: 'Япония',
+            text: 'В один роковой день все человечество превратилось в камень. Много тысячелетий спустя старшеклассник Тайдзю освобождается от окаменения и оказывается окруженным статуями. Однако он не одинок: его другу Сэнку также удалось сбросить каменную оболочку. Вместе они начинают восстанавливать былую цивилизацию, используя при этом науку.',
+            seasons: '3'
+          },
+          {
+            id: '584034',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_584034.jpg',
+            title: 'Внук Нурарихёна',
+            titleEng: 'Nurarihyon no Mago',
+            created: '2010',
+            filmPageId: 'filmid584034',
+            actors: 'Дзюн Фукуяма,Ая Хирано,Хироки Ясумото,Аи Маэда,Такахиро Сакурай,Косукэ Ториуми,Юи Хориэ',
+            director: 'Дзюндзи Нисимура,Масахито Отани,Синобу Тагасира',
+            country: 'Япония',
+            text: 'Нурарихён — пожилой глава клана ёкаев Нура. Несмотря на возраст, он всё еще не объявил имя наследника. Члены клана возлагают больше надежды на 13-летнего внука Нурарихёна по имени Рикуо Нура. Вот только парень не горит желанием принимать власть, твёрдо решив жить как обычный человек. Однако жизнь вскоре внесёт в планы Рикуо свои коррективы.',
+            seasons: '2'
+          },
+          {
+            id: '1437647',
+            type: 'vod',
+            imgurl: 'https://bazon.cc/download/poster/1437647.jpg',
+            title: 'Унеси меня на луну',
+            titleEng: 'Tonikaku Kawaii',
+            created: '2020',
+            filmPageId: 'filmid1437647',
+            actors: 'Дзюнъя Эноки,Акари Кито,Лиззи Фриман,Масаси Эбара,Масуми Асано,Ито Канаэ,Умэка Сёдзи,Sakura Kawaguchi,Miyari Nemoto,Сюндзо Миясака',
+            director: 'Хироси Икэхата',
+            country: 'Япония',
+            text: 'Наса Юзаки — без пяти минут выпускник школы с очень забавным именем. Он работает над собой не покладая рук, желая перестать быть объектом насмешек окружающих и поступить в самую престижную академию страны. Наса Юзаки свято верит, что судьба в его руках. Но за день до экзаменов он случайно встречает загадочную девушку по имени Цукаса, которая очаровывает его. В этот же день Наса признаётся девушке в чувствах, на что она отвечает: «Я буду встречаться с тобой, только если ты женишься на мне». После этого она исчезает и появляется лишь через несколько лет на пороге дома Юзаки. Так и началась красивая и очаровательная история любви молодожён.',
+            seasons: '2'
+          },
+          {
+            id: '1177503',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1177503.jpg',
+            title: 'Ультрамен: Новый герой',
+            titleEng: 'Ultraman',
+            created: '2019',
+            filmPageId: 'filmid1177503',
+            actors: 'Рёхэй Кимура,Хидэюки Танака,Такуя Эгути,Мэгуми Хан,Эйдзи Ханава,Сумирэ Морохоси,Хирокадзу Сэкидо,Минору Сираиси,Кайдзи Содзэ,Рёта Такэути',
+            director: 'Синдзи Арамаки,Кэндзи Камияма',
+            country: 'Япония',
+            text: 'Синдзиро Хаята — сын Сина Хаяты, который был первым Ультраменом — наделён особенной силой. Однако узнаёт он об этом лишь когда подвергается нападению неизвестных. Ультрамен спасает Синдзиру и рассказывает о том, что он — его отец. Синдзиро надевает костюм Ультрамена, предоставленный мистером Идом, бывшим членом Специального научного поискового отряда, и решает отныне во всём помогать отцу. Впереди их ждёт большая битва.',
+            seasons: '3'
+          },
+          {
+            id: '5238430',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5238430.jpg',
+            title: 'Бессонница после школы',
+            titleEng: 'Kimi wa Hokago Insomnia',
+            created: '2023',
+            filmPageId: 'filmid5238430',
+            actors: 'Гэн Сато,Konomi Tamura',
+            director: 'Yuki Ikeda',
+            country: 'Япония',
+            text: 'Сначала Наками и Исаки несколько неудобно чувствуют себя рядом друг с другом и стараются не мешать друг другу. Однако по мере того, как они проводят время вместе, они начинают лучше понимать друг друга и находить общие интересы. Они говорят о своих проблемах с бессонницей и о том, что их беспокоит в жизни. Они начинают помогать друг другу, чтобы справиться с этими проблемами.<br /><br />Вскоре Наками и Исаки становятся настоящими друзьями, и обсерватория становится их укрытием от шумного и тревожного мира вокруг них. Они проводят много времени в обсерватории, где обсуждают свои мечты и цели в жизни, делятся своими опасениями и находят утешение в друг друге.<br /><br />Таким образом, они нашли тот комфорт, который искали, и нашли друга, который помог им преодолеть их проблемы с бессонницей.',
+            seasons: '1'
+          },
+          {
+            id: '5018660',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5018660.jpg',
+            title: 'Долой безделье!',
+            titleEng: 'Skip to Loafer',
+            created: '2023',
+            filmPageId: 'filmid5018660',
+            actors: '',
+            director: 'Котоми Дэай',
+            country: 'Япония',
+            text: 'Мицуми Ивакура всегда мечтала о том, чтобы покинуть свой маленький городок и начать новую жизнь в Токио. Ее сердце горело жаждой получить высшее образование в элитном университете, а затем использовать свои знания и умения, чтобы внести вклад в благо своей страны. Также она мечтала вернуться домой и помочь своему городку развиваться.<br /><br />Она была настолько решительна и целеустремлена, что забывала о многих других вещах, что вызывало беспокойство и огорчение у ее друзей и семьи. Некоторые из них считали, что она слишком молода и наивна, чтобы понимать, как трудно будет достичь своих целей в Токио.<br /><br />Но Мицуми была готова пройти через все трудности и испытания, которые возникнут на ее пути. Она уверена, что смогла бы осуществить свою мечту, если только она не потеряет свою решимость и оптимизм, и будет работать упорно и настойчиво.<br /><br />Таким образом, можно сказать, что Мицуми Ивакура - это пример того, как человек может добиваться своих мечт и целей, если он обладает достаточным уровнем решимости и усердия.',
+            seasons: '1'
+          },
+          {
+            id: '1111673',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1111673.jpg',
+            title: 'В другом мире со смартфоном',
+            titleEng: 'Isekai wa smartphone to tomo ni.',
+            created: '2017',
+            filmPageId: 'filmid1111673',
+            actors: 'Тинацу Акасаки,Сумирэ Уэсака,Кацуми Фукухара,Маая Утида,Юи Фукуо,Марика Коно,Нанами Ямасита,Маю Ёсиока,Кэндзи Хамада,Минако Котобуки',
+            director: 'Юдзи Янасэ',
+            country: 'Япония',
+            text: '15-летний Тоя случайно погиб от удара молнии. Так как этого не должно было случится, Бог предложил парню переродиться в фэнтезийном мире и предоставил ему в качестве извинения одно желание, которое парень обменял на возможность взять с собой смартфон.',
+            seasons: '2'
+          },
+          {
+            id: '676946',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_676946.jpg',
+            title: 'Санка Рэа',
+            titleEng: 'Sankarea',
+            created: '2012',
+            filmPageId: 'filmid676946',
+            actors: 'Аарон Дисмьюк,Тиа Линн Баллард,Джейми Марчи,Фелесиа Анджелл,Сиро Саито,Моника Риал,Майк МакФарланд,Райан Рейнольдс,Дэйв Троско,Дэвид Уолд',
+            director: 'Мамору Хатакэяма,Хироаки Нисимура,Сюндзи Ёсида',
+            country: 'Япония',
+            text: 'Фуруя, сын священника, одержим зомби. Он коллекционирует статуэтки, фильмы, видеоигры на зомби-тематику и мечтает о подружке нежити. Когда его любимого кота сбивает грузовик, Фуруя пытается оживить питомца с помощью оккультного ритуала в заброшенном доме. Там он и встречает Рею, красивую, но несчастную девушку из богатой семьи, которая желает умереть и переродиться  другим человеком.',
+            seasons: '1'
           },
           {
             id: '1274280',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1274280.jpg',
             title: 'Сага о Винланде',
@@ -270,11 +168,94 @@
             director: 'Сюхэй Ябута',
             country: 'Япония',
             text: '1013 год. Исландский юноша Торфинн — сын одного из величайших воинов викингов. И когда его отца убивает в схватке предводитель дружины Аскеладд, юноша становится на путь воина и отправляется мстить. Будучи гордым и не желая бесчестной схватки, он вступает в дружину Аскеладда с целью победить его в поединке, но в итоге судьба затягивает его в водоворот кровавых событий эпохи, ставка в которых — корона Англии.',
-            seasons: '[object Object]'
+            seasons: '2'
+          },
+          {
+            id: '5238430',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5238430.jpg',
+            title: 'Бессонница после школы',
+            titleEng: 'Kimi wa Hokago Insomnia',
+            created: '2023',
+            filmPageId: 'filmid5238430',
+            actors: 'Гэн Сато,Konomi Tamura',
+            director: 'Yuki Ikeda',
+            country: 'Япония',
+            text: 'Сначала Наками и Исаки несколько неудобно чувствуют себя рядом друг с другом и стараются не мешать друг другу. Однако по мере того, как они проводят время вместе, они начинают лучше понимать друг друга и находить общие интересы. Они говорят о своих проблемах с бессонницей и о том, что их беспокоит в жизни. Они начинают помогать друг другу, чтобы справиться с этими проблемами.<br /><br />Вскоре Наками и Исаки становятся настоящими друзьями, и обсерватория становится их укрытием от шумного и тревожного мира вокруг них. Они проводят много времени в обсерватории, где обсуждают свои мечты и цели в жизни, делятся своими опасениями и находят утешение в друг друге.<br /><br />Таким образом, они нашли тот комфорт, который искали, и нашли друга, который помог им преодолеть их проблемы с бессонницей.',
+            seasons: '1'
+          },
+          {
+            id: '5125425',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5125425.jpg',
+            title: 'Моя любовь 999 уровня к Ямаде',
+            titleEng: 'Yamada-kun to Lv999 no Koi wo Suru',
+            created: '2023',
+            filmPageId: 'filmid5125425',
+            actors: 'Инори Минасэ,Коки Утияма',
+            director: 'Морио Асака',
+            country: 'Япония',
+            text: 'Парень бросил Аканэ ради подружки по онлайн-игре. Раздосадованная девушка решает выпустить пар и оторваться на мобах, как вдруг сталкивается с нелюдимым Акито Ямадой, который, как выясняется, состоит с ней в одной гильдии. Постепенно Аканэ начинает испытывать к нему романтические чувства, но до замкнутого Акито, зацикленного на игре и работе, достучаться не так просто.',
+            seasons: '1'
+          },
+          {
+            id: '1115689',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1115689.jpg',
+            title: 'Свиной рамэн из Хакаты',
+            titleEng: 'Hakata Tonkotsu Ramens',
+            created: '2018',
+            filmPageId: 'filmid1115689',
+            actors: 'Даисукэ Оно,Юки Кадзи,Нацуми Фудзивара,Кэнсё Оно,Нобунага Симадзаки,Такэхито Коясу,Ацуси Имаруока,Сёта Ямамото,Даисукэ Намикава,Такая Курода',
+            director: 'Кэндзи Ясуда',
+            country: 'Япония',
+            text: 'На первый взгляд Фукуока – довольно мирный город, но на самом деле это пристанище опасных личностей, таких как убийцы, детективы и профессиональные мстители. Среди них - детектив Дзэндзи Банба и наемный убийца Линь Сяньмин, который сыт по горло отсутствием работы и маленькой зарплатой.Однажды, после того как цель Линя покончила жизнь самоубийством до того, как он смог до неё добраться, компания отказалась ему платить. Разочарованный убийца просит другую работу, и ему заказывают Банбу, который, как считает его организация, мешает их бизнесу. Однако вместо этого Линь предлагает детективу объединиться.  ',
+            seasons: '1'
+          },
+          {
+            id: '1228854',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1228854.jpg',
+            title: 'Записи о магии. Девочка-волшебница Мадока: Волшебство Гайдэн',
+            titleEng: 'Magia Rekodo: Maho Shojo Madoka Magika Gaiden',
+            created: '2020',
+            filmPageId: 'filmid1228854',
+            actors: 'Аои Юки,Момо Асакура,Сора Амамия,Эмири Като,Сиина Нацукава,Аянэ Сакура,Каори Исихара,Аяка Охаси,Манака Ивами,Юи Хориэ',
+            director: 'Гэкидан Ину Карри',
+            country: 'Япония',
+            text: 'Девочки-волшебницы сражаются в безвестной войне ради исполнения своих заветных желаний. Но Ироха Тамаки позабыла, что она загадала… — О чём же я просила, когда стала волшебницей?.. — задаётся она вопросом. В её жизни словно зияет огромная дыра. Она утратила нечто важное, дорогое… Но что? День за днём Ироха сражается, понятия не имея, зачем. Но тут среди девочек-волшебниц поползли слухи: говорят, что в Камихаме они могут найти своё спасение. Город, в котором собираются волшебницы и слухи — Камихама. Здесь и начнётся история Ирохи, мечтающей отыскать своё забытое желание…',
+            seasons: '1'
+          },
+          {
+            id: '4716623',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_4716623.jpg',
+            title: 'Рейтинг короля',
+            titleEng: 'Osama Ranking',
+            created: '2021',
+            filmPageId: 'filmid4716623',
+            actors: 'Хината Минами,Аюму Мурасэ,Юки Кадзи,Маая Сакамото,Такуя Эгути,Luis Bermudez,Даики Ямасита,Хироки Ясумото,Такахиро Сакурай,Кэнта Миякэ',
+            director: 'Ёсукэ Хатта',
+            country: 'Япония',
+            text: 'Главным героем аниме «Рейтинг короля» оказывается Бодзи, главный наследник трона, пытающийся научиться быть мудрым и сильным правителем. Но для него это непростая задача. Бодзи знает, что статус короля не даёт гарантии на счастливую и безоблачную жизнь. <br /><br />Ситуация для главного героя ухудшается тем, что он ещё слишком юн и не обладает ни опытом, ни властью. Он даже не способен удержать в руках игрушечный меч. Глухота лишь делает всё ещё сложнее. <br /><br />Люди продолжают шептать за спиной главного героя аниме «Рейтинг короля». Они считают её никчёмным принцем и уверены, что он никогда не будет достойным правителем. Находясь под постоянным давлением, Бодзи удаётся найти поддержку в тени с именем Кагэ. <br /><br />Когда-то в прошлом тень была человеком из клана ассасинов. Но сообщество было полностью уничтожено. В живых удалось остаться только Кагэ. После этого он растерял все свои навыки. А теперь ему приходится перебиваться воровством. <br /><br />Двое покинутых всеми друзей продолжают жить и стараться, несмотря на испытания. Вместе им предстоит пройти серию непростых приключений. И только после них они найду своё место в жизни.',
+            seasons: '2'
+          },
+          {
+            id: '1274280',
+            type: 'vod',
+            imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1274280.jpg',
+            title: 'Сага о Винланде',
+            titleEng: 'Vinland Saga',
+            created: '2019',
+            filmPageId: 'filmid1274280',
+            actors: 'Юто Уэмура',
+            director: 'Сюхэй Ябута',
+            country: 'Япония',
+            text: '1013 год. Исландский юноша Торфинн — сын одного из величайших воинов викингов. И когда его отца убивает в схватке предводитель дружины Аскеладд, юноша становится на путь воина и отправляется мстить. Будучи гордым и не желая бесчестной схватки, он вступает в дружину Аскеладда с целью победить его в поединке, но в итоге судьба затягивает его в водоворот кровавых событий эпохи, ставка в которых — корона Англии.',
+            seasons: '2'
           },
           {
             id: '574536',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_574536.jpg',
             title: 'Девочка-волшебница Мадока',
@@ -285,11 +266,10 @@
             director: 'Итамура Томоюки,Юкихиро Миямото,Акиюки Синбо',
             country: 'Япония',
             text: '14-летняя Мадока Канамэ спокойно жила в современной японской семье с мамой-деловой женщиной, папой-домохозяином и маленьким братиком. Все изменил один неясный сон, где темноволосая девочка сражалась с силами зла в каком-то фантасмагорическом мире. Излишне говорить, что утром Мадока увидела ее в школе, и новая знакомая по имени Хомура Акэми прямым текстом заявила - не стоит посторонним лезть не в свое дело. Но как простая, но честная и справедливая японская школьница может остаться в стороне, когда на глазах убивают милого зверька, а привычный мир, похоже, сходит с ума?',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '475612',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_475612.jpg',
             title: 'Бледный кокон',
@@ -300,11 +280,10 @@
             director: 'Ясухиро Ёсиура',
             country: 'Япония',
             text: 'Люди закрыли себя в железную коробку концлагеря, где сами являются узниками и сторожами. В ней проводят свою жизнь без надежды на будущее и без памяти о прошлом. Лишь её обрывки, запечатлевшие картины прекрасного мира, разрывают мрачные индустриальные пейзажи. Прошлое, которое никогда не вернётся. Тогда зачем его изучать, если оно приносит только боль от потери?',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '1220920',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1220920.jpg',
             title: 'Истребитель демонов',
@@ -315,11 +294,10 @@
             director: 'Харуо Сотодзаки',
             country: 'Япония',
             text: 'С незапамятных времён земля японская полнится слухами о демонах-людоедах, что скрываются в лесной чаще. В страхе перед ними обычные селяне предпочитают не покидать свои жилища после захода солнца. Быть может, именно эти чувства и породили легенду об охотниках на демонов, истребляющих нечисть по ночам. С тех пор, как погиб его отец, Тандзиро в одиночку добывает хлеб для своей семьи — матери, братьев и сестёр. Однако тяжёлые, но счастливые будни подходят к концу, когда юноша находит близких зверски убитыми. Удаётся выжить лишь сестре Тандзиро, Нэдзуко, обратившейся демоном. Но девушка чуть не погибает от руки загадочного мечника — в последний миг тот останавливается, поражённый взаимной верностью человека и демона. Разглядев в Тандзиро потенциал охотника на демонов, странник направляет его к своему наставнику, дабы тот обучил юношу азам нового ремесла...',
-            seasons: '[object Object]'
+            seasons: '3'
           },
           {
             id: '4786341',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_4786341.jpg',
             title: 'Адский рай',
@@ -330,11 +308,10 @@
             director: 'Каори Макита',
             country: 'Япония',
             text: 'Времена правления династии Токугава. Один из самых ловких нинздя и печально известный наемный убийца попадает в плен, но у него появляется шанс избежать казни. Для этого ему нужно отправиться на окутанный легендами загадочный остров и найти там эликсир бессмертия.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '5134622',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5134622.jpg',
             title: 'Великая небесная стена',
@@ -345,11 +322,10 @@
             director: 'Даики Мори',
             country: 'Япония',
             text: 'Этот мир давно уже был разрушен, и только немногие люди сумели пережить эту катастрофу. Токио, мальчик, вырос в этот период времени. Город, в котором он живет, окружен стеной. Может быть, за ней скрываются неизвестные опасности, или жители оградили себя от внешнего мира. Но Токио стремится узнать правду. Несмотря на доступ к свежей еде, обширным плантациям, детям для игр и взрослым, готовым оказать помощь советом, его любопытство сильнее всего. Однажды он получает загадочное приглашение отправиться за пределы стены с вопросом: "Хотите ли вы выйти за пределы?" С этого момента начинаются приключения главного героя и его друзей. Вместе с ними в поисках небес по разрушенному миру путешествует таинственный Мару. Планету населяют загадочные существа, и именно поэтому Токио не понимает опасности, которые ему грозят. Токио и Мару начинают исследовать мир за стенами, раскрывая страшную правду, которая может изменить мировоззрение людей. Что скрывается за стеной? Что ждет героев в будущем, и что стало причиной катастрофы, случившейся много лет назад? На эти вопросы придется найти ответы.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '1432450',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1432450.jpg',
             title: 'Нулевой Эдем',
@@ -360,11 +336,10 @@
             director: 'Синдзи Исихира,Юдзи Судзуки',
             country: 'Япония',
             text: 'Сики — единственный человек в королевстве Гранбелл, населённом исключительно роботами. Однажды туда приезжает девушка Ребекка с котом Хэппи, и пока парень радуется первому увиденному человеку, его соседи решают устроить робовосстание, и обстановка накаляется. Тогда Сики присоединяется к новым друзьям и на звездолете отправляется исследовать космос.',
-            seasons: '[object Object]'
+            seasons: '2'
           },
           {
             id: '1432450',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1432450.jpg',
             title: 'Нулевой Эдем',
@@ -375,11 +350,10 @@
             director: 'Синдзи Исихира,Юдзи Судзуки',
             country: 'Япония',
             text: 'Сики — единственный человек в королевстве Гранбелл, населённом исключительно роботами. Однажды туда приезжает девушка Ребекка с котом Хэппи, и пока парень радуется первому увиденному человеку, его соседи решают устроить робовосстание, и обстановка накаляется. Тогда Сики присоединяется к новым друзьям и на звездолете отправляется исследовать космос.',
-            seasons: '[object Object]'
+            seasons: '2'
           },
           {
             id: '5072545',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5072545.jpg',
             title: 'Томо — девушка!',
@@ -390,11 +364,10 @@
             director: 'Хитоси Намба',
             country: 'Япония',
             text: 'Пацанка Томо влюблена в друга детства по имени Дзюнъитиро. Правда, он воспринимает её как парня и лучшего друга, который в драке и в аду спину прикроет. Осознав, что даже признанием в любви до парня достучаться не удалось, Томо решает сделать так, чтобы Дзюнъитиро наконец увидел в ней девушку.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '326084',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_326084.jpg',
             title: 'Ночные воины: Охотники на вампиров',
@@ -405,11 +378,10 @@
             director: 'Масаси Икэда,Сатоси Икеда',
             country: 'Канада,Япония,США',
             text: 'Вампиры и пришельцы, колья и лазеры, разные измерения и еще более разные герои... Все это слилось в водоворот, затягивающий зрителя, как черная дыра. Великолепно анимированная драматическая экранизация культовой видеоигры. Никаких провисаний сюжета и проходных сцен — только стильное действо в мрачных «готических» тонах.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '4323345',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_4323345.jpg',
             title: 'Звёздные войны: Видение',
@@ -420,11 +392,10 @@
             director: 'Чхве Ын-ён,Эйбел Гонгора,Хитоси Хага',
             country: 'Япония,США',
             text: 'Серия короткометражных анимационных фильмов, посвящённых вселенной «Звёздных войн».',
-            seasons: '[object Object]'
+            seasons: '2'
           },
           {
             id: '694435',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_694435.jpg',
             title: 'Связь сердец',
@@ -435,11 +406,10 @@
             director: 'Масая Кавамо,Син Онума,Дзюн Фукуда',
             country: 'Япония',
             text: 'Они - не друзья детства и не знают друг друга десяток лет. Нет, трое девчонок и двое парней встретились уже в старшей школе Ямабоси, где познакомились и подружились. Никто из них не сумел найти клуб по душе, так и родилось «Общество молодежной культуры». Президентом стала веселая и общительная Иори, её замом – строгая и рассудительная Химэко, а замкнула женский коллектив симпатичная модница Юй. С парнями тоже всё ясно: Тайти – всеобщий помощник, а Ёсифуми – местный мачо, что не стесняется признаваться Юй в любви по два раза на дню. А вот беднягу Тайти умом тянет к Химэко, сердцем – к Иори, сам же он решить ничего не может. Помощь неожиданно пришла от некоего существа – бога, демона или пришельца, что до поры скрылся под маской учителя Гото. Члены клуба вдруг стали ненадолго меняться телами, причем обмен происходил непредсказуемо, попарно или втроем.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '4323345',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_4323345.jpg',
             title: 'Звёздные войны: Видение',
@@ -450,11 +420,10 @@
             director: 'Чхве Ын-ён,Эйбел Гонгора,Хитоси Хага',
             country: 'Япония,США',
             text: 'Серия короткометражных анимационных фильмов, посвящённых вселенной «Звёздных войн».',
-            seasons: '[object Object]'
+            seasons: '2'
           },
           {
             id: '48005',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_48005.jpg',
             title: 'Сумерки Повелителя тьмы',
@@ -465,11 +434,10 @@
             director: 'Акиюки Синбо',
             country: 'Япония',
             text: 'С начала времён Земля была под жестокой властью огров. Эти высокомерные бессмертные поработили бы человеческий род, если бы его не защищали Гардианы. Проходит много веков, и в 2089-м году в Нео-Синдзюку остаются лишь несколько Огров и Гардианов, а Земля находится под властью людей. Но в самых глубинах тёмного города всё ещё жив высший Огр, планирующий вновь поработить людей.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '47627',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_47627.jpg',
             title: 'Карнавал роботов',
@@ -480,11 +448,10 @@
             director: 'Ацуко Фукусима,Хироюки Китакубо,Хироюки Китадзумэ',
             country: 'Япония',
             text: 'Девятерых ведущих аниматоров Японии попросили создать короткометражные фильмы, которые бы основывались на тематике «Роботов», чтобы впоследствии объединить их в один фильм. Общий элемент, взаимодействие человека с роботами, а именно последствия создания жизни собственными руками.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '5098559',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5098559.jpg',
             title: 'Галактика по соседству',
@@ -495,11 +462,10 @@
             director: 'Рюити Кимура',
             country: 'Япония',
             text: 'После смерти родителей мангака Итиро Куга взял на себя заботу о младших брате и сестре. Поскольку рисует Итиро по старинке на бумаге, то помощников ему найти не так-то просто, а сроки поджимают. И вот парню сообщают радостную новость, что ему нашли ассистентку — обаятельную Сиори. Правда, позже выясняется, что Сиори — не совсем обычная девушка.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '1388542',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1388542.jpg',
             title: 'Дека-данс',
@@ -510,11 +476,10 @@
             director: 'Юдзуру Татикава',
             country: 'Япония',
             text: 'Прошло много лет с тех пор, как человечество было на грани исчезновения из-за внезапного появления неизвестных форм жизни под названием гадол. Выжившие построили мобильную крепость Дека-данс высотой 3000 метров, чтобы защититься от этой угрозы. Жители Дека-данса делятся на гирсов, сражающихся с гадолами, и танкеров, поддерживающих инфраструктуру города.  Девушка-танкер Нацумэ, которая мечтает стать одной из гирсов, получает назначение в команду технического обслуживания, возглавляемую Кабураги - угрюмым мастером по ремонту доспехов. Он обещает научить ее сражаться.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '408522',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_408522.jpg',
             title: 'Технолайз',
@@ -525,11 +490,10 @@
             director: 'Хиро Хамасаки',
             country: 'Япония',
             text: 'Построенный глубоко под Землей, экспериментальный город Лакасс стал «Оставленным городом», поскольку поверхностный мир забыл о его существовании. Его граждане оказались в отчаянном положении. В городе хозяйничают «бригады», насаждающие насилие и жестокость. Управлять городом можно с помощью «Технолайза» - передовой технологии, которая заменяет человека - мощной кибернетикой! Судьба этого мира окажется в руках четырех людей: Ohnish - лидер бригады, который управляет городом, Ran - молодая девочка со способностями ясновидца, Yoshii - таинственный новый посетитель с поверхностного мира и Ichise - искалеченный боксер, прибывший для пресечения действий правонарушителей. Чем станет «Технолайз» - спасением города или его разрушением?',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '5098559',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5098559.jpg',
             title: 'Галактика по соседству',
@@ -540,11 +504,10 @@
             director: 'Рюити Кимура',
             country: 'Япония',
             text: 'После смерти родителей мангака Итиро Куга взял на себя заботу о младших брате и сестре. Поскольку рисует Итиро по старинке на бумаге, то помощников ему найти не так-то просто, а сроки поджимают. И вот парню сообщают радостную новость, что ему нашли ассистентку — обаятельную Сиори. Правда, позже выясняется, что Сиори — не совсем обычная девушка.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '1274280',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_1274280.jpg',
             title: 'Сага о Винланде',
@@ -555,11 +518,10 @@
             director: 'Сюхэй Ябута',
             country: 'Япония',
             text: '1013 год. Исландский юноша Торфинн — сын одного из величайших воинов викингов. И когда его отца убивает в схватке предводитель дружины Аскеладд, юноша становится на путь воина и отправляется мстить. Будучи гордым и не желая бесчестной схватки, он вступает в дружину Аскеладда с целью победить его в поединке, но в итоге судьба затягивает его в водоворот кровавых событий эпохи, ставка в которых — корона Англии.',
-            seasons: '[object Object]'
+            seasons: '2'
           },
           {
             id: '5276504',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_5276504.jpg',
             title: 'Опасность в моём сердце',
@@ -570,11 +532,10 @@
             director: 'Хироаки Акаги',
             country: 'Япония',
             text: 'У тихого и замкнутого школьника Кётаро Итикавы весьма богатое воображение, ведь он постоянно представляет, как убивает одноклассников различными способами, и особенно часто — самую красивую девочку класса Анну Ямаду. Однажды он случайно сталкивается с Анной в библиотеке, и с удивлением отмечает, что она очень милая и забавная. Постепенно Кётаро начинает испытывать к девушке новые для себя чувства.',
-            seasons: '[object Object]'
+            seasons: '1'
           },
           {
             id: '436799',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_436799.jpg',
             title: 'Граница пустоты: Сад грешников (фильм седьмой)',
@@ -585,11 +546,10 @@
             director: 'Синсукэ Такидзава',
             country: 'Япония',
             text: 'Сики Рёги - девушка, обладающая таинственными «глазами смерти», силой, дающей своему владельцу буквально видеть линии жизни всего живого, и уничтожать любой объект, обрезая их. Она лишь недавно проснулась из двухлетней комы, в которую впала связи с автомобильной аварией.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '771502',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_771502.jpg',
             title: 'Граница пустоты: Благословение будущего',
@@ -600,11 +560,10 @@
             director: 'Томонори Судо',
             country: 'Япония',
             text: 'С раннего детства Сео Сидзуне видела будущее других людей и её это всегда тяготило. Она раз за разом пыталась предупредить людей об опасности с помощью своего дара, но они не верили ей. Пока однажды, она не встретила странного парня по имени Микия Кокуто. Мерука Курамицу работал подрывником, ему всегда удавалось выходить сухим из воды, благодаря своему дару абсолютного предвидения. Пока, однажды, он не встретил девушку, которую не смог выявить в своём будущем, девушку по имени Сики Рёги. А через десять лет странный писатель беседует с милой девочкой в старом пятиэтажном заброшенном здании, переделанном под захламлённый офис. И события прошедших лет неожиданно по-новому раскрываются в их небольшой беседе.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '602361',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_602361.jpg',
             title: 'Граница пустоты: Сад грешников — эпилог',
@@ -615,11 +574,10 @@
             director: 'Хикару Кондо',
             country: 'Япония',
             text: 'Сики Рёги обладает таинственными «глазами смерти» - силой, дающей своему владельцу возможность видеть линии жизни всего живого, и уничтожить любой объект, обрезая их. Она лишь недавно проснулась от двухлетней комы, в которую впала в связи с автомобильной аварией.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '414992',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_414992.jpg',
             title: 'Граница пустоты: Сад грешников (фильм четвертый)',
@@ -630,11 +588,10 @@
             director: 'Такаюки Хирао',
             country: 'Япония',
             text: 'После столкновения с серийным убийцей и его покровителями Сики Рёги на два года провалилась в кому. Блуждая в пустоте на границе жизни и небытия, она рассталась с одним даром и приняла другой - запретные Глаза Смерти, абсолютное оружие вселенной Type-Moon. Обретение внутренней цельности и поиск нового смысла жизни не дались бы Сики без поддержки старого друга Микии Кокуто и помощи новой подруги и работодателя - волшебницы Токо Аодзаки. Так встретились три странных личности, а в итоге родилось уникальное магическое детективное агентство «Храм пустоты»! Теперь Токо, Сики и Микии точно не придется сидеть без дела - ведь враги рядом, и чужая многоходовая интрига только разворачивается. Но сколько веревочке ни виться, а долги все равно придется отдавать!',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '423069',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_423069.jpg',
             title: 'Граница пустоты: Сад грешников (фильм пятый)',
@@ -645,11 +602,10 @@
             director: 'Такааки Хирао',
             country: 'Япония',
             text: 'Действие пятого фильма происходит всего через месяц после первого - в ноябре 1998 года. Когда Сики Рёги, как обычно прогуливаясь по столичным трущобам, спасла от верной смерти уличного парнишку Томоэ Эндзё, она и подумать не могла, что тем самым запускает цепь загадочных и пугающих событий. Послушав беспорядочные признания парня об убийстве собственных родителей, Сики сразу почувствовала холодный ветерок сверхъестественного, чью-то злую волю, играющую чужими судьбами.В этом странном и захватывающем фильме в гости к Токо Аодзаки приходит прошлое в лице старых знакомых из Ассоциации магов. Во вселенной Type-Moon маги, вообще-то, не связаны людскими законами и моралью. Но в поисках силы и абсолютного знания бывшие друзья Токо зашли слишком далеко, безжалостно бросая людские жизни в топку своих амбиций. В итоге разгорается битва, где среди перепутанных зеркальных отражений прошлого и будущего, среди витков спирали парадокса трем друзьям из «Храма пустоты» предстоит доказать, что на чужих страданиях истинной силы не добудешь, а недооценивать Сики Рёги - очень большая ошибка!',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '436370',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_436370.jpg',
             title: 'Граница пустоты: Сад грешников (фильм шестой)',
@@ -660,11 +616,10 @@
             director: 'Такахиро Миура',
             country: 'Япония',
             text: 'Адзака Кокуто обожает все запретное и влюбилась ни много ни мало - в собственного старшего брата. Вскоре Адзака решила, что любимый Микия быстрее оценит ее как женщину, если она будет жить отдельно. С тех пор девушка училась в частной школе Рэйэн, навещая брата на каникулах, и все было бы хорошо... если бы не появление некоей Сики Рёги. Ни в чем не желая уступать сопернице, Адзака становится ученицей волшебницы Токо Аодзаки и вливается в ее небольшую, но дружную команду, чтобы доказать брату свое превосходство над «разлучницей».',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '401767',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_401767.jpg',
             title: 'Граница пустоты: Сад грешников (фильм третий)',
@@ -675,11 +630,10 @@
             director: 'Мицуру Обунай',
             country: 'Япония',
             text: 'Микия Кокуто - молодой и перспективный сотрудник магического детективного агентства «Храм Пустоты» - обладает не только гениальной интуицией, но и колоссальным даром впутываться в неприятности. А для этого нет лучшего средства, чем помочь девушке в беде, например, после нападения уличной банды. Когда же выяснилось, что красавица Фудзино Асагами (так ее звали) подруга и одноклассница его младшей сестры, Микия пошел к своему шефу, волшебнице Токо Аодзаки, с просьбой поучаствовать в судьбе новой знакомой. Токо ответила, что поучаствовать точно придется, ибо новый клиент агенства - отец Фудзино и глава рода Асагами - отказов не принимает...Границы и мера - вот общая идея этого фильма и всего «Сада грешников». Где пределы прощения, где мера воздаяния, где грань над бездной, по которой надо идти, когда ты не такой, как все? Ох и трудно даются героям ответы на подобные вопросы... Но ведь без труда не получится шедевр!',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '401765',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_401765.jpg',
             title: 'Граница пустоты: Сад грешников (фильм второй)',
@@ -690,11 +644,10 @@
             director: 'Такуя Нонака',
             country: 'Япония',
             text: 'Токио, 1995 год, обычная старшая школа. 16-летний Микия Кокуто - парень внешне незаметный, но с острым, пытливым умом и потрясающей интуицией. Потому он единственный заинтересовался своей одноклассницей Сики Рёги - странной девушкой из богатого и древнего рода, что в любую погоду ходит в кимоно и принципиально ни с кем не общается. Смелость города берет - и вскоре молодые люди установили своеобразные дружеские отношения. Только дальше дружбе пришлось развиваться на фоне серии жутких и немотивированных убийств, в орбиту которых оказалось втянуто гораздо больше людей, чем кажется на первый взгляд.«Если долго вглядываться в бездну, бездна начинает вглядываться в тебя». Герои сериала не из тех, кто боится слов Ницше, они много раз проходят по грани Великой Пустоты в поисках ответов на очень запутанные вопросы. И пусть эта грань временами заводит за пределы добра и зла - они вернутся. Они из тех, кто возвращается!',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '401766',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_401766.jpg',
             title: 'Граница пустоты: Сад грешников (фильм первый)',
@@ -705,11 +658,10 @@
             director: 'Эи Аоки',
             country: 'Япония',
             text: 'Сики Рёги - странная девушка из древнего и влиятельного рода. В любую погоду она ходит в кимоно, не любит общаться с посторонними, а из развлечений предпочитает прогулки по самым темным уголкам ночного Токио. Более-менее понимают ее только двое - циничная волшебница Токо Аодзаки и скромный гений оперативной работы Микия Кокуто. Вот такая веселая троица под чутким руководством Токо работает в агентстве «Храм пустоты», занимаясь всем, что приносит деньги - от дизайна до сверхъестественных преступлений.В сентябре 1998 года Токио потрясла цепь загадочных самоубийств молодых девушек, бросавшихся одна за другой с крыши заброшенного здания компании Фудзё. После пятой жертвы к делу подключается «Храм пустоты», и Сики, наконец, получает возможность проявить свой уникальный дар.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '47245',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_47245.jpg',
             title: 'Кровь: Последний вампир',
@@ -720,11 +672,10 @@
             director: 'Хироюки Китакубо',
             country: 'Япония, США',
             text: 'Америка на пороге Вьетнамской войны. На японской базе воздушных сил Ёкота нарастает напряжение. Но существует более большая опасность в стенах охраняемого комплекса - вампиры! Команда секретных агентов посылает на их уничтожение загадочную девушку.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '715010',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_715010.jpg',
             title: 'Арве Реззл: Механические феи',
@@ -735,11 +686,10 @@
             director: 'Тацуя Ёсихара',
             country: 'Япония',
             text: 'Будущее. Современные технологии позволяют людям загружать своё сознание в киберпространство, пока их тела хранятся в специальном бассейне. Однажды все, кто загрузил сознание в киберпространство, впадают в кому или погибают. После этого инцидента парень Рема посещает пустую квартиру сестры Сики, которая также использовала данную технологию. Вскоре Сики появляется на пороге, лишённая всех воспоминаний о семье и прошлом.',
-            seasons: 'undefined'
+            seasons: 'none'
           },
           {
             id: '624762',
-            url: 'https://rr3---sn-aigl6nzk.googlevideo.com/videoplayback?expire=1681407957&ei=des3ZN-pCKOQmLAPof6KqAQ&ip=176.67.85.191&id=o-ANBsqefVOy7jVbx6tSUR4BXbiDotOvrrGYddXkf9mwgs&itag=22&source=youtube&requiressl=yes&mh=aB&mm=31%2C26&mn=sn-aigl6nzk%2Csn-5hneknek&ms=au%2Conr&mv=m&mvi=3&pl=24&initcwndbps=1008750&spc=99c5CaXE0iQIPXHxJLOUB9tDJ9UTgoADkCdXJzyZgg&vprv=1&mime=video%2Fmp4&ns=xzfCTH3MXcndTLxA3-1gJmcM&cnr=14&ratebypass=yes&dur=155.829&lmt=1655331954967271&mt=1681386056&fvip=2&fexp=24007246&c=WEB&txp=4532434&n=_LKabM0jDk3E4Q&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgMEhg67vhDupP5_caxFJztE8hn32-Mnk718I5oLPeInACIH5oxT-HSSFyl2Vpv-r1yjPuPbhU1tyywfT4yo31ZiMO&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPjQSfudY8x1PFAP82K3F3cFbToYeUTWz1HhALrxm7ZXAiBbHDXs7SgO5KLSPdEGf_inrMUwMrnvKzNcA4MoNb3dtQ%3D%3D&title=JavaScript%20in%20100%20Seconds',
             type: 'vod',
             imgurl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_624762.jpg',
             title: 'Приключения дигимонов',
@@ -750,7 +700,7 @@
             director: 'Мамору Хосода',
             country: 'Япония',
             text: 'Однажды брат с сестрой сталкиваются с существом, которое появляется из их компьютера. Так цифровой монстр дигимон оказался в реальном мире.',
-            seasons: '[object Object]'
+            seasons: '2'
           },
           
     ] 
