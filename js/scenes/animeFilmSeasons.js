@@ -22,13 +22,12 @@
     },
     // showing items from videos.js
     renderItems: function (items) {
-      var filmhtml = "";
+      var seasonshtml = "";
       // console.log(items, itemHtml.toString())
       for (var i = 0, len = items.length; i < len; i++) {
         filmhtml += videos(items[i]);
       }
-      
-      this.$el.empty().html(filmhtml);
+      this.$el.empty().html(seasonshtml);
     },
   };
 })();

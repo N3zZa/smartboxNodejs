@@ -654,7 +654,6 @@ const showAnime = async () => {
             director: '${element.info.director}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "")}',
-            seasons: '${element.episodes ? Object.keys(element.episodes).length : 'none'}'
           },
           `
     );
@@ -792,7 +791,7 @@ async function getAnime() {
       for (var i = 0, len = items.length; i < len; i++) {
         filmhtml += filmPageHtml(items[i]);
       }
-      
+      $$log(filmhtml)
       this.$el.empty().html(filmhtml);
     },
   };
@@ -825,13 +824,12 @@ async function getAnime() {
     },
     // showing items from videos.js
     renderItems: function (items) {
-      var filmhtml = "";
+      var seasonshtml = "";
       // console.log(items, itemHtml.toString())
       for (var i = 0, len = items.length; i < len; i++) {
         filmhtml += videos(items[i]);
       }
-      
-      this.$el.empty().html(filmhtml);
+      this.$el.empty().html(seasonshtml);
     },
   };
 })();
