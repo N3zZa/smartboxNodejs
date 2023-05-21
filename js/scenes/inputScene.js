@@ -5,11 +5,10 @@
   window.App.scenes.input = {
     init: function () {
       this.$el = $(".js-scene-input");
-
       this.$el
-        .find(".search-input")
+        .find("#input")
         .on("change", function () {
-         console.log(this.value);
+          console.log(this.value);
         })
         .SBInput({
           keyboard: {

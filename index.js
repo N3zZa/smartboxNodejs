@@ -55,22 +55,17 @@ async function searchPage() {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-       <link rel="stylesheet" href="./css/input.css"/>
-        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="./js/mainApp.js"></script>
-        <script type="text/javascript" src="./js/search/searchItem.js"></script>
-        <script type="text/javascript" src="./js/scenes/navigation.js"></script>
-        <script type="text/javascript" src="./js/scenes/inputScene.js"></script>
+       <link rel="stylesheet" href="../css/input.css"/>
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/mainApp.js"></script>
+        <script type="text/javascript" src="../js/scenes/inputScene.js"></script>
+        <script type="text/javascript" src="../js/search/searchItem.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
 
-       <script>
-        $(function () {
-            $$nav.on();
-        });
-    </script>
-  
+
 </head>
 
 <style>
@@ -135,22 +130,27 @@ h3, h4, li {
 
 <div class="bg"></div>
 <div id="app" class="wrap">
-       <div class="scene js-scene-input searchBlock">
-            <div class="navigation-items searchBlock-container" data-nav_loop="true">
-                <input type="text" id="input" class="nav-item search-input input-item" name="newItem"
+       <div class="searchBlock">
+            <form action="/searchItem" class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
+                <input type="text" id="input" class="nav-item search-input input-item" name="item"
                     placeholder="Please enter your task">
-                <button type="submit" name="button" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
-            </div>
+                <button type="submit" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
+            </form>
         </div>
-        <script>
-        var inputValue = $("#input").attr('value');
-        $("#inputBtn").click(function() {
+</div>
+       <script>
+        $(function () {
+        var inputItem = $("#input");
+        var inputSubmitBtn = $("#inputBtn");
+        $("body").on( "keyup", function() {
+        var inputValue = inputItem.val();
+        inputSubmitBtn.on("click", function() {
           window.location.href = "/name=" + inputValue
         })
-        
-        </script>
-</div>
-
+        } );
+       
+        });
+    </script>
 </body>
 </html>`;
       res.send(message); // Отправка ответа в виде HTML
