@@ -36,7 +36,6 @@
       for (var i = 0, len = items.length; i < len; i++) {
         filmhtml += filmPageHtml(items[i]);
       }
-      $$log(filmhtml)
       this.$el.empty().html(filmhtml);
     },
   };

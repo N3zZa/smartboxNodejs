@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 
 
-const searchVideo = async () => {
+/* const searchVideo = async () => {
   try {
     const commits = await searchMovie;
     let items = commits.results.map(
@@ -37,7 +37,7 @@ const searchVideo = async () => {
   } catch (error) {
     console.error(error);
   }
-};
+}; */
 
 async function searchPage() {
   try {
@@ -156,6 +156,7 @@ h3, h4, li {
       res.send(message); // Отправка ответа в виде HTML
     });
   } catch (error) {
+    $$log("problems in searchfunction");
     console.error(error);
   }
 }
@@ -169,26 +170,27 @@ const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
 
 // функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
 function getMp4Videos(item, season, episode, url, res) {
-  if (season) {
-    const requestData = {
-      name: item.info.rus,
-      year: item.info.year,
-      country: item.info.country,
-      season: season,
-      episode: episode,
-    };
-  console.log('rerequestData1', requestData);
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(requestData),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        console.log(jsonResponse);
-        const link = jsonResponse.Link.videos;
-        const video = link["1080p"];
-        const playerPage = `<!DOCTYPE html>
+  try {
+    if (season) {
+      const requestData = {
+        name: item.info.rus,
+        year: item.info.year,
+        country: item.info.country,
+        season: season,
+        episode: episode,
+      };
+      console.log("rerequestData1", requestData);
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(requestData),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          console.log(jsonResponse);
+          const link = jsonResponse.Link.videos;
+          const video = link["1080p"];
+          const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -226,9 +228,9 @@ body {
 </body>
 </html>`;
 
-        fs.writeFileSync(
-          `./js/playVideo.js`,
-          `(function () {
+          fs.writeFileSync(
+            `./js/playVideo.js`,
+            `(function () {
   "use strict";
 
   window.App = {
@@ -317,30 +319,30 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-        );
+          );
 
-        res.send(playerPage); // Отправка ответа в виде HTML
+          res.send(playerPage); // Отправка ответа в виде HTML
+        })
+        .catch((error) => console.error(error));
+    } else {
+      const requestData = {
+        name: item.info.rus,
+        year: item.info.year,
+        country: item.info.country,
+      };
+      console.log("rerequestData2", requestData);
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(requestData),
+        headers: { "Content-Type": "application/json" },
       })
-      .catch((error) => console.error(error));
-  } else {
-    const requestData = {
-      name: item.info.rus,
-      year: item.info.year,
-      country: item.info.country,
-    };
-    console.log("rerequestData2", requestData);
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(requestData),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        const link = jsonResponse.Link.videos;
-        const video = link["1080p"];
-        fs.writeFileSync(
-          `./js/playVideo.js`,
-          `(function () {
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          const link = jsonResponse.Link.videos;
+          const video = link["1080p"];
+          fs.writeFileSync(
+            `./js/playVideo.js`,
+            `(function () {
   "use strict";
 
   window.App = {
@@ -426,8 +428,8 @@ body {
   SB(_.bind(App.initialize, App));
 })();
 `
-        );
-        const playerPage = `<!DOCTYPE html>
+          );
+          const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -464,76 +466,85 @@ body {
 </body>
 </html>`;
 
-        
-
-        res.send(playerPage); // Отправка ответа в виде HTML
-      })
-      .catch((error) => console.error(error));
+          res.send(playerPage); // Отправка ответа в виде HTML
+        })
+        .catch((error) => console.error(error));
+    }
+  } catch (error) {
+    $$log('problems to get mp4 files')
+    console.error(error)
   }
-  
 } 
 // функция сезонов и эпизодов для аниме
 const fetchAnimeVideos = async () => {
-  const videosId = await fetchDataAnime;
-  const url = "http://localhost:8000/api/link";
-  videosId.results.map((item) => {
-    let videos = [];
-    sParameter = encodeURIComponent(item.info.orig.trim());
-    let videoSeasonsArrays = item.episodes ? item.episodes : "no episodes";
-    app.get("/anime/selectepisodeId=" + item.kinopoisk_id, (req, res) => {
-      let episodes = [];
-      if (videoSeasonsArrays !== "no episodes") {
-        const seasonsArr = [];
-        for (let key of Object.keys(item.episodes)) {
-          const episodesArr = [];
-          seasonsArr.push(key);
-          for (let value of Object.values(item.episodes[key])) {
-            episodesArr.push(value);
-          }
-          episodes.push(episodesArr);
-        }
-        let items = episodes.map((value, seasonIndex) => {
-          
-          let videoObject = value.map(
-            (element, episodeIndex) =>
-              `{
+ try {
+   const videosId = await fetchDataAnime;
+   const url = "http://localhost:8000/api/link";
+   videosId.results.map((item) => {
+     let videos = [];
+     sParameter = encodeURIComponent(item.info.orig.trim());
+     let videoSeasonsArrays = item.episodes ? item.episodes : "no episodes";
+     app.get("/anime/selectepisodeId=" + item.kinopoisk_id, (req, res) => {
+       let episodes = [];
+       if (videoSeasonsArrays !== "no episodes") {
+         const seasonsArr = [];
+         for (let key of Object.keys(item.episodes)) {
+           const episodesArr = [];
+           seasonsArr.push(key);
+           for (let value of Object.values(item.episodes[key])) {
+             episodesArr.push(value);
+           }
+           episodes.push(episodesArr);
+         }
+         let items = episodes.map((value, seasonIndex) => {
+           let videoObject = value.map(
+             (element, episodeIndex) =>
+               `{
                      season: '${seasonIndex + 1}' + 'сезон',
                      episode: '${episodeIndex + 1}' + 'серия',
                      seasonNum: '${seasonIndex + 1}',
                      episodeNum: '${episodeIndex + 1}', 
-                     id: '${item.kinopoisk_id}&${seasonIndex + 1}&${episodeIndex + 1}',
+                     id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
+                 episodeIndex + 1
+               }',
                      name: '${item.info.orig}',
                   },
           `
-          );
-          return videoObject.join("");
-        });
-        videos.push(items.join(""));
-        episodes.map((value, seasonIndex) => {
-          value.map((element, episodeIndex) => {
-            app.get(
-              "/anime/player=" +
-                item.kinopoisk_id +
-                `&${seasonIndex + 1}&${episodeIndex + 1}`,
-              (req, res) => {
-                getMp4Videos(item, seasonIndex + 1, episodeIndex + 1, url,res);
-              }
-            );
-          });
-        });
-      fs.writeFile(
-        "./js/anime/animeSerialSeasons.js",
-        `(function () {
+           );
+           return videoObject.join("");
+         });
+         videos.push(items.join(""));
+         episodes.map((value, seasonIndex) => {
+           value.map((element, episodeIndex) => {
+             app.get(
+               "/anime/player=" +
+                 item.kinopoisk_id +
+                 `&${seasonIndex + 1}&${episodeIndex + 1}`,
+               (req, res) => {
+                 getMp4Videos(
+                   item,
+                   seasonIndex + 1,
+                   episodeIndex + 1,
+                   url,
+                   res
+                 );
+               }
+             );
+           });
+         });
+         fs.writeFile(
+           "./js/anime/animeSerialSeasons.js",
+           `(function () {
     "use strict"
 
     window.App.animeSerialSeasons = [${videos}]
   })();
   `,
-        function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          const episodesPage = `<!DOCTYPE html>
+           function (err) {
+             if (err) {
+               return console.log(err);
+             }
+             const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -606,14 +617,13 @@ h4,p {
     </div>
 </body>
 </html>`;
-          res.send(episodesPage); // Отправка ответа в виде HTML
-        }
-      );
-          
-      } else {
-        fs.writeFileSync(
-          "./js/anime/animeSerialSeasons.js",
-          `(function () {
+             res.send(episodesPage); // Отправка ответа в виде HTML
+           }
+         );
+       } else {
+         fs.writeFileSync(
+           "./js/anime/animeSerialSeasons.js",
+           `(function () {
     "use strict"
 
     window.App.animeSerialSeasons = [
@@ -624,15 +634,15 @@ h4,p {
     ] 
   })();
   `
-        );
-        /*  getMp4Videos(item, ...[, ,], "animevideos", "animevideo"); */
-      }
-
-    });
-       
-  });
-
-  
+         );
+         getMp4Videos(item, ...[, ,], "animevideos", "animevideo");
+       }
+     });
+   });
+ } catch (error) {
+  $$log('error to get videos')
+    console.error(error)
+ }
 };
 
 
@@ -791,7 +801,6 @@ async function getAnime() {
       for (var i = 0, len = items.length; i < len; i++) {
         filmhtml += filmPageHtml(items[i]);
       }
-      $$log(filmhtml)
       this.$el.empty().html(filmhtml);
     },
   };
@@ -804,7 +813,7 @@ async function getAnime() {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var videos = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>let selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/anime/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>let selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/anime/player={{id}}"})</script>')
   
   window.App.scenes.serialSeasons = {
     init: function () {
@@ -827,7 +836,7 @@ async function getAnime() {
       var seasonshtml = "";
       // console.log(items, itemHtml.toString())
       for (var i = 0, len = items.length; i < len; i++) {
-        filmhtml += videos(items[i]);
+        filmhtml += seasonItems(items[i]);
       }
       this.$el.empty().html(seasonshtml);
     },
@@ -836,8 +845,6 @@ async function getAnime() {
     `
     );
 
-    // вызов функции для получения ссылок
-    fetchAnimeVideos();
 
     const message = `<!DOCTYPE html>
 <html lang="en">
