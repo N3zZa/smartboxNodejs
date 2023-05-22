@@ -836,7 +836,7 @@ async function getAnime() {
       var seasonshtml = "";
       // console.log(items, itemHtml.toString())
       for (var i = 0, len = items.length; i < len; i++) {
-        filmhtml += seasonItems(items[i]);
+        seasonshtml += seasonItems(items[i]);
       }
       this.$el.empty().html(seasonshtml);
     },
