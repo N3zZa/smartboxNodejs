@@ -251,15 +251,12 @@ body {
     },
 
     setEvents: function () {
-      stb.InitPlayer();
       var url = '${video}'
       $$log(url)
-     stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
-    },
+     function playVideo() {
+      Player.play({
+        url: url,
+      });
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
