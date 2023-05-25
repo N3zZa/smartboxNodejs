@@ -619,6 +619,7 @@ h4,p {
              res.send(episodesPage); // Отправка ответа в виде HTML
            }
          );
+         videos.splice(0, videos.length);
        } else {
          fs.writeFileSync(
            "./js/anime/animeSerialSeasons.js",
@@ -806,6 +807,9 @@ async function getAnime() {
 })();
     `
     );
+
+    fetchAnimeVideos();
+
     fs.writeFileSync(
       "./js/scenes/animeFilmSeasons.js",
       `(function () {
@@ -833,7 +837,7 @@ async function getAnime() {
     // showing items from videos.js
     renderItems: function (items) {
       var seasonshtml = "";
-      // console.log(items, itemHtml.toString())
+     console.log('items', items)
       for (var i = 0, len = items.length; i < len; i++) {
         seasonshtml += seasonItems(items[i]);
       }
@@ -844,7 +848,6 @@ async function getAnime() {
     `
     );
 
-    fetchAnimeVideos();
 
     const message = `<!DOCTYPE html>
 <html lang="en">

@@ -23,7 +23,7 @@
     // showing items from videos.js
     renderItems: function (items) {
       var seasonshtml = "";
-      // console.log(items, itemHtml.toString())
+     console.log('items', items)
       for (var i = 0, len = items.length; i < len; i++) {
         seasonshtml += seasonItems(items[i]);
       }
