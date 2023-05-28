@@ -296,11 +296,11 @@ function getMp4Videos(item, season, episode, url, res) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/playVideo.js"></script>
+        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="./js/playVideo.js"></script>
 </head>
 <style>
 body {
@@ -310,7 +310,7 @@ body {
 .wrap {
   width: 100%;
   height: 100%;
-  background-image: url(../images/stars.png);
+  background-image: url(./images/stars.png);
 }
 
 </style>
