@@ -190,45 +190,6 @@ function getMp4Videos(item, season, episode, url, res) {
           console.log(jsonResponse);
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
-          const playerPage = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/playVideo.js"></script>
-</head>
-<style>
-body {
-  padding: 0;
-  margin: 0;
-  background-color: red;
-}
-.wrap {
-  width: 100%;
-  height: 100%;
-  background-image: url(../images/stars.png);
-}
-
-</style>
-
-<body>
-  <div class="wrap">
-    
-  </div>
-</body>
-</html>`;
-
           fs.writeFileSync(
             `./js/playVideo.js`,
             `(function () {
@@ -251,12 +212,16 @@ body {
     },
 
     setEvents: function () {
+      stb.InitPlayer();
       var url = '${video}'
       $$log(url)
      function playVideo() {
-      Player.play({
-        url: url,
-      });
+      stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
+    },
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
@@ -319,6 +284,44 @@ body {
 })();
 `
           );
+          const playerPage = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/playVideo.js"></script>
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+
+<body>
+  <div class="wrap">
+    
+  </div>
+</body>
+</html>`;
+
+          
 
           res.send(playerPage); // Отправка ответа в виде HTML
         })
@@ -361,11 +364,16 @@ body {
     },
 
     setEvents: function () {
-      var url = ${video}
-      function playVideo() {
-      Player.play({
-        url: url,
-      });
+      stb.InitPlayer();
+      var url = '${video}'
+      $$log(url)
+     function playVideo() {
+      stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
+    },
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
@@ -619,7 +627,7 @@ h4,p {
              res.send(episodesPage); // Отправка ответа в виде HTML
            }
          );
-         videos.splice(0, videos.length);
+         videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
        } else {
          fs.writeFileSync(
            "./js/anime/animeSerialSeasons.js",
