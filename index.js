@@ -190,7 +190,7 @@ function getMp4Videos(item, season, episode, url, res) {
           console.log(jsonResponse);
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
-          fs.writeFileSync(
+          fs.writeFile(
             `./js/playVideo.js`,
             `(function () {
   "use strict";
@@ -221,9 +221,8 @@ function getMp4Videos(item, season, episode, url, res) {
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
     stb.Play(url);
-    },
-      $(".wrap").hide();
-      }
+    $(".wrap").hide();
+    }
       setTimeout(() => playVideo(), 2000)
       $(document.body).on({
         // on keyboard 'd' by default
@@ -282,9 +281,12 @@ function getMp4Videos(item, season, episode, url, res) {
   // main app initialize when smartbox ready
   SB(_.bind(App.initialize, App));
 })();
-`
-          );
-          const playerPage = `<!DOCTYPE html>
+`,
+            function (err) {
+              if (err) {
+                return console.log(err);
+              }
+              const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -329,9 +331,10 @@ body {
 </body>
 </html>`;
 
-          
-
-          res.send(playerPage); // Отправка ответа в виде HTML
+              res.send(playerPage); // Отправка ответа в виде HTML
+            }
+          );
+        
         })
         .catch((error) => console.error(error));
     } else {
@@ -381,7 +384,6 @@ body {
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
     stb.Play(url);
-    },
       $(".wrap").hide();
       }
       setTimeout(() => playVideo(), 2000)
