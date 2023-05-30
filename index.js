@@ -323,11 +323,6 @@ body {
   <div class="wrap">
     
   </div>
-  <script>
-           $(function () {
-            $(".wrap").show()
-           });
-        </script>
 </body>
 </html>`;
 
@@ -379,12 +374,44 @@ body {
       var url = '${video}'
       $$log(url)
      function playVideo() {
-      stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
-      $(".wrap").hide();
+          try {
+            stb = gSTB;
+    stb.InitPlayer();
+    var player = stbPlayerManager.list[0];
+    
+    gSTB.SetTopWin(0);
+    player.aspectConversion = 4;
+    player.videoWindowMode = 0;
+    player.setViewport({x: 0, y: 500, width: 800, height: 600});
+    
+    player.play({
+        uri: url,
+        solution: 'auto'
+    });
+    
+    window.addEventListener('keydown', function ( event ) {
+        switch ( event.keyCode ) {
+            case 107:
+                console.log('keydown: volume up');
+                player.volume++;
+                break;
+            case 109:
+                console.log('keydown: volume down');
+                player.volume--;
+                break;
+            case 83:
+                if ( event.altKey ) {
+                    console.log('keydown: stop');
+                    player.stop();
+                }
+                break;
+        }
+    });
+      $wrap.hide();
+          } catch (error) {
+            $$log(error);
+            console.error(error)
+          }
       }
       setTimeout(() => playVideo(), 2000)
       $(document.body).on({
