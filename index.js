@@ -407,7 +407,7 @@ body {
                 break;
         }
     });
-      $wrap.hide();
+      this.$wrap.hide();
           } catch (error) {
             $$log(error);
             console.error(error)
