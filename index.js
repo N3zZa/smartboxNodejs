@@ -187,7 +187,6 @@ function getMp4Videos(item, season, episode, url, res) {
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
-          console.log(jsonResponse);
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
           fs.writeFile(
@@ -201,7 +200,6 @@ function getMp4Videos(item, season, episode, url, res) {
     isShown: true,
 
     initialize: function () {
-      this.$wrap = $(".wrap");
 
       $$legend.show();
 
@@ -213,17 +211,48 @@ function getMp4Videos(item, season, episode, url, res) {
 
     setEvents: function () {
       stb.InitPlayer();
-      var url = '${video}'
-      $$log(url)
-     function playVideo() {
-      stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
-    $(".wrap").hide();
-    }
-      setTimeout(() => playVideo(), 2000)
+      var url = '${video.toString()}';
+      $$log(url);
+      function playVideo() {
+          try {
+            stb = gSTB;
+    stb.InitPlayer();
+    var player = stbPlayerManager.list[0];
+    
+    gSTB.SetTopWin(0);
+    player.aspectConversion = 4;
+    player.videoWindowMode = 0;
+    player.setViewport({x: 0, y: 500, width: 800, height: 600});
+    
+    player.play({
+        uri: url,
+        solution: 'auto'
+    });
+    
+    window.addEventListener('keydown', function ( event ) {
+        switch ( event.keyCode ) {
+            case 107:
+                console.log('keydown: volume up');
+                player.volume++;
+                break;
+            case 109:
+                console.log('keydown: volume down');
+                player.volume--;
+                break;
+            case 83:
+                if ( event.altKey ) {
+                    console.log('keydown: stop');
+                    player.stop();
+                }
+                break;
+        }
+    });
+          } catch (error) {
+            $$log(error);
+            console.error(error)
+          }
+      }
+      playVideo();
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
@@ -251,10 +280,8 @@ function getMp4Videos(item, season, episode, url, res) {
 
     toggleView: function () {
       if (this.isShown) {
-        this.$wrap.hide();
         $$legend.hide();
       } else {
-        this.$wrap.show();
         $$legend.show();
       }
       this.isShown = !this.isShown;
@@ -309,12 +336,6 @@ function getMp4Videos(item, season, episode, url, res) {
 body {
   padding: 0;
   margin: 0;
-}
-.wrap {
-  display: none;
-  width: 1280px;
-  height: 720px;
-  background-image: url(../../images/stars.png);
 }
 
 </style>
@@ -407,7 +428,6 @@ body {
                 break;
         }
     });
-      this.$wrap.hide();
           } catch (error) {
             $$log(error);
             console.error(error)
@@ -485,11 +505,11 @@ body {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/playVideo.js"></script>
+        <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../../js/playVideo.js"></script>
 </head>
 <style>
 body {
