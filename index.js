@@ -189,9 +189,24 @@ function getMp4Videos(item, season, episode, url, res) {
         .then((jsonResponse) => {
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
-          fs.writeFile(
-            `./js/playVideo.js`,
-            `(function () {
+          const playerPage = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../../js/lib/smartbox.js"></script>
+        <script type="text/javascript">
+        (function () {
   "use strict";
 
   window.App = {
@@ -308,34 +323,14 @@ function getMp4Videos(item, season, episode, url, res) {
   // main app initialize when smartbox ready
   SB(_.bind(App.initialize, App));
 })();
-`,
-            function (err) {
-              if (err) {
-                return console.log(err);
-              }
-              const playerPage = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-        <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../../js/playVideo.js"></script>
+</script>
         
 </head>
 <style>
 body {
   padding: 0;
   margin: 0;
+  background-color: red;
 }
 
 </style>
@@ -347,10 +342,7 @@ body {
 </body>
 </html>`;
 
-              res.send(playerPage); // Отправка ответа в виде HTML
-            }
-          );
-        
+          res.send(playerPage); // Отправка ответа в виде HTML
         })
         .catch((error) => console.error(error));
     } else {
