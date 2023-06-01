@@ -19,148 +19,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-
-
-async function searchPage() {
-  try {
-    app.get("/search", (req, res) => {
-
-          const message = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-       <link rel="stylesheet" href="../css/keyboard.css"/>
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/mainApp.js"></script>
-        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
-
-</head>
-
-<style>
-
-body {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    width: 1280px;
-    height: 720px;
-}
-
-p,
-h1, h2,
-h3, h4, li {
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-}
-.wrap {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 30px;
-}
-.bg {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url(./images/stars.png);
-            z-index: -1;
-        }
-        .searchBlock {
-            position: absolute;
-            top: 40%;
-            right: 60%;
-            left: 40%;
-            bottom: 60%;
-            width: 400px;
-        }
-        .searchBlock-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            background-color: #553c64;
-            border-radius: 10px;
-        }
-        .search-input {
-            position: relative;
-            margin-right: 10px;
-            width: 350px;
-            padding: 10px 20px;
-            border: 1px solid white;
-        } 
-        .search-button {
-            position: relative;
-        }
-form .focus {
-  border: 1px solid yellow;
-}
-</style>
-<body>
-
-<div class="bg"></div>
-<div id="app" class="app wrap">
-       <div class="searchBlock">
-            <form action="/searchItem" class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
-                <input type="text" id="input" class="nav-item search-input input-item" name="input"
-                    placeholder="Please enter your task">
-                <button type="submit" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
-            </form>
-        </div>
-</div>
-<script type="text/javascript">
-    SB.ready(function() {
-        $('#input').SBInput({
-            keyboard: {
-                type: 'fulltext_ru'
-            }
-        });
-        $$nav.on();
-    });
-</script>
-       <script type="text/javascript">
-        $(function () {
-        var inputItem = $("#input");
-        var inputSubmitBtn = $("#inputBtn");
-        $("body").on( "keyup", function() {
-        var inputValue = inputItem.val();
-        inputSubmitBtn.on("click", function() {
-          window.location.href = "/name=" + inputValue
-        })
-        } );
-       
-        });
-    </script>
-</body>
-</html>`;
-      res.send(message); // Отправка ответа в виде HTML
-    });
-  } catch (error) {
-    $$log("problems in searchfunction");
-    console.error(error);
-  }
-}
-searchPage();
-
-
-// Делаем запрос для получения списка аниме
-const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
-  return response.json();
-});
-
-// функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
 function getMp4Videos(item, season, episode, url, res) {
   try {
     if (season) {
@@ -249,7 +107,7 @@ body {
   </script>
 </body>
 </html>`;
-          
+
           res.send(playerPage); // Отправка ответа в виде HTML
         })
         .catch((error) => console.error(error));
@@ -435,10 +293,322 @@ body {
         .catch((error) => console.error(error));
     }
   } catch (error) {
-    $$log('problems to get mp4 files')
-    console.error(error)
+    console.error(error);
   }
 } 
+async function getSearchedMovie() {
+  try {
+    app.get("/searchItem", (req, res) => {
+        var name = req.originalUrl.split("=").pop();
+        var correctName = name.replace("+", " ");
+        sParameter = decodeURIComponent(correctName);
+
+        const url = "http://localhost:8000/api/link"; // ссылка на апи
+
+        function fetchMovie() {
+          fetch(APISEARCH_URL + sParameter).then((response) => {
+           return response.json()
+          }).then((data) => {
+            const movieItem = data.results[0]
+             let videos = [];
+             let videoSeasonsArrays = movieItem.episodes
+               ? movieItem.episodes
+               : "no episodes";
+             let episodes = [];
+             if (videoSeasonsArrays !== "no episodes") {
+               const seasonsArr = [];
+               for (let key of Object.keys(movieItem.episodes)) {
+                 const episodesArr = [];
+                 seasonsArr.push(key);
+                 for (let value of Object.values(movieItem.episodes[key])) {
+                   episodesArr.push(value);
+                 }
+                 episodes.push(episodesArr);
+               }
+               
+               let items = episodes.map((value, seasonIndex) => {
+                 let videoObject = value.map(
+                   (element, episodeIndex) =>
+                     `{
+                     season: '${seasonIndex + 1}' + 'сезон',
+                     episode: '${episodeIndex + 1}' + 'серия',
+                     seasonNum: '${seasonIndex + 1}',
+                     episodeNum: '${episodeIndex + 1}', 
+                     id: '${movieItem.kinopoisk_id}&${seasonIndex + 1}&${
+                       episodeIndex + 1
+                     }',
+                     name: '${movieItem.info.orig}',
+                  },
+          `
+                 );
+                 return videoObject.join("");
+               });
+               videos.push(items.join(""));
+               episodes.map((value, seasonIndex) => {
+                 value.map((element, episodeIndex) => {
+                   app.get(
+                     "/player=" +
+                       movieItem.kinopoisk_id +
+                       `&${seasonIndex + 1}&${episodeIndex + 1}`,
+                     (req, res) => {
+                       getMp4Videos(
+                         movieItem,
+                         seasonIndex + 1,
+                         episodeIndex + 1,
+                         url,
+                         res
+                       );
+                     }
+                   );
+                 });
+               });
+               fs.writeFile(
+                 "./js/searchedMovie.js",
+                 `(function () {
+    "use strict"
+
+    window.App.searchedMovie = [${videos}]
+  })();
+  `,
+                 function (err) {
+                   if (err) {
+                     return console.log(err);
+                   }
+                   const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/searchedMovie.js"></script>
+        <script type="text/javascript" src="../js/scenes/searchedSerials.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  padding: 10px;
+  width: 980px;
+  height: 480px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  width: 150px;
+  height: 35px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  border-radius: 5px;
+
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+</html>`;
+                   res.send(episodesPage); // Отправка ответа в виде HTML
+                 }
+               );
+               videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
+             } else {
+               fs.writeFileSync(
+                 "./js/searchedMovie.js",
+                 `(function () {
+    "use strict"
+
+    window.App.animeSerialSeasons = [
+      {
+        season: "Смотреть",
+        episode: "",
+      }
+    ] 
+  })();
+  `
+               );
+               getMp4Videos(movieItem, ...[, ,], "animevideos", "animevideo");
+             }
+          })
+        }
+        fetchMovie();
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getSearchedMovie();
+async function searchPage() {
+  try {
+    app.get("/search", (req, res) => {
+
+          const message = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+       <link rel="stylesheet" href="../css/keyboard.css"/>
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/mainApp.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+
+</head>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 1280px;
+    height: 720px;
+}
+
+p,
+h1, h2,
+h3, h4, li {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+}
+.bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+        }
+        .searchBlock {
+            position: absolute;
+            top: 40%;
+            right: 60%;
+            left: 40%;
+            bottom: 60%;
+            width: 400px;
+        }
+        .searchBlock-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: #553c64;
+            border-radius: 10px;
+        }
+        .search-input {
+            position: relative;
+            margin-right: 10px;
+            width: 350px;
+            padding: 10px 20px;
+            border: 1px solid white
+        } 
+        .search-button {
+            position: relative;
+        }
+form .focus {
+  border: 1px solid yellow;
+}
+</style>
+<body>
+
+<div class="bg"></div>
+<div id="app" class="app wrap">
+       <div class="searchBlock">
+            <form action="/searchItem" class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
+                <input type="text" id="input" class="nav-item search-input input-item" name="input"
+                    placeholder="Please enter your task">
+                <button type="submit" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
+            </form>
+        </div>
+</div>
+<script type="text/javascript">
+    SB.ready(function() {
+        $('#input').SBInput({
+            keyboard: {
+                type: 'fulltext_ru'
+            }
+        });
+        $$nav.on();
+    });
+</script>
+</body>
+</html>`;
+      res.send(message); // Отправка ответа в виде HTML
+    });
+  } catch (error) {
+    $$log("problems in search function");
+    console.error(error);
+  }
+}
+searchPage();
+
+
+
+
+
+// Делаем запрос для получения списка аниме
+const fetchDataAnime = fetch(APIANIME_URL).then((response) => {
+  return response.json();
+});
+
+// функция запросов для получения ссылок на видеофайл, создание страницы playerPage и создание файла для каждой страницы
+
 // функция сезонов и эпизодов для аниме
 const fetchAnimeVideos = async () => {
  try {
@@ -446,7 +616,6 @@ const fetchAnimeVideos = async () => {
    const url = "http://localhost:8000/api/link";
    videosId.results.map((item) => {
      let videos = [];
-     sParameter = encodeURIComponent(item.info.orig.trim());
      let videoSeasonsArrays = item.episodes ? item.episodes : "no episodes";
      app.get("/anime/selectepisodeId=" + item.kinopoisk_id, (req, res) => {
        let episodes = [];
