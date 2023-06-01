@@ -204,28 +204,8 @@ function getMp4Videos(item, season, episode, url, res) {
         <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../../js/lib/smartbox.js"></script>
         <script type="text/javascript">
-        (function () {
-  "use strict";
-
-  window.App = {
-    currentScene: null,
-    scenes: {},
-    isShown: true,
-
-    initialize: function () {
-
-      $$legend.show();
-
-      this.setEvents();
-
-      // start navigation
-      $$nav.on();
-    },
-
-    setEvents: function () {
-      stb.InitPlayer();
+        stb.InitPlayer();
       var url = '${video.toString()}';
       $$log(url);
       function playVideo() {
@@ -268,61 +248,6 @@ function getMp4Videos(item, season, episode, url, res) {
           }
       }
       playVideo();
-      $(document.body).on({
-        // on keyboard 'd' by default
-        "nav_key:blue": _.bind(this.toggleView, this),
-
-        // remote events
-        "nav_key:stop": function () {
-          Player.stop();
-        },
-        "nav_key:pause": function () {
-          Player.togglePause();
-        },
-        "nav_key:exit": function () {
-          SB.exit();
-        },
-      });
-
-      // toggling background when player start/stop
-      Player.on("ready", function () {
-        $$log("player ready");
-      });
-      Player.on("stop", function () {
-        $$log("player stop");
-      });
-    },
-
-    toggleView: function () {
-      if (this.isShown) {
-        $$legend.hide();
-      } else {
-        $$legend.show();
-      }
-      this.isShown = !this.isShown;
-    },
-
-    showContent: function (scene) {
-      var cur = this.currentScene,
-        newScene = this.scenes[scene];
-
-      if (cur !== newScene) {
-        if (!newScene) {
-          $$error("Scene " + scene + " doesn't exist");
-        } else {
-          if (cur) {
-            cur.hide();
-          }
-          newScene.show();
-          this.currentScene = newScene;
-        }
-      }
-    },
-  };
-
-  // main app initialize when smartbox ready
-  SB(_.bind(App.initialize, App));
-})();
 </script>
         
 </head>
@@ -341,7 +266,7 @@ body {
   </div>
 </body>
 </html>`;
-
+          
           res.send(playerPage); // Отправка ответа в виде HTML
         })
         .catch((error) => console.error(error));
