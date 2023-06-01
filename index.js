@@ -21,24 +21,6 @@ app.get("/", (req, res) => {
 
 
 
-/* const searchVideo = async () => {
-  try {
-    const commits = await searchMovie;
-    let items = commits.results.map(
-      (element) =>
-        `{
-            id: '${element.kinopoisk_id}',
-            title: '${element.info.rus}',
-            titleEng: '${element.info.orig}',
-          },
-          `
-    );
-    return items;
-  } catch (error) {
-    console.error(error);
-  }
-}; */
-
 async function searchPage() {
   try {
     app.get("/search", (req, res) => {
@@ -55,16 +37,13 @@ async function searchPage() {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-       <link rel="stylesheet" href="../css/input.css"/>
+       <link rel="stylesheet" href="../css/keyboard.css"/>
         <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
         <script type="text/javascript" src="../js/mainApp.js"></script>
-        <script type="text/javascript" src="../js/scenes/inputScene.js"></script>
-        <script type="text/javascript" src="../js/search/searchItem.js"></script>
         <script type="text/javascript" src="../js/scenes/navigation.js"></script>
-
 
 </head>
 
@@ -73,7 +52,9 @@ async function searchPage() {
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    position: relative;
+    width: 1280px;
+    height: 720px;
 }
 
 p,
@@ -118,27 +99,38 @@ h3, h4, li {
             margin-right: 10px;
             width: 350px;
             padding: 10px 20px;
+            border: 1px solid white;
         } 
         .search-button {
             position: relative;
         }
-.focus {
+form .focus {
   border: 1px solid yellow;
 }
 </style>
 <body>
 
 <div class="bg"></div>
-<div id="app" class="wrap">
+<div id="app" class="app wrap">
        <div class="searchBlock">
             <form action="/searchItem" class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
-                <input type="text" id="input" class="nav-item search-input input-item" name="item"
+                <input type="text" id="input" class="nav-item search-input input-item" name="input"
                     placeholder="Please enter your task">
                 <button type="submit" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
             </form>
         </div>
 </div>
-       <script>
+<script type="text/javascript">
+    SB.ready(function() {
+        $('#input').SBInput({
+            keyboard: {
+                type: 'fulltext_ru'
+            }
+        });
+        $$nav.on();
+    });
+</script>
+       <script type="text/javascript">
         $(function () {
         var inputItem = $("#input");
         var inputSubmitBtn = $("#inputBtn");
@@ -190,7 +182,7 @@ function getMp4Videos(item, season, episode, url, res) {
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
           const playerPage = `<!DOCTYPE html>
-<html lang="en">
+<html lang="">
 
 <head>
     <meta charset="UTF-8">
@@ -201,23 +193,35 @@ function getMp4Videos(item, season, episode, url, res) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-        <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
-        <script type="text/javascript">
-        stb.InitPlayer();
-      var url = '${video.toString()}';
-      $$log(url);
-      function playVideo() {
-          try {
-            stb = gSTB;
+        <script type="text/javascript" src="src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="js/lib/smartbox.js"></script>
+        
+        
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+
+</style>
+  
+<body>
+  <div class="wrap">
+    
+  </div>
+  <script type="text/javascript">
+    var url = '${video.toString()}';
+    stb = gSTB;
     stb.InitPlayer();
     var player = stbPlayerManager.list[0];
     
     gSTB.SetTopWin(0);
     player.aspectConversion = 4;
     player.videoWindowMode = 0;
-    player.setViewport({x: 0, y: 500, width: 800, height: 600});
+    // player.setViewport({x: 0, y: 500, width: 800, height: 600});
     
     player.play({
         uri: url,
@@ -242,28 +246,7 @@ function getMp4Videos(item, season, episode, url, res) {
                 break;
         }
     });
-          } catch (error) {
-            $$log(error);
-            console.error(error)
-          }
-      }
-      playVideo();
-</script>
-        
-</head>
-<style>
-body {
-  padding: 0;
-  margin: 0;
-  background-color: red;
-}
-
-</style>
-  
-<body>
-  <div class="wrap">
-    
-  </div>
+  </script>
 </body>
 </html>`;
           
