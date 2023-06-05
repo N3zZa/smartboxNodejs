@@ -7,7 +7,7 @@
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.animeSerialSeasons);
+      this.renderItems(App.SerialSeasons);
       _inited = true;
     },
 
