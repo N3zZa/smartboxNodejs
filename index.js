@@ -1192,6 +1192,7 @@ async function getAnime() {
                     if (err) {
                       return console.log(err);
                     }
+                    
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -1215,9 +1216,12 @@ async function getAnime() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -1230,8 +1234,11 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
   background: #553c64;
   border: 2px solid #fff;
   border-radius: 10px;
@@ -2059,7 +2066,7 @@ async function getFilms() {
                     if (err) {
                       return console.log(err);
                     }
-                    const episodesPage = `<!DOCTYPE html>
+                   const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -2082,9 +2089,12 @@ async function getFilms() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -2097,8 +2107,11 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
   background: #553c64;
   border: 2px solid #fff;
   border-radius: 10px;
@@ -2818,9 +2831,12 @@ async function getSerials() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -2833,8 +2849,11 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
   background: #553c64;
   border: 2px solid #fff;
   border-radius: 10px;
@@ -3549,9 +3568,12 @@ async function getCartoons() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -3564,8 +3586,11 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
   background: #553c64;
   border: 2px solid #fff;
   border-radius: 10px;
@@ -4256,7 +4281,7 @@ async function getPremieres() {
                     if (err) {
                       return console.log(err);
                     }
-                    const episodesPage = `<!DOCTYPE html>
+                   const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -4279,9 +4304,12 @@ async function getPremieres() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -4294,8 +4322,11 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
   background: #553c64;
   border: 2px solid #fff;
   border-radius: 10px;
@@ -4691,9 +4722,9 @@ p {
         <div class="header navigation-items">
                 <li class="navigation-item nav-item" id='films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='serials'>Сериалы</li>
-                <h2>Мультфильмы</h2>
+                <li class="navigation-item nav-item" id='cartoons'>Мультфильмы</li>
                 <li class="navigation-item nav-item" id='anime'>Аниме</li>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
+                <h2>Премьеры</h2>
                 <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
@@ -4706,7 +4737,7 @@ p {
     var serials = document.getElementById('serials')
     var films = document.getElementById('films')
     var anime = document.getElementById('anime')
-    var premieres = document.getElementById('Premieres')
+    var cartoons = document.getElementById('cartoons')
     var compilations = document.getElementById('Compilations')
 
 
@@ -4722,8 +4753,8 @@ p {
             window.location='/anime'
     });
 
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
+    cartoons.addEventListener('click', function (event) {
+            window.location='/cartoons'
     });
 
     compilations.addEventListener('click', function (event) {
@@ -4986,7 +5017,7 @@ async function getCompilations() {
                     if (err) {
                       return console.log(err);
                     }
-                    const episodesPage = `<!DOCTYPE html>
+                   const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -5009,9 +5040,12 @@ async function getCompilations() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -5024,8 +5058,11 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
   background: #553c64;
   border: 2px solid #fff;
   border-radius: 10px;
@@ -5421,10 +5458,10 @@ p {
         <div class="header navigation-items">
                 <li class="navigation-item nav-item" id='films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='serials'>Сериалы</li>
-                <h2>Мультфильмы</h2>
+                <li class="navigation-item nav-item" id='cartoons'>Мультфильмы</li>
                 <li class="navigation-item nav-item" id='anime'>Аниме</li>
                 <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
+                <h2>Подборки</h2>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -5437,7 +5474,7 @@ p {
     var films = document.getElementById('films')
     var anime = document.getElementById('anime')
     var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
+    var cartoons = document.getElementById('cartoons')
 
 
     serials.addEventListener('click', function (event) {
@@ -5456,8 +5493,8 @@ p {
             window.location='/premieres'
     });
 
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
+    cartoons.addEventListener('click', function (event) {
+            window.location='/cartoons'
     });
 
     
@@ -5494,5 +5531,3 @@ getPremieres()
 const port = process.env.PORT || 3000;
 app.listen(port);
 console.log(`Server is listening on port ${port}`);
-
-// rm -rf xyz - удалить репозиторий с амазон
