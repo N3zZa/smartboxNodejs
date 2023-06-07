@@ -78,6 +78,11 @@ body {
     
   </div>
   <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
     var url = '${video.toString()}';
     stb = gSTB;
     stb.InitPlayer();
@@ -293,6 +298,13 @@ body {
     
   </div>
 </body>
+  <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
 
           res.send(playerPage); // Отправка ответа в виде HTML
@@ -463,6 +475,14 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
+<script type="text/javascript">
+
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
                         res.send(episodesPage); // Отправка ответа в виде HTML
                       }
@@ -951,7 +971,11 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
     
 
     </script>
@@ -1076,6 +1100,12 @@ form .focus {
         });
         $$nav.on();
     });
+
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
 </script>
 </body>
 </html>`;
@@ -1767,6 +1797,7 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <li class="navigation-item nav-item" id='Films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
                 <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
@@ -1781,13 +1812,22 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
+    var backBtn = document.getElementById('img_back');
+    var cartoons = document.getElementById('Cartoons');
+    var serials = document.getElementById('Serials');
+    var films = document.getElementById('Films');
+    var premieres = document.getElementById('Premieres');
+    var compilations = document.getElementById('Compilations');
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
 
+    backBtn.addEventListener('click', function (event) {
+            window.location='/'
+    });
 
     cartoons.addEventListener('click', function (event) {
             window.location='/cartoons'
@@ -2144,6 +2184,13 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
+  <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
                     res.send(episodesPage); // Отправка ответа в виде HTML
                   }
@@ -2509,6 +2556,7 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
+        <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <h2>Фильмы</h2>
                 <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
                 <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
@@ -2523,13 +2571,22 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
-
+    var backBtn = document.getElementById('img_back');
     var cartoons = document.getElementById('Cartoons')
     var serials = document.getElementById('Serials')
     var anime = document.getElementById('anime')
     var premieres = document.getElementById('Premieres')
     var compilations = document.getElementById('Compilations')
 
+     $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+
+    backBtn.addEventListener('click', function (event) {
+            window.location='/'
+    });
 
     cartoons.addEventListener('click', function (event) {
             window.location='/cartoons'
@@ -2886,6 +2943,13 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
+  <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
                     res.send(episodesPage); // Отправка ответа в виде HTML
                   }
@@ -3247,6 +3311,7 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
+         <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <li class="navigation-item nav-item" id='films'>Фильмы</li>
                 <h2>Сериалы</h2>
                 <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
@@ -3260,13 +3325,23 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
-
+    var backBtn = document.getElementById('img_back');
     var cartoons = document.getElementById('Cartoons')
     var films = document.getElementById('films')
     var anime = document.getElementById('anime')
     var premieres = document.getElementById('Premieres')
     var compilations = document.getElementById('Compilations')
+  
+    
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
 
+    backBtn.addEventListener('click', function (event) {
+            window.location='/'
+    });
 
     cartoons.addEventListener('click', function (event) {
             window.location='/cartoons'
@@ -3623,6 +3698,13 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
+  <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
                     res.send(episodesPage); // Отправка ответа в виде HTML
                   }
@@ -3984,6 +4066,7 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
+         <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <li class="navigation-item nav-item" id='films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='serials'>Сериалы</li>
                 <h2>Мультфильмы</h2>
@@ -3997,13 +4080,23 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
-
+    var backBtn = document.getElementById('img_back');
     var serials = document.getElementById('serials')
     var films = document.getElementById('films')
     var anime = document.getElementById('anime')
     var premieres = document.getElementById('Premieres')
     var compilations = document.getElementById('Compilations')
 
+
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+
+    backBtn.addEventListener('click', function (event) {
+            window.location='/'
+    });
 
     serials.addEventListener('click', function (event) {
             window.location='/serials'
@@ -4359,6 +4452,13 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
+  <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
                     res.send(episodesPage); // Отправка ответа в виде HTML
                   }
@@ -4720,6 +4820,7 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
+        <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <li class="navigation-item nav-item" id='films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='serials'>Сериалы</li>
                 <li class="navigation-item nav-item" id='cartoons'>Мультфильмы</li>
@@ -4733,13 +4834,22 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
-
+    var backBtn = document.getElementById('img_back');
     var serials = document.getElementById('serials')
     var films = document.getElementById('films')
     var anime = document.getElementById('anime')
     var cartoons = document.getElementById('cartoons')
     var compilations = document.getElementById('Compilations')
 
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+
+    backBtn.addEventListener('click', function (event) {
+            window.location='/'
+    });
 
     serials.addEventListener('click', function (event) {
             window.location='/serials'
@@ -5095,6 +5205,13 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
+  <script type="text/javascript">
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
 </html>`;
                     res.send(episodesPage); // Отправка ответа в виде HTML
                   }
@@ -5456,6 +5573,7 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
+        <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <li class="navigation-item nav-item" id='films'>Фильмы</li>
                 <li class="navigation-item nav-item" id='serials'>Сериалы</li>
                 <li class="navigation-item nav-item" id='cartoons'>Мультфильмы</li>
@@ -5469,13 +5587,22 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
-
+    var backBtn = document.getElementById('img_back');
     var serials = document.getElementById('serials')
     var films = document.getElementById('films')
     var anime = document.getElementById('anime')
     var premieres = document.getElementById('Premieres')
     var cartoons = document.getElementById('cartoons')
 
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+
+    backBtn.addEventListener('click', function (event) {
+            window.location='/'
+    });
 
     serials.addEventListener('click', function (event) {
             window.location='/serials'
