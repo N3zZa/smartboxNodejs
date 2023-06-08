@@ -18,6 +18,11 @@ const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=a
 const APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&year=${new Date().getFullYear()}`;
 const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
+const fetchOptions = {
+  agent: new http.Agent({ keepAlive: true }),
+  timeout: 500,
+};
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
@@ -1114,7 +1119,7 @@ async function getAnime() {
   try {
     app.get("/anime", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIANIME_URL)
+      const fetchData = fetch(APIANIME_URL, fetchOptions)
         .then((response) => {
           return response.json();
         })
@@ -1870,7 +1875,7 @@ async function getFilms() {
   try {
     app.get("/films", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIFILMS_URL)
+      const fetchData = fetch(APIFILMS_URL, fetchOptions)
         .then((response) => {
           return response.json();
         })
@@ -2627,7 +2632,7 @@ async function getSerials() {
   try {
     app.get("/serials", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APISERIALS_URL)
+      const fetchData = fetch(APISERIALS_URL, fetchOptions)
         .then((response) => {
           return response.json();
         })
@@ -3384,7 +3389,7 @@ async function getCartoons() {
   try {
     app.get("/cartoons", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APICARTOONS_URL)
+      const fetchData = fetch(APICARTOONS_URL, fetchOptions)
         .then((response) => {
           return response.json();
         })
@@ -4140,7 +4145,7 @@ async function getPremieres() {
   try {
     app.get("/premieres", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIPREMIERES_URL)
+      const fetchData = fetch(APIPREMIERES_URL, fetchOptions)
         .then((response) => {
           return response.json();
         })
@@ -4895,7 +4900,7 @@ async function getCompilations() {
   try {
     app.get("/compilations", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APICOMPILATIONS_URL)
+      const fetchData = fetch(APICOMPILATIONS_URL, fetchOptions)
         .then((response) => {
           return response.json();
         })
