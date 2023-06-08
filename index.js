@@ -122,7 +122,7 @@ body {
 
           res.send(playerPage); // Отправка ответа в виде HTML
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error('getMp4Videos1', error));
     } else {
       const requestData = {
         name: item.info.rus,
@@ -309,7 +309,7 @@ body {
 
           res.send(playerPage); // Отправка ответа в виде HTML
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error('getMp4Videos2', error));
     }
   } catch (error) {
     console.error(error);
@@ -983,7 +983,7 @@ p {
 </html>`;
 
             res.send(message); // Отправка ответа в виде HTML
-          });
+          }).catch((err) => console.error('getSearchedMovie', err))
       }
       fetchMovie();
     });
@@ -1124,7 +1124,7 @@ async function getAnime() {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
       const fetchData = fetch(APIANIME_URL).then((response) => {
         return response.json();
-      });
+      }).catch((err) => console.error(err))
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -1876,9 +1876,11 @@ async function getFilms() {
   try {
     app.get("/films", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIFILMS_URL).then((response) => {
-        return response.json();
-      });
+      const fetchData = fetch(APIFILMS_URL)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -2637,7 +2639,7 @@ async function getSerials() {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
       const fetchData = fetch(APISERIALS_URL).then((response) => {
         return response.json();
-      });
+      }).catch((err) => console.error(err))
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -3392,7 +3394,7 @@ async function getCartoons() {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
       const fetchData = fetch(APICARTOONS_URL).then((response) => {
         return response.json();
-      });
+      }).catch((err) => console.error(err))
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -4144,9 +4146,11 @@ async function getPremieres() {
   try {
     app.get("/premieres", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIPREMIERES_URL).then((response) => {
-        return response.json();
-      });
+      const fetchData = fetch(APIPREMIERES_URL)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -4899,7 +4903,7 @@ async function getCompilations() {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
       const fetchData = fetch(APICOMPILATIONS_URL).then((response) => {
         return response.json();
-      });
+      }).catch((err) => console.error(err))
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
