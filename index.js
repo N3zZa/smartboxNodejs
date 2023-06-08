@@ -1,29 +1,26 @@
 const express = require("express");
-require('dotenv').config() // Config file
-const fetch = require("node-fetch");
+require("dotenv").config(); // Config file
+const fetch = require("cross-fetch");
 var app = express();
 const path = require("path");
 var _ = require("lodash");
 const fs = require("fs");
 app.use(express.static(__dirname));
 
-
-
 // API BAZON_TOKEN
 const API_TOKEN = process.env.BAZON_TOKEN;
+
 const APIANIME_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&cat=аниме`;
 const APIFILMS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&cat=фильм`;
 const APISERIALS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=serial&page=1`;
 const APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&cat=мультфильм`;
 const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1`;
 const APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&year=${new Date().getFullYear()}`;
-const APISEARCH_URL = `https://bazon.cc/api/search?token=a88d97e1788ae00830c4665ab33b7f87&title=`;
-
+const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
-
 
 // ------------------- Функция запрос на python api для получения видеофайлов -----------------------
 function getMp4Videos(item, season, episode, url, res) {
@@ -122,7 +119,7 @@ body {
 
           res.send(playerPage); // Отправка ответа в виде HTML
         })
-        .catch((error) => console.error('getMp4Videos1', error));
+        .catch((error) => console.error("getMp4Videos1", error));
     } else {
       const requestData = {
         name: item.info.rus,
@@ -309,13 +306,12 @@ body {
 
           res.send(playerPage); // Отправка ответа в виде HTML
         })
-        .catch((error) => console.error('getMp4Videos2', error));
+        .catch((error) => console.error("getMp4Videos2", error));
     }
   } catch (error) {
     console.error(error);
   }
 }
-
 
 async function getSearchedMovie() {
   try {
@@ -323,7 +319,6 @@ async function getSearchedMovie() {
       var name = req.originalUrl.split("=").pop();
       var correctName = name.replace("+", " ");
       sParameter = decodeURIComponent(correctName);
-
 
       function fetchMovie() {
         fetch(APISEARCH_URL + sParameter)
@@ -503,16 +498,11 @@ h4,p {
   })();
   `
                     );
-                    getMp4Videos(
-                      searchedItem,
-                      ...[, ,],
-                      "videos",
-                      "video"
-                    );
+                    getMp4Videos(searchedItem, ...[, ,], "videos", "video");
                   }
                 }
               );
-            })
+            });
             let items = movieItem.map(
               (element, index) =>
                 `{
@@ -537,13 +527,14 @@ h4,p {
     "use strict"
 
     window.App.searchedVideos = [
-      ${items.join('')}
+      ${items.join("")}
     ] 
   })();
-  `, function() {
-    fs.writeFileSync(
-      "./js/search/searchVideosRender.js",
-      `(function () {
+  `,
+              function () {
+                fs.writeFileSync(
+                  "./js/search/searchVideosRender.js",
+                  `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
@@ -594,10 +585,10 @@ h4,p {
   };
 })();
     `
-    );
-    fs.writeFileSync(
-      "./js/search/searchFilmInfo.js",
-      `(function () {
+                );
+                fs.writeFileSync(
+                  "./js/search/searchFilmInfo.js",
+                  `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
@@ -640,8 +631,8 @@ h4,p {
   };
 })();
     `
-    );
-  }
+                );
+              }
             );
 
             fs.writeFileSync(
@@ -983,7 +974,8 @@ p {
 </html>`;
 
             res.send(message); // Отправка ответа в виде HTML
-          }).catch((err) => console.error('getSearchedMovie', err))
+          })
+          .catch((err) => console.error("getSearchedMovie", err));
       }
       fetchMovie();
     });
@@ -994,7 +986,7 @@ p {
 async function searchPage() {
   try {
     app.get("/search", (req, res) => {
-    getSearchedMovie();
+      getSearchedMovie();
 
       const message = `<!DOCTYPE html>
 <html lang="en">
@@ -1122,9 +1114,11 @@ async function getAnime() {
   try {
     app.get("/anime", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIANIME_URL).then((response) => {
-        return response.json();
-      }).catch((err) => console.error(err))
+      const fetchData = fetch(APIANIME_URL)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -1222,7 +1216,7 @@ async function getAnime() {
                     if (err) {
                       return console.log(err);
                     }
-                    
+
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -1865,7 +1859,7 @@ p {
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 1000); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -2108,7 +2102,7 @@ async function getFilms() {
                     if (err) {
                       return console.log(err);
                     }
-                   const episodesPage = `<!DOCTYPE html>
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -2222,11 +2216,7 @@ h4,p {
         }
       };
 
-      fetchVideos(
-        "./js/pagesFunctions/serialSeasons.js",
-        "videos",
-        "video"
-      );
+      fetchVideos("./js/pagesFunctions/serialSeasons.js", "videos", "video");
 
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
@@ -2626,7 +2616,7 @@ p {
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 1000); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -2637,9 +2627,11 @@ async function getSerials() {
   try {
     app.get("/serials", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APISERIALS_URL).then((response) => {
-        return response.json();
-      }).catch((err) => console.error(err))
+      const fetchData = fetch(APISERIALS_URL)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -3381,7 +3373,7 @@ p {
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 1000); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -3392,9 +3384,11 @@ async function getCartoons() {
   try {
     app.get("/cartoons", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APICARTOONS_URL).then((response) => {
-        return response.json();
-      }).catch((err) => console.error(err))
+      const fetchData = fetch(APICARTOONS_URL)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -4136,7 +4130,7 @@ p {
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 1000); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -4378,7 +4372,7 @@ async function getPremieres() {
                     if (err) {
                       return console.log(err);
                     }
-                   const episodesPage = `<!DOCTYPE html>
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -4891,7 +4885,7 @@ p {
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 1000); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -4901,9 +4895,11 @@ async function getCompilations() {
   try {
     app.get("/compilations", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APICOMPILATIONS_URL).then((response) => {
-        return response.json();
-      }).catch((err) => console.error(err))
+      const fetchData = fetch(APICOMPILATIONS_URL)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -5131,7 +5127,7 @@ async function getCompilations() {
                     if (err) {
                       return console.log(err);
                     }
-                   const episodesPage = `<!DOCTYPE html>
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -5644,20 +5640,19 @@ p {
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 1000); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
   }
 }
 
-
 getFilms();
 getCompilations();
 getSerials();
 getCartoons();
 getAnime();
-getPremieres()
+getPremieres();
 
 const port = process.env.PORT || 3000;
 app.listen(port);
