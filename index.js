@@ -1,7 +1,6 @@
 const express = require("express");
 require("dotenv").config(); // Config file
 const fetch = require("cross-fetch");
-const http = require("http");
 var app = express();
 const path = require("path");
 var _ = require("lodash");
@@ -20,7 +19,6 @@ const APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&
 const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
 const fetchOptions = {
-  agent: new http.Agent({ keepAlive: true }),
   timeout: 500,
 };
 
