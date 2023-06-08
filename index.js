@@ -18,9 +18,6 @@ const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=a
 const APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&year=${new Date().getFullYear()}`;
 const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
-const fetchOptions = {
-  timeout: 500,
-};
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -204,7 +201,7 @@ body {
             console.error(error)
           }
       }
-      setTimeout(() => playVideo(), 2000)
+      playVideo()
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),
@@ -1118,7 +1115,7 @@ async function getAnime() {
   try {
     app.get("/anime", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIANIME_URL, fetchOptions)
+      const fetchData = fetch(APIANIME_URL)
         .then((response) => {
           return response.json();
         })
@@ -1858,12 +1855,14 @@ p {
         }
     }
     
-    
+    if (window.location.href.indexOf('reload')==-1) {
+    setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
+}
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -1874,7 +1873,7 @@ async function getFilms() {
   try {
     app.get("/films", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIFILMS_URL, fetchOptions)
+      const fetchData = fetch(APIFILMS_URL)
         .then((response) => {
           return response.json();
         })
@@ -2614,13 +2613,15 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    
+    if (window.location.href.indexOf('reload')==-1) {
+     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
+}
     
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -2631,7 +2632,7 @@ async function getSerials() {
   try {
     app.get("/serials", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APISERIALS_URL, fetchOptions)
+      const fetchData = fetch(APISERIALS_URL)
         .then((response) => {
           return response.json();
         })
@@ -3372,12 +3373,14 @@ p {
         }
     }
     
-    
+    if (window.location.href.indexOf('reload')==-1) {
+     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
+}
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -3388,7 +3391,7 @@ async function getCartoons() {
   try {
     app.get("/cartoons", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APICARTOONS_URL, fetchOptions)
+      const fetchData = fetch(APICARTOONS_URL)
         .then((response) => {
           return response.json();
         })
@@ -4128,13 +4131,15 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    
+    if (window.location.href.indexOf('reload')==-1) {
+     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
+}
     
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -4144,7 +4149,7 @@ async function getPremieres() {
   try {
     app.get("/premieres", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APIPREMIERES_URL, fetchOptions)
+      const fetchData = fetch(APIPREMIERES_URL)
         .then((response) => {
           return response.json();
         })
@@ -4884,12 +4889,14 @@ p {
         }
     }
     
-    
+    if (window.location.href.indexOf('reload')==-1) {
+     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
+    }
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -4899,7 +4906,7 @@ async function getCompilations() {
   try {
     app.get("/compilations", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
-      const fetchData = fetch(APICOMPILATIONS_URL, fetchOptions)
+      const fetchData = fetch(APICOMPILATIONS_URL)
         .then((response) => {
           return response.json();
         })
@@ -5638,13 +5645,15 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    
+    if (window.location.href.indexOf('reload')==-1) {
+     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
+}
     
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
