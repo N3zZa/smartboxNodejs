@@ -18,7 +18,6 @@ const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=a
 const APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&year=${new Date().getFullYear()}`;
 const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
@@ -126,6 +125,8 @@ body {
         name: item.info.rus,
         year: item.info.year,
         country: item.info.country,
+        season: 1,
+        episode: 1,
       };
       console.log("rerequestData2", requestData);
       fetch(url, {
@@ -137,6 +138,7 @@ body {
         .then((jsonResponse) => {
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
+          console.log(jsonResponse);
           fs.writeFileSync(
             `./js/playVideo.js`,
             `(function () {
@@ -336,7 +338,7 @@ async function getSearchedMovie() {
                   let videoSeasonsArrays = searchedItem.episodes
                     ? searchedItem.episodes
                     : "no episodes";
-                  const url = "http://localhost:8000/api/link"; // ссылка на апи
+                  const apiUrl = "http://localhost:8000/api/link"; // ссылка на апи
                   let episodes = [];
                   if (videoSeasonsArrays !== "no episodes") {
                     const seasonsArr = [];
@@ -362,7 +364,7 @@ async function getSearchedMovie() {
                      id: '${searchedItem.kinopoisk_id}&${seasonIndex + 1}&${
                             episodeIndex + 1
                           }',
-                     name: '${searchedItem.info.orig}',
+                     name: \`${searchedItem.info.orig}\`,
                   },
           `
                       );
@@ -380,7 +382,7 @@ async function getSearchedMovie() {
                               searchedItem,
                               seasonIndex + 1,
                               episodeIndex + 1,
-                              url,
+                              apiUrl,
                               res
                             );
                           }
@@ -485,21 +487,119 @@ h4,p {
                     );
                     videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
                   } else {
-                    fs.writeFileSync(
+                    fs.writeFile(
                       "./js/searchedMovie.js",
                       `(function () {
     "use strict"
 
     window.App.serialSeasons = [
       {
-        season: "Смотреть",
-        episode: "",
+        season: "1",
+        episode: "1",
+        name: \`${searchedItem.info.orig}\`,
+        id: '${searchedItem.kinopoisk_id}&1&1',
+        status: 'film',
       }
     ] 
   })();
-  `
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/searchedMovie.js"></script>
+        <script type="text/javascript" src="../js/scenes/searchedSerials.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
+</html>`;
+                        res.send(episodesPage);
+                        app.get(
+                          "/player=" + searchedItem.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              searchedItem,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
                     );
-                    getMp4Videos(searchedItem, ...[, ,], "videos", "video");
                   }
                 }
               );
@@ -511,14 +611,14 @@ h4,p {
             id: '${element.kinopoisk_id + index}',
             kinopoisk_id: '${element.kinopoisk_id}',
             type: 'vod',
-            imgurl: '${element.info.poster}',
-            title: '${element.info.rus}',
-            titleEng: '${element.info.orig}',
-            created: '${element.info.year}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            imgurl: \`${element.info.poster}\`,
+            title: \`${element.info.rus}\`,
+            titleEng: \`${element.info.orig}\`,
+            created: \`${element.info.year}\`,
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`,
           },
           `
             );
@@ -1130,15 +1230,15 @@ async function getAnime() {
               `{
             id: '${element.kinopoisk_id}',
             type: 'vod',
-            imgurl: '${element.info.poster}',
-            title: '${element.info.rus}',
-            titleEng: '${element.info.orig}',
-            created: '${element.info.year}',
-            filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            imgurl: \`${element.info.poster}\`,
+            title: \`${element.info.rus}\`,
+            titleEng: \`${element.info.orig}\`,
+            created: \`${element.info.year}\`,
+            filmPageId: \`filmid${element.kinopoisk_id}\`,
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`
           },
           `
           );
@@ -1148,10 +1248,10 @@ async function getAnime() {
         }
       };
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
-      const fetchVideos = async (wayToFile, nameOfUrl, responseName) => {
+      const fetchVideos = async (wayToFile) => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          const apiUrl = "http://localhost:8000/api/link";
           videosId.results.map((item) => {
             let videos = [];
             let videoSeasonsArrays = item.episodes
@@ -1180,7 +1280,7 @@ async function getAnime() {
                      id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
                         episodeIndex + 1
                       }',
-                     name: '${item.info.orig}',
+                     name: \`${item.info.orig}\`,
                   },
           `
                   );
@@ -1198,7 +1298,7 @@ async function getAnime() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
+                          apiUrl,
                           res
                         );
                       }
@@ -1302,21 +1402,121 @@ h4,p {
                 );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                fs.writeFileSync(
-                  wayToFile,
-                  `(function () {
+                  fs.writeFile(
+                      wayToFile,
+                      `(function () {
     "use strict"
 
-    window.App.SerialSeasons = [
+    window.App.serialSeasons = [
       {
-        season: "Смотреть",
-        episode: "",
+        season: "1",
+        episode: "1",
+        name: \`${item.info.orig}\`,
+        id: '${item.kinopoisk_id}&1&1',
+        status: 'film',
       }
     ] 
   })();
-  `
-                );
-                getMp4Videos(item, ...[, ,], nameOfUrl, responseName);
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/serialSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/filmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location='/'
+      }
+    })  
+</script>
+</html>`;
+                        res.send(episodesPage);
+                         app.get(
+                          "/player=" + item.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              item,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
+                    );
+
+                
               }
             });
           });
@@ -1456,24 +1656,25 @@ h4,p {
     `
       );
 
-      fetchVideos(
-        "./js/pagesFunctions/serialSeasons.js",
-        "animevideos",
-        "animevideo"
-      );
-
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
-  
+  if (App.serialSeasons[0].status === "film") {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  } else {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  }
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.SerialSeasons);
+      this.renderItems(App.serialSeasons);
       _inited = true;
     },
 
@@ -1499,6 +1700,10 @@ h4,p {
 })();
     `
       );
+
+      fetchVideos(
+        "./js/pagesFunctions/serialSeasons.js");
+
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -1855,14 +2060,26 @@ p {
         }
     }
     
-    if (window.location.href.indexOf('reload')==-1) {
-    setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
-}
+    
+    
+$(document).ready(function(){
+
+            if(document.URL.indexOf("#")==-1)
+            {
+              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }, 500)
+        }})
+
 
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -1893,10 +2110,10 @@ async function getFilms() {
             titleEng: \`${element.info.orig}\`,
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`,
           },
           `
           );
@@ -2036,10 +2253,10 @@ async function getFilms() {
     `
       );
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
-      const fetchVideos = async (wayToFile, nameOfUrl, responseName) => {
+      const fetchVideos = async (wayToFile) => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          const apiUrl = "http://localhost:8000/api/link";
           videosId.results.map((item) => {
             let videos = [];
             let videoSeasonsArrays = item.episodes
@@ -2068,7 +2285,7 @@ async function getFilms() {
                      id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
                         episodeIndex + 1
                       }',
-                     name: '${item.info.orig}',
+                     name: \`${item.info.orig}\`,
                   },
           `
                   );
@@ -2086,7 +2303,7 @@ async function getFilms() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
+                          apiUrl,
                           res
                         );
                       }
@@ -2105,6 +2322,7 @@ async function getFilms() {
                     if (err) {
                       return console.log(err);
                     }
+
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -2183,7 +2401,104 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
-  <script type="text/javascript">
+</html>`;
+                    res.send(episodesPage); // Отправка ответа в виде HTML
+                  }
+                );
+                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
+              } else {
+                  fs.writeFile(
+                      wayToFile,
+                      `(function () {
+    "use strict"
+
+    window.App.serialSeasons = [
+      {
+        season: "1",
+        episode: "1",
+        name: \`${item.info.orig}\`,
+        id: '${item.kinopoisk_id}&1&1',
+        status: 'film',
+      }
+    ] 
+  })();
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/serialSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/filmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location='/'
@@ -2191,26 +2506,22 @@ h4,p {
     })  
 </script>
 </html>`;
-                    res.send(episodesPage); // Отправка ответа в виде HTML
-                  }
-                );
-                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
-              } else {
-                fs.writeFileSync(
-                  wayToFile,
-                  `(function () {
-    "use strict"
+                        res.send(episodesPage);
+                         app.get(
+                          "/player=" + item.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              item,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
+                    );
 
-    window.App.SerialSeasons = [
-      {
-        season: "Смотреть",
-        episode: "",
-      }
-    ] 
-  })();
-  `
-                );
-                getMp4Videos(item, ...[, ,], nameOfUrl, responseName);
+                
               }
             });
           });
@@ -2219,20 +2530,25 @@ h4,p {
         }
       };
 
-      fetchVideos("./js/pagesFunctions/serialSeasons.js", "videos", "video");
-
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
-  
+  if (App.serialSeasons[0].status === "film") {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  } else {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  }
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.SerialSeasons);
+      this.renderItems(App.serialSeasons);
       _inited = true;
     },
 
@@ -2258,6 +2574,8 @@ h4,p {
 })();
     `
       );
+      fetchVideos("./js/pagesFunctions/serialSeasons.js");
+
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -2613,15 +2931,25 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    if (window.location.href.indexOf('reload')==-1) {
-     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
-}
+   
+$(document).ready(function(){
+
+            if(document.URL.indexOf("#")==-1)
+            {
+              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }, 500)
+        }})
     
 
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -2652,10 +2980,10 @@ async function getSerials() {
             titleEng: \`${element.info.orig}\`,
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`,
           },
           `
           );
@@ -2795,10 +3123,10 @@ async function getSerials() {
     `
       );
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
-      const fetchVideos = async (wayToFile, nameOfUrl, responseName) => {
+     const fetchVideos = async (wayToFile) => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          const apiUrl = "http://localhost:8000/api/link";
           videosId.results.map((item) => {
             let videos = [];
             let videoSeasonsArrays = item.episodes
@@ -2827,7 +3155,7 @@ async function getSerials() {
                      id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
                         episodeIndex + 1
                       }',
-                     name: '${item.info.orig}',
+                     name: \`${item.info.orig}\`,
                   },
           `
                   );
@@ -2845,7 +3173,7 @@ async function getSerials() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
+                          apiUrl,
                           res
                         );
                       }
@@ -2864,6 +3192,7 @@ async function getSerials() {
                     if (err) {
                       return console.log(err);
                     }
+
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -2942,7 +3271,104 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
-  <script type="text/javascript">
+</html>`;
+                    res.send(episodesPage); // Отправка ответа в виде HTML
+                  }
+                );
+                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
+              } else {
+                  fs.writeFile(
+                      wayToFile,
+                      `(function () {
+    "use strict"
+
+    window.App.serialSeasons = [
+      {
+        season: "1",
+        episode: "1",
+        name: \`${item.info.orig}\`,
+        id: '${item.kinopoisk_id}&1&1',
+        status: 'film',
+      }
+    ] 
+  })();
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/serialSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/filmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location='/'
@@ -2950,26 +3376,22 @@ h4,p {
     })  
 </script>
 </html>`;
-                    res.send(episodesPage); // Отправка ответа в виде HTML
-                  }
-                );
-                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
-              } else {
-                fs.writeFileSync(
-                  wayToFile,
-                  `(function () {
-    "use strict"
+                        res.send(episodesPage);
+                         app.get(
+                          "/player=" + item.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              item,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
+                    );
 
-    window.App.SerialSeasons = [
-      {
-        season: "Смотреть",
-        episode: "",
-      }
-    ] 
-  })();
-  `
-                );
-                getMp4Videos(item, ...[, ,], nameOfUrl, responseName);
+                
               }
             });
           });
@@ -2978,20 +3400,25 @@ h4,p {
         }
       };
 
-      fetchVideos("./js/pagesFunctions/serialSeasons.js", "videos", "video");
-
-      fs.writeFileSync(
-        "./js/scenes/filmSeasons.js",
-        `(function () {
+       fs.writeFileSync(
+         "./js/scenes/filmSeasons.js",
+         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
-  
+  if (App.serialSeasons[0].status === "film") {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  } else {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  }
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.SerialSeasons);
+      this.renderItems(App.serialSeasons);
       _inited = true;
     },
 
@@ -3016,7 +3443,9 @@ h4,p {
   };
 })();
     `
-      );
+       );
+      fetchVideos("./js/pagesFunctions/serialSeasons.js");
+
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -3373,14 +3802,24 @@ p {
         }
     }
     
-    if (window.location.href.indexOf('reload')==-1) {
-     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
-}
+    
+$(document).ready(function(){
+
+            if(document.URL.indexOf("#")==-1)
+            {
+              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }, 500)
+        }})
 
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -3411,10 +3850,10 @@ async function getCartoons() {
             titleEng: \`${element.info.orig}\`,
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`,
           },
           `
           );
@@ -3554,10 +3993,10 @@ async function getCartoons() {
     `
       );
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
-      const fetchVideos = async (wayToFile, nameOfUrl, responseName) => {
+      const fetchVideos = async (wayToFile) => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          const apiUrl = "http://localhost:8000/api/link";
           videosId.results.map((item) => {
             let videos = [];
             let videoSeasonsArrays = item.episodes
@@ -3586,7 +4025,7 @@ async function getCartoons() {
                      id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
                         episodeIndex + 1
                       }',
-                     name: '${item.info.orig}',
+                     name: \`${item.info.orig}\`,
                   },
           `
                   );
@@ -3604,7 +4043,7 @@ async function getCartoons() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
+                          apiUrl,
                           res
                         );
                       }
@@ -3623,6 +4062,7 @@ async function getCartoons() {
                     if (err) {
                       return console.log(err);
                     }
+
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -3701,7 +4141,104 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
-  <script type="text/javascript">
+</html>`;
+                    res.send(episodesPage); // Отправка ответа в виде HTML
+                  }
+                );
+                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
+              } else {
+                  fs.writeFile(
+                      wayToFile,
+                      `(function () {
+    "use strict"
+
+    window.App.serialSeasons = [
+      {
+        season: "1",
+        episode: "1",
+        name: \`${item.info.orig}\`,
+        id: '${item.kinopoisk_id}&1&1',
+        status: 'film',
+      }
+    ] 
+  })();
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/serialSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/filmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location='/'
@@ -3709,26 +4246,22 @@ h4,p {
     })  
 </script>
 </html>`;
-                    res.send(episodesPage); // Отправка ответа в виде HTML
-                  }
-                );
-                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
-              } else {
-                fs.writeFileSync(
-                  wayToFile,
-                  `(function () {
-    "use strict"
+                        res.send(episodesPage);
+                         app.get(
+                          "/player=" + item.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              item,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
+                    );
 
-    window.App.SerialSeasons = [
-      {
-        season: "Смотреть",
-        episode: "",
-      }
-    ] 
-  })();
-  `
-                );
-                getMp4Videos(item, ...[, ,], nameOfUrl, responseName);
+                
               }
             });
           });
@@ -3737,20 +4270,25 @@ h4,p {
         }
       };
 
-      fetchVideos("./js/pagesFunctions/serialSeasons.js", "videos", "video");
-
-      fs.writeFileSync(
-        "./js/scenes/filmSeasons.js",
-        `(function () {
+       fs.writeFileSync(
+         "./js/scenes/filmSeasons.js",
+         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
-  
+  if (App.serialSeasons[0].status === "film") {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  } else {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  }
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.SerialSeasons);
+      this.renderItems(App.serialSeasons);
       _inited = true;
     },
 
@@ -3775,7 +4313,9 @@ h4,p {
   };
 })();
     `
-      );
+       );
+      fetchVideos("./js/pagesFunctions/serialSeasons.js");
+
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -4131,15 +4671,25 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    if (window.location.href.indexOf('reload')==-1) {
-     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
-}
+    
+$(document).ready(function(){
+
+            if(document.URL.indexOf("#")==-1)
+            {
+              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }, 500)
+        }})
     
 
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -4169,10 +4719,10 @@ async function getPremieres() {
             titleEng: \`${element.info.orig}\`,
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`,
           },
           `
           );
@@ -4312,10 +4862,10 @@ async function getPremieres() {
     `
       );
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
-      const fetchVideos = async (wayToFile, nameOfUrl, responseName) => {
+      const fetchVideos = async (wayToFile) => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          const apiUrl = "http://localhost:8000/api/link";
           videosId.results.map((item) => {
             let videos = [];
             let videoSeasonsArrays = item.episodes
@@ -4344,7 +4894,7 @@ async function getPremieres() {
                      id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
                         episodeIndex + 1
                       }',
-                     name: '${item.info.orig}',
+                     name: \`${item.info.orig}\`,
                   },
           `
                   );
@@ -4362,7 +4912,7 @@ async function getPremieres() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
+                          apiUrl,
                           res
                         );
                       }
@@ -4381,6 +4931,7 @@ async function getPremieres() {
                     if (err) {
                       return console.log(err);
                     }
+
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -4459,7 +5010,104 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
-  <script type="text/javascript">
+</html>`;
+                    res.send(episodesPage); // Отправка ответа в виде HTML
+                  }
+                );
+                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
+              } else {
+                  fs.writeFile(
+                      wayToFile,
+                      `(function () {
+    "use strict"
+
+    window.App.serialSeasons = [
+      {
+        season: "1",
+        episode: "1",
+        name: \`${item.info.orig}\`,
+        id: '${item.kinopoisk_id}&1&1',
+        status: 'film',
+      }
+    ] 
+  })();
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/serialSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/filmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location='/'
@@ -4467,26 +5115,22 @@ h4,p {
     })  
 </script>
 </html>`;
-                    res.send(episodesPage); // Отправка ответа в виде HTML
-                  }
-                );
-                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
-              } else {
-                fs.writeFileSync(
-                  wayToFile,
-                  `(function () {
-    "use strict"
+                        res.send(episodesPage);
+                         app.get(
+                          "/player=" + item.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              item,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
+                    );
 
-    window.App.SerialSeasons = [
-      {
-        season: "Смотреть",
-        episode: "",
-      }
-    ] 
-  })();
-  `
-                );
-                getMp4Videos(item, ...[, ,], nameOfUrl, responseName);
+                
               }
             });
           });
@@ -4495,20 +5139,25 @@ h4,p {
         }
       };
 
-      fetchVideos("./js/pagesFunctions/serialSeasons.js", "videos", "video");
-
       fs.writeFileSync(
-        "./js/scenes/filmSeasons.js",
-        `(function () {
+         "./js/scenes/filmSeasons.js",
+         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
-  
+  if (App.serialSeasons[0].status === "film") {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  } else {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  }
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.SerialSeasons);
+      this.renderItems(App.serialSeasons);
       _inited = true;
     },
 
@@ -4533,7 +5182,9 @@ h4,p {
   };
 })();
     `
-      );
+       );
+      fetchVideos("./js/pagesFunctions/serialSeasons.js");
+
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -4889,14 +5540,24 @@ p {
         }
     }
     
-    if (window.location.href.indexOf('reload')==-1) {
-     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
-    }
+    
+$(document).ready(function(){
+
+            if(document.URL.indexOf("#")==-1)
+            {
+              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }, 500)
+        }})
 
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);
@@ -4926,10 +5587,10 @@ async function getCompilations() {
             titleEng: \`${element.info.orig}\`,
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors}',
-            director: '${element.info.director}',
-            country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "")}',
+            actors: \`${element.info.actors}\`,
+            director: \`${element.info.director}\`,
+            country: \`${element.info.country}\`,
+            text: \`${element.info.description.replace("`", "'")}\`,
           },
           `
           );
@@ -5069,10 +5730,10 @@ async function getCompilations() {
     `
       );
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
-      const fetchVideos = async (wayToFile, nameOfUrl, responseName) => {
+      const fetchVideos = async (wayToFile) => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          const apiUrl = "http://localhost:8000/api/link";
           videosId.results.map((item) => {
             let videos = [];
             let videoSeasonsArrays = item.episodes
@@ -5101,7 +5762,7 @@ async function getCompilations() {
                      id: '${item.kinopoisk_id}&${seasonIndex + 1}&${
                         episodeIndex + 1
                       }',
-                     name: '${item.info.orig}',
+                     name: \`${item.info.orig}\`,
                   },
           `
                   );
@@ -5119,7 +5780,7 @@ async function getCompilations() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
+                          apiUrl,
                           res
                         );
                       }
@@ -5138,6 +5799,7 @@ async function getCompilations() {
                     if (err) {
                       return console.log(err);
                     }
+
                     const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
@@ -5216,7 +5878,104 @@ h4,p {
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
-  <script type="text/javascript">
+</html>`;
+                    res.send(episodesPage); // Отправка ответа в виде HTML
+                  }
+                );
+                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
+              } else {
+                  fs.writeFile(
+                      wayToFile,
+                      `(function () {
+    "use strict"
+
+    window.App.serialSeasons = [
+      {
+        season: "1",
+        episode: "1",
+        name: \`${item.info.orig}\`,
+        id: '${item.kinopoisk_id}&1&1',
+        status: 'film',
+      }
+    ] 
+  })();
+  `,
+                      function (err) {
+                        if (err) {
+                          return console.log(err);
+                        }
+                        const episodesPage = `<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/videoApp.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/serialSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/filmSeasons.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+</head>
+<style>
+body {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  padding: 10%;
+  margin: 0;
+  background-image: url(../images/stars.png);
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectEpisode {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  background: #553c64;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+</style>
+
+<body>
+      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+    </div>
+</body>
+<script type="text/javascript">
+
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location='/'
@@ -5224,26 +5983,22 @@ h4,p {
     })  
 </script>
 </html>`;
-                    res.send(episodesPage); // Отправка ответа в виде HTML
-                  }
-                );
-                videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
-              } else {
-                fs.writeFileSync(
-                  wayToFile,
-                  `(function () {
-    "use strict"
+                        res.send(episodesPage);
+                         app.get(
+                          "/player=" + item.kinopoisk_id + `&1&1`,
+                          (req, res) => {
+                            getMp4Videos(
+                              item,
+                              ...[, ,],
+                              apiUrl,
+                              res
+                            );
+                          }
+                        );
+                      }
+                    );
 
-    window.App.SerialSeasons = [
-      {
-        season: "Смотреть",
-        episode: "",
-      }
-    ] 
-  })();
-  `
-                );
-                getMp4Videos(item, ...[, ,], nameOfUrl, responseName);
+                
               }
             });
           });
@@ -5252,20 +6007,25 @@ h4,p {
         }
       };
 
-      fetchVideos("./js/pagesFunctions/serialSeasons.js", "videos", "video");
-
-      fs.writeFileSync(
-        "./js/scenes/filmSeasons.js",
-        `(function () {
+       fs.writeFileSync(
+         "./js/scenes/filmSeasons.js",
+         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
-  
+  if (App.serialSeasons[0].status === "film") {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  } else {
+    var seasonItems = _.template(
+      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
+    );
+  }
   window.App.scenes.serialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
-      this.renderItems(App.SerialSeasons);
+      this.renderItems(App.serialSeasons);
       _inited = true;
     },
 
@@ -5290,7 +6050,9 @@ h4,p {
   };
 })();
     `
-      );
+       );
+      fetchVideos("./js/pagesFunctions/serialSeasons.js");
+
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -5645,15 +6407,25 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    if (window.location.href.indexOf('reload')==-1) {
-     setTimeout(function() {window.location.replace(window.location.href+'?reload')}, 500)
-}
+   
+$(document).ready(function(){
+
+            if(document.URL.indexOf("#")==-1)
+            {
+              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }, 500)
+        }})
     
 
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
     console.error(error);

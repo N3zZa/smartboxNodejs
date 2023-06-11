@@ -1,86 +1,14 @@
 (function () {
     "use strict"
 
-    window.App.SerialSeasons = [{
-                     season: '1' + 'сезон',
-                     episode: '1' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '1', 
-                     id: '5276504&1&1',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '2' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '2', 
-                     id: '5276504&1&2',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '3' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '3', 
-                     id: '5276504&1&3',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '4' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '4', 
-                     id: '5276504&1&4',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '5' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '5', 
-                     id: '5276504&1&5',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '6' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '6', 
-                     id: '5276504&1&6',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '7' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '7', 
-                     id: '5276504&1&7',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '8' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '8', 
-                     id: '5276504&1&8',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '9' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '9', 
-                     id: '5276504&1&9',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          {
-                     season: '1' + 'сезон',
-                     episode: '10' + 'серия',
-                     seasonNum: '1',
-                     episodeNum: '10', 
-                     id: '5276504&1&10',
-                     name: 'Boku no Kokoro no Yabai Yatsu',
-                  },
-          ]
+    window.App.serialSeasons = [
+      {
+        season: "1",
+        episode: "1",
+        name: `Another Man's Poison`,
+        id: '13368&1&1',
+        status: 'film',
+      }
+    ] 
   })();
   
