@@ -136,9 +136,9 @@ body {
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
+          console.log(jsonResponse);
           const link = jsonResponse.Link.videos;
           const video = link["1080p"];
-          console.log(jsonResponse);
           fs.writeFileSync(
             `./js/playVideo.js`,
             `(function () {
@@ -1068,7 +1068,26 @@ p {
         window.location='/'
       }
     })  
-    
+     function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
+            {
+                // Set the URL to whatever it was plus "#".
+                url = document.URL+"#";
+                location = "#";
+
+                //Reload the page
+                 location.reload(true);
+            }
+
 
     </script>
 </body>
@@ -2060,20 +2079,25 @@ p {
         }
     }
     
-    
-    
-$(document).ready(function(){
+     function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
-            if(document.URL.indexOf("#")==-1)
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
             {
-              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                // Set the URL to whatever it was plus "#".
                 url = document.URL+"#";
                 location = "#";
 
                 //Reload the page
                  location.reload(true);
-            }, 500)
-        }})
+            }
 
 
     </script>
@@ -2932,19 +2956,25 @@ p {
         }
     }
    
-$(document).ready(function(){
+ function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
-            if(document.URL.indexOf("#")==-1)
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
             {
-              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                // Set the URL to whatever it was plus "#".
                 url = document.URL+"#";
                 location = "#";
 
                 //Reload the page
                  location.reload(true);
-            }, 500)
-        }})
-    
+            }
 
     </script>
 </body>
@@ -3445,7 +3475,6 @@ h4,p {
     `
        );
       fetchVideos("./js/pagesFunctions/serialSeasons.js");
-
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -3801,25 +3830,30 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-    
-    
-$(document).ready(function(){
+    function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
-            if(document.URL.indexOf("#")==-1)
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
             {
-              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                // Set the URL to whatever it was plus "#".
                 url = document.URL+"#";
                 location = "#";
 
                 //Reload the page
                  location.reload(true);
-            }, 500)
-        }})
+            }
 
     </script>
 </body>
 </html>`;
-      res.send(message); // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500)
     });
   } catch (error) {
     console.error(error);
@@ -4672,19 +4706,26 @@ p {
         }
     }
     
-$(document).ready(function(){
+ function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
-            if(document.URL.indexOf("#")==-1)
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
             {
-              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                // Set the URL to whatever it was plus "#".
                 url = document.URL+"#";
                 location = "#";
 
                 //Reload the page
                  location.reload(true);
-            }, 500)
-        }})
-    
+            }
+
 
     </script>
 </body>
@@ -5540,19 +5581,25 @@ p {
         }
     }
     
-    
-$(document).ready(function(){
+ function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
-            if(document.URL.indexOf("#")==-1)
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
             {
-              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                // Set the URL to whatever it was plus "#".
                 url = document.URL+"#";
                 location = "#";
 
                 //Reload the page
                  location.reload(true);
-            }, 500)
-        }})
+            }
 
     </script>
 </body>
@@ -6407,20 +6454,27 @@ p {
              window.scrollTo(0, elem.offsetTop - 200);
         }
     }
-   
-$(document).ready(function(){
+    function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
-            if(document.URL.indexOf("#")==-1)
+  sleep(500)
+  if(document.URL.indexOf("#")==-1)
             {
-              setTimeout(function(){  // Set the URL to whatever it was plus "#".
+                // Set the URL to whatever it was plus "#".
                 url = document.URL+"#";
                 location = "#";
 
                 //Reload the page
                  location.reload(true);
-            }, 500)
-        }})
-    
+            }
+
+
 
     </script>
 </body>
