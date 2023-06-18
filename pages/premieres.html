@@ -332,13 +332,12 @@
         <div class="header navigation-items">
             <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back"
                 id="img_back">
-            <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-            <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-            <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-            <h2>Аниме</h2>
-            <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
+            <li class="navigation-item nav-item" id='films'>Фильмы</li>
+            <li class="navigation-item nav-item" id='serials'>Сериалы</li>
+            <li class="navigation-item nav-item" id='cartoons'>Мультфильмы</li>
+            <li class="navigation-item nav-item" id='anime'>Аниме</li>
+            <h2>Премьеры</h2>
             <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-
         </div>
         <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
         </div>
@@ -347,11 +346,11 @@
     </div>
     <script type='text/javascript'>
         var backBtn = document.getElementById('img_back');
-        var cartoons = document.getElementById('Cartoons');
-        var serials = document.getElementById('Serials');
-        var films = document.getElementById('Films');
-        var premieres = document.getElementById('Premieres');
-        var compilations = document.getElementById('Compilations');
+        var serials = document.getElementById('serials')
+        var films = document.getElementById('films')
+        var anime = document.getElementById('anime')
+        var cartoons = document.getElementById('cartoons')
+        var compilations = document.getElementById('Compilations')
 
         $('html').keyup(function (e) {
             if (e.keyCode === 8) {
@@ -363,10 +362,6 @@
             window.location = '/'
         });
 
-        cartoons.addEventListener('click', function (event) {
-            window.location = '/cartoons'
-        });
-
         serials.addEventListener('click', function (event) {
             window.location = '/serials'
         });
@@ -375,8 +370,12 @@
             window.location = '/films'
         });
 
-        premieres.addEventListener('click', function (event) {
-            window.location = '/premieres'
+        anime.addEventListener('click', function (event) {
+            window.location = '/anime'
+        });
+
+        cartoons.addEventListener('click', function (event) {
+            window.location = '/cartoons'
         });
 
         compilations.addEventListener('click', function (event) {
@@ -393,6 +392,9 @@
                 window.scrollTo(0, elem.offsetTop - 200);
             }
         }
+
+    
+
     </script>
 </body>
 

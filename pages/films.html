@@ -332,10 +332,10 @@
         <div class="header navigation-items">
             <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back"
                 id="img_back">
-            <li class="navigation-item nav-item" id='Films'>Фильмы</li>
+            <h2>Фильмы</h2>
             <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
             <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-            <h2>Аниме</h2>
+            <li class="navigation-item nav-item" id='anime'>Аниме</li>
             <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
             <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
 
@@ -347,11 +347,11 @@
     </div>
     <script type='text/javascript'>
         var backBtn = document.getElementById('img_back');
-        var cartoons = document.getElementById('Cartoons');
-        var serials = document.getElementById('Serials');
-        var films = document.getElementById('Films');
-        var premieres = document.getElementById('Premieres');
-        var compilations = document.getElementById('Compilations');
+        var cartoons = document.getElementById('Cartoons')
+        var serials = document.getElementById('Serials')
+        var anime = document.getElementById('anime')
+        var premieres = document.getElementById('Premieres')
+        var compilations = document.getElementById('Compilations')
 
         $('html').keyup(function (e) {
             if (e.keyCode === 8) {
@@ -371,8 +371,8 @@
             window.location = '/serials'
         });
 
-        films.addEventListener('click', function (event) {
-            window.location = '/films'
+        anime.addEventListener('click', function (event) {
+            window.location = '/anime'
         });
 
         premieres.addEventListener('click', function (event) {
@@ -393,6 +393,9 @@
                 window.scrollTo(0, elem.offsetTop - 200);
             }
         }
+
+
+    
     </script>
 </body>
 
