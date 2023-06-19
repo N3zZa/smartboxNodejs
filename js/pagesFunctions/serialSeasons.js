@@ -1,14 +1,94 @@
 (function () {
     "use strict"
 
-    window.App.serialSeasons = [
-      {
-        season: "1",
-        episode: "1",
-        name: `Another Man's Poison`,
-        id: '13368&1&1',
-        status: 'film',
-      }
-    ] 
+    window.App.serialSeasons = [{
+                     season: '1' + 'сезон',
+                     episode: '1' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '1', 
+                     id: '4786341&1&1',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '2' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '2', 
+                     id: '4786341&1&2',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '3' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '3', 
+                     id: '4786341&1&3',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '4' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '4', 
+                     id: '4786341&1&4',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '5' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '5', 
+                     id: '4786341&1&5',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '6' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '6', 
+                     id: '4786341&1&6',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '7' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '7', 
+                     id: '4786341&1&7',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '8' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '8', 
+                     id: '4786341&1&8',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '9' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '9', 
+                     id: '4786341&1&9',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '10' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '10', 
+                     id: '4786341&1&10',
+                     name: `Jigokuraku`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '11' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '11', 
+                     id: '4786341&1&11',
+                     name: `Jigokuraku`,
+                  },
+          ]
   })();
   
