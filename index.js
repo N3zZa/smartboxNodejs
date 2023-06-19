@@ -1232,7 +1232,6 @@ searchPage();
 // ------------------- функция со всем функционалом Anime страницы -----------------------
 async function getAnime() {
   try {
-    app.get("/anime", (req, res) => {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
       const fetchData = fetch(APIANIME_URL).then((response) => {
         return response.json();
@@ -1572,13 +1571,6 @@ h4,p {
 })();
     `
       );
-
-      fetchVideos(
-        "./js/pagesFunctions/serialSeasons.js",
-        "animevideos",
-        "animevideo"
-      );
-
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
@@ -1616,7 +1608,20 @@ h4,p {
 })();
     `
       );
-      const message = `<!DOCTYPE html>
+      
+      fetchVideos(
+        "./js/pagesFunctions/serialSeasons.js",
+        "animevideos",
+        "animevideo"
+      );
+     
+  } catch (error) {
+    console.error(error);
+  }
+}
+ app.get("/anime", (req, res) => { 
+    getAnime()
+     const message = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1968,11 +1973,7 @@ p {
 </body>
 </html>`;
       res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+ })
 // ------------------- функция со всем функционалом films страницы -----------------------
 async function getFilms() {
   try {
