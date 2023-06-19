@@ -365,6 +365,7 @@ async function getSearchedMovie() {
                             episodeIndex + 1
                           }',
                      name: \`${searchedItem.info.orig}\`,
+                     status: 'serial',
                   },
           `
                       );
@@ -1300,6 +1301,7 @@ async function getAnime() {
                         episodeIndex + 1
                       }',
                      name: \`${item.info.orig}\`,
+                     status: 'serial',
                   },
           `
                   );
@@ -1931,6 +1933,7 @@ async function getFilms() {
                         episodeIndex + 1
                       }',
                      name: \`${item.info.orig}\`,
+                     status: 'serial',
                   },
           `
                   );
@@ -2430,6 +2433,7 @@ async function getSerials() {
                         episodeIndex + 1
                       }',
                      name: \`${item.info.orig}\`,
+                     status: 'serial',
                   },
           `
                   );
@@ -2924,6 +2928,7 @@ async function getCartoons() {
                         episodeIndex + 1
                       }',
                      name: \`${item.info.orig}\`,
+                     status: 'serial',
                   },
           `
                   );
@@ -3416,6 +3421,7 @@ async function getPremieres() {
                         episodeIndex + 1
                       }',
                      name: \`${item.info.orig}\`,
+                     status: 'serial',
                   },
           `
                   );
@@ -3910,6 +3916,7 @@ async function getCompilations() {
                         episodeIndex + 1
                       }',
                      name: \`${item.info.orig}\`,
+                     status: 'serial',
                   },
           `
                   );
@@ -4199,8 +4206,6 @@ h4,p {
     `
        );
       fetchVideos("./js/pagesFunctions/serialSeasons.js");
-
-    
   } catch (error) {
     console.error(error);
   }
@@ -4608,6 +4613,7 @@ h4,p {
 </html>`;
       setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
+
 app.get("/films", (req, res) => { 
     getFilms()
     const message = `<!DOCTYPE html>
@@ -5014,6 +5020,7 @@ app.get("/films", (req, res) => {
 </html>`
      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  });
+
   app.get("/serials", (req, res) => { 
     getSerials()
     const message = `<!DOCTYPE html>
@@ -5419,6 +5426,7 @@ app.get("/films", (req, res) => {
 </html>`
     setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  });
+
    app.get("/cartoons", (req, res) => { 
     getCartoons()
     const message = `<!DOCTYPE html>
@@ -5784,6 +5792,7 @@ p {
 </html>`
      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  });
+
    app.get("/premieres", (req, res) => { 
     getPremieres()
     const message = `<!DOCTYPE html>
@@ -6189,6 +6198,7 @@ p {
 </html>`
      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  });
+
    app.get("/compilations", (req, res) => { 
     getCompilations()
     const message = `<!DOCTYPE html>
