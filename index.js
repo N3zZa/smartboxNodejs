@@ -1728,9 +1728,7 @@ h4,p {
             res.status(500).send('There is a bug. Please report this')
         }
        
-        res.setTimeout(500, () => {
-           res.send(html)
-        })
+        res.send(html)
     }) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
     });
   } catch (error) {
