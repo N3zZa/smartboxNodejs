@@ -4496,12 +4496,7 @@ h4,p {
   }
 }
 
-getFilms();
-getCompilations();
-getSerials();
-getCartoons();
 getAnime();
-getPremieres();
 
 
 
