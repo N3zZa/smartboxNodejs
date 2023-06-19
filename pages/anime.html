@@ -353,11 +353,11 @@
         var premieres = document.getElementById('Premieres');
         var compilations = document.getElementById('Compilations');
 
-        $(document.body).on('keyup', function (e) {
-            if (e.keyCode === 8) {
+        window.document.onkeydown = function(key) {
+             if (key.keyCode === 8) {
                 window.location = '/'
             }
-        })
+        }
 
         backBtn.addEventListener('click', function (event) {
             window.location = '/'
