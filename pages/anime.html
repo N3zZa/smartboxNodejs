@@ -353,7 +353,7 @@
         var premieres = document.getElementById('Premieres');
         var compilations = document.getElementById('Compilations');
 
-        $('html').keyup(function (e) {
+        $(document.body).on('keyup', function (e) {
             if (e.keyCode === 8) {
                 window.location = '/'
             }

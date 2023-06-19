@@ -352,11 +352,11 @@
         var premieres = document.getElementById('Premieres')
         var cartoons = document.getElementById('cartoons')
 
-        $('html').keyup(function (e) {
-            if (e.keyCode === 8) {
-                window.location = '/'
-            }
-        })
+         $(document.body).on('keyup', function (e) {
+                if (e.keyCode === 8) {
+                    window.location = '/'
+                }
+            })
 
         backBtn.addEventListener('click', function (event) {
             window.location = '/'
