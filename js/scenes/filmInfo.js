@@ -10,11 +10,7 @@
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },

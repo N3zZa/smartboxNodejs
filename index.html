@@ -47,7 +47,7 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-            height: 90vh;
+            height: 100%;
         }
 
         .item {
@@ -72,6 +72,7 @@
             align-items: center;
             justify-content: space-between;
             width: 50%;
+            height: 100%;
         }
 
         .main-logo {
@@ -81,6 +82,12 @@
             position: relative;
         }
 
+        .nav-block {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+        }
 
 
         .navbar {
@@ -88,8 +95,10 @@
             flex-direction: column;
             text-align: center;
             align-items: center;
+            justify-content: center;
             background: #3b3041;
-            width: 200px;
+            width: 400px;
+            height: 100%;
         }
 
         .navbar p,
@@ -194,7 +203,7 @@
             <div class="main-logo">
                 <img width="380" height="100" src="/images/UCS.svg" alt="logoimg">
             </div>
-            <div class="scene js-scene-navigation">
+            <div class="scene js-scene-navigation nav-block">
                 <nav class="navbar navigation-items">
                     <p class="navigation-item nav-item search" href="/search">Поиск</p>
                     <p id="premieres" class="navigation-item nav-item"  href="/premieres">Премьеры</p>

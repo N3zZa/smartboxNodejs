@@ -533,6 +533,7 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+       
       $('.bg').hide();
       $('.bg2').show();
       this.renderItems(App.searchedVideos);
@@ -697,7 +698,10 @@ h1 {
     font-size: 35px;
     border-left: 2px solid white;
 }
-
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
+}
 .movieitem:hover h4{
   display: block;
   color: #fff;
@@ -710,9 +714,9 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+    border: 5px solid rgb(207, 178, 14);
+     
+    padding: 5px;
 }
 .film-title {
     display: flex;
@@ -828,6 +832,9 @@ p {
     width: 30%;
     height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -853,12 +860,12 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+  
+   border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -962,9 +969,10 @@ p {
 <style>
 
 body {
+    position: relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 
@@ -987,7 +995,7 @@ h1 {
     margin: 10px 0;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -1101,7 +1109,7 @@ h3, h4, li {
     padding: 30px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -1536,11 +1544,7 @@ h4,p {
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-       $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -1650,9 +1654,10 @@ h4,p {
 <style>
 
 body {
+  position:relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 p,
@@ -1708,9 +1713,8 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .film-title {
     display: flex;
@@ -1767,7 +1771,10 @@ video {
     font-size: 35px;
     border-left: 2px solid white;
 }
-
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
+}
 .log-string {
     position: absolute;
     left: 50%;
@@ -1844,6 +1851,9 @@ p {
     width: 30%;
     height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -1868,13 +1878,12 @@ p {
     margin-top: 3px;
 }
 
-.focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+.js-scene-video .focus {
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -1940,7 +1949,7 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/'
     }
       if (e.keyCode === 38) {
             $('.focus').get(0).scrollIntoView();
@@ -2258,11 +2267,7 @@ h4,p {
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
+      
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -2374,7 +2379,7 @@ h4,p {
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 p,
@@ -2430,9 +2435,9 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+    border: 5px solid rgb(207, 178, 14);
+    
+    padding: 5px;
 }
 .film-title {
     display: flex;
@@ -2489,7 +2494,10 @@ video {
     font-size: 35px;
     border-left: 2px solid white;
 }
-
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
+}
 .log-string {
     position: absolute;
     left: 50%;
@@ -2566,6 +2574,9 @@ p {
     width: 30%;
     height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -2590,13 +2601,12 @@ p {
     margin-top: 3px;
 }
 
-.focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+.js-scene-video .focus {
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -2663,7 +2673,7 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/'
       }
       if (e.keyCode === 38) {
             $('.focus').get(0).scrollIntoView();
@@ -2981,11 +2991,7 @@ h4,p {
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
+      
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -3095,9 +3101,10 @@ h4,p {
 <style>
 
 body {
+  position:relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 p,
@@ -3153,9 +3160,9 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+    border: 5px solid rgb(207, 178, 14);
+    
+    padding: 5px;
 }
 .film-title {
     display: flex;
@@ -3212,7 +3219,10 @@ video {
     font-size: 35px;
     border-left: 2px solid white;
 }
-
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
+}
 .log-string {
     position: absolute;
     left: 50%;
@@ -3289,6 +3299,9 @@ p {
     width: 30%;
    height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -3313,13 +3326,12 @@ p {
     margin-top: 3px;
 }
 
-.focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+.js-scene-video .focus {
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -3386,7 +3398,7 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/'
       }
       if (e.keyCode === 38) {
             $('.focus').get(0).scrollIntoView();
@@ -3704,11 +3716,7 @@ h4,p {
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
+      
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -3820,9 +3828,10 @@ h4,p {
 <style>
 
 body {
+  position:relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 p,
@@ -3878,9 +3887,9 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+    border: 5px solid rgb(207, 178, 14);
+    
+    padding: 5px;
 }
 .film-title {
     display: flex;
@@ -3937,7 +3946,10 @@ video {
     font-size: 35px;
     border-left: 2px solid white;
 }
-
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
+}
 .log-string {
     position: absolute;
     left: 50%;
@@ -4014,6 +4026,9 @@ p {
     width: 30%;
     height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -4038,13 +4053,12 @@ p {
     margin-top: 3px;
 }
 
-.focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+.js-scene-video .focus {
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -4111,7 +4125,7 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/'
       }
       if (e.keyCode === 38) {
             $('.focus').get(0).scrollIntoView();
@@ -4429,11 +4443,6 @@ h4,p {
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -4544,9 +4553,10 @@ h4,p {
 <style>
 
 body {
+  position:relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 p,
@@ -4602,9 +4612,9 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+   border: 5px solid rgb(207, 178, 14);
+   
+    padding: 5px;
 }
 .film-title {
     display: flex;
@@ -4661,7 +4671,10 @@ video {
     font-size: 35px;
     border-left: 2px solid white;
 }
-
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
+}
 .log-string {
     position: absolute;
     left: 50%;
@@ -4738,6 +4751,9 @@ p {
     width: 30%;
     height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -4762,13 +4778,12 @@ p {
     margin-top: 3px;
 }
 
-.focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+.js-scene-video .focus {
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -4835,7 +4850,7 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/'
       }
       if (e.keyCode === 38) {
             $('.focus').get(0).scrollIntoView();
@@ -5153,11 +5168,7 @@ h4,p {
       this.$el.on("click", ".back", this.onItemBackClick)
       $('.bg').hide();
       $('.bg2').show();
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.App.showContent('videos');
-      }
-    }) 
+      
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -5267,9 +5278,10 @@ h4,p {
 <style>
 
 body {
+  position:relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 p,
@@ -5325,9 +5337,9 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 10px;
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
+    
 }
 .film-title {
     display: flex;
@@ -5383,6 +5395,10 @@ video {
 .header h2 {
     font-size: 35px;
     border-left: 2px solid white;
+}
+.header .focus {
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
 }
 
 .log-string {
@@ -5461,6 +5477,10 @@ p {
     width: 30%;
    height: 100vh;
 }
+.film-nav .focus {
+  background-color: #3b3041;
+}
+
 .film-nav_logo {
     background: #3b3041;
     padding: 20px;
@@ -5485,13 +5505,12 @@ p {
     margin-top: 3px;
 }
 
-.focus {
-    border-bottom: 5px solid rgb(207, 178, 14);
-    margin-bottom: -5px;
-    border-radius: 5px;
+.js-scene-video .focus {
+    border: 5px solid rgb(207, 178, 14);
+    padding: 5px;
 }
 .bg {
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 0;
             width: 100%;
@@ -5535,6 +5554,7 @@ p {
 }
 
 
+
 </style>
 <body>
 
@@ -5558,7 +5578,7 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/'
       }
       if (e.keyCode === 38) {
             $('.focus').get(0).scrollIntoView();
