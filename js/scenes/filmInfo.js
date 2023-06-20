@@ -8,6 +8,11 @@
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },

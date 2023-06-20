@@ -4,23 +4,25 @@
 }
 
 .keyboard_popup_wrapper {
-    width: 416px;
+    width: 620px;
     margin: 0 auto;
 }
 
 .keyboard_ru {
-    width: 495px;
+    width: 620px;
 }
-
-.keyboard_email {
-    width: 455px;
+.keyboard_generated_en .kbtn {
+    width: 55px;
+}
+.keyboard_generated_fullnum .kbtn {
+    width: 55px;
 }
 
 .kb-wrap {
     position: relative;
     padding: 10px 5px 5px 10px;
     overflow: hidden;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.685);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     display: none;
@@ -38,7 +40,7 @@
 
 .kb-row {
     margin-bottom: 6px;
-    height: 43px;
+    height: 55px;
 }
 
 .kb-row:after {
@@ -49,23 +51,24 @@
 
 .kbtn {
     float: left;
-    width: 35px;
-    height: 36px;
+    width: 45px;
+    height: 46px;
     text-align: center;
-    font-size: 24px;
-    color: #000;
-    background: #fff;
+    font-size: 32px;
+    color: black;
+    background-color: #fff;
     cursor: pointer;
     margin-right: 5px;
     padding-top: 7px;
     line-height: 31px;
     border-radius: 4px;
+    font-family: 'Inter', sans-serif;
 }
 
 .kbtn:hover,
 .kbtn.focus {
-    background: #1295e4;
-    color: #fff;
+    background: #553c64;
+    color: white;
 }
 
 .kbtn.nums, .kbtn.lang {
@@ -82,25 +85,36 @@
 }
 
 .keyboard_fullnum .kbtn.nums {
-    width: 115px;
+    width: 175px;
 }
 
 .kbtn.shift, .kbtn.nums, .kbtn.lang {
-    width: 55px;
+    width: 65px;
     font-size: 14px;
 }
 
+
 .kbtn.shift {
-    width: 75px;
+    width: 95px;
 }
 
 .kbtn.delall {
     font-size: 16px;
     line-height: 18px;
     padding-top: 3px;
-    height: 40px;
+    height: 50px;
 }
-
+.keyboard_generated_en .delall {
+    width: 74px;
+}
+.keyboard_generated_en .kbtn.nums {
+    width: 75px;
+    font-size: 14px;
+}
+.keyboard_generated_en .kbtn.lang {
+    width: 75px;
+    font-size: 14px;
+}
 .kbtn.space {
     width: 315px;
 }
@@ -114,15 +128,16 @@
 }
 
 .keyboard_en .kb-multilang.kb-havenums .space {
-    width: 195px;
+    width: 330px;
 }
 
 .keyboard_fullnum .space{
-    width: 315px!important;
+    width: 420px!important;
 }
 
+
 .keyboard_ru .kb-multilang .kbtn.space {
-    width: 335px;
+    width: 430px;
 }
 
 .keyboard_en .kb-havenums .space {
@@ -130,13 +145,16 @@
 }
 
 .keyboard_ru .kb-multilang.kb-havenums .kbtn.space {
-    width: 275px;
+    width: 350px;
 }
 
 .kbtn.complete {
-    width: 75px;
+    width: 100px;
     text-align: center;
     font-size: 16px;
+}
+.keyboard_fullnum .complete {
+    width: 170px;
 }
 
 .backspace_icon, .shift_icon {
@@ -184,7 +202,7 @@
     display: block;
     left: 200px;
     top: 200px;
-    margin: 0 0 0 -5px;
+    margin: 20px 0 0 -50px;
 }
 
 .num_wrap {

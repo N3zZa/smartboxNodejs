@@ -1148,7 +1148,7 @@ window.SB.keyboardPresets = {
       ['shift{{<i class="shift_icon"></i>Shift}}']
         .concat("zxcvbnm".split(""))
         .concat(["delall{{<span>Del<br/>all</span>}}"]),
-      ["lang{{en}}", "nums{{123}}", "space{{}}", "complete{{Complete}}"],
+      ["lang{{en}}", "nums{{123}}", "space{{Пробел}}", "complete{{Свернуть}}"],
     ];
   },
 
@@ -1161,7 +1161,7 @@ window.SB.keyboardPresets = {
       ['shift{{<i class="shift_icon"></i>Shift}}']
         .concat("ячсмитьбю".split(""))
         .concat(["delall{{<span>Del<br/>all</span>}}"]),
-      ["lang{{ru}}", "nums{{123}}", "space{{}}", "complete{{Готово}}"],
+      ["lang{{ru}}", "nums{{123}}", "space{{Пробел}}", "complete{{Свернуть}}"],
     ];
   },
 
@@ -1172,7 +1172,7 @@ window.SB.keyboardPresets = {
         .split("")
         .concat(['backspace{{<i class="backspace_icon"></i>}}']),
       "asdfghjkl_".split("").concat(["delall{{<span>Del<br/>all</span>}}"]),
-      "zxcvbnm-.".split("").concat("complete{{OK}}"),
+      "zxcvbnm-.".split("").concat("complete{{Свернуть}}"),
     ];
   },
 
@@ -1181,7 +1181,7 @@ window.SB.keyboardPresets = {
       "123".split(""),
       "456".split(""),
       "789".split(""),
-      ['backspace{{<i class="backspace_icon"></i>}}', "0", "complete{{OK}}"],
+      ['backspace{{<i class="backspace_icon"></i>}}', "0", "complete{{Свернуть}}"],
     ];
   },
 
@@ -1192,7 +1192,7 @@ window.SB.keyboardPresets = {
         .split("")
         .concat(["&amp;", 'backspace{{<i class="backspace_icon"></i>}}']),
       ["nums{{ABC}}"].concat("@.,?!'+".split("")),
-      ["space{{}}", "complete{{OK}}"],
+      ["space{{}}", "complete{{Свернуть}}"],
     ];
   },
 

@@ -259,7 +259,7 @@ body {
 async function getSearchedMovie() {
   try {
     app.get("/searchItem", (req, res) => {
-      var name = req.originalUrl.split("=").pop();
+      var name = req.originalUrl.split("?").pop();
       var correctName = name.replace("+", " ");
       sParameter = decodeURIComponent(correctName);
 
@@ -269,7 +269,8 @@ async function getSearchedMovie() {
             return response.json();
           })
           .then((data) => {
-            const movieItem = data.results;
+            if (data.results) {
+               const movieItem = data.results;
             movieItem.map((searchedItem, index) => {
               app.get(
                 "/searchedMovieEpisodes=" + searchedItem.kinopoisk_id + index,
@@ -427,119 +428,12 @@ h4,p {
                     );
                     videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
                   } else {
-                    fs.writeFile(
-                      "./js/searchedMovie.js",
-                      `(function () {
-    "use strict"
-
-    window.App.serialSeasons = [
-      {
-        season: "1",
-        episode: "1",
-        name: \`${searchedItem.info.orig}\`,
-        id: '${searchedItem.kinopoisk_id}&1&1',
-        status: 'film',
-      }
-    ] 
-  })();
-  `,
-                      function (err) {
-                        if (err) {
-                          return console.log(err);
-                        }
-                        const episodesPage = `<!DOCTYPE html>
-        <html lang="en">
-        
-        <head>
-        <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/videoApp.js"></script>
-        <script type="text/javascript" src="../js/searchedMovie.js"></script>
-        <script type="text/javascript" src="../js/scenes/searchedSerials.js"></script>
-        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
-</head>
-<style>
-body {
-  display: flex;
-  align-items:center;
-  justify-content: center;
-  padding: 10%;
-  margin: 0;
-  background-image: url(../images/stars.png);
-}
-
-h4,p {
-  color: white;
-}
-.focus {
-  outline: 3px solid yellow;
-}
-
-.selectEpisode {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 80px;
-  background: #553c64;
-  border: 2px solid #fff;
-  border-radius: 10px;
-}
-
-.episodeBlock {
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  background: #a200ff;
-  border-radius: 5px;
-  padding: 10px;
-  width: 100%;
-  height: 100%;
-}
-.episodeBlock h4 {
-  font-weight: bold;
-  margin-right: 3px;
-}
-
-</style>
-
-<body>
-      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
-    </div>
-</body>
-<script type="text/javascript">
-
-      $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        window.location='/'
-      }
-    })  
-</script>
-</html>`;
-                        res.send(episodesPage);
-                        app.get(
-                          "/player=" + searchedItem.kinopoisk_id + `&1&1`,
-                          (req, res) => {
-                            getMp4Videos(
+                     getMp4Videos(
                               searchedItem,
                               ...[, ,],
                               apiUrl,
                               res
                             );
-                          }
-                        );
-                      }
-                    );
                   }
                 }
               );
@@ -551,14 +445,14 @@ h4,p {
             id: '${element.kinopoisk_id + index}',
             kinopoisk_id: '${element.kinopoisk_id}',
             type: 'vod',
-            imgurl: \`${element.info.poster}\`,
-            title: \`${element.info.rus}\`,
-            titleEng: \`${element.info.orig}\`,
-            created: \`${element.info.year}\`,
-            actors: \`${element.info.actors}\`,
-            director: \`${element.info.director}\`,
-            country: \`${element.info.country}\`,
-            text: \`${element.info.description.replace("`", "'")}\`,
+            imgurl: '${element.info.poster}',
+            title: '${element.info.rus.replace(/('|")/g, ``)}',
+            titleEng: '${element.info.orig.replace(/('|")/g, ``)}',
+            created: '${element.info.year}',
+            actors: '${element.info.actors.replace(/('|")/g, ``)}',
+            director: '${element.info.director.replace(/('|")/g, ``)}',
+            country: '${element.info.country}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
           },
           `
             );
@@ -742,9 +636,10 @@ h4,p {
 <style>
 
 body {
+   position:relative;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: auto;
 }
 
 p,
@@ -786,6 +681,19 @@ h1 {
 }
 .movieitem h4 {
   display: none;
+}
+.header img {
+    cursor: pointer;
+}
+.header {
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+}
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
 }
 
 .movieitem:hover h4{
@@ -987,53 +895,130 @@ p {
 
 <div class="bg"></div>
 <div id="app" class="wrap">
+      <div class="header navigation-items">
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
+                <h2>Результаты поиска</h2>
+    </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
     <div class="scene scene_filmInfo film-container js-scene-filmInfo" data-nav_loop="true">
     </div>
     </div>
     <script type='text/javascript'>
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
-        }
-    }
-      $('html').keyup(function(e){
+     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location='/'
+        window.location='/search'
       }
+      if (e.keyCode === 38) {
+            $('html').scrollTo('.focus');
+        } else if (e.keyCode === 40) {
+             $('html').scrollTo('.focus');
+        }
     })  
-     function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
-  sleep(500)
-  if(document.URL.indexOf("#")==-1)
-            {
-                // Set the URL to whatever it was plus "#".
-                url = document.URL+"#";
-                location = "#";
-
-                //Reload the page
-                 location.reload(true);
-            }
-
-
+    $('#img_back').click(function() {
+      window.location = '/search'
+    })
     </script>
 </body>
 </html>`;
 
             res.send(message); // Отправка ответа в виде HTML
+            } else {
+              const message = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+
+        <script type="text/javascript" src="./src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="./src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="./src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="./js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="./js/app.js"></script>
+        <script type="text/javascript" src="./js/scenes/navigation.js"></script>
+  
+</head>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+
+.wrap {
+  display:flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+}
+a {
+    text-decoration: none;
+}
+
+h1 {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    margin: 10px 0;
+}
+.bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+        }
+.error {
+  display:flex;
+  align-items: center;
+  margin-top: 25%;
+}
+#img_back {
+  margin-right: 20px;
+}
+.focus {
+  border-bottom: 2px solid yellow;
+}
+</style>
+<body>
+
+<div class="bg"></div>
+<div id="app" class="wrap">
+    <div class="error">
+    <img class="navigation-item nav-item" width="70px" height="70px" src="./images/arrowBack.svg" alt="back" id="img_back">
+    <h1>Ничего не найдено</h1>
+    </div>
+</div>
+    <script type='text/javascript'>
+         
+    $('html').keyup(function (e) {
+        if (e.keyCode === 8) {
+            window.location = '/search'
+        }
+    })
+      $('#img_back').click(function () {
+        window.location = '/search'
+    })
+    </script>
+</body>
+</html>`;
+
+            res.send(message); // Отправка ответа в виде HTML
+            }
           })
           .catch((err) => console.error("getSearchedMovie", err));
       }
@@ -1103,10 +1088,10 @@ h3, h4, li {
         .searchBlock {
             position: absolute;
             top: 40%;
-            right: 60%;
-            left: 40%;
+            right: 70%;
+            left: 30%;
             bottom: 60%;
-            width: 400px;
+            width: 550px;
         }
         .searchBlock-container {
             position: relative;
@@ -1120,15 +1105,35 @@ h3, h4, li {
         .search-input {
             position: relative;
             margin-right: 10px;
-            width: 350px;
-            padding: 10px 20px;
-            border: 1px solid white
+            width: 450px;
+            padding: 20px 30px;
+            border: 1px solid white;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: white;
         } 
         .search-button {
             position: relative;
+            background-color: #553c64;
+            padding: 5px;
+            color: white;
+            border: 1px solid white;
+            border-radius: 3px;
+            margin-top: 15px;
         }
-form .focus {
+.searchBlock-container .focus {
   border: 1px solid yellow;
+}
+.clickOk {
+  position: absolute;
+  top: 5px;
+  color: rgba(165, 165, 165, 0.582);
+}
+.searchImg {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  opacity: 0.5;
 }
 </style>
 <body>
@@ -1136,28 +1141,48 @@ form .focus {
 <div class="bg"></div>
 <div id="app" class="app wrap">
        <div class="searchBlock">
-            <form action="/searchItem" class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
+            <div class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
+            <span class="clickOk">Нажмите кнопку "OK" для вызова клавиатуры</span>
                 <input type="text" id="input" class="nav-item search-input input-item" name="input"
                     placeholder="Please enter your task">
-                <button type="submit" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
-            </form>
+                <button type="button" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
+            <img class="searchImg" width="26px" height="25px" src="./images/1212.png" alt="info" id="img_info">
+            </div>
         </div>
 </div>
 <script type="text/javascript">
-    SB.ready(function() {
-        $('#input').SBInput({
+    var inputElem = document.getElementById("input");
+   
+    $('#input')
+        .SBInput({
             keyboard: {
-                type: 'fulltext_ru'
+                type: 'fulltext_ru_nums'
             }
         });
-        $$nav.on();
-    });
+      var bla
+      $('html').keyup(function(e) {
+        bla = inputElem.getAttribute('data-value') // get the current value of the input field.
+        $('button#inputBtn.focus').on('click', function() {
+          window.location = '/searchItem?' + bla
+      });
+      if (e.keyCode === 89) {
+        window.location = '/searchItem?' + bla
+      }
+      });
 
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location='/'
       }
+      if (e.keyCode === 13) {
+        console.log('enter')
+        return false
+      }
     })  
+      
+      
+
+      
 </script>
 </body>
 </html>`;
@@ -1471,6 +1496,11 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+       $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -1661,12 +1691,7 @@ h1 {
 .movieitem img {
     height: 180px;
 }
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
+
 
  .focus mainMovieTitle{
   display: block;
@@ -1690,7 +1715,7 @@ video {
 .header {
   display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width: 1200px;
 }
 .header li {
@@ -1698,6 +1723,11 @@ video {
     color: #fff;    
     font-size: 23px;
 }
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
+}
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -1844,13 +1874,8 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
                 <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -1859,46 +1884,21 @@ p {
     </div>
     <script type='text/javascript'>
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
+    $('#img_back').click(function() {
+      window.location = '/'
+    })
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location = '/anime'
+    }
+      if (e.keyCode === 38) {
             var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
+        } else if (e.keyCode === 40) {
              var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 200);
         }
-    }
-    
-    
-
+    }) 
     </script>
 </body>
 </html>`;
@@ -2207,6 +2207,11 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -2374,8 +2379,8 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
-    margin-bottom: -5px;
+    border: 5px solid yellow;
+    margin: -5px;
     border-radius: 10px;
 }
 .film-title {
@@ -2397,12 +2402,7 @@ h1 {
 .movieitem img {
     height: 180px;
 }
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
+
 
  .focus mainMovieTitle{
   display: block;
@@ -2426,7 +2426,7 @@ video {
 .header {
   display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width: 1200px;
 }
 .header li {
@@ -2434,6 +2434,11 @@ video {
     color: #fff;    
     font-size: 23px;
 }
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
+}
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -2580,13 +2585,8 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-                <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
+                <h2>Фильмы</h2>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -2595,45 +2595,22 @@ p {
     </div>
     <script type='text/javascript'>
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
+      var backBtn = document.getElementById('img_back');
+     $('#img_back').click(function() {
+      window.location = '/'
+    })
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location = '/anime'
+      }
+      if (e.keyCode === 38) {
             var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
+        } else if (e.keyCode === 40) {
              var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 200);
         }
-    }
-    
-    
+    }) 
 
     </script>
 </body>
@@ -2942,6 +2919,11 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -3132,12 +3114,7 @@ h1 {
 .movieitem img {
     height: 180px;
 }
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
+
 
  .focus mainMovieTitle{
   display: block;
@@ -3161,7 +3138,7 @@ video {
 .header {
   display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width: 1200px;
 }
 .header li {
@@ -3169,6 +3146,11 @@ video {
     color: #fff;    
     font-size: 23px;
 }
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
+}
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -3315,13 +3297,8 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-                <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
+                <h2>Сериалы</h2>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -3330,45 +3307,22 @@ p {
     </div>
     <script type='text/javascript'>
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
+      var backBtn = document.getElementById('img_back');
+     $('#img_back').click(function() {
+      window.location = '/'
+    })
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location = '/anime'
+      }
+      if (e.keyCode === 38) {
             var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
+        } else if (e.keyCode === 40) {
              var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 200);
         }
-    }
-    
-    
+    }) 
 
     </script>
 </body>
@@ -3677,6 +3631,11 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -3869,12 +3828,7 @@ h1 {
 .movieitem img {
     height: 180px;
 }
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
+
 
  .focus mainMovieTitle{
   display: block;
@@ -3898,7 +3852,7 @@ video {
 .header {
   display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width: 1200px;
 }
 .header li {
@@ -3906,6 +3860,11 @@ video {
     color: #fff;    
     font-size: 23px;
 }
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
+}
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -4052,13 +4011,8 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-                <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
+                <h2>Мультфильмы</h2>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -4067,45 +4021,22 @@ p {
     </div>
     <script type='text/javascript'>
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
+      var backBtn = document.getElementById('img_back');
+     $('#img_back').click(function() {
+      window.location = '/'
+    })
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location = '/anime'
+      }
+      if (e.keyCode === 38) {
             var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
+        } else if (e.keyCode === 40) {
              var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 200);
         }
-    }
-    
-    
+    }) 
 
     </script>
 </body>
@@ -4414,6 +4345,11 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -4605,12 +4541,7 @@ h1 {
 .movieitem img {
     height: 180px;
 }
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
+
 
  .focus mainMovieTitle{
   display: block;
@@ -4634,7 +4565,7 @@ video {
 .header {
   display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width: 1200px;
 }
 .header li {
@@ -4642,6 +4573,11 @@ video {
     color: #fff;    
     font-size: 23px;
 }
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
+}
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -4788,13 +4724,8 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-                <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
+                <h2>Премьеры</h2>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -4803,45 +4734,22 @@ p {
     </div>
     <script type='text/javascript'>
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
+      var backBtn = document.getElementById('img_back');
+     $('#img_back').click(function() {
+      window.location = '/'
+    })
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location = '/anime'
+      }
+      if (e.keyCode === 38) {
             var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
+        } else if (e.keyCode === 40) {
              var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 200);
         }
-    }
-    
-    
+    }) 
 
     </script>
 </body>
@@ -5150,6 +5058,11 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.App.showContent('videos');
+      }
+    }) 
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -5340,12 +5253,7 @@ h1 {
 .movieitem img {
     height: 180px;
 }
-.header h2 {
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-decoration-color: yellow;
-    font-size: 35px;
-}
+
 
  .focus mainMovieTitle{
   display: block;
@@ -5369,7 +5277,7 @@ video {
 .header {
   display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width: 1200px;
 }
 .header li {
@@ -5377,6 +5285,11 @@ video {
     color: #fff;    
     font-size: 23px;
 }
+.header h2 {
+    font-size: 35px;
+    border-left: 2px solid white;
+}
+
 .log-string {
     position: absolute;
     left: 50%;
@@ -5523,13 +5436,8 @@ p {
 <div class="bg"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
-                <li class="navigation-item nav-item" id='Films'>Фильмы</li>
-                <li class="navigation-item nav-item" id='Serials'>Сериалы</li>
-                <li class="navigation-item nav-item" id='Cartoons'>Мультфильмы</li>
-                <h2>Аниме</h2>
-                <li class="navigation-item nav-item" id='Premieres'>Премьеры</li>
-                <li class="navigation-item nav-item" id='Compilations'>Подборки</li>
-        
+                <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
+                <h2>Подборки</h2>
     </div>
     <div id="movies" class="navbar navigation-items scene scene_video js-scene-video" data-nav_loop="true">
     </div>
@@ -5538,44 +5446,22 @@ p {
     </div>
     <script type='text/javascript'>
 
-    var cartoons = document.getElementById('Cartoons')
-    var serials = document.getElementById('Serials')
-    var films = document.getElementById('Films')
-    var premieres = document.getElementById('Premieres')
-    var compilations = document.getElementById('Compilations')
-
-
-    cartoons.addEventListener('click', function (event) {
-            window.location='/cartoons'
-    });
-
-    serials.addEventListener('click', function (event) {
-            window.location='/serials'
-    });
-
-    films.addEventListener('click', function (event) {
-            window.location='/films'
-    });
-
-    premieres.addEventListener('click', function (event) {
-            window.location='/premieres'
-    });
-
-    compilations.addEventListener('click', function (event) {
-            window.location='/compilations'
-    });
-
-    
-    window.document.onkeydown = key => {
-        if (key.keyCode === 38) {
+      var backBtn = document.getElementById('img_back');
+   $('#img_back').click(function() {
+      window.location = '/'
+    })
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        window.location = '/anime'
+      }
+      if (e.keyCode === 38) {
             var elem = document.querySelector('.focus');
             window.scrollTo(0, elem.offsetTop - 200);
-        } else if (key.keyCode === 40) {
+        } else if (e.keyCode === 40) {
              var elem = document.querySelector('.focus');
              window.scrollTo(0, elem.offsetTop - 200);
         }
-    }
-    
+    }) 
     
 
     </script>

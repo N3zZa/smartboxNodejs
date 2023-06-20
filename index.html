@@ -48,6 +48,7 @@
             justify-content: center;
             padding: 10px;
             height: 90vh;
+            
         }
 
         .item {
@@ -197,23 +198,23 @@
             <div class="scene js-scene-navigation">
                 <nav class="navbar navigation-items">
                     <p class="navigation-item nav-item search" href="/search">Поиск</p>
-                    <p id="Premieres" class="navigation-item nav-item"  href="/premieres">Премьеры</p>
-                    <p id="Films" class="navigation-item nav-item" href="/films">Фильмы</p>
-                    <p id="Serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
-                    <p id="Cartoons" class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
-                    <p id="Anime" class="navigation-item nav-item" href="/anime">Аниме</p>
-                    <p id="Compilations" class="navigation-item nav-item" href="/compilations">Подборки</p>
+                    <p id="premieres" class="navigation-item nav-item"  href="/premieres">Премьеры</p>
+                    <p id="films" class="navigation-item nav-item" href="/films">Фильмы</p>
+                    <p id="serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
+                    <p id="cartoons" class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
+                    <p id="anime" class="navigation-item nav-item" href="/anime">Аниме</p>
+                    <p id="compilations" class="navigation-item nav-item" href="/compilations">Подборки</p>
                 </nav>
             </div>
         </div>
     </div>
     </div>
     <script type='text/javascript'>
-        var cartoons = document.getElementById('Cartoons')
+        var cartoons = document.getElementById('cartoons')
         var films = document.getElementById('films')
         var anime = document.getElementById('anime')
-        var premieres = document.getElementById('Premieres')
-        var compilations = document.getElementById('Compilations')
+        var premieres = document.getElementById('premieres')
+        var compilations = document.getElementById('compilations')
 
 
         window.document.onkeydown = function (key) {
@@ -221,38 +222,26 @@
                 window.location = '/'
             }
         }
-        function sleep(milliseconds) {
-            const date = Date.now();
-            let currentDate = null;
-            do {
-                currentDate = Date.now();
-            } while (currentDate - date < milliseconds);
-        }
 
 
         cartoons.addEventListener('click', function (event) {
             window.location = '/cartoons'
-            sleep(700)
         });
 
         films.addEventListener('click', function (event) {
             window.location = '/films'
-            sleep(700)
         });
 
         anime.addEventListener('click', function (event) {
             window.location = '/anime'
-            sleep(700)
         });
 
         premieres.addEventListener('click', function (event) {
             window.location = '/premieres'
-            sleep(700)
         });
 
         compilations.addEventListener('click', function (event) {
             window.location = '/compilations'
-            sleep(700)
         });
 
 
@@ -265,8 +254,7 @@
                 window.scrollTo(0, elem.offsetTop - 200);
             }
         }
-        
-
+   
 
     </script>
 </body>
