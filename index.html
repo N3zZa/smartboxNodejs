@@ -208,6 +208,67 @@
         </div>
     </div>
     </div>
+    <script type='text/javascript'>
+        var cartoons = document.getElementById('Cartoons')
+        var films = document.getElementById('films')
+        var anime = document.getElementById('anime')
+        var premieres = document.getElementById('Premieres')
+        var compilations = document.getElementById('Compilations')
+
+
+        window.document.onkeydown = function (key) {
+            if (key.keyCode === 8) {
+                window.location = '/'
+            }
+        }
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+
+
+        cartoons.addEventListener('click', function (event) {
+            window.location = '/cartoons'
+            sleep(700)
+        });
+
+        films.addEventListener('click', function (event) {
+            window.location = '/films'
+            sleep(700)
+        });
+
+        anime.addEventListener('click', function (event) {
+            window.location = '/anime'
+            sleep(700)
+        });
+
+        premieres.addEventListener('click', function (event) {
+            window.location = '/premieres'
+            sleep(700)
+        });
+
+        compilations.addEventListener('click', function (event) {
+            window.location = '/compilations'
+            sleep(700)
+        });
+
+
+        window.document.onkeydown = key => {
+            if (key.keyCode === 38) {
+                var elem = document.querySelector('.focus');
+                window.scrollTo(0, elem.offsetTop - 200);
+            } else if (key.keyCode === 40) {
+                var elem = document.querySelector('.focus');
+                window.scrollTo(0, elem.offsetTop - 200);
+            }
+        }
+        
+
+
+    </script>
 </body>
 
 </html>
