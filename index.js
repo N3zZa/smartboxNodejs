@@ -77,49 +77,53 @@ body {
   </div>
   <script type="text/javascript">
     var url = '${video.toString()}';
-    stb = gSTB;
+    var stb = gSTB;
     stb.InitPlayer();
-    var player = stbPlayerManager.list[0];
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
     
-    gSTB.SetTopWin(0);
-    player.aspectConversion = 4;
-    player.videoWindowMode = 0;
-    // player.setViewport({x: 0, y: 500, width: 800, height: 600});
-    
-    player.play({
-        uri: url,
-        solution: 'auto'
-    });
-    
-    window.addEventListener('keydown', function ( event ) {
-        switch ( event.keyCode ) {
-            case 107:
-                console.log('keydown: volume up');
-                player.volume++;
-                break;
-            case 109:
-                console.log('keydown: volume down');
-                player.volume--;
-                break;
-            case 83:
-                if ( event.altKey ) {
-                    console.log('keydown: stop');
-                    player.stop();
-                }
-                break;
-            case 8:
-                if ( event.altKey ) {
-                    console.log('keydown: back');
-                    player.stop();
-                    window.location = '/'
-                }
-                break;
-        }
-    });
     $('html').keyup(function(e){
+      if (e.keyCode === 107) {
+        console.log('keydown: volume up');
+        stb.SetVolume(stb.GetVolume() + 10)
+      }
+      if (e.keyCode === 109) {
+        console.log('keydown: volume down');
+        stb.SetVolume(stb.GetVolume() - 10)
+      }
+      if (e.keyCode === 13) {
+        if (stb.IsPlaying()) {
+          console.log('keydown: stop');
+          stb.Pause();
+        } else {
+          console.log('keydown: play');
+          stb.Continue();
+        }
+      }
       if (e.keyCode === 8) {
-        player.stop();
-        window.location='/'
+        console.log('keydown: back');
+        stb.Stop();
+        window.location='/selectepisodeId=${item.kinopoisk_id}'
+      }
+      if (e.keyCode === 37) {
+        console.log('keydown: left');
+        stb.SetPosTime(stb.GetPosTime() - 10)
+      }
+      if (e.keyCode === 39) {
+        console.log('keydown: right');
+        stb.SetPosTime(stb.GetPosTime() + 10)
+      }
+      if (e.keyCode === 192) {
+        if (stb.GetMute() === 0) {
+          console.log('keydown: mute');
+          stb.SetMute(1)
+        } else {
+          console.log('keydown: unmute');
+          stb.SetMute(0)
+        }
       }
     })  
   </script>
@@ -199,37 +203,47 @@ body {
         solution: 'auto'
     });
     
-    window.addEventListener('keydown', function ( event ) {
-        switch ( event.keyCode ) {
-            case 107:
-                console.log('keydown: volume up');
-                player.volume++;
-                break;
-            case 109:
-                console.log('keydown: volume down');
-                player.volume--;
-                break;
-            case 83:
-                if ( event.altKey ) {
-                    console.log('keydown: stop');
-                    player.stop();
-                }
-                break;
-                case 8:
-                if ( event.altKey ) {
-                    console.log('keydown: back');
-                    player.stop();
-                    window.location = '/'
-                }
-                break;
-        }
-    });
     $('html').keyup(function(e){
-      if (e.keyCode === 8) {
-        player.stop();
-        window.location='/'
+      if (e.keyCode === 107) {
+        console.log('keydown: volume up');
+        stb.SetVolume(stb.GetVolume() + 10)
       }
-    })  
+      if (e.keyCode === 109) {
+        console.log('keydown: volume down');
+        stb.SetVolume(stb.GetVolume() - 10)
+      }
+      if (e.keyCode === 13) {
+        if (stb.IsPlaying()) {
+          console.log('keydown: stop');
+          stb.Pause();
+        } else {
+          console.log('keydown: play');
+          stb.Continue();
+        }
+      }
+      if (e.keyCode === 8) {
+        console.log('keydown: back');
+        stb.Stop();
+        window.location='/selectepisodeId=${item.kinopoisk_id}'
+      }
+      if (e.keyCode === 37) {
+        console.log('keydown: left');
+        stb.SetPosTime(stb.GetPosTime() - 10)
+      }
+      if (e.keyCode === 39) {
+        console.log('keydown: right');
+        stb.SetPosTime(stb.GetPosTime() + 10)
+      }
+      if (e.keyCode === 192) {
+        if (stb.GetMute() === 0) {
+          console.log('keydown: mute');
+          stb.SetMute(1)
+        } else {
+          console.log('keydown: unmute');
+          stb.SetMute(0)
+        }
+      }
+    })    
 </script>
 </html>`;
 
@@ -1341,7 +1355,7 @@ h4,p {
 <script type="text/javascript">
   $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime';
+        window.location = '/anime'
       }
     })  
 </script>
