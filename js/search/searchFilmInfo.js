@@ -8,6 +8,8 @@
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       this.renderItems(App.searchedVideos);
       _inited = true;
     },

@@ -533,6 +533,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       this.renderItems(App.searchedVideos);
       _inited = true;
     },
@@ -639,7 +641,7 @@ body {
    position:relative;
     margin: 0;
     padding: 0;
-    height: auto;
+    height: 100%;
 }
 
 p,
@@ -708,7 +710,7 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 10px;
 }
@@ -733,7 +735,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -824,7 +826,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+    height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -851,7 +853,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -864,6 +866,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+.bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -894,6 +906,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
       <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -910,9 +923,9 @@ p {
         window.location='/search'
       }
       if (e.keyCode === 38) {
-            $('html').scrollTo('.focus');
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             $('html').scrollTo('.focus');
+             $('.focus').get(0).scrollIntoView();
         }
     })  
     $('#img_back').click(function() {
@@ -982,6 +995,16 @@ h1 {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .error {
   display:flex;
   align-items: center;
@@ -997,6 +1020,7 @@ h1 {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
     <div class="error">
     <img class="navigation-item nav-item" width="70px" height="70px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -1085,6 +1109,16 @@ h3, h4, li {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
         .searchBlock {
             position: absolute;
             top: 40%;
@@ -1106,11 +1140,15 @@ h3, h4, li {
             position: relative;
             margin-right: 10px;
             width: 450px;
-            padding: 20px 30px;
+            height: 40px;
+            padding: 0 10px 0 10px;
             border: 1px solid white;
             border-radius: 5px;
             margin-top: 10px;
             color: white;
+            font-size: 24px;
+            display:flex;
+            align-items:center;
         } 
         .search-button {
             position: relative;
@@ -1119,7 +1157,7 @@ h3, h4, li {
             color: white;
             border: 1px solid white;
             border-radius: 3px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 .searchBlock-container .focus {
   border: 1px solid yellow;
@@ -1130,22 +1168,22 @@ h3, h4, li {
   color: rgba(165, 165, 165, 0.582);
 }
 .searchImg {
-  position: absolute;
-  top: 5px;
-  right: 25px;
+  margin-left: 3px;
   opacity: 0.5;
+  margin-top: 10px;
 }
 </style>
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="app wrap">
        <div class="searchBlock">
             <div class="scene js-scene-input navigation-items searchBlock-container" data-nav_loop="true">
             <span class="clickOk">Нажмите кнопку "OK" для вызова клавиатуры</span>
                 <input type="text" id="input" class="nav-item search-input input-item" name="input"
                     placeholder="Please enter your task">
-                <button type="button" id="inputBtn" class="navigation-item nav-item search-button">Найти</button>
+                <button type="button" id="inputBtn" class="navigation-item nav-item search-button">Поиск</button>
             <img class="searchImg" width="26px" height="25px" src="./images/1212.png" alt="info" id="img_info">
             </div>
         </div>
@@ -1496,6 +1534,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
        $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.App.showContent('videos');
@@ -1668,7 +1708,7 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 10px;
 }
@@ -1693,7 +1733,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -1802,7 +1842,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+    height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -1829,7 +1869,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -1842,6 +1882,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -1872,6 +1922,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -1892,11 +1943,9 @@ p {
         window.location = '/anime'
     }
       if (e.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
+             $('.focus').get(0).scrollIntoView();
         }
     }) 
     </script>
@@ -2207,6 +2256,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.App.showContent('videos');
@@ -2379,8 +2430,8 @@ h1 {
 }
 
 .movieitem:hover {
-    border: 5px solid yellow;
-    margin: -5px;
+    border-bottom: 5px solid rgb(207, 178, 14);
+    margin-bottom: -5px;
     border-radius: 10px;
 }
 .film-title {
@@ -2404,7 +2455,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -2513,7 +2564,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+    height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -2540,7 +2591,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -2553,6 +2604,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -2583,6 +2644,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -2604,11 +2666,9 @@ p {
         window.location = '/anime'
       }
       if (e.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
+             $('.focus').get(0).scrollIntoView();
         }
     }) 
 
@@ -2919,6 +2979,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.App.showContent('videos');
@@ -3091,7 +3153,7 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 10px;
 }
@@ -3116,7 +3178,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -3225,7 +3287,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+   height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -3252,7 +3314,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -3265,6 +3327,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -3295,6 +3367,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -3316,11 +3389,9 @@ p {
         window.location = '/anime'
       }
       if (e.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
+             $('.focus').get(0).scrollIntoView();
         }
     }) 
 
@@ -3631,6 +3702,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.App.showContent('videos');
@@ -3805,7 +3878,7 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 10px;
 }
@@ -3830,7 +3903,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -3939,7 +4012,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+    height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -3966,7 +4039,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -3979,6 +4052,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -4009,6 +4092,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -4030,11 +4114,9 @@ p {
         window.location = '/anime'
       }
       if (e.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
+             $('.focus').get(0).scrollIntoView();
         }
     }) 
 
@@ -4345,6 +4427,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.App.showContent('videos');
@@ -4518,7 +4602,7 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 10px;
 }
@@ -4543,7 +4627,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -4652,7 +4736,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+    height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -4679,7 +4763,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -4692,6 +4776,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -4722,6 +4816,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -4743,11 +4838,9 @@ p {
         window.location = '/anime'
       }
       if (e.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
+             $('.focus').get(0).scrollIntoView();
         }
     }) 
 
@@ -5058,6 +5151,8 @@ h4,p {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      $('.bg').hide();
+      $('.bg2').show();
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.App.showContent('videos');
@@ -5230,7 +5325,7 @@ h1 {
 }
 
 .movieitem:hover {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 10px;
 }
@@ -5255,7 +5350,7 @@ h1 {
 }
 
 
- .focus mainMovieTitle{
+ .focus .mainMovieTitle{
   display: block;
   color: #fff;
   font-size: 18px;
@@ -5364,7 +5459,7 @@ p {
     top: 0;
     background: #553c64;
     width: 30%;
-    height: 100%;
+   height: 100vh;
 }
 .film-nav_logo {
     background: #3b3041;
@@ -5391,7 +5486,7 @@ p {
 }
 
 .focus {
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(207, 178, 14);
     margin-bottom: -5px;
     border-radius: 5px;
 }
@@ -5404,6 +5499,16 @@ p {
             background-image: url(./images/stars.png);
             z-index: -1;
         }
+        .bg2 {
+          display: none;
+          position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/stars.png);
+            z-index: -1;
+}
 .log-row {
   color: white;
   font-size: 24px;
@@ -5434,6 +5539,7 @@ p {
 <body>
 
 <div class="bg"></div>
+<div class="bg2"></div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -5455,11 +5561,9 @@ p {
         window.location = '/anime'
       }
       if (e.keyCode === 38) {
-            var elem = document.querySelector('.focus');
-            window.scrollTo(0, elem.offsetTop - 200);
+            $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
-             var elem = document.querySelector('.focus');
-             window.scrollTo(0, elem.offsetTop - 200);
+             $('.focus').get(0).scrollIntoView();
         }
     }) 
     

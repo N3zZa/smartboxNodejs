@@ -1,14 +1,86 @@
 (function () {
     "use strict"
 
-    window.App.serialSeasons = [
-      {
-        season: "1",
-        episode: "1",
-        name: `Spider-Man: Across the Spider-Verse`,
-        id: '1219177&1&1',
-        status: 'film',
-      }
-    ] 
+    window.App.searchedMovie = [{
+                     season: '1' + 'сезон',
+                     episode: '1' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '1', 
+                     id: '1316601&1&1',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '2' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '2', 
+                     id: '1316601&1&2',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '3' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '3', 
+                     id: '1316601&1&3',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '4' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '4', 
+                     id: '1316601&1&4',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '5' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '5', 
+                     id: '1316601&1&5',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '6' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '6', 
+                     id: '1316601&1&6',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '7' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '7', 
+                     id: '1316601&1&7',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '8' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '8', 
+                     id: '1316601&1&8',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '9' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '9', 
+                     id: '1316601&1&9',
+                     name: `House of the Dragon`,
+                  },
+          {
+                     season: '1' + 'сезон',
+                     episode: '10' + 'серия',
+                     seasonNum: '1',
+                     episodeNum: '10', 
+                     id: '1316601&1&10',
+                     name: `House of the Dragon`,
+                  },
+          ]
   })();
   

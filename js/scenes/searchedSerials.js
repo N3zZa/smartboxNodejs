@@ -3,20 +3,14 @@
   _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
 
   
-  if (App.serialSeasons[0].status === "film") {
-    var seasonItems = _.template(
-      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
-    );
-  } else {
-    var seasonItems = _.template(
-      '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
-    );
-  }
+
+    var seasonItems = _.template('<div id="{{id}}" data-content="searchedMovie" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+ 
     
     window.App.scenes.serialSeasons = {
       init: function () {
         this.$el = $(".js-scene-serialSeasons");
-        this.renderItems(App.serialSeasons);
+        this.renderItems(window.App.searchedMovie);
         _inited = true;
       },
 
