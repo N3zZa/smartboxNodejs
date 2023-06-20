@@ -18,7 +18,7 @@
     },
 
     setEvents: function () {
-        this.showContent("serialSeasons");
+        this.showContent(serialSeasons);
 
       $(document.body).on({
         // on keyboard 'd' by default

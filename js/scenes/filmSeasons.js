@@ -1,7 +1,6 @@
 (function () {
   var _inited;
     _.templateSettings.interpolate = /\{\{([\s\S]+?)\}\}/g;
-        console.log(App.serialSeasons)
   if (App.serialSeasons[0].status === "film") {
     var seasonItems = _.template(
       '<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>ЗАПУСТИТЬ ПЛЕЕР</h4></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>'
