@@ -1148,7 +1148,7 @@ window.SB.keyboardPresets = {
       ['shift{{<i class="shift_icon"></i>Shift}}']
         .concat("zxcvbnm".split(""))
         .concat(["delall{{<span>Del<br/>all</span>}}"]),
-      ["lang{{en}}", "nums{{123}}", "space{{Пробел}}", "complete{{Свернуть}}"],
+      ["lang{{en}}", "nums{{123}}", "space{{}}", "complete{{Свернуть}}"],
     ];
   },
 
@@ -1161,7 +1161,7 @@ window.SB.keyboardPresets = {
       ['shift{{<i class="shift_icon"></i>Shift}}']
         .concat("ячсмитьбю".split(""))
         .concat(["delall{{<span>Del<br/>all</span>}}"]),
-      ["lang{{ru}}", "nums{{123}}", "space{{Пробел}}", "complete{{Свернуть}}"],
+      ["lang{{ru}}", "nums{{123}}", "space{{}}", "complete{{Свернуть}}"],
     ];
   },
 
