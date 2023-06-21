@@ -57,7 +57,7 @@
         }
 
         .navigation-item.focus {
-            background: #553c64;
+            background: #290452;
         }
 
         #key {
@@ -71,15 +71,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 50%;
+            width: 100%;
             height: 100%;
         }
 
         .main-logo {
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
             position: relative;
+            margin-left: 100px;
+        }
+        .main-logo img {
+            width: 600px;
         }
 
         .nav-block {
@@ -88,16 +92,20 @@
             top: 0;
             height: 100%;
         }
+        .ucontvimg {
+            width: 370px;
+        }
 
 
         .navbar {
             display: flex;
             flex-direction: column;
-            text-align: center;
-            align-items: center;
+            text-align: start;
+            align-items: start;
             justify-content: center;
-            background: #3b3041;
-            width: 400px;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            width: 450px;
             height: 100%;
         }
 
@@ -105,15 +113,26 @@
         a {
             width: 100%;
             padding: 20px 0;
-            background: #3b3041;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             color: #fff;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 26px;
             font-family: 'Inter', sans-serif;
+            padding-left: 70px;
+            display: flex;
+            align-items: center;
+        }
+        .navbar span {
+            position: absolute;
+            left: 25px;
         }
 
         .app p {
             margin: 0;
+        }
+        .search-img {
+            width: 30px;
         }
 
 
@@ -122,58 +141,6 @@
             color: #fff;
             font-family: 'Inter', sans-serif;
             font-weight: 400;
-        }
-
-        .focus {
-            background: #553c64;
-        }
-         .searchBlock {
-            display: none;
-            position: absolute;
-            top: 40%;
-            right: 60%;
-            left: 40%;
-            bottom: 60%;
-            width: 400px;
-        }
-        .searchBlock-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            background-color: #553c64;
-            border-radius: 10px;
-        }
-        .search-input {
-            position: relative;
-            margin-right: 10px;
-            width: 350px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            background: #3b3041;
-            color: #fff;
-            border: none;
-            outline: none;
-        } 
-        .search-button {
-            position: relative;
-            background: #3b3041;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .search-button.focus {
-            margin-bottom: -3px;
-            border-bottom: 3px solid yellow;
-        }
-        .search-input.focus {
-            margin-bottom: -3px;
-            border-bottom: 3px solid yellow;
-        }
-        input::placeholder {
-            color: #f3f3f381;
         }
 
     </style>
@@ -201,11 +168,12 @@
     <div class="app">
         <div class="wrapper">
             <div class="main-logo">
-                <img width="380" height="100" src="/images/UCS.svg" alt="logoimg">
+                <img src="/images/UconCinemaLogo.png" alt="logoimg">
             </div>
             <div class="scene js-scene-navigation nav-block">
                 <nav class="navbar navigation-items">
-                    <p class="navigation-item nav-item search" href="/search">Поиск</p>
+                    <img class="ucontvimg" src="/images/ucon-tv.png" alt="logoimg">
+                    <p class="navigation-item nav-item search" href="/search"><span><img class="search-img" src="/images/search.png" alt="search"></span>Поиск</p>
                     <p id="premieres" class="navigation-item nav-item"  href="/premieres">Премьеры</p>
                     <p id="films" class="navigation-item nav-item" href="/films">Фильмы</p>
                     <p id="serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
