@@ -269,8 +269,9 @@ async function getSearchedMovie() {
             return response.json();
           })
           .then((data) => {
+            console.log(data)
             if (data.results) {
-               const movieItem = data.results;
+            const movieItem = data.results;
             movieItem.map((searchedItem, index) => {
               app.get(
                 "/searchedMovieEpisodes=" + searchedItem.kinopoisk_id + index,
@@ -365,9 +366,12 @@ async function getSearchedMovie() {
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
   background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
 }
 
 h4,p {
@@ -380,8 +384,15 @@ h4,p {
 .selectEpisode {
   display:flex;
   padding: 10px;
-  width: 980px;
-  height: 480px;
+  min-width: 500px;
+  max-width: 965px;
+  width: auto;
+  min-height: 300px
+  height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -412,10 +423,9 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-
-      $('html').keyup(function(e){
+  $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location='/'
+        window.location = '/compilations'
       }
     })  
 </script>
@@ -449,7 +459,7 @@ h4,p {
             actors: '${element.info.actors.replace(/('|")/g, ``)}',
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
           },
           `
             );
@@ -485,6 +495,8 @@ h4,p {
         var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
+        $('.bg').hide();
+      $('.bg2').show();
         $(".header").hide();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
@@ -524,15 +536,14 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
        
-      $('.bg').hide();
-      $('.bg2').show();
+      
       this.renderItems(App.searchedVideos);
       _inited = true;
     },
@@ -712,9 +723,13 @@ h1 {
 
 .movieitem:hover {
     border: 5px solid rgb(207, 178, 14);
-     
     padding: 5px;
 }
+.js-scene-video .focus {
+  border: 5px solid rgb(207, 178, 14);
+  padding: 5px;
+}
+
 .film-title {
     display: flex;
     width: 100%;
@@ -785,7 +800,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -796,13 +811,18 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+  margin: 0 30px 30px 0;
+}
 .film-info img {
-    width: 50%;
+    object-fit: cover;
+    height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -813,7 +833,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -826,14 +846,15 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
     height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 .film-nav_logo {
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -843,7 +864,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -851,19 +872,11 @@ p {
     display:flex;
     font-size: 22px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.151);
-    padding: 20px;
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
 }
-.watchBtn p {
-  margin-left: 25px
-}
-.focus {
-  
-   border: 5px solid rgb(207, 178, 14);
-    padding: 5px;
-}
+
 .bg {
             position: fixed;
             left: 0;
@@ -887,7 +900,6 @@ p {
   color: white;
   font-size: 24px;
 }
-
 
 
 </style>
@@ -1138,21 +1150,17 @@ h3, h4, li {
             color: white;
             font-size: 24px;
             display:flex;
-            background-color: #290452;
             align-items:center;
+            background-color: #290452;
         } 
         .search-button {
             position: relative;
             background-color: #290452;
-            padding: 8px;
+            padding: 5px;
             color: white;
             border: 1px solid white;
             border-radius: 3px;
             margin-top: 10px;
-            display: flex;
-            align-items: center;
-            width: 100px;
-            justify-content: space-between;
         }
 .searchBlock-container .focus {
   border: 1px solid yellow;
@@ -1163,7 +1171,9 @@ h3, h4, li {
   color: rgba(165, 165, 165, 0.582);
 }
 .searchImg {
+  margin-left: 3px;
   opacity: 0.5;
+  margin-top: 10px;
 }
 </style>
 <body>
@@ -1176,8 +1186,8 @@ h3, h4, li {
             <span class="clickOk">Нажмите кнопку "OK" для вызова клавиатуры</span>
                 <input type="text" id="input" class="nav-item search-input input-item" name="input"
                     placeholder="Please enter your task">
-                    <button type="button" id="inputBtn" class="navigation-item nav-item search-button">Поиск<img class="searchImg" width="25px" height="24px" src="./images/1212.png" alt="info" id="img_info"></button>
-                    
+                <button type="button" id="inputBtn" class="navigation-item nav-item search-button">Поиск</button>
+            <img class="searchImg" width="26px" height="25px" src="./images/1212.png" alt="info" id="img_info">
             </div>
         </div>
 </div>
@@ -1251,7 +1261,7 @@ async function getAnime() {
             actors: '${element.info.actors.replace(/('|")/g, ``)}',
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
           },
           `
           );
@@ -1377,6 +1387,10 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -1479,6 +1493,8 @@ h4,p {
         var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
+        $('.bg').hide();
+      $('.bg2').show();
         $(".header").hide();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
@@ -1518,14 +1534,13 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      $('.bg').hide();
-      $('.bg2').show();
+      
        
       this.renderItems(App.filmInfo);
       _inited = true;
@@ -1789,7 +1804,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -1800,13 +1815,17 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+  margin: 0 30px 30px 0;}
 .film-info img {
-    width: 50%;
+    object-fit: cover;
+    height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -1817,7 +1836,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -1830,12 +1849,12 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
     height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 .film-nav_logo {
     padding: 20px;
@@ -1847,7 +1866,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -1858,11 +1877,8 @@ p {
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
-    padding: 20px;
 }
-.watchBtn p {
-  margin-left: 25px
-}
+
 .js-scene-video .focus {
     border: 5px solid rgb(207, 178, 14);
     padding: 5px;
@@ -1926,7 +1942,7 @@ p {
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 
 // ------------------- функция со всем функционалом films страницы -----------------------
@@ -1955,7 +1971,7 @@ async function getFilms() {
             actors: '${element.info.actors.replace(/('|")/g, ``)}',
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
           },
           `
           );
@@ -2081,6 +2097,10 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -2113,7 +2133,7 @@ h4,p {
 <script type="text/javascript">
   $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/films'
       }
     })  
 </script>
@@ -2184,6 +2204,8 @@ h4,p {
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
         $(".header").hide();
+        $('.bg').hide();
+      $('.bg2').show();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();
@@ -2222,14 +2244,13 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      $('.bg').hide();
-      $('.bg2').show();
+      
       
       this.renderItems(App.filmInfo);
       _inited = true;
@@ -2493,7 +2514,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -2504,13 +2525,17 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+  margin: 0 30px 30px 0;}
 .film-info img {
-    width: 50%;
+  object-fit: cover;
+  height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -2521,7 +2546,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -2534,14 +2559,15 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
     height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 .film-nav_logo {
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -2551,7 +2577,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -2562,11 +2588,8 @@ p {
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
-    padding: 20px;
 }
-.watchBtn p {
-  margin-left: 25px
-}
+
 .js-scene-video .focus {
     border: 5px solid rgb(207, 178, 14);
     padding: 5px;
@@ -2594,7 +2617,6 @@ p {
   color: white;
   font-size: 24px;
 }
-
 
 </style>
 <body>
@@ -2631,7 +2653,7 @@ p {
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 // ------------------- функция со всем функционалом serials страницы -----------------------
 async function getSerials() {
@@ -2659,7 +2681,7 @@ async function getSerials() {
             actors: '${element.info.actors.replace(/('|")/g, ``)}',
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
           },
           `
           );
@@ -2785,6 +2807,10 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -2817,7 +2843,7 @@ h4,p {
 <script type="text/javascript">
   $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/serials'
       }
     })  
 </script>
@@ -2888,6 +2914,8 @@ h4,p {
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
         $(".header").hide();
+        $('.bg').hide();
+      $('.bg2').show();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();
@@ -2926,14 +2954,13 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      $('.bg').hide();
-      $('.bg2').show();
+      
       
       this.renderItems(App.filmInfo);
       _inited = true;
@@ -3198,7 +3225,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -3209,13 +3236,17 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+  margin: 0 30px 30px 0;}
 .film-info img {
-    width: 50%;
+  object-fit: cover;
+  height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -3226,7 +3257,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -3239,14 +3270,15 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
    height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 .film-nav_logo {
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -3256,7 +3288,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -3267,11 +3299,8 @@ p {
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
-    padding: 20px;
 }
-.watchBtn p {
-  margin-left: 25px
-}
+
 .js-scene-video .focus {
     border: 5px solid rgb(207, 178, 14);
     padding: 5px;
@@ -3299,6 +3328,7 @@ p {
   color: white;
   font-size: 24px;
 }
+
 
 
 </style>
@@ -3336,7 +3366,7 @@ p {
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 // ------------------- функция со всем функционалом cartoons страницы -----------------------
 async function getCartoons() {
@@ -3364,7 +3394,7 @@ async function getCartoons() {
             actors: '${element.info.actors.replace(/('|")/g, ``)}',
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
           },
           `
           );
@@ -3490,6 +3520,10 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -3522,7 +3556,7 @@ h4,p {
 <script type="text/javascript">
   $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/cartoons'
       }
     })  
 </script>
@@ -3593,6 +3627,8 @@ h4,p {
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
         $(".header").hide();
+        $('.bg').hide();
+        $('.bg2').show();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();
@@ -3631,14 +3667,13 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      $('.bg').hide();
-      $('.bg2').show();
+     
       
       this.renderItems(App.filmInfo);
       _inited = true;
@@ -3905,7 +3940,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -3916,13 +3951,17 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+  margin: 0 30px 30px 0;}
 .film-info img {
-    width: 50%;
+    object-fit: cover;
+    height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -3933,7 +3972,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -3946,14 +3985,15 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
     height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 .film-nav_logo {
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -3963,7 +4003,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -3974,11 +4014,8 @@ p {
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
-    padding: 20px;
 }
-.watchBtn p {
-  margin-left: 25px
-}
+
 .js-scene-video .focus {
     border: 5px solid rgb(207, 178, 14);
     padding: 5px;
@@ -4005,7 +4042,9 @@ p {
 .log-row {
   color: white;
   font-size: 24px;
- }
+}
+
+
 
 </style>
 <body>
@@ -4042,7 +4081,7 @@ p {
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
  async function getPremieres() {
   try {
@@ -4070,7 +4109,7 @@ p {
             actors: '${element.info.actors.replace(/('|")/g, ``)}',
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
           },
           `
           );
@@ -4196,6 +4235,10 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -4228,7 +4271,7 @@ h4,p {
 <script type="text/javascript">
   $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/premieres'
       }
     })  
 </script>
@@ -4299,6 +4342,8 @@ h4,p {
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
         $(".header").hide();
+        $('.bg').hide();
+      $('.bg2').show();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();
@@ -4337,14 +4382,13 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      $('.bg').hide();
-      $('.bg2').show();
+      
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -4609,7 +4653,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -4620,13 +4664,17 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+  margin: 0 30px 30px 0;}
 .film-info img {
-    width: 50%;
+    object-fit: cover;
+    height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -4637,7 +4685,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -4650,14 +4698,15 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
     height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 .film-nav_logo {
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -4667,7 +4716,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -4678,11 +4727,8 @@ p {
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
-    padding: 20px;
 }
-.watchBtn p {
-  margin-left: 25px
-}
+
 .js-scene-video .focus {
     border: 5px solid rgb(207, 178, 14);
     padding: 5px;
@@ -4747,7 +4793,7 @@ p {
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
  async function getCompilations() {
   try {
@@ -4901,6 +4947,10 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -4933,7 +4983,7 @@ h4,p {
 <script type="text/javascript">
   $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
+        window.location = '/compilations'
       }
     })  
 </script>
@@ -5003,6 +5053,8 @@ h4,p {
         var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
+        $('.bg').hide();
+        $('.bg2').show();
         $(".header").hide();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
@@ -5042,14 +5094,13 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><img src="{{imgurl}}" alt="posterimg"><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="80" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><p>Смотреть</p></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeId={{id}}"})</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-      $('.bg').hide();
-      $('.bg2').show();
+      
       
       this.renderItems(App.filmInfo);
       _inited = true;
@@ -5315,7 +5366,7 @@ p {
 }
 
 .description {
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .logo_text h4 {
@@ -5326,13 +5377,17 @@ p {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    max-width: 75%;
 }
 .film-info {
     display: flex;
 }
+.poster_blockImg {
+  width: 300px;
+  height: 380px;
+margin: 0 30px 30px 0;}
 .film-info img {
-    width: 50%;
+    object-fit: cover;
+    height: 400px;
     margin-bottom: 10px;
     margin-right: 20px;
 }
@@ -5343,7 +5398,7 @@ p {
     padding-bottom: 40px;
 }
 .actors {
-    max-width: 80%;
+    max-width: 50%;
     margin-bottom: 15px;
 }
 .film-dscrtn h2 {
@@ -5356,15 +5411,16 @@ p {
     right: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.685);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     width: 30%;
    height: 100vh;
 }
 .film-nav .focus {
-  background: #290452;
+  background-color: #290452;
 }
 
 .film-nav_logo {
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -5374,7 +5430,7 @@ p {
   display: flex;
   align-items: center;
     font-size: 22px;
-        padding: 20px;
+        padding: 30px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.151);
         margin-left: -40px;
 }
@@ -5385,10 +5441,6 @@ p {
     margin-left: -40px;
     padding-left: 40px;
     margin-top: 3px;
-    padding: 20px;
-}
-.watchBtn p {
-  margin-left: 25px
 }
 
 .js-scene-video .focus {
@@ -5457,7 +5509,7 @@ p {
     </script>
 </body>
 </html>`;
-      res.send(message) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 
 
