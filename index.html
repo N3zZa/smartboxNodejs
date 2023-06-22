@@ -82,6 +82,7 @@
             position: relative;
             margin-left: 100px;
         }
+
         .main-logo img {
             width: 600px;
         }
@@ -92,6 +93,7 @@
             top: 0;
             height: 100%;
         }
+
         .ucontvimg {
             width: 370px;
         }
@@ -121,6 +123,7 @@
             display: flex;
             align-items: center;
         }
+
         .navbar span {
             position: absolute;
             left: 25px;
@@ -129,6 +132,7 @@
         .app p {
             margin: 0;
         }
+
         .search-img {
             width: 30px;
         }
@@ -140,19 +144,21 @@
             font-family: 'Inter', sans-serif;
             font-weight: 400;
         }
+
         .quitApp_block {
             display: none;
             width: 350px;
-    height: 200px;
-    position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
-    padding: 20px;
+            height: 200px;
+            position: absolute;
+            top: 250px;
+            left: 380px;
+            right: 500px;
+            bottom: 500px;
+            padding: 20px;
             border: 2px solid #fff;
             background: black;
         }
+
         .quitApp_wrap {
             display: flex;
             flex-direction: column;
@@ -160,29 +166,32 @@
             justify-content: center;
             text-align: center;
         }
+
         .quitApp-menu {
             display: flex;
             align-items: center;
             justify-content: space-around;
             width: 100%;
         }
+
         .quitApp-menu p {
             padding: 15px 20px;
             color: #fff;
             font-family: 'Inter', sans-serif;
             border: 2px solid white;
         }
+
         .quitApp-menu .focus {
             border: 2px solid yellow;
             background-color: #290452;
         }
+
         .quitAppBackground {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 5;
         }
-
     </style>
 
     <script type="text/javascript" src="/src/libs/jquery-1.10.2.min.js"></script>
@@ -191,13 +200,14 @@
     <script type="text/javascript" src="/js/lib/smartbox.js"></script>
     <script type="text/javascript" src="/js/mainApp.js"></script>
     <script type="text/javascript" src="/js/scenes/navigation.js"></script>
+
     <script>
         $(function () {
             $$nav.on(".navbar");
             $('.navigation-item').click(function () {
                 window.location.href = $('.navigation-item.focus').attr('href')
             });
-                    var $_GET = {};
+            var $_GET = {};
 
             function decode(s) {
                 return decodeURIComponent(s.split("+").join(" "));
@@ -207,29 +217,29 @@
             document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
                 $_GET[decode(arguments[1])] = decode(arguments[2]);
             });
-             $("#quitAppCancel").click(function () {
-                 $$nav.restore();
-                 $("#quitApp_block").hide();
+            $("#quitAppCancel").click(function () {
+                $$nav.restore();
+                $("#quitApp_block").hide();
             });
-               
 
-             $("#quitAppAccess").on("click", function () {
+
+            $("#quitAppAccess").on("click", function () {
                 window.location = decodeURIComponent($_GET['referrer']);
             })
 
 
 
             $('html').keyup(function (e) {
-                if (e.keyCode === 27) {
+                if (e.keyCode === 8) {
                     $('#quitApp_block').show();
                     $$nav.save();
                     $$nav.on('.quitApp-menu');
                 }
             })
 
-           
-            
-           
+
+
+
 
         });
     </script>
@@ -256,8 +266,9 @@
             <div class="scene js-scene-navigation nav-block">
                 <nav class="navbar navigation-items">
                     <img class="ucontvimg" src="/images/ucon-tv.png" alt="logoimg">
-                    <p class="navigation-item nav-item search" href="/search"><span><img class="search-img" src="/images/search.png" alt="search"></span>Поиск</p>
-                    <p id="premieres" class="navigation-item nav-item"  href="/premieres">Премьеры</p>
+                    <p class="navigation-item nav-item search" href="/search"><span><img class="search-img"
+                                src="/images/search.png" alt="search"></span>Поиск</p>
+                    <p id="premieres" class="navigation-item nav-item" href="/premieres">Премьеры</p>
                     <p id="films" class="navigation-item nav-item" href="/films">Фильмы</p>
                     <p id="serials" class="navigation-item nav-item" href="/serials">Сериалы</p>
                     <p id="cartoons" class="navigation-item nav-item" href="/cartoons">Мультфильмы</p>
@@ -275,13 +286,6 @@
         var premieres = document.getElementById('premieres')
         var compilations = document.getElementById('compilations')
 
-
-        window.document.onkeydown = function (key) {
-            if (key.keyCode === 8) {
-                window.location = '/'
-            }
-        }
-        
 
         cartoons.addEventListener('click', function (event) {
             window.location = '/cartoons'
