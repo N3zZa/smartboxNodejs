@@ -17,6 +17,8 @@
         var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
+        $('.bg').hide();
+      $('.bg2').show();
         $(".header").hide();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
@@ -39,7 +41,7 @@
     renderItems: function (items) {
       var html = "";
 
-      console.log(items, itemHtml.toString())
+      // console.log(items, itemHtml.toString())
       for (var i = 0, len = items.length; i < len; i++) {
         html += itemHtml(items[i]);
       }

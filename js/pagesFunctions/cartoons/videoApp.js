@@ -18,49 +18,8 @@
     },
 
     setEvents: function () {
-      stb.InitPlayer();
-      var url = ''
-      $$log(url)
-      function playVideo() {
-          try {
-            stb = gSTB;
-    stb.InitPlayer();
-    var player = stbPlayerManager.list[0];
-    
-    gSTB.SetTopWin(0);
-    player.aspectConversion = 4;
-    player.videoWindowMode = 0;
-    player.setViewport({x: 0, y: 500, width: 800, height: 600});
-    
-    player.play({
-        uri: url,
-        solution: 'auto'
-    });
-    
-    window.addEventListener('keydown', function ( event ) {
-        switch ( event.keyCode ) {
-            case 107:
-                console.log('keydown: volume up');
-                player.volume++;
-                break;
-            case 109:
-                console.log('keydown: volume down');
-                player.volume--;
-                break;
-            case 83:
-                if ( event.altKey ) {
-                    console.log('keydown: stop');
-                    player.stop();
-                }
-                break;
-        }
-    });
-          } catch (error) {
-            $$log(error);
-            console.error(error)
-          }
-      }
-      setTimeout(() => playVideo(), 2000)
+        window.App.showContent('SerialSeasons');
+
       $(document.body).on({
         // on keyboard 'd' by default
         "nav_key:blue": _.bind(this.toggleView, this),

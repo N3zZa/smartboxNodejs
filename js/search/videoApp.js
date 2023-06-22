@@ -8,19 +8,17 @@
 
     initialize: function () {
       this.$wrap = $(".wrap");
+
       $$legend.show();
+
       this.setEvents();
-      this.$wrap.show();
+
       // start navigation
       $$nav.on();
     },
 
     setEvents: function () {
-      var self = this,
-        $bg = $(".bg");
-      var wrap = this.$wrap;
-      self.showContent("video");
-      // click on menu item
+        window.App.showContent('serialSeasons');
 
       $(document.body).on({
         // on keyboard 'd' by default
@@ -40,13 +38,9 @@
 
       // toggling background when player start/stop
       Player.on("ready", function () {
-        $bg.hide();
-        wrap.hide();
         $$log("player ready");
       });
       Player.on("stop", function () {
-        $bg.show();
-        wrap.show();
         $$log("player stop");
       });
     },
@@ -56,7 +50,7 @@
         this.$wrap.hide();
         $$legend.hide();
       } else {
-        this.$wrap.hide();
+        this.$wrap.show();
         $$legend.show();
       }
       this.isShown = !this.isShown;
@@ -79,7 +73,7 @@
       }
     },
   };
-  console.log(window.App.scenes)
+
   // main app initialize when smartbox ready
   SB(_.bind(App.initialize, App));
 })();

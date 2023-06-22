@@ -4,7 +4,7 @@
 
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
   
-  window.App.scenes.serialSeasons = {
+  window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
       this.renderItems(App.SerialSeasons);
