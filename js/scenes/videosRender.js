@@ -17,9 +17,9 @@
         var filmPage = e.currentTarget.getAttribute("data-film");
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
+        $(".header").hide();
         $('.bg').hide();
       $('.bg2').show();
-        $(".header").hide();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();

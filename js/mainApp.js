@@ -13,18 +13,20 @@
       this.setEvents();
 
       // start navigation
-      $$nav.on();
+      
     },
 
     setEvents: function () {
       var self = this,
         $bg = $(".bg");
-
+      $$nav.on();
       // click on menu item
       $(".menu").on("click", ".menu-item", function (e) {
         var scene = e.currentTarget.getAttribute("data-content");
         self.showContent(scene);
       });
+
+      
 
       $(document.body).on({
         // on keyboard 'd' by default

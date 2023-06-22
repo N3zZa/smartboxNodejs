@@ -140,6 +140,48 @@
             font-family: 'Inter', sans-serif;
             font-weight: 400;
         }
+        .quitApp_block {
+            display: none;
+            width: 350px;
+    height: 200px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .quitApp_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .quitApp-menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .quitApp-menu p {
+            padding: 15px 20px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid white;
+        }
+        .quitApp-menu .focus {
+            border: 2px solid yellow;
+            background-color: #290452;
+        }
+        .quitAppBackground {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
     </style>
 
@@ -149,13 +191,45 @@
     <script type="text/javascript" src="/js/lib/smartbox.js"></script>
     <script type="text/javascript" src="/js/mainApp.js"></script>
     <script type="text/javascript" src="/js/scenes/navigation.js"></script>
-
     <script>
         $(function () {
-            $$nav.on();
-            $('.nav-item').click(function () {
-                window.location.href = $('.nav-item.focus').attr('href')
+            $$nav.on(".navbar");
+            $('.navigation-item').click(function () {
+                window.location.href = $('.navigation-item.focus').attr('href')
             });
+                    var $_GET = {};
+
+            function decode(s) {
+                return decodeURIComponent(s.split("+").join(" "));
+            }
+
+
+            document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+                $_GET[decode(arguments[1])] = decode(arguments[2]);
+            });
+             $("#quitAppCancel").click(function () {
+                 $$nav.restore();
+                 $("#quitApp_block").hide();
+            });
+               
+
+             $("#quitAppAccess").on("click", function () {
+                window.location = decodeURIComponent($_GET['referrer']);
+            })
+
+
+
+            $('html').keyup(function (e) {
+                if (e.keyCode === 27) {
+                    $('#quitApp_block').show();
+                    $$nav.save();
+                    $$nav.on('.quitApp-menu');
+                }
+            })
+
+           
+            
+           
 
         });
     </script>
@@ -163,6 +237,17 @@
 
 <body>
     <div class="bg"></div>
+    <div class="quitAppBackground js-scene-popup">
+        <div class="quitApp_block" id="quitApp_block">
+            <div class="quitApp_wrap">
+                <h1>Выйти из приложения?</h1>
+                <div class="quitApp-menu navigation-items">
+                    <p class="nav-item" id="quitAppAccess">Да</p>
+                    <p class="nav-item" id="quitAppCancel">Нет</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="app">
         <div class="wrapper">
             <div class="main-logo">
@@ -196,7 +281,7 @@
                 window.location = '/'
             }
         }
-
+        
 
         cartoons.addEventListener('click', function (event) {
             window.location = '/cartoons'
@@ -218,16 +303,6 @@
             window.location = '/compilations'
         });
 
-
-        window.document.onkeydown = key => {
-            if (key.keyCode === 38) {
-                var elem = document.querySelector('.focus');
-                window.scrollTo(0, elem.offsetTop - 200);
-            } else if (key.keyCode === 40) {
-                var elem = document.querySelector('.focus');
-                window.scrollTo(0, elem.offsetTop - 200);
-            }
-        }
 
     </script>
 </body>

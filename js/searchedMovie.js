@@ -7,7 +7,7 @@
                      seasonNum: '1',
                      episodeNum: '1', 
                      id: '1316601&1&1',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -15,7 +15,7 @@
                      seasonNum: '1',
                      episodeNum: '2', 
                      id: '1316601&1&2',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -23,7 +23,7 @@
                      seasonNum: '1',
                      episodeNum: '3', 
                      id: '1316601&1&3',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -31,7 +31,7 @@
                      seasonNum: '1',
                      episodeNum: '4', 
                      id: '1316601&1&4',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -39,7 +39,7 @@
                      seasonNum: '1',
                      episodeNum: '5', 
                      id: '1316601&1&5',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -47,7 +47,7 @@
                      seasonNum: '1',
                      episodeNum: '6', 
                      id: '1316601&1&6',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -55,7 +55,7 @@
                      seasonNum: '1',
                      episodeNum: '7', 
                      id: '1316601&1&7',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -63,7 +63,7 @@
                      seasonNum: '1',
                      episodeNum: '8', 
                      id: '1316601&1&8',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -71,7 +71,7 @@
                      seasonNum: '1',
                      episodeNum: '9', 
                      id: '1316601&1&9',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           {
                      season: '1' + 'сезон',
@@ -79,7 +79,7 @@
                      seasonNum: '1',
                      episodeNum: '10', 
                      id: '1316601&1&10',
-                     name: `House of the Dragon`,
+                     name: 'House of the Dragon',
                   },
           ]
   })();

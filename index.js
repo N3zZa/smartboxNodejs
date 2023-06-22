@@ -306,7 +306,7 @@ async function getSearchedMovie() {
                      id: '${searchedItem.kinopoisk_id}&${seasonIndex + 1}&${
                             episodeIndex + 1
                           }',
-                     name: \`${searchedItem.info.orig}\`,
+                     name: '${searchedItem.info.orig.replace(/('|")/g, ``)}',
                   },
           `
                       );
@@ -344,93 +344,136 @@ async function getSearchedMovie() {
                           return console.log(err);
                         }
                         const episodesPage = `<!DOCTYPE html>
-        <html lang="en">
-        
-        <head>
-        <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tv</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
-        rel="stylesheet">
-        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/search/videoApp.js"></script>
-        <script type="text/javascript" src="../js/searchedMovie.js"></script>
-        <script type="text/javascript" src="../js/scenes/searchedSerials.js"></script>
-        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
-</head>
-<style>
-body {
-  display: flex;
-  padding: 15px 0 0 0;
-  margin: 0;
-  background-image: url(../images/stars.png);
-  align-items: center;
-  justify-content: center;
-}
+                        <html lang="en">
+                        
+                        <head>
+                        <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>tv</title>
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+                        rel="stylesheet">
+                        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+                        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+                        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+                        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+                        <script type="text/javascript" src="../js/search/videoApp.js"></script>
+                        <script type="text/javascript" src="../js/searchedMovie.js"></script>
+                        <script type="text/javascript" src="../js/scenes/searchedSerials.js"></script>
+                        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+                </head>
+                <style>
+                body {
+                  display: flex;
+                  padding: 15px 0 0 0;
+                  margin: 0;
+                  background-image: url(../images/stars.png);
+                  align-items: center;
+                  justify-content: center;
+                  position: relative;
+                }
+                
+                h4,p {
+                  color: white;
+                }
+                .focus {
+                  outline: 3px solid yellow;
+                }
+                
+                .selectEpisode {
+                  display:flex;
+                  padding: 10px;
+                  min-width: 500px;
+                  max-width: 965px;
+                  width: auto;
+                  min-height: 300px
+                  height: auto;
+                  background: rgba(0, 0, 0, 0.685);
+                    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+                  border: 2px solid #fff;
+                  border-radius: 10px;
+                  flex-wrap: wrap;
+                  align-content: flex-start;
+                }
+                
+                .episodeBlock {
+                  display:flex;
+                  align-items:center;
+                  justify-content: center;
+                  background: #a200ff;
+                  border-radius: 5px;
+                  width: 150px;
+                  height: 35px;
+                  margin-right: 10px;
+                  margin-bottom: 3px;
+                  margin-top: 3px;
+                  border-radius: 5px;
+                
+                }
+                .episodeBlock h4 {
+                  font-weight: bold;
+                  margin-right: 3px;
+                }
+                .waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
-h4,p {
-  color: white;
-}
-.focus {
-  outline: 3px solid yellow;
-}
-
-.selectEpisode {
-  display:flex;
-  padding: 10px;
-  min-width: 500px;
-  max-width: 965px;
-  width: auto;
-  min-height: 300px
-  height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-
-.episodeBlock {
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  background: #a200ff;
-  border-radius: 5px;
-  width: 150px;
-  height: 35px;
-  margin-right: 10px;
-  margin-bottom: 3px;
-  margin-top: 3px;
-  border-radius: 5px;
-
-}
-.episodeBlock h4 {
-  font-weight: bold;
-  margin-right: 3px;
-}
-
-</style>
-
-<body>
-      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
-    </div>
-</body>
-<script type="text/javascript">
-  $('html').keyup(function(e){
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+                </style>
+                
+                <body>
+                <div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
+                      <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
+                    </div>
+                </body>
+                <script type="text/javascript">
+                   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/search'
-      }
-    })  
-</script>
-</html>`;
-                        setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
+    })   
+                </script>
+                </html>`;
+                            setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML
                       }
                     );
                     videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
@@ -460,6 +503,7 @@ h4,p {
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
             );
@@ -536,7 +580,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
@@ -587,7 +631,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -900,6 +944,33 @@ p {
   color: white;
   font-size: 24px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 
 </style>
@@ -907,6 +978,13 @@ p {
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
       <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -1262,9 +1340,11 @@ async function getAnime() {
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
           );
+          console.log(commits.results)
           return items;
         } catch (error) {
           console.error(error);
@@ -1370,6 +1450,7 @@ body {
   background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 h4,p {
@@ -1383,7 +1464,7 @@ h4,p {
   display:flex;
   padding: 10px;
   min-width: 500px;
-  max-width: 965px;
+  max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
@@ -1401,8 +1482,8 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 150px;
-  height: 35px;
+  width: 130px;
+  height: 30px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
@@ -1413,18 +1494,60 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+      border: 2px solid #fff;
+      background: black;
+      }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 </style>
 
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
 <script type="text/javascript">
-  $('html').keyup(function(e){
+   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/anime'
-      }
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
     })  
 </script>
 </html>`;
@@ -1533,8 +1656,7 @@ h4,p {
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
@@ -1583,7 +1705,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -1908,13 +2030,46 @@ p {
   font-size: 24px;
 }
 
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 </style>
 <body>
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -1956,7 +2111,7 @@ async function getFilms() {
         })
         .catch((err) => console.error(err));
  // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
-     const showFilms = async () => {
+    const showFilms = async () => {
         try {
           const commits = await fetchData;
           let items = commits.results.map(
@@ -1973,9 +2128,11 @@ async function getFilms() {
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
           );
+          console.log(commits.results)
           return items;
         } catch (error) {
           console.error(error);
@@ -2052,7 +2209,7 @@ async function getFilms() {
                       return console.log(err);
                     }
                     
-                    const episodesPageFilms = `<!DOCTYPE html>
+                   const episodesPageFilms = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -2081,6 +2238,7 @@ body {
   background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 h4,p {
@@ -2094,7 +2252,7 @@ h4,p {
   display:flex;
   padding: 10px;
   min-width: 500px;
-  max-width: 965px;
+  max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
@@ -2112,8 +2270,8 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 150px;
-  height: 35px;
+  width: 130px;
+  height: 30px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
@@ -2124,18 +2282,60 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 </style>
 
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
 <script type="text/javascript">
-  $('html').keyup(function(e){
+   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/films'
-      }
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
     })  
 </script>
 </html>`;
@@ -2244,15 +2444,14 @@ h4,p {
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
       
-      
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -2294,7 +2493,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -2619,12 +2818,46 @@ p {
   color: white;
   font-size: 24px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 </style>
 <body>
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -2667,7 +2900,7 @@ async function getSerials() {
         })
         .catch((err) => console.error(err));
  // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
-      const showFilms = async () => {
+     const showFilms = async () => {
         try {
           const commits = await fetchData;
           let items = commits.results.map(
@@ -2676,7 +2909,7 @@ async function getSerials() {
             id: '${element.kinopoisk_id}',
             type: 'vod',
             imgurl: '${element.info.poster}',
-            title: '${element.info.rus.replace(/("|')/g, ``)}',
+            title: '${element.info.rus.replace(/('|")/g, ``)}',
             titleEng: '${element.info.orig.replace(/('|")/g, ``)}',
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
@@ -2684,9 +2917,11 @@ async function getSerials() {
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
           );
+          console.log(commits.results)
           return items;
         } catch (error) {
           console.error(error);
@@ -2759,7 +2994,7 @@ async function getSerials() {
     window.App.SerialSeasons = [${videos}]
   })();
   `)
-                                 const episodesPageSerials = `<!DOCTYPE html>
+                                const episodesPageSerials = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -2788,6 +3023,7 @@ body {
   background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 h4,p {
@@ -2801,7 +3037,7 @@ h4,p {
   display:flex;
   padding: 10px;
   min-width: 500px;
-  max-width: 965px;
+  max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
@@ -2819,8 +3055,8 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 150px;
-  height: 35px;
+  width: 130px;
+  height: 30px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
@@ -2831,18 +3067,60 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 </style>
 
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
 <script type="text/javascript">
-  $('html').keyup(function(e){
+   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/serials'
-      }
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
     })  
 </script>
 </html>`;
@@ -2950,13 +3228,14 @@ h4,p {
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
+      
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -2998,7 +3277,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -3325,6 +3604,33 @@ p {
   font-size: 24px;
 }
 
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 
 </style>
@@ -3332,6 +3638,13 @@ p {
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -3383,7 +3696,7 @@ async function getCartoons() {
             id: '${element.kinopoisk_id}',
             type: 'vod',
             imgurl: '${element.info.poster}',
-            title: '${element.info.rus.replace(/("|')/g, ``)}',
+            title: '${element.info.rus.replace(/('|")/g, ``)}',
             titleEng: '${element.info.orig.replace(/('|")/g, ``)}',
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
@@ -3391,9 +3704,11 @@ async function getCartoons() {
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
           );
+          console.log(commits.results)
           return items;
         } catch (error) {
           console.error(error);
@@ -3497,6 +3812,7 @@ body {
   background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 h4,p {
@@ -3510,7 +3826,7 @@ h4,p {
   display:flex;
   padding: 10px;
   min-width: 500px;
-  max-width: 965px;
+  max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
@@ -3528,8 +3844,8 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 150px;
-  height: 35px;
+  width: 130px;
+  height: 30px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
@@ -3540,18 +3856,60 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 </style>
 
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
 <script type="text/javascript">
-  $('html').keyup(function(e){
+   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/cartoons'
-      }
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
     })  
 </script>
 </html>`;
@@ -3659,15 +4017,14 @@ h4,p {
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-     
       
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -3709,7 +4066,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -4038,6 +4395,33 @@ p {
   font-size: 24px;
 }
 
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 
 </style>
@@ -4045,6 +4429,13 @@ p {
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -4096,7 +4487,7 @@ p {
             id: '${element.kinopoisk_id}',
             type: 'vod',
             imgurl: '${element.info.poster}',
-            title: '${element.info.rus.replace(/("|')/g, ``)}',
+            title: '${element.info.rus.replace(/('|")/g, ``)}',
             titleEng: '${element.info.orig.replace(/('|")/g, ``)}',
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
@@ -4104,9 +4495,11 @@ p {
             director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
             text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
           );
+          console.log(commits.results)
           return items;
         } catch (error) {
           console.error(error);
@@ -4212,6 +4605,7 @@ body {
   background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 h4,p {
@@ -4225,7 +4619,7 @@ h4,p {
   display:flex;
   padding: 10px;
   min-width: 500px;
-  max-width: 965px;
+  max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
@@ -4243,8 +4637,8 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 150px;
-  height: 35px;
+  width: 130px;
+  height: 30px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
@@ -4255,18 +4649,60 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 </style>
 
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
 <script type="text/javascript">
-  $('html').keyup(function(e){
+   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/premieres'
-      }
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
     })  
 </script>
 </html>`;
@@ -4375,14 +4811,14 @@ h4,p {
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
       
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -4424,7 +4860,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -4751,6 +5187,33 @@ p {
   color: white;
   font-size: 24px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 
 </style>
@@ -4758,6 +5221,13 @@ p {
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">
@@ -4809,17 +5279,19 @@ p {
             id: '${element.kinopoisk_id}',
             type: 'vod',
             imgurl: '${element.info.poster}',
-            title: '${element.info.rus.replace(/("|')/g, ``)}',
-            titleEng: '${element.info.orig.replace(/("|')/g, ``)}',
+            title: '${element.info.rus.replace(/('|")/g, ``)}',
+            titleEng: '${element.info.orig.replace(/('|")/g, ``)}',
             created: '${element.info.year}',
             filmPageId: 'filmid${element.kinopoisk_id}',
-            actors: '${element.info.actors.replace(/("|')/g, ``)}',
-            director: '${element.info.director.replace(/("|')/g, ``)}',
+            actors: '${element.info.actors.replace(/('|")/g, ``)}',
+            director: '${element.info.director.replace(/('|")/g, ``)}',
             country: '${element.info.country}',
-            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/("|')/g, ``)}',
+            text: '${element.info.description.replace(/[\n\r]+/g, "").replace(/('|")/g, ``).substring(0,300) + '...'}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}'
           },
           `
           );
+          console.log(commits.results)
           return items;
         } catch (error) {
           console.error(error);
@@ -4920,6 +5392,7 @@ body {
   background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 h4,p {
@@ -4933,7 +5406,7 @@ h4,p {
   display:flex;
   padding: 10px;
   min-width: 500px;
-  max-width: 965px;
+  max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
@@ -4951,8 +5424,8 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 150px;
-  height: 35px;
+  width: 130px;
+  height: 30px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
@@ -4963,18 +5436,60 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 </style>
 
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
     </div>
 </body>
 <script type="text/javascript">
-  $('html').keyup(function(e){
+   $('html').keyup(function(e){
       if (e.keyCode === 8) {
         window.location = '/compilations'
-      }
+    }
+      if (e.keyCode === 38) {
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+             $('.focus').get(0).scrollIntoView();
+        }
     })  
 </script>
 </html>`;
@@ -5085,15 +5600,14 @@ h4,p {
         `(function () {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"})</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
   
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
       
-      
+       
       this.renderItems(App.filmInfo);
       _inited = true;
     },
@@ -5135,7 +5649,7 @@ h4,p {
   var _inited;
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"})</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();});</script>')
   
   window.App.scenes.SerialSeasons = {
     init: function () {
@@ -5463,6 +5977,33 @@ margin: 0 30px 30px 0;}
   color: white;
   font-size: 24px;
 }
+.waitPopup_block {
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    top: 250px;
+    left: 380px;
+    right: 500px;
+    bottom: 500px;
+    padding: 20px;
+            border: 2px solid #fff;
+            background: black;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
 
 
 
@@ -5471,6 +6012,13 @@ margin: 0 30px 30px 0;}
 
 <div class="bg"></div>
 <div class="bg2"></div>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Дождитесь загрузки...</h1>
+            </div>
+        </div>
+</div>
 <div id="app" class="wrap">
         <div class="header navigation-items">
                 <img class="navigation-item nav-item" width="30px" height="30px" src="./images/arrowBack.svg" alt="back" id="img_back">

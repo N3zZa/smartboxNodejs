@@ -79,7 +79,6 @@
       }
     },
   };
-  console.log(window.App.scenes)
   // main app initialize when smartbox ready
   SB(_.bind(App.initialize, App));
 })();
