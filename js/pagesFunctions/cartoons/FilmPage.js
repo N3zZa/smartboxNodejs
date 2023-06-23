@@ -1,5 +1,5 @@
 (function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.filmInfo = [
       {

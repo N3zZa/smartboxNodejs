@@ -1,6 +1,6 @@
 (function () {
-    "use strict"
-
+    "use strict" // страница создана в файле index.js
+ 
     window.App.filmInfo = [
       {
             id: '5018660',

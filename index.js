@@ -9,9 +9,12 @@ app.use(express.static(__dirname));
 
 // API BAZON_TOKEN
 const API_TOKEN = process.env.BAZON_TOKEN;
+// IP С БАЗОНА ДЛЯ ВИДЕОФАЙЛОВ ДЛЯ ВСТАВКИ В ПЕРЕМЕННУЮ APIVIDEOS_URL
 const IP_APIVIDEOS = '178.121.30.248'
+// ССЫЛКА НА АПИ ДЛЯ ЗАПРОСА НА ВИДЕОФАЙЛЫ
 const APIVIDEOS_URL = `https://bazon.cc/api/playlist?token=${API_TOKEN}&kp=`
 
+// ССЫЛКИ НА АПИ ДЛЯ КАЖДОЙ СТРАНИЦЫ
 const APIANIME_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&cat=аниме`;
 const APIFILMS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&`;
 const APISERIALS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=serial&page=1`;
@@ -20,15 +23,16 @@ const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=a
 const APIPREMIERES_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&year=${new Date().getFullYear()}`;
 const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
+// ОТОБРАЖЕНИЕ ГЛАВНОЙ СТРАНИЦЫ
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-// ------------------- Функция запрос на python api для получения видеофайлов -----------------------
-function getMp4Videos(item, season, episode, url, res) {
+// ------------------- Функция запрос для ПОЛУЧЕНИЕ ВИДЕОФАЙЛОВ -----------------------
+function getMp4Videos(item, season, episode, res) {
   try {
+    // ПРОВЕРКА НА СЕЗОНЫ ДЛЯ ТОГО, ЧТОБЫ ПРОВЕРЯТЬ НА СЕРИАЛ 
     if (season) {
-      //console.log("сериал", requestData);
       fetch(APIVIDEOS_URL + `${item.kinopoisk_id}&ref=&ip=${IP_APIVIDEOS}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -36,11 +40,14 @@ function getMp4Videos(item, season, episode, url, res) {
         .then((response) => response.json())
         .then((jsonResponse) => {
           console.log('serial', jsonResponse.results[0])
+          // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
           const link = jsonResponse.results[0].playlists;
           const seasonObj = link[`${season}`];
-          const episodeObj = seasonObj[`${episode}`]
-          const video = episodeObj['1080'] ? episodeObj['1080'] : episodeObj['720']
-          console.log('video', video)
+          const episodeObj = seasonObj !== undefined ? seasonObj[`${episode}`] : 'no seasons' // проверка на присутствие эпизодов в запросе
+          // ниже делаю проверку на качество видео, чтобы давало лучшее из всех
+          const video = episodeObj['2160']  ? episodeObj['2160'] : episodeObj['1080'] ? episodeObj['1080'] : episodeObj['720'] ? episodeObj['720'] : episodeObj['480']
+          console.log('videoURL', video)
+          // -------------------------------------------------------------------------------------------------------------------------------
           const playerPage = `<!DOCTYPE html>
 <html lang="">
 
@@ -70,10 +77,14 @@ body {
   
 <body>
   <div class="wrap">
-    
+    <div class="No episodes">
+      <h1>${(episodeObj === 'no seasons') ? 'Отсутствуют эпизоды' : ''}</h1> 
+    </div>
   </div>
   <script type="text/javascript">
-    var url = '${video.toString()}';
+    /* дает ссылку если есть серии, no url если нет серий и выдает что нет эпизодов если нет серий выше */
+    var url = '${video ? video.toString() : 'no url'}'; 
+    /* инициализация плеера */
     var stb = gSTB;
     stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
@@ -81,7 +92,7 @@ body {
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
     stb.Play(url);
-    
+    /* обработка нажатых клавиш */
     $('html').keyup(function(e){
       if (e.keyCode === 107) {
         console.log('keydown: volume up');
@@ -127,7 +138,7 @@ body {
 </body>
 </html>`;
 
-          res.send(playerPage); // Отправка ответа в виде HTML
+          res.send(playerPage); // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
         })
         .catch((error) => console.error("getMp4Videos1", error));
     } else {
@@ -138,10 +149,14 @@ body {
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
+          // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
           console.log('film', jsonResponse.results[0])
           const link = jsonResponse.results[0].playlists;
-          const video = link['2160'] ? link['2160'] : link['1080'] ? link['1080'] : link['720']
-          console.log('video', video)
+          // ниже делаю проверку на качество видео, чтобы давало лучшее из всех
+          const video = link['2160'] ? link['2160'] : link['1080'] ? link['1080'] : link['720'] ? link['720'] : link['480']
+          console.log('videoURL', video)
+          // -------------------------------------------------------------------------------------------------------------------------------
+          // -------------------- страница с плеером --------------------
           const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
@@ -179,6 +194,7 @@ body {
 </body>
   <script type="text/javascript">
     var url = '${video.toString()}';
+    /* инициализация плеера */
     var stb = gSTB;
     stb.InitPlayer();
     stb.SetPIG(1, 1, 0, 0);
@@ -186,7 +202,7 @@ body {
     stb.EnableVKButton(false);
     stb.SetTopWin(0);
     stb.Play(url);
-    
+    /* обработка нажатых клавиш */
     $('html').keyup(function(e){
       if (e.keyCode === 107) {
         console.log('keydown: volume up');
@@ -230,10 +246,10 @@ body {
     })  
   </script>
 </html>`;
-
-          res.send(playerPage); // Отправка ответа в виде HTML
+          // ------------------------------------------------------------
+          res.send(playerPage); // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
         })
-        .catch((error) => console.error("getMp4Videos2", error));
+        .catch((error) => console.error("getMp4Videos2", error)); 
     }
   } catch (error) {
     console.error(error);
@@ -242,32 +258,40 @@ body {
 
 async function getSearchedMovie() {
   try {
+    //  огромный код для списка фильмов
     app.get("/searchItem", (req, res) => {
+      // получение значений из url адреса(названия фильма)
       var name = req.originalUrl.split("?").pop();
       var correctName = name.replace("+", " ");
+      // код для форматирования текста с пробелами из url адреса
       sParameter = decodeURIComponent(correctName);
 
       function fetchMovie() {
+        // запрос на поиск фильмов
         fetch(APISEARCH_URL + sParameter)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
-            console.log(data)
+            // проверка на запрос(есть ли такой фильм или нет), если нет то выводит страницу 'Ничего не найдено' 
             if (data.results) {
             const movieItem = data.results;
+            // дальнейший код отображает страницу с сезонами и сериями для сериала
             movieItem.map((searchedItem, index) => {
               app.get(
                 "/searchedMovieEpisodes=" + searchedItem.kinopoisk_id + index,
                 (req, res) => {
                   let videos = [];
+                  // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
                   let videoSeasonsArrays = searchedItem.episodes
                     ? searchedItem.episodes
                     : "no episodes";
-                  const apiUrl = "http://localhost:8000/api/link"; // ссылка на апи
+                  // -----------------------------------------------------------------------------------------------------------------
                   let episodes = [];
+                  // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
                   if (videoSeasonsArrays !== "no episodes") {
                     const seasonsArr = [];
+                    // получение из запроса сезонов и эпизодов
                     for (let key of Object.keys(searchedItem.episodes)) {
                       const episodesArr = [];
                       seasonsArr.push(key);
@@ -278,7 +302,7 @@ async function getSearchedMovie() {
                       }
                       episodes.push(episodesArr);
                     }
-
+                    // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                     let items = episodes.map((value, seasonIndex) => {
                       let videoObject = value.map(
                         (element, episodeIndex) =>
@@ -297,6 +321,7 @@ async function getSearchedMovie() {
                       return videoObject.join("");
                     });
                     videos.push(items.join(""));
+                    // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                     episodes.map((value, seasonIndex) => {
                       value.map((element, episodeIndex) => {
                         app.get(
@@ -308,17 +333,17 @@ async function getSearchedMovie() {
                               searchedItem,
                               seasonIndex + 1,
                               episodeIndex + 1,
-                              apiUrl,
                               res
                             );
                           }
                         );
                       });
                     });
+                    // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
                     fs.writeFile(
                       "./js/searchedMovie.js",
                       `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.searchedMovie = [${videos}]
   })();
@@ -326,7 +351,8 @@ async function getSearchedMovie() {
                       function (err) {
                         if (err) {
                           return console.log(err);
-                        }
+                        } // проверка на ошибку
+                        // страница с сезонами и эпизодами
                         const episodesPage = `<!DOCTYPE html>
                         <html lang="en">
                         
@@ -445,33 +471,39 @@ async function getSearchedMovie() {
                     </div>
                 </body>
                 <script type="text/javascript">
-                   $('html').keyup(function(e){
+                    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/search'
-    }
+        /* назад */
+        window.location='/search'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    })   
+    })  
                 </script>
                 </html>`;
-                            setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML
+
+                        setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
                       }
                     );
+                    
                     videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
                   } else {
+                    // если фильм то сразу создаю страницу с плеером
                      getMp4Videos(
                               searchedItem,
                               ...[, ,],
-                              apiUrl,
                               res
                             );
                   }
                 }
               );
             });
+            // создание объекта для отображения постеров фильмов и сериалов
             let items = movieItem.map(
               (element, index) =>
                 `{
@@ -491,10 +523,11 @@ async function getSearchedMovie() {
           },
           `
             );
+            // создаю файл с объектами постеров фильмов и сериалов для отображения на странице
             fs.writeFile(
               "./js/search/resultsOfSearch.js",
               `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.searchedVideos = [
       ${items.join("")}
@@ -502,13 +535,16 @@ async function getSearchedMovie() {
   })();
   `,
               function () {
+              // обработка тех объектов постеров для отображения на странице
                 fs.writeFileSync(
                   "./js/search/searchVideosRender.js",
                   `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
-    
+  
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -524,9 +560,9 @@ async function getSearchedMovie() {
         var scene = e.currentTarget.getAttribute("data-content");
         var item = "#" + filmPage;
         $('.bg').hide();
-      $('.bg2').show();
+        $('.bg2').show();
         $(".header").hide();
-        window.App.showContent(scene);
+        window.App.showContent(scene); // показать сцену с информацией о фильме
         $(".filmInfoPage").hide();
         $(item).show();
     },
@@ -551,34 +587,35 @@ async function getSearchedMovie() {
       for (var i = 0, len = items.length; i < len; i++) {
         html += itemHtml(items[i]);
       }
-
+      
       this.$el.empty().html(html);
     },
   };
 })();
     `
                 );
+                // создаю файл с информацией о фильме
                 fs.writeFileSync(
                   "./js/search/searchFilmInfo.js",
                   `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
   
+  // в конце переменной скрипт для перехода на страницу с сезонами и сериями
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
+ 
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
       this.$el.on("click", ".back", this.onItemBackClick)
-       
-      
       this.renderItems(App.searchedVideos);
       _inited = true;
     },
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
       $(".header").show();
-      window.App.showContent(scene);
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -608,15 +645,17 @@ async function getSearchedMovie() {
                 );
               }
             );
-
+            // создаю файл с обработкой сезонов и серий
             fs.writeFileSync(
               "./js/search/searchedEpisodesOfFilm.js",
               `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
+  // в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -646,6 +685,7 @@ async function getSearchedMovie() {
 })();
     `
             );
+            // страница с постерами и информацией о фильмах
             const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -980,16 +1020,21 @@ p {
     </div>
     </div>
     <script type='text/javascript'>
+    /* обработка нажатых клавиш */
      $('html').keyup(function(e){
       if (e.keyCode === 8) {
+        /* назад */
         window.location='/search'
       }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
+    /* переход назад */
     $('#img_back').click(function() {
       window.location = '/search'
     })
@@ -999,6 +1044,7 @@ p {
 
             res.send(message); // Отправка ответа в виде HTML
             } else {
+              // страница ничего не найдено
               const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -1115,11 +1161,12 @@ h1 {
     console.error(error);
   }
 }
+// функция для страницы с полем ввода(поиск)
 async function searchPage() {
   try {
     app.get("/search", (req, res) => {
       getSearchedMovie();
-
+      // страница с полем ввода
       const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -1275,11 +1322,8 @@ h3, h4, li {
 
       $('html').keyup(function(e){
       if (e.keyCode === 8) {
+        /* назад */
         window.location='/'
-      }
-      if (e.keyCode === 13) {
-        console.log('enter')
-        return false
       }
     })  
       
@@ -1304,7 +1348,7 @@ async function getAnime() {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
       const fetchData = fetch(APIANIME_URL).then((response) => {
         return response.json();
-      });
+      }).catch((err) => console.error(err));
 
       // ----------------------- создаем файл со списком фильмов или сериалов -----------------------
       const showFilms = async () => {
@@ -1338,16 +1382,20 @@ async function getAnime() {
       const fetchVideosAnime = async () => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          // дальнейший код отображает страницу с сезонами и сериями для сериала
           videosId.results.map((item) => {
             let videos = [];
+            // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
             let videoSeasonsArrays = item.episodes
               ? item.episodes
               : "no episodes";
+            // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdAnime=" + item.kinopoisk_id, (req, res) => {
               let episodes = [];
+              // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
+                 // получение из запроса сезонов и эпизодов
                 for (let key of Object.keys(item.episodes)) {
                   const episodesArr = [];
                   seasonsArr.push(key);
@@ -1356,6 +1404,7 @@ async function getAnime() {
                   }
                   episodes.push(episodesArr);
                 }
+                // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                 let items = episodes.map((value, seasonIndex) => {
                   let videoObject = value.map(
                     (element, episodeIndex) =>
@@ -1374,6 +1423,7 @@ async function getAnime() {
                   return videoObject.join("");
                 });
                 videos.push(items.join(""));
+                 // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
@@ -1385,17 +1435,17 @@ async function getAnime() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
                           res
                         );
                       }
                     );
                   });
                 });
+                // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
                 fs.writeFile(
                   "./js/pagesFunctions/anime/serialSeasons.js",
                   `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.SerialSeasons = [${videos}]
   })();
@@ -1403,9 +1453,9 @@ async function getAnime() {
                   function (err) {
                     if (err) {
                       return console.log(err);
-                    }
-                    
-                    const episodesPageAnime = `<!DOCTYPE html>
+                    } // проверка на ошибку
+                    // страница с сезонами и эпизодами
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -1523,24 +1573,28 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-   $('html').keyup(function(e){
+    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/anime'
-    }
+        /* назад */
+        window.location='/anime'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
 </script>
 </html>`;
-                    setTimeout(() => res.send(episodesPageAnime), 500) // Отправка ответа в виде HTML
+                    setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
                   }
                 );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                getMp4Videos(item, ...[, ,], url, res);
+                // если фильм то сразу создаю страницу с плеером
+                getMp4Videos(item, ...[, ,], res);
               }
             });
           });
@@ -1553,10 +1607,11 @@ h4,p {
       async function sendFilms() {
         const movies = await showFilms();
         const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
         fs.writeFileSync(
           "./js/pagesFunctions/anime/videos.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.videos = [
       ${movieItems}
@@ -1564,11 +1619,12 @@ h4,p {
   })();
   `
         );
+         // создаю файл для каждого фильма с информацией о фильме
         fs.writeFileSync(
           "./js/pagesFunctions/anime/FilmPage.js",
           `(function () {
-    "use strict"
-
+    "use strict" // страница создана в файле index.js
+ 
     window.App.filmInfo = [
       ${movieItems}
     ] 
@@ -1578,14 +1634,15 @@ h4,p {
       }
 
       sendFilms();
-      // получение данных с запроса и создание объекта с данными запроса
+       // обработка тех объектов постеров для отображения на странице 
       fs.writeFileSync(
         "./js/scenes/videosRender.js",
         `(function () {
-  var _inited;
+  var _inited;// страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -1603,7 +1660,7 @@ h4,p {
         $('.bg').hide();
       $('.bg2').show();
         $(".header").hide();
-        window.App.showContent(scene);
+        window.App.showContent(scene);  // показать сцену с информацией о фильме
         $(".filmInfoPage").hide();
         $(item).show();
     },
@@ -1635,13 +1692,16 @@ h4,p {
 })();
     `
       );
+      // создаю файл с информацией о фильме
       fs.writeFileSync(
         "./js/scenes/filmInfo.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+  // в конце переменной скрипт для перехода на страницу с сезонами и сериями
   var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"});}</script>');
   
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -1654,7 +1714,7 @@ h4,p {
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
       $(".header").show();
-      window.App.showContent(scene);
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -1682,15 +1742,16 @@ h4,p {
 })();
     `
       );
-      
+      // создаю файл с обработкой сезонов и серий
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
+ //  в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -1727,8 +1788,10 @@ h4,p {
     console.error(error);
   }
 }
+// отображение страницы аниме
  app.get("/anime", (req, res) => { 
     getAnime()
+    // создание главной страницы
      const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -2071,18 +2134,21 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/'
-    }
+        /* назад */
+        window.location='/'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    }) 
+    })  
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы) (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 
 // ------------------- функция со всем функционалом films страницы -----------------------
@@ -2124,18 +2190,22 @@ async function getFilms() {
       };
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
       const fetchVideosFilms = async () => {
-        try {
+          try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          // дальнейший код отображает страницу с сезонами и сериями для сериала
           videosId.results.map((item) => {
             let videos = [];
+            // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
             let videoSeasonsArrays = item.episodes
               ? item.episodes
               : "no episodes";
+            // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdFilms=" + item.kinopoisk_id, (req, res) => {
               let episodes = [];
+              // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
+                 // получение из запроса сезонов и эпизодов
                 for (let key of Object.keys(item.episodes)) {
                   const episodesArr = [];
                   seasonsArr.push(key);
@@ -2144,6 +2214,7 @@ async function getFilms() {
                   }
                   episodes.push(episodesArr);
                 }
+                // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                 let items = episodes.map((value, seasonIndex) => {
                   let videoObject = value.map(
                     (element, episodeIndex) =>
@@ -2162,6 +2233,7 @@ async function getFilms() {
                   return videoObject.join("");
                 });
                 videos.push(items.join(""));
+                 // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
@@ -2173,17 +2245,17 @@ async function getFilms() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
                           res
                         );
                       }
                     );
                   });
                 });
+                // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
                 fs.writeFile(
                   "./js/pagesFunctions/films/serialSeasons.js",
                   `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.SerialSeasons = [${videos}]
   })();
@@ -2191,9 +2263,9 @@ async function getFilms() {
                   function (err) {
                     if (err) {
                       return console.log(err);
-                    }
-                    
-                   const episodesPageFilms = `<!DOCTYPE html>
+                    } // проверка на ошибку
+                    // страница с сезонами и эпизодами
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -2275,9 +2347,9 @@ h4,p {
     right: 500px;
     bottom: 500px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
-        }
+      border: 2px solid #fff;
+      background: black;
+      }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
@@ -2311,24 +2383,28 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-   $('html').keyup(function(e){
+    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/films'
-    }
+        /* назад */
+        window.location='/films'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
 </script>
 </html>`;
-                    setTimeout(() => res.send(episodesPageFilms), 500) // Отправка ответа в виде HTML
+                    setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
                   }
                 );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                getMp4Videos(item, ...[, ,], url, res);
+                // если фильм то сразу создаю страницу с плеером
+                getMp4Videos(item, ...[, ,], res);
               }
             });
           });
@@ -2341,10 +2417,11 @@ h4,p {
       async function sendFilms() {
         const movies = await showFilms();
         const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
         fs.writeFileSync(
           "./js/pagesFunctions/films/videos.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.videos = [
       ${movieItems}
@@ -2352,10 +2429,11 @@ h4,p {
   })();
   `
         );
+        // создаю файл для каждого фильма с информацией о фильме
         fs.writeFileSync(
           "./js/pagesFunctions/films/FilmPage.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.filmInfo = [
       ${movieItems}
@@ -2370,10 +2448,11 @@ h4,p {
       fs.writeFileSync(
         "./js/scenes/videosRender.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -2423,13 +2502,16 @@ h4,p {
 })();
     `
       );
+      // создаю файл с информацией о фильме
       fs.writeFileSync(
         "./js/scenes/filmInfo.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+    // в конце переменной скрипт для перехода на страницу с сезонами и сериями
   var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"});}</script>');
   
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -2441,8 +2523,8 @@ h4,p {
     },
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
-      $(".header").show();
-      window.App.showContent(scene);
+     $(".header").show();
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -2470,15 +2552,16 @@ h4,p {
 })();
     `
       );
-   
+      // создаю файл с обработкой сезонов и серий
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
+ //  в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -2515,8 +2598,10 @@ h4,p {
     console.error(error);
   }
 }
+// отображение странцы фильмов
  app.get("/films", (req, res) => { 
     getFilms()
+    // создание главной страницы
      const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -2858,21 +2943,24 @@ p {
      $('#img_back').click(function() {
       window.location = '/'
     })
-    $('html').keyup(function(e){
+     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/'
+        /* назад */
+        window.location='/'
       }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    }) 
+    })  
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы) (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 // ------------------- функция со всем функционалом serials страницы -----------------------
 async function getSerials() {
@@ -2913,18 +3001,22 @@ async function getSerials() {
       };
       // ----------------------- функция сезонов и эпизодов для фильмов или сериалов -----------------------
       const fetchVideosSerials = async () => {
-        try {
+       try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          // дальнейший код отображает страницу с сезонами и сериями для сериала
           videosId.results.map((item) => {
             let videos = [];
+            // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
             let videoSeasonsArrays = item.episodes
               ? item.episodes
               : "no episodes";
+            // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdSerial=" + item.kinopoisk_id, (req, res) => {
               let episodes = [];
+              // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
+                 // получение из запроса сезонов и эпизодов
                 for (let key of Object.keys(item.episodes)) {
                   const episodesArr = [];
                   seasonsArr.push(key);
@@ -2933,6 +3025,7 @@ async function getSerials() {
                   }
                   episodes.push(episodesArr);
                 }
+                // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                 let items = episodes.map((value, seasonIndex) => {
                   let videoObject = value.map(
                     (element, episodeIndex) =>
@@ -2951,6 +3044,7 @@ async function getSerials() {
                   return videoObject.join("");
                 });
                 videos.push(items.join(""));
+                 // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
@@ -2962,23 +3056,27 @@ async function getSerials() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
                           res
                         );
                       }
                     );
                   });
                 });
-
-                               fs.writeFileSync(
+                // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
+                fs.writeFile(
                   "./js/pagesFunctions/serials/serialSeasons.js",
                   `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.SerialSeasons = [${videos}]
   })();
-  `)
-                                const episodesPageSerials = `<!DOCTYPE html>
+  `,
+                  function (err) {
+                    if (err) {
+                      return console.log(err);
+                    } // проверка на ошибку
+                    // страница с сезонами и эпизодами
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -3060,9 +3158,9 @@ h4,p {
     right: 500px;
     bottom: 500px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
-        }
+      border: 2px solid #fff;
+      background: black;
+      }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
@@ -3096,23 +3194,28 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-   $('html').keyup(function(e){
+    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/serials'
-    }
+        /* назад */
+        window.location='/serials'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
 </script>
 </html>`;
-
-                    setTimeout(() => res.send(episodesPageSerials), 500) // Отправка ответа в виде HTML
+                    setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
+                  }
+                );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                getMp4Videos(item, ...[, ,], url, res);
+                // если фильм то сразу создаю страницу с плеером
+                getMp4Videos(item, ...[, ,], res);
               }
             });
           });
@@ -3125,10 +3228,11 @@ h4,p {
       async function sendFilms() {
         const movies = await showFilms();
         const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
         fs.writeFileSync(
           "./js/pagesFunctions/serials/videos.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.videos = [
       ${movieItems}
@@ -3136,10 +3240,11 @@ h4,p {
   })();
   `
         );
+        // создаю файл для каждого фильма с информацией о фильме
         fs.writeFileSync(
           "./js/pagesFunctions/serials/FilmPage.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.filmInfo = [
       ${movieItems}
@@ -3150,14 +3255,15 @@ h4,p {
       }
 
       sendFilms();
-      // получение данных с запроса и создание объекта с данными запроса
+       // обработка тех объектов постеров для отображения на странице 
       fs.writeFileSync(
         "./js/scenes/videosRender.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -3207,13 +3313,16 @@ h4,p {
 })();
     `
       );
+      // создаю файл с информацией о фильме
       fs.writeFileSync(
         "./js/scenes/filmInfo.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+    // в конце переменной скрипт для перехода на страницу с сезонами и сериями
   var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"});}</script>');
   
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -3225,8 +3334,8 @@ h4,p {
     },
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
-      $(".header").show();
-      window.App.showContent(scene);
+     $(".header").show();
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -3254,15 +3363,16 @@ h4,p {
 })();
     `
       );
-      
+      // создаю файл с обработкой сезонов и серий
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
+ //  в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -3299,8 +3409,10 @@ h4,p {
     console.error(error);
   }
 }
+// отображение страницы сериалов
  app.get("/serials", (req, res) => { 
     getSerials()
+    // создание главной страницы
      const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -3645,21 +3757,24 @@ p {
      $('#img_back').click(function() {
       window.location = '/'
     })
-    $('html').keyup(function(e){
+     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/'
+        /* назад */
+        window.location='/'
       }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    }) 
+    })  
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы) (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 // ------------------- функция со всем функционалом cartoons страницы -----------------------
 async function getCartoons() {
@@ -3702,16 +3817,20 @@ async function getCartoons() {
       const fetchVideosCartoons = async () => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          // дальнейший код отображает страницу с сезонами и сериями для сериала
           videosId.results.map((item) => {
             let videos = [];
+            // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
             let videoSeasonsArrays = item.episodes
               ? item.episodes
               : "no episodes";
+            // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdCartoons=" + item.kinopoisk_id, (req, res) => {
               let episodes = [];
+              // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
+                 // получение из запроса сезонов и эпизодов
                 for (let key of Object.keys(item.episodes)) {
                   const episodesArr = [];
                   seasonsArr.push(key);
@@ -3720,6 +3839,7 @@ async function getCartoons() {
                   }
                   episodes.push(episodesArr);
                 }
+                // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                 let items = episodes.map((value, seasonIndex) => {
                   let videoObject = value.map(
                     (element, episodeIndex) =>
@@ -3738,6 +3858,7 @@ async function getCartoons() {
                   return videoObject.join("");
                 });
                 videos.push(items.join(""));
+                 // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
@@ -3749,25 +3870,27 @@ async function getCartoons() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
                           res
                         );
                       }
                     );
                   });
                 });
-                fs.writeFileSync(
+                // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
+                fs.writeFile(
                   "./js/pagesFunctions/cartoons/serialSeasons.js",
                   `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.SerialSeasons = [${videos}]
   })();
-  `
-          
-
-                );
-                    const episodesPageCartoons = `<!DOCTYPE html>
+  `,
+                  function (err) {
+                    if (err) {
+                      return console.log(err);
+                    } // проверка на ошибку
+                    // страница с сезонами и эпизодами
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -3849,9 +3972,9 @@ h4,p {
     right: 500px;
     bottom: 500px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
-        }
+      border: 2px solid #fff;
+      background: black;
+      }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
@@ -3885,23 +4008,28 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-   $('html').keyup(function(e){
+    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/cartoons'
-    }
+        /* назад */
+        window.location='/cartoons'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
 </script>
 </html>`;
-                    setTimeout(() => res.send(episodesPageCartoons), 500) // Отправка ответа в виде HTML
-                  
+                    setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
+                  }
+                );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                getMp4Videos(item, ...[, ,], url, res);
+                // если фильм то сразу создаю страницу с плеером
+                getMp4Videos(item, ...[, ,], res);
               }
             });
           });
@@ -3914,10 +4042,11 @@ h4,p {
       async function sendFilms() {
         const movies = await showFilms();
         const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
         fs.writeFileSync(
           "./js/pagesFunctions/cartoons/videos.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.videos = [
       ${movieItems}
@@ -3925,10 +4054,11 @@ h4,p {
   })();
   `
         );
+         // создаю файл для каждого фильма с информацией о фильме
         fs.writeFileSync(
           "./js/pagesFunctions/cartoons/FilmPage.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.filmInfo = [
       ${movieItems}
@@ -3939,14 +4069,15 @@ h4,p {
       }
 
       sendFilms();
-      // получение данных с запроса и создание объекта с данными запроса
+      // обработка тех объектов постеров для отображения на странице 
       fs.writeFileSync(
         "./js/scenes/videosRender.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -3996,13 +4127,16 @@ h4,p {
 })();
     `
       );
+      // создаю файл с информацией о фильме
       fs.writeFileSync(
         "./js/scenes/filmInfo.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+    // в конце переменной скрипт для перехода на страницу с сезонами и сериями
   var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"});}</script>');
   
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -4014,8 +4148,8 @@ h4,p {
     },
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
-      $(".header").show();
-      window.App.showContent(scene);
+     $(".header").show();
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -4043,15 +4177,16 @@ h4,p {
 })();
     `
       );
-      
+      // создаю файл с обработкой сезонов и серий
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
+ //  в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -4089,9 +4224,10 @@ h4,p {
     console.error(error);
   }
 }
-
+// отображение страницы мультфильмов
  app.get("/cartoons", (req, res) => { 
     getCartoons()
+    // создание главной страницы
      const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -4438,19 +4574,22 @@ p {
     })
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/'
+        /* назад */
+        window.location='/'
       }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    }) 
+    })  
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы) (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
  async function getPremieres() {
   try {
@@ -4493,16 +4632,20 @@ p {
       const fetchVideosPremieres = async () => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          // дальнейший код отображает страницу с сезонами и сериями для сериала
           videosId.results.map((item) => {
             let videos = [];
+            // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
             let videoSeasonsArrays = item.episodes
               ? item.episodes
               : "no episodes";
+            // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdPremieres=" + item.kinopoisk_id, (req, res) => {
               let episodes = [];
+              // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
+                 // получение из запроса сезонов и эпизодов
                 for (let key of Object.keys(item.episodes)) {
                   const episodesArr = [];
                   seasonsArr.push(key);
@@ -4511,6 +4654,7 @@ p {
                   }
                   episodes.push(episodesArr);
                 }
+                // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                 let items = episodes.map((value, seasonIndex) => {
                   let videoObject = value.map(
                     (element, episodeIndex) =>
@@ -4529,6 +4673,7 @@ p {
                   return videoObject.join("");
                 });
                 videos.push(items.join(""));
+                 // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
@@ -4540,17 +4685,17 @@ p {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
                           res
                         );
                       }
                     );
                   });
                 });
+                // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
                 fs.writeFile(
                   "./js/pagesFunctions/premieres/serialSeasons.js",
                   `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.SerialSeasons = [${videos}]
   })();
@@ -4558,9 +4703,9 @@ p {
                   function (err) {
                     if (err) {
                       return console.log(err);
-                    }
-                    
-                    const episodesPagePremieres = `<!DOCTYPE html>
+                    } // проверка на ошибку
+                    // страница с сезонами и эпизодами
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -4642,9 +4787,9 @@ h4,p {
     right: 500px;
     bottom: 500px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
-        }
+      border: 2px solid #fff;
+      background: black;
+      }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
@@ -4678,24 +4823,28 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-   $('html').keyup(function(e){
+    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/premieres'
-    }
+        /* назад */
+        window.location='/premieres'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
 </script>
 </html>`;
-                    setTimeout(() => res.send(episodesPagePremieres), 500) // Отправка ответа в виде HTML
+                    setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
                   }
                 );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                getMp4Videos(item, ...[, ,], url, res);
+                // если фильм то сразу создаю страницу с плеером
+                getMp4Videos(item, ...[, ,], res);
               }
             });
           });
@@ -4708,10 +4857,11 @@ h4,p {
       async function sendFilms() {
         const movies = await showFilms();
         const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
         fs.writeFileSync(
           "./js/pagesFunctions/premieres/videos.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.videos = [
       ${movieItems}
@@ -4719,10 +4869,11 @@ h4,p {
   })();
   `
         );
+        // создаю файл для каждого фильма с информацией о фильме
         fs.writeFileSync(
           "./js/pagesFunctions/premieres/FilmPage.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.filmInfo = [
       ${movieItems}
@@ -4733,14 +4884,15 @@ h4,p {
       }
 
       sendFilms();
-      // получение данных с запроса и создание объекта с данными запроса
+      // обработка тех объектов постеров для отображения на странице
       fs.writeFileSync(
         "./js/scenes/videosRender.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -4790,13 +4942,16 @@ h4,p {
 })();
     `
       );
+      // создаю файл с информацией о фильме
       fs.writeFileSync(
         "./js/scenes/filmInfo.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+    // в конце переменной скрипт для перехода на страницу с сезонами и сериями
   var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"});}</script>');
   
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -4808,8 +4963,8 @@ h4,p {
     },
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
-      $(".header").show();
-      window.App.showContent(scene);
+     $(".header").show();
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -4837,15 +4992,16 @@ h4,p {
 })();
     `
       );
-      
+      // создаю файл с обработкой сезонов и серий
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
+ //  в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -4882,9 +5038,10 @@ h4,p {
     console.error(error);
   }
 }
-
+// отображение страницы премьеры
  app.get("/premieres", (req, res) => { 
     getPremieres()
+    // создание главной страницы
      const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -5228,22 +5385,26 @@ p {
      $('#img_back').click(function() {
       window.location = '/'
     })
-    $('html').keyup(function(e){
+     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/'
+        /* назад */
+        window.location='/'
       }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    }) 
+    })  
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы) (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
+
  async function getCompilations() {
   try {
       // ----------------------- Делаем запрос для получения списка фильмов или сериалов -----------------------
@@ -5285,16 +5446,21 @@ p {
       const fetchVideosCompilations = async () => {
         try {
           const videosId = await fetchData;
-          const url = "http://localhost:8000/api/link";
+          // дальнейший код отображает страницу с сезонами и сериями для сериала
           videosId.results.map((item) => {
             let videos = [];
+            
+            // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
             let videoSeasonsArrays = item.episodes
               ? item.episodes
               : "no episodes";
+            // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdCompilations=" + item.kinopoisk_id, (req, res) => {
               let episodes = [];
+              // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
+                 // получение из запроса сезонов и эпизодов
                 for (let key of Object.keys(item.episodes)) {
                   const episodesArr = [];
                   seasonsArr.push(key);
@@ -5303,6 +5469,7 @@ p {
                   }
                   episodes.push(episodesArr);
                 }
+                // создание объекта для того чтобы отобразить эпизоды в дальнейшем
                 let items = episodes.map((value, seasonIndex) => {
                   let videoObject = value.map(
                     (element, episodeIndex) =>
@@ -5321,6 +5488,7 @@ p {
                   return videoObject.join("");
                 });
                 videos.push(items.join(""));
+                 // отображение страницы с плеером для определенного сериала с определенными эпизодом и сезоном
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
@@ -5332,22 +5500,27 @@ p {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          url,
                           res
                         );
                       }
                     );
                   });
                 });
-                fs.writeFileSync(
+                // создание файла с объектом выше для дальнейшего отображения каждой серии и сезона на странице
+                fs.writeFile(
                   "./js/pagesFunctions/compilations/serialSeasons.js",
                   `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.SerialSeasons = [${videos}]
   })();
-  `)
-                                  const episodesPageCompilations = `<!DOCTYPE html>
+  `,
+                  function (err) {
+                    if (err) {
+                      return console.log(err);
+                    } // проверка на ошибку
+                    // страница с сезонами и эпизодами
+                    const episodesPage = `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -5429,9 +5602,9 @@ h4,p {
     right: 500px;
     bottom: 500px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
-        }
+      border: 2px solid #fff;
+      background: black;
+      }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
@@ -5465,26 +5638,28 @@ h4,p {
     </div>
 </body>
 <script type="text/javascript">
-   $('html').keyup(function(e){
+    $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/compilations'
-    }
+        /* назад */
+        window.location='/compilations'
+      }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
     })  
 </script>
 </html>`;
-
-                    setTimeout(() => res.send(episodesPageCompilations), 500) // Отправка ответа в виде HTML
-                    
-
-                
+                    setTimeout(() => res.send(episodesPage), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
+                  }
+                );
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
-                getMp4Videos(item, ...[, ,], url, res);
+                // если фильм то сразу создаю страницу с плеером
+                getMp4Videos(item, ...[, ,], res);
               }
             });
           });
@@ -5497,10 +5672,11 @@ h4,p {
       async function sendFilms() {
         const movies = await showFilms();
         const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
         fs.writeFileSync(
           "./js/pagesFunctions/compilations/videos.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.videos = [
       ${movieItems}
@@ -5508,10 +5684,11 @@ h4,p {
   })();
   `
         );
+         // создаю файл для каждого фильма с информацией о фильме
         fs.writeFileSync(
           "./js/pagesFunctions/compilations/FilmPage.js",
           `(function () {
-    "use strict"
+    "use strict" // страница создана в файле index.js
 
     window.App.filmInfo = [
       ${movieItems}
@@ -5522,14 +5699,15 @@ h4,p {
       }
 
       sendFilms();
-      // получение данных с запроса и создание объекта с данными запроса
+      // обработка тех объектов постеров для отображения на странице 
       fs.writeFileSync(
         "./js/scenes/videosRender.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   var itemHtml = _.template('<div data-content="filmInfo" data-film="{{filmPageId}}" data-id="{{id}}" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;" class="movieitem navigation-item nav-item" data-type="{{type}}"><h4 class="mainMovieTitle">{{title}}</h4></div>');
     
+  // создание сцены с постерами
   window.App.scenes.video = {
     init: function () {
       this.$el = $(".js-scene-video");
@@ -5579,13 +5757,16 @@ h4,p {
 })();
     `
       );
+      // создаю файл с информацией о фильме
       fs.writeFileSync(
         "./js/scenes/filmInfo.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();$$nav.off()$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
+    // в конце переменной скрипт для перехода на страницу с сезонами и сериями
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
   
+  // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
     init: function () {
       this.$el = $(".js-scene-filmInfo");
@@ -5597,8 +5778,8 @@ h4,p {
     },
       onItemBackClick: function (e) {
       var scene = e.currentTarget.getAttribute("data-content");
-      $(".header").show();
-      window.App.showContent(scene);
+     $(".header").show();
+      window.App.showContent(scene); // показ сцены с постерами
     },
 
 
@@ -5626,15 +5807,16 @@ h4,p {
 })();
     `
       );
-       
+      // создаю файл с обработкой сезонов и серий
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
-  var _inited;
+  var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
-
+ //  в конце переменной скрипт для перехода на страницу с плеером
   var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show(); $$nav.off()});</script>')
   
+  // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
     init: function () {
       this.$el = $(".js-scene-serialSeasons");
@@ -5671,8 +5853,10 @@ h4,p {
     console.error(error);
   }
 }
+// отображение страницы подборок
  app.get("/compilations", (req, res) => { 
     getCompilations()
+    // создание главной страницы
      const message = `<!DOCTYPE html>
 <html lang="en">
 
@@ -6019,22 +6203,25 @@ margin: 0 30px 30px 0;}
    $('#img_back').click(function() {
       window.location = '/'
     })
-    $('html').keyup(function(e){
+     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        window.location = '/'
+        /* назад */
+        window.location='/'
       }
       if (e.keyCode === 38) {
+        /* вверх */
             $('.focus').get(0).scrollIntoView();
         } else if (e.keyCode === 40) {
+          /* вниз */
              $('.focus').get(0).scrollIntoView();
         }
-    }) 
+    })  
     
 
     </script>
 </body>
 </html>`;
-      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML (таймаут нужен для ожидания подгрузки фильмов или сериалов)
+      setTimeout(() => res.send(message), 500) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы) (таймаут нужен для ожидания подгрузки фильмов или сериалов)
  })
 
 
