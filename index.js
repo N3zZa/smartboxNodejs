@@ -9,6 +9,8 @@ app.use(express.static(__dirname));
 
 // API BAZON_TOKEN
 const API_TOKEN = process.env.BAZON_TOKEN;
+const IP_APIVIDEOS = '178.121.30.248'
+const APIVIDEOS_URL = `https://bazon.cc/api/playlist?token=${API_TOKEN}&kp=`
 
 const APIANIME_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&cat=аниме`;
 const APIFILMS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&`;
@@ -26,24 +28,19 @@ app.get("/", (req, res) => {
 function getMp4Videos(item, season, episode, url, res) {
   try {
     if (season) {
-      const requestData = {
-        name: item.info.rus,
-        year: item.info.year,
-        country: item.info.country,
-        season: season,
-        episode: episode,
-      };
-      console.log("rerequestData1", requestData);
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(requestData),
+      //console.log("сериал", requestData);
+      fetch(APIVIDEOS_URL + `${item.kinopoisk_id}&ref=&ip=${IP_APIVIDEOS}`, {
+        method: "GET",
         headers: { "Content-Type": "application/json" },
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
-          const link = jsonResponse.Link.videos;
-          const video = link["1080p"];
-          console.log('videoserial', video)
+          console.log('serial', jsonResponse.results[0])
+          const link = jsonResponse.results[0].playlists;
+          const seasonObj = link[`${season}`];
+          const episodeObj = seasonObj[`${episode}`]
+          const video = episodeObj['1080'] ? episodeObj['1080'] : episodeObj['720']
+          console.log('video', video)
           const playerPage = `<!DOCTYPE html>
 <html lang="">
 
@@ -134,24 +131,17 @@ body {
         })
         .catch((error) => console.error("getMp4Videos1", error));
     } else {
-      const requestData = {
-        name: item.info.rus,
-        year: item.info.year,
-        country: item.info.country,
-        season: 1,
-        episode: 1,
-      };
-      console.log("rerequestData2", requestData);
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(requestData),
+      //console.log("фильм", requestData);
+      fetch(APIVIDEOS_URL + `${item.kinopoisk_id}&ref=&ip=${IP_APIVIDEOS}`, {
+        method: "GET",
         headers: { "Content-Type": "application/json" },
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
-          const link = jsonResponse.Link.videos;
-          const video = link["1080p"];
-          console.log('videofilm', video)
+          console.log('film', jsonResponse.results[0])
+          const link = jsonResponse.results[0].playlists;
+          const video = link['2160'] ? link['2160'] : link['1080'] ? link['1080'] : link['720']
+          console.log('video', video)
           const playerPage = `<!DOCTYPE html>
 <html lang="en">
 
@@ -189,19 +179,13 @@ body {
 </body>
   <script type="text/javascript">
     var url = '${video.toString()}';
-    stb = gSTB;
+    var stb = gSTB;
     stb.InitPlayer();
-    var player = stbPlayerManager.list[0];
-    
-    gSTB.SetTopWin(0);
-    player.aspectConversion = 4;
-    player.videoWindowMode = 0;
-    // player.setViewport({x: 0, y: 500, width: 800, height: 600});
-    
-    player.play({
-        uri: url,
-        solution: 'auto'
-    });
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
     
     $('html').keyup(function(e){
       if (e.keyCode === 107) {
@@ -243,8 +227,8 @@ body {
           stb.SetMute(0)
         }
       }
-    })    
-</script>
+    })  
+  </script>
 </html>`;
 
           res.send(playerPage); // Отправка ответа в виде HTML
@@ -1344,7 +1328,7 @@ async function getAnime() {
           },
           `
           );
-          console.log(commits.results)
+          
           return items;
         } catch (error) {
           console.error(error);
@@ -2132,7 +2116,7 @@ async function getFilms() {
           },
           `
           );
-          console.log(commits.results)
+          
           return items;
         } catch (error) {
           console.error(error);
@@ -2921,7 +2905,7 @@ async function getSerials() {
           },
           `
           );
-          console.log(commits.results)
+          
           return items;
         } catch (error) {
           console.error(error);
@@ -3708,7 +3692,7 @@ async function getCartoons() {
           },
           `
           );
-          console.log(commits.results)
+          
           return items;
         } catch (error) {
           console.error(error);
@@ -4499,7 +4483,7 @@ p {
           },
           `
           );
-          console.log(commits.results)
+          
           return items;
         } catch (error) {
           console.error(error);
@@ -5291,7 +5275,7 @@ p {
           },
           `
           );
-          console.log(commits.results)
+          
           return items;
         } catch (error) {
           console.error(error);
