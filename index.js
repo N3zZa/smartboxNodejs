@@ -10,7 +10,7 @@ app.use(express.static(__dirname));
 // API BAZON_TOKEN
 const API_TOKEN = process.env.BAZON_TOKEN;
 // IP С БАЗОНА ДЛЯ ВИДЕОФАЙЛОВ ДЛЯ ВСТАВКИ В ПЕРЕМЕННУЮ APIVIDEOS_URL
-const IP_APIVIDEOS = '178.121.30.248'
+const IP_APIVIDEOS = '213.109.66.172'
 // ССЫЛКА НА АПИ ДЛЯ ЗАПРОСА НА ВИДЕОФАЙЛЫ
 const APIVIDEOS_URL = `https://bazon.cc/api/playlist?token=${API_TOKEN}&kp=`
 
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 // ------------------- Функция запрос для ПОЛУЧЕНИЕ ВИДЕОФАЙЛОВ -----------------------
-function getMp4Videos(item, season, episode, res) {
+function getMp4Videos(item, season, episode, res, pageName) {
   try {
     // ПРОВЕРКА НА СЕЗОНЫ ДЛЯ ТОГО, ЧТОБЫ ПРОВЕРЯТЬ НА СЕРИАЛ 
     if (season) {
@@ -39,15 +39,37 @@ function getMp4Videos(item, season, episode, res) {
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
-          console.log('serial', jsonResponse.results[0])
+          console.log('serial', jsonResponse.results)
           // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
-          const link = jsonResponse.results[0].playlists;
-          const seasonObj = link[`${season}`];
-          const episodeObj = seasonObj !== undefined ? seasonObj[`${episode}`] : 'no seasons' // проверка на присутствие эпизодов в запросе
-          // ниже делаю проверку на качество видео, чтобы давало лучшее из всех
-          const video = episodeObj['2160']  ? episodeObj['2160'] : episodeObj['1080'] ? episodeObj['1080'] : episodeObj['720'] ? episodeObj['720'] : episodeObj['480']
+
+           // --------------------------- код для получения фильма с лучшей озвучкой ---------------------------
+           const videoitemVideo = []
+          jsonResponse.results.map((item) => {
+            let videoItemText = videoitemVideo[0] ? false : true
+            if (videoItemText && (item.translation === 'Дубляж') ) {
+              videoitemVideo.push(item)
+              return item.translation
+            } else if (videoItemText && (item.translation === 'Многоголосый')) {
+              videoitemVideo.push(item)
+              return item.translation
+            } else if (videoItemText && jsonResponse.results[1].translation !== 'Дубляж' && jsonResponse.results[1].translation !== 'Многоголосый'){
+              videoitemVideo.push(item)
+              return item.translation
+            }
+          })
+          console.log('videoitemVideo', videoitemVideo)
+          const videoPlaylist = videoitemVideo[0].playlists
+          // --------------------------------------------------------------------------------------------------
+
+          const seasonObj = videoPlaylist[`${season}`]; // получаю сезоны
+          const episodeObj = seasonObj !== undefined ? seasonObj[`${episode}`] : 'no seasons' // проверка на присутствие эпизодов в запросе, если есть то получаю эпизод
+
+          // ----- ниже делаю проверку на качество видео, чтобы давало лучшее из всех -----
+          const video = episodeObj['1080'] ? episodeObj['1080'] : episodeObj['720'] ? episodeObj['720'] : episodeObj['480']
           console.log('videoURL', video)
-          // -------------------------------------------------------------------------------------------------------------------------------
+          videoitemVideo.splice(0, videoitemVideo.length); // обнуляю массив после выбора озвучки
+          // ------------------------------------------------------------------------------
+
           const playerPage = `<!DOCTYPE html>
 <html lang="">
 
@@ -86,14 +108,17 @@ body {
     var url = '${video ? video.toString() : 'no url'}'; 
     /* инициализация плеера */
     var stb = gSTB;
-    stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
     /* обработка нажатых клавиш */
     $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        console.log('keydown: back');
+        stb.Stop();
+        window.location='/${pageName}'
+      }
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        return false;
+      }
       if (e.keyCode === 107) {
         console.log('keydown: volume up');
         stb.SetVolume(stb.GetVolume() + 10)
@@ -110,11 +135,6 @@ body {
           console.log('keydown: play');
           stb.Continue();
         }
-      }
-      if (e.keyCode === 8) {
-        console.log('keydown: back');
-        stb.Stop();
-        window.location='/selectepisodeId=${item.kinopoisk_id}'
       }
       if (e.keyCode === 37) {
         console.log('keydown: left');
@@ -134,6 +154,12 @@ body {
         }
       }
     })  
+    stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
   </script>
 </body>
 </html>`;
@@ -149,13 +175,35 @@ body {
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
+          console.log('film', jsonResponse.results)
           // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
-          console.log('film', jsonResponse.results[0])
-          const link = jsonResponse.results[0].playlists;
-          // ниже делаю проверку на качество видео, чтобы давало лучшее из всех
-          const video = link['2160'] ? link['2160'] : link['1080'] ? link['1080'] : link['720'] ? link['720'] : link['480']
+          
+
+          // --------------------------- код для получения фильма с лучшей озвучкой ---------------------------
+           const videoitemVideo = []
+          jsonResponse.results.map((item) => {
+            let videoItemText = videoitemVideo[0] ? false : true
+            if (videoItemText && (item.translation === 'Дубляж') ) {
+              videoitemVideo.push(item)
+              return item.translation
+            } else if (videoItemText && (item.translation === 'Многоголосый')) {
+              videoitemVideo.push(item)
+              return item.translation
+            } else if (videoItemText && jsonResponse.results[1].translation !== 'Дубляж' && jsonResponse.results[1].translation !== 'Многоголосый'){
+              videoitemVideo.push(item)
+              return item.translation
+            }
+          })
+          console.log('videoitemVideo', videoitemVideo)
+          const videoPlaylist = videoitemVideo[0].playlists
+          // --------------------------------------------------------------------------------------------------
+
+          // ---- ниже делаю проверку на качество видео, чтобы давало лучшее из всех ----
+          const video = videoPlaylist['1080'] ? videoPlaylist['1080'] : videoPlaylist['720'] ? videoPlaylist['720'] : videoPlaylist['480']
           console.log('videoURL', video)
-          // -------------------------------------------------------------------------------------------------------------------------------
+          videoitemVideo.splice(0, videoitemVideo.length); // обнуляю массив после выбора озвучки
+          // ----------------------------------------------------------------------------
+
           // -------------------- страница с плеером --------------------
           const playerPage = `<!DOCTYPE html>
 <html lang="en">
@@ -196,14 +244,17 @@ body {
     var url = '${video.toString()}';
     /* инициализация плеера */
     var stb = gSTB;
-    stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
     /* обработка нажатых клавиш */
     $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        console.log('keydown: back');
+        stb.Stop();
+        window.location='/${pageName}'
+      }
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        return false;
+      }
       if (e.keyCode === 107) {
         console.log('keydown: volume up');
         stb.SetVolume(stb.GetVolume() + 10)
@@ -220,11 +271,6 @@ body {
           console.log('keydown: play');
           stb.Continue();
         }
-      }
-      if (e.keyCode === 8) {
-        console.log('keydown: back');
-        stb.Stop();
-        window.location='/selectepisodeId=${item.kinopoisk_id}'
       }
       if (e.keyCode === 37) {
         console.log('keydown: left');
@@ -244,6 +290,13 @@ body {
         }
       }
     })  
+    stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
+    
   </script>
 </html>`;
           // ------------------------------------------------------------
@@ -333,7 +386,8 @@ async function getSearchedMovie() {
                               searchedItem,
                               seasonIndex + 1,
                               episodeIndex + 1,
-                              res
+                              res,
+                              `searchedMovieEpisodes=${searchedItem.kinopoisk_id + index}`
                             );
                           }
                         );
@@ -497,7 +551,8 @@ async function getSearchedMovie() {
                      getMp4Videos(
                               searchedItem,
                               ...[, ,],
-                              res
+                              res,
+                              `searchItem?${searchedItem.info.rus}`
                             );
                   }
                 }
@@ -1435,7 +1490,8 @@ async function getAnime() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          res
+                          res,
+                          `selectepisodeIdAnime=${item.kinopoisk_id}`
                         );
                       }
                     );
@@ -1594,7 +1650,7 @@ h4,p {
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
                 // если фильм то сразу создаю страницу с плеером
-                getMp4Videos(item, ...[, ,], res);
+                getMp4Videos(item, ...[, ,], res, 'anime');
               }
             });
           });
@@ -2245,7 +2301,8 @@ async function getFilms() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          res
+                          res,
+                          `selectepisodeIdFilms=${item.kinopoisk_id}`
                         );
                       }
                     );
@@ -2404,7 +2461,7 @@ h4,p {
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
                 // если фильм то сразу создаю страницу с плеером
-                getMp4Videos(item, ...[, ,], res);
+                getMp4Videos(item, ...[, ,], res, 'films');
               }
             });
           });
@@ -3056,7 +3113,8 @@ async function getSerials() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          res
+                          res,
+                          `selectepisodeIdSerial=${item.kinopoisk_id}`
                         );
                       }
                     );
@@ -3215,7 +3273,7 @@ h4,p {
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
                 // если фильм то сразу создаю страницу с плеером
-                getMp4Videos(item, ...[, ,], res);
+                getMp4Videos(item, ...[, ,], res, 'serials');
               }
             });
           });
@@ -3870,7 +3928,8 @@ async function getCartoons() {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          res
+                          res,
+                          `selectepisodeIdCartoons=${item.kinopoisk_id}`
                         );
                       }
                     );
@@ -4029,7 +4088,7 @@ h4,p {
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
                 // если фильм то сразу создаю страницу с плеером
-                getMp4Videos(item, ...[, ,], res);
+                getMp4Videos(item, ...[, ,], res, 'cartoons');
               }
             });
           });
@@ -4685,7 +4744,8 @@ p {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          res
+                          res,
+                          `selectepisodeIdPremieres=${item.kinopoisk_id}`
                         );
                       }
                     );
@@ -4844,7 +4904,7 @@ h4,p {
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
                 // если фильм то сразу создаю страницу с плеером
-                getMp4Videos(item, ...[, ,], res);
+                getMp4Videos(item, ...[, ,], res, 'premieres');
               }
             });
           });
@@ -5500,7 +5560,8 @@ p {
                           item,
                           seasonIndex + 1,
                           episodeIndex + 1,
-                          res
+                          res,
+                          `selectepisodeIdCompilations=${item.kinopoisk_id}`
                         );
                       }
                     );
@@ -5659,7 +5720,7 @@ h4,p {
                 videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
               } else {
                 // если фильм то сразу создаю страницу с плеером
-                getMp4Videos(item, ...[, ,], res);
+                getMp4Videos(item, ...[, ,], res, 'compilations');
               }
             });
           });
