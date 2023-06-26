@@ -192,11 +192,6 @@
             height: 100%;
             z-index: 5;
         }
-        #log {
-            position: absolute;
-            top: 0;
-            color: red;
-        }
     </style>
 
     <script type="text/javascript" src="/src/libs/jquery-1.10.2.min.js"></script>
@@ -209,17 +204,48 @@
     <script>
         $(function () {
             $$nav.on(".navbar");
-            $('.navigation-item').click(function () {
-                window.location.href = $('.navigation-item.focus').attr('href')
+            var $_GET = {};
+
+            function decode(s) {
+                return decodeURIComponent(s.split("+").join(" "));
+            }
+            document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+                $_GET[decode(arguments[1])] = decode(arguments[2]);
             });
 
+            $('.navigation-item').click(function () {
+                window.location.href = $('.navigation-item.focus').attr('href');
+            });
+
+            $('html').keyup(function (e) {
+                if (e.keyCode === 8) {
+                    $('#quitApp_bg').show();
+                    $$nav.save();
+                    $$nav.on('.quitApp-menu');
+                }
+                if (e.keyCode === 27) {
+                    e.preventDefault();
+                    return false;
+                }
+            })
+
+
+            $("#quitAppCancel").click(function () {
+                $$nav.restore();
+                $("#quitApp_bg").hide();
+            });
+
+
+            $("#quitAppAccess").on("click", function () {
+                window.location = decodeURIComponent($_GET['referrer']);
+            })
         });
     </script>
 </head>
 
 <body>
     <div class="bg"></div>
-    <div class="quitAppBackground js-scene-popup"  id="quitApp_bg">
+    <div class="quitAppBackground js-scene-popup" id="quitApp_bg">
         <div class="quitApp_block">
             <div class="quitApp_wrap">
                 <h1>Выйти из приложения?</h1>
@@ -228,7 +254,7 @@
                     <p class="nav-item" id="quitAppCancel">Нет</p>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
     <div class="app">
         <div class="wrapper">
@@ -278,37 +304,6 @@
         compilations.addEventListener('click', function (event) {
             window.location = '/compilations'
         });
-    var $_GET = {};
-    function decode(s) {
-        return decodeURIComponent(s.split("+").join(" "));
-    }
-    $$log('1', $_GET[decode(arguments[1])] = decode(arguments[2]))
-
-    $("#quitAppCancel").click(function () {
-        $$nav.restore();
-        $("#quitApp_bg").hide();
-    });
-    let arg = document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
-        $_GET[decode(arguments[1])] = decode(arguments[2]);
-    });
-
-    $$log('2', arg)
-    $("#quitAppAccess").on("click", function () {
-        document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
-            $_GET[decode(arguments[1])] = decode(arguments[2]);
-        });
-        window.location = decodeURIComponent($_GET['referrer']);
-    })
-
-
-
-    $('html').keyup(function (e) {
-        if (e.keyCode === 8) {
-            $('#quitApp_bg').show();
-            $$nav.save();
-            $$nav.on('.quitApp-menu');
-        }
-    })
 
 
     </script>
