@@ -141,14 +141,6 @@ body {
           stb.Continue();
         }
       }
-      if (e.keyCode === 37) {
-        console.log('keydown: left');
-        stb.SetPosTime(stb.GetPosTime() - 10)
-      }
-      if (e.keyCode === 39) {
-        console.log('keydown: right');
-        stb.SetPosTime(stb.GetPosTime() + 10)
-      }
       if (e.keyCode === 192) {
         if (stb.GetMute() === 0) {
           console.log('keydown: mute');
@@ -276,14 +268,6 @@ body {
           console.log('keydown: play');
           stb.Continue();
         }
-      }
-      if (e.keyCode === 37) {
-        console.log('keydown: left');
-        stb.SetPosTime(stb.GetPosTime() - 10)
-      }
-      if (e.keyCode === 39) {
-        console.log('keydown: right');
-        stb.SetPosTime(stb.GetPosTime() + 10)
       }
       if (e.keyCode === 192) {
         if (stb.GetMute() === 0) {
