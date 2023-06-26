@@ -192,6 +192,35 @@
             height: 100%;
             z-index: 5;
         }
+        .waitPopup_block {
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
+    padding: 20px;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
     </style>
 
     <script type="text/javascript" src="/src/libs/jquery-1.10.2.min.js"></script>
@@ -213,6 +242,9 @@
                 $_GET[decode(arguments[1])] = decode(arguments[2]);
             });
 
+            $('#premieres').click(function () {
+                $('#waitPopup_bg').show();
+            });
             $('.navigation-item').click(function () {
                 window.location.href = $('.navigation-item.focus').attr('href');
             });
@@ -245,6 +277,13 @@
 
 <body>
     <div class="bg"></div>
+    <div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Загрузка...</h1>
+            </div>
+        </div>
+    </div>
     <div class="quitAppBackground js-scene-popup" id="quitApp_bg">
         <div class="quitApp_block">
             <div class="quitApp_wrap">

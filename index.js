@@ -23,7 +23,9 @@ const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=a
 const APIPREMIERES_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&kp=`;
 const APISEARCH_URL = `https://bazon.cc/api/search?token=${API_TOKEN}&title=`;
 
-const premiereVideos = ['4472721', '5072664', '4745766', '4477067', '927898' ]
+
+// Видео для премьер
+const premiereVideos = ['4472721', '5072664', '4745766', '4477067', '927898', '4948912', '4383782', '4703806', '1278935', '959062', '1267348', '5106348' ,'1318866' ,'4368100' ,'4437750' ]
 
 
 // ОТОБРАЖЕНИЕ ГЛАВНОЙ СТРАНИЦЫ
@@ -520,7 +522,7 @@ async function getSearchedMovie() {
                 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -1030,17 +1032,18 @@ p {
   color: white;
   font-size: 24px;
 }
-.waitPopup_block {
+    .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -1058,7 +1061,6 @@ p {
             z-index: 5;
         }
 
-
 </style>
 <body>
 
@@ -1067,7 +1069,7 @@ p {
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -1453,7 +1455,7 @@ searchPage();
           })
           .catch((err) => console.error("ошибка", err))
       if(i < premiereVideos.length - 1)  loopIt(i+1)
-    }, 150);
+    }, 180);
 }(i)
 loopIt(i)
     // ---------------------------------------------------------------------
@@ -1636,28 +1638,25 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-.waitPopup_block {
+    .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-      border: 2px solid #fff;
-      background: black;
-      }
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-        }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
         }
 
         .waitPopupBackground {
@@ -1667,13 +1666,17 @@ h4,p {
             height: 100%;
             z-index: 5;
         }
-</style>
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -2179,17 +2182,18 @@ p {
   color: white;
   font-size: 24px;
 }
-.waitPopup_block {
+    .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -2216,7 +2220,7 @@ p {
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -2257,7 +2261,7 @@ p {
     </script>
 </body>
 </html>`;
-res.send(message)}, 1200) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы СТАВИТЬ В ЗАВИСИМОСТИ ОТ КОЛИЧЕСТВА ФИЛЬМОВ) очень важно!!! 
+res.send(message)}, 2700) // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы СТАВИТЬ В ЗАВИСИМОСТИ ОТ КОЛИЧЕСТВА ФИЛЬМОВ) очень важно!!! 
 })
    
   } catch (error) {
@@ -2452,28 +2456,25 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-.waitPopup_block {
+    .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-      border: 2px solid #fff;
-      background: black;
-      }
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-        }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
         }
 
         .waitPopupBackground {
@@ -2483,13 +2484,17 @@ h4,p {
             height: 100%;
             z-index: 5;
         }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -3005,17 +3010,18 @@ p {
   font-size: 24px;
 }
 
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -3041,7 +3047,7 @@ p {
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -3271,28 +3277,25 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-      border: 2px solid #fff;
-      background: black;
-      }
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-        }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
         }
 
         .waitPopupBackground {
@@ -3302,13 +3305,17 @@ h4,p {
             height: 100%;
             z-index: 5;
         }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -3824,17 +3831,18 @@ p {
   color: white;
   font-size: 24px;
 }
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -3860,7 +3868,7 @@ p {
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -4091,28 +4099,25 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-      border: 2px solid #fff;
-      background: black;
-      }
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-        }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
         }
 
         .waitPopupBackground {
@@ -4122,13 +4127,17 @@ h4,p {
             height: 100%;
             z-index: 5;
         }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -4646,17 +4655,18 @@ p {
   font-size: 24px;
 }
 
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -4683,7 +4693,7 @@ p {
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -4914,28 +4924,25 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-      border: 2px solid #fff;
-      background: black;
-      }
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-        }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
         }
 
         .waitPopupBackground {
@@ -4945,13 +4952,17 @@ h4,p {
             height: 100%;
             z-index: 5;
         }
+         .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -5470,17 +5481,18 @@ p {
   font-size: 24px;
 }
 
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -5507,7 +5519,7 @@ p {
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -5741,28 +5753,25 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-      border: 2px solid #fff;
-      background: black;
-      }
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-        }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
         }
 
         .waitPopupBackground {
@@ -5772,13 +5781,17 @@ h4,p {
             height: 100%;
             z-index: 5;
         }
+         .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
@@ -6297,17 +6310,18 @@ margin: 0 30px 30px 0;}
   color: white;
   font-size: 24px;
 }
-.waitPopup_block {
+ .waitPopup_block {
     width: 350px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -6335,7 +6349,7 @@ margin: 0 30px 30px 0;}
 <div class="waitPopupBackground" id="waitPopup_bg">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
-                <h1>Дождитесь загрузки...</h1>
+                <h1>Загрузка...</h1>
             </div>
         </div>
 </div>
