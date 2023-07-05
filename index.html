@@ -149,13 +149,14 @@
             width: 350px;
             height: 200px;
             position: absolute;
-            top: 250px;
-            left: 380px;
-            right: 500px;
-            bottom: 500px;
+            top: 100px;
+            left: 400px;
+            right: 530px;
+            bottom: 600px;
             padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
 
         .quitApp_wrap {
@@ -182,7 +183,6 @@
 
         .quitApp-menu .focus {
             border: 2px solid yellow;
-            background-color: #290452;
         }
 
         .quitAppBackground {
@@ -192,19 +192,21 @@
             height: 100%;
             z-index: 5;
         }
+
         .waitPopup_block {
-    width: 350px;
-    height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
-    padding: 20px;
+            width: 350px;
+            height: 100px;
+            position: absolute;
+            top: 270px;
+            left: 410px;
+            right: 470px;
+            bottom: 480px;
+            padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
         }
+
         .waitPopup_wrap {
             display: flex;
             flex-direction: column;
@@ -221,6 +223,12 @@
             z-index: 5;
         }
 
+        #log {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: red;
+        }
     </style>
 
     <script type="text/javascript" src="/src/libs/jquery-1.10.2.min.js"></script>
@@ -231,14 +239,17 @@
     <script type="text/javascript" src="/js/scenes/navigation.js"></script>
 
     <script>
+        var stb;
         $(function () {
             $$nav.on(".navbar");
             var $_GET = {};
-
+            if (document.location.search !== '') {
+                window.name = document.location.search
+            }
             function decode(s) {
                 return decodeURIComponent(s.split("+").join(" "));
             }
-            document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+            window.name.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
                 $_GET[decode(arguments[1])] = decode(arguments[2]);
             });
 
@@ -255,12 +266,11 @@
                     $$nav.save();
                     $$nav.on('.quitApp-menu');
                 }
-                if (e.keyCode === 27) {
+                if (e.keyCode === 36) {
                     e.preventDefault();
                     return false;
                 }
             })
-
 
             $("#quitAppCancel").click(function () {
                 $$nav.restore();
@@ -271,6 +281,7 @@
             $("#quitAppAccess").on("click", function () {
                 window.location = decodeURIComponent($_GET['referrer']);
             })
+
         });
     </script>
 </head>

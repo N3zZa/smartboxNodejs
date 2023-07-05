@@ -46,24 +46,10 @@ function getMp4Videos(item, season, episode, res, pageName) {
         .then((jsonResponse) => {
           console.log('serial', jsonResponse.results)
           // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
-
-           // --------------------------- код для получения фильма с лучшей озвучкой ---------------------------
-           const videoitemVideo = []
-          jsonResponse.results.map((item) => {
-            let videoItemText = videoitemVideo[0] ? false : true
-            if (videoItemText && (item.translation === 'Дубляж') ) {
-              videoitemVideo.push(item)
-              return item.translation
-            } else if (videoItemText && (item.translation === 'Многоголосый')) {
-              videoitemVideo.push(item)
-              return item.translation
-            } else if (videoItemText && jsonResponse.results[1].translation !== 'Дубляж' && jsonResponse.results[1].translation !== 'Многоголосый'){
-              videoitemVideo.push(item)
-              return item.translation
-            }
-          })
-          console.log('videoitemVideo', videoitemVideo)
-          const videoPlaylist = videoitemVideo[0].playlists
+          jsonResponse.results.forEach((elem) => {
+            app.get("/player=" + elem.kinopoisk_id + `&${season}` + `&${episode}` + `&${encodeURI(elem.translation.replace(/[\(\)\s]/g,""))}`, (req, res) => {
+           const videoPlaylist = elem.playlists
+           console.log(elem)
           // --------------------------------------------------------------------------------------------------
 
           const seasonObj = videoPlaylist[`${season}`]; // получаю сезоны
@@ -72,9 +58,6 @@ function getMp4Videos(item, season, episode, res, pageName) {
           // ----- ниже делаю проверку на качество видео, чтобы давало лучшее из всех -----
           const video = episodeObj['1080'] ? episodeObj['1080'] : episodeObj['720'] ? episodeObj['720'] : episodeObj['480']
           console.log('videoURL', video)
-          videoitemVideo.splice(0, videoitemVideo.length); // обнуляю массив после выбора озвучки
-          // ------------------------------------------------------------------------------
-
           const playerPage = `<!DOCTYPE html>
 <html lang="">
 
@@ -98,14 +81,281 @@ function getMp4Videos(item, season, episode, res, pageName) {
 body {
   padding: 0;
   margin: 0;
+  background-image: ${(episodeObj === 'no seasons') ? 'url(../images/stars.png)' : ''};
+}
+h1 {
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+}
+</style>
+  
+<body>
+  <div class="wrap">
+    <div class="No episodes">
+      <h1>${(episodeObj === 'no seasons') ? 'Отсутствуют эпизоды с данной озвучкой' : ''}</h1> 
+    </div>
+  </div>
+  <script type="text/javascript">
+    /* дает ссылку если есть серии, no url если нет серий и выдает что нет эпизодов если нет серий выше */
+    var url = '${video ? video.toString() : ''}'; 
+    /* инициализация плеера */
+    var stb = gSTB;
+    /* обработка нажатых клавиш */
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        console.log('keydown: back');
+        stb.Stop();
+        window.location='/${pageName}'
+      }
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        return false;
+      }
+      if (e.keyCode === 107) {
+        console.log('keydown: volume up');
+        stb.SetVolume(stb.GetVolume() + 10)
+      }
+      if (e.keyCode === 109) {
+        console.log('keydown: volume down');
+        stb.SetVolume(stb.GetVolume() - 10)
+      }
+      if (e.keyCode === 13) {
+        if (stb.IsPlaying()) {
+          console.log('keydown: stop');
+          stb.Pause();
+        } else {
+          console.log('keydown: play');
+          stb.Continue();
+        }
+      }
+      if (e.keyCode === 192) {
+        if (stb.GetMute() === 0) {
+          console.log('keydown: mute');
+          stb.SetMute(1)
+        } else {
+          console.log('keydown: unmute');
+          stb.SetMute(0)
+        }
+      }
+    })  
+    stb.InitPlayer();
+    stb.SetPIG(1, 1, 0, 0);
+    stb.EnableServiceButton(true);
+    stb.EnableVKButton(false);
+    stb.SetTopWin(0);
+    stb.Play(url);
+  </script>
+</body>
+</html>`;
+          res.send(playerPage); // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
+        })
+        })
+           // --------------------------- код для получения фильмов с озвучками ---------------------------
+          let items = jsonResponse.results.map(
+            (element, i) =>
+              `<div id="${element.kinopoisk_id + i}" class="episodeBlock navigation-item nav-item">
+              <h4>${element.translation}</h4>
+              </div>
+              <script>
+              var selectEpisode${i} = document.getElementById("${element.kinopoisk_id + i}"); selectEpisode${i}.addEventListener("click", function (event) {document.location.href = "/player=${element.kinopoisk_id + `&${season}` + `&${episode}` + `${'&' + element.translation.replace(/[\(\)\s]/g,"")}`}"; $("#waitPopup_bg").show();$$nav.off()});
+              </script>`
+          );
+         
+        const translationsPage = `<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/mainApp.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+        
+</head>
+<style>
+body {
+  display: flex;
+  padding: 15px 0 0 0;
+  margin: 0;
+  background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
+
+.selectTranslation {
+  display:flex;
+  padding: 10px;
+  min-width: 500px;
+  max-width: 980px;
+  width: auto;
+  min-height: 300px
+  height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  width: 130px;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  border-radius: 5px;
+
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+    .waitPopup_block {
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
+    padding: 20px;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        </style>
+  
+<body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Загрузка...</h1>
+            </div>
+        </div>
+</div>
+  <div class="wrap">
+    <div class="selectTranslation navigation-items" data-nav_loop="true">
+    ${items}
+    </div>
+  </div>
+ 
+<script type="text/javascript">
+    $('html').keyup(function(e){
+      if (e.keyCode === 8) {
+        /* назад */
+        window.location='/${pageName}'
+      }
+      if (e.keyCode === 38) {
+        /* вверх */
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+          /* вниз */
+             $('.focus').get(0).scrollIntoView();
+        }
+    })  
+</script>
+</body>
+</html>`;
+        res.send(translationsPage)
+        
+        })
+        .catch((error) => console.error("getMp4Videos1", error));
+    } else {
+      //console.log("фильм", requestData);
+      fetch(APIVIDEOS_URL + `${item.kinopoisk_id}&ref=&ip=${IP_APIVIDEOS}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          console.log('film', jsonResponse.results)
+          // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
+          
+          jsonResponse.results.forEach((elem) => {
+            app.get("/player=" + elem.kinopoisk_id + `&${encodeURI(elem.translation.replace(/[\(\)\s]/g,""))}`, (req, res) => {
+           const videoPlaylist = elem.playlists
+           console.log(elem)
+          // ----- ниже делаю проверку на качество видео, чтобы давало лучшее из всех -----
+          const video = videoPlaylist['1080'] ? videoPlaylist['1080'] : videoPlaylist['720'] ? videoPlaylist['720'] : videoPlaylist['480']
+          console.log('videoURL', video)
+          const playerPage = `<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tv</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
+        rel="stylesheet">
+        <script type="text/javascript" src="src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="js/lib/smartbox.js"></script>
+        
+        
+</head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+  background-image: ${(video) ? 'url(../images/stars.png)' : ''};
+}
+h1 {
+      color: #fff;
+      font-family: 'Inter', sans-serif;
 }
 
 </style>
   
 <body>
   <div class="wrap">
-    <div class="No episodes">
-      <h1>${(episodeObj === 'no seasons') ? 'Отсутствуют эпизоды' : ''}</h1> 
+  <div class="No episodes">
+      <h1>${(video) ? 'Нет фильма с такой озвучкой' : ''}</h1> 
     </div>
   </div>
   <script type="text/javascript">
@@ -160,50 +410,22 @@ body {
   </script>
 </body>
 </html>`;
-
           res.send(playerPage); // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
         })
-        .catch((error) => console.error("getMp4Videos1", error));
-    } else {
-      //console.log("фильм", requestData);
-      fetch(APIVIDEOS_URL + `${item.kinopoisk_id}&ref=&ip=${IP_APIVIDEOS}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          console.log('film', jsonResponse.results)
-          // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
-          
-
+        })
           // --------------------------- код для получения фильма с лучшей озвучкой ---------------------------
-           const videoitemVideo = []
-          jsonResponse.results.map((item) => {
-            let videoItemText = videoitemVideo[0] ? false : true
-            if (videoItemText && (item.translation === 'Дубляж') ) {
-              videoitemVideo.push(item)
-              return item.translation
-            } else if (videoItemText && (item.translation === 'Многоголосый')) {
-              videoitemVideo.push(item)
-              return item.translation
-            } else if (videoItemText && jsonResponse.results[1].translation !== 'Дубляж' && jsonResponse.results[1].translation !== 'Многоголосый'){
-              videoitemVideo.push(item)
-              return item.translation
-            }
-          })
-          console.log('videoitemVideo', videoitemVideo)
-          const videoPlaylist = videoitemVideo[0].playlists
-          // --------------------------------------------------------------------------------------------------
-
-          // ---- ниже делаю проверку на качество видео, чтобы давало лучшее из всех ----
-          const video = videoPlaylist['1080'] ? videoPlaylist['1080'] : videoPlaylist['720'] ? videoPlaylist['720'] : videoPlaylist['480']
-          console.log('videoURL', video)
-          videoitemVideo.splice(0, videoitemVideo.length); // обнуляю массив после выбора озвучки
-          // ----------------------------------------------------------------------------
-
-          // -------------------- страница с плеером --------------------
-          const playerPage = `<!DOCTYPE html>
-<html lang="en">
+          let items = jsonResponse.results.map(
+            (element, i) =>
+              `<div id="${element.kinopoisk_id + i}" class="episodeBlock navigation-item nav-item">
+              <h4>${element.translation}</h4>
+              </div>
+              <script>
+              var selectEpisode${i} = document.getElementById("${element.kinopoisk_id + i}"); selectEpisode${i}.addEventListener("click", function (event) {document.location.href = "/player=${element.kinopoisk_id + `${'&' + element.translation.replace(/[\(\)\s]/g,"")}`}"; $("#waitPopup_bg").show();$$nav.off()});
+              </script>`
+          );
+         
+         const translationsPage = `<!DOCTYPE html>
+<html lang="">
 
 <head>
     <meta charset="UTF-8">
@@ -214,82 +436,134 @@ body {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Nunito+Sans:wght@200&display=swap"
         rel="stylesheet">
-        <script type="text/javascript" src="../../src/libs/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="../../src/libs/lodash.compat.min.js"></script>
-        <script type="text/javascript" src="../../src/libs/event_emitter.js"></script>
-        <script type="text/javascript" src="../../js/lib/smartbox.js"></script>
-      
+        <script type="text/javascript" src="../src/libs/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
+        <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
+        <script type="text/javascript" src="../js/lib/smartbox.js"></script>
+        <script type="text/javascript" src="../js/mainApp.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+        
 </head>
 <style>
 body {
-  padding: 0;
+  display: flex;
+  padding: 15px 0 0 0;
   margin: 0;
-}
-.wrap {
-  width: 100%;
-  height: 100%;
+  background-image: url(../images/stars.png);
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-</style>
+h4,p {
+  color: white;
+}
+.focus {
+  outline: 3px solid yellow;
+}
 
+.selectTranslation {
+  display:flex;
+  padding: 10px;
+  min-width: 500px;
+  max-width: 980px;
+  width: auto;
+  min-height: 300px
+  height: auto;
+  background: rgba(0, 0, 0, 0.685);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.episodeBlock {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  background: #a200ff;
+  border-radius: 5px;
+  width: 130px;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  border-radius: 5px;
+
+}
+.episodeBlock h4 {
+  font-weight: bold;
+  margin-right: 3px;
+}
+    .waitPopup_block {
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    top: 270px;
+    left: 410px;
+    right: 470px;
+    bottom: 480px;
+    padding: 20px;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .waitPopup_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .waitPopupBackground {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        </style>
+  
 <body>
+<div class="waitPopupBackground" id="waitPopup_bg">
+        <div class="waitPopup_block" id="waitPopup_block">
+            <div class="waitPopup_wrap">
+                <h1>Загрузка...</h1>
+            </div>
+        </div>
+</div>
   <div class="wrap">
-    
+    <div class="selectTranslation navigation-items" data-nav_loop="true">
+    ${items}
+    </div>
   </div>
-</body>
-  <script type="text/javascript">
-    var url = '${video.toString()}';
-    /* инициализация плеера */
-    var stb = gSTB;
-    /* обработка нажатых клавиш */
+ 
+<script type="text/javascript">
     $('html').keyup(function(e){
       if (e.keyCode === 8) {
-        console.log('keydown: back');
-        stb.Stop();
+        /* назад */
         window.location='/${pageName}'
       }
-      if (e.keyCode === 27) {
-        e.preventDefault();
-        return false;
-      }
-      if (e.keyCode === 107) {
-        console.log('keydown: volume up');
-        stb.SetVolume(stb.GetVolume() + 10)
-      }
-      if (e.keyCode === 109) {
-        console.log('keydown: volume down');
-        stb.SetVolume(stb.GetVolume() - 10)
-      }
-      if (e.keyCode === 13) {
-        if (stb.IsPlaying()) {
-          console.log('keydown: stop');
-          stb.Pause();
-        } else {
-          console.log('keydown: play');
-          stb.Continue();
+      if (e.keyCode === 38) {
+        /* вверх */
+            $('.focus').get(0).scrollIntoView();
+        } else if (e.keyCode === 40) {
+          /* вниз */
+             $('.focus').get(0).scrollIntoView();
         }
-      }
-      if (e.keyCode === 192) {
-        if (stb.GetMute() === 0) {
-          console.log('keydown: mute');
-          stb.SetMute(1)
-        } else {
-          console.log('keydown: unmute');
-          stb.SetMute(0)
-        }
-      }
     })  
-    stb.InitPlayer();
-    stb.SetPIG(1, 1, 0, 0);
-    stb.EnableServiceButton(true);
-    stb.EnableVKButton(false);
-    stb.SetTopWin(0);
-    stb.Play(url);
-    
-  </script>
+</script>
+</body>
 </html>`;
-          // ------------------------------------------------------------
-          res.send(playerPage); // Отправка ответа в виде HTML(setTimeout для того чтобы обновляло данные страницы)
+        res.send(translationsPage)
+        
+         
         })
         .catch((error) => console.error("getMp4Videos2", error)); 
     }
@@ -367,7 +641,7 @@ async function getSearchedMovie() {
                     episodes.map((value, seasonIndex) => {
                       value.map((element, episodeIndex) => {
                         app.get(
-                          "/player=" +
+                          "/getTranslations=" +
                             searchedItem.kinopoisk_id +
                             `&${seasonIndex + 1}&${episodeIndex + 1}`,
                           (req, res) => {
@@ -541,12 +815,20 @@ async function getSearchedMovie() {
                     videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
                   } else {
                     // если фильм то сразу создаю страницу с плеером
-                     getMp4Videos(
+                    console.log('ep')
+                    app.get(
+                          "/getTranslations=" +
+                            searchedItem.kinopoisk_id +
+                            `&${seasonIndex + 1}&${episodeIndex + 1}`,
+                          (req, res) => {
+                            getMp4Videos(
                               searchedItem,
                               ...[, ,],
                               res,
                               `searchItem?${searchedItem.info.rus}`
                             );
+                          }
+                        );
                   }
                 }
               );
@@ -701,7 +983,7 @@ async function getSearchedMovie() {
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
 
   // в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
@@ -1073,10 +1355,6 @@ p {
       if (e.keyCode === 8) {
         /* назад */
         window.location='/search'
-      }
-      if (e.keyCode === 27) {
-        e.preventDefault();
-        return false;
       }
       if (e.keyCode === 38) {
         /* вверх */
@@ -1520,7 +1798,7 @@ loopIt(i)
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
-                      "/player=" +
+                      "/getTranslations=" +
                         item[0].kinopoisk_id +
                         `&${seasonIndex + 1}&${episodeIndex + 1}`,
                       (req, res) => {
@@ -1843,7 +2121,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
  //  в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
@@ -2339,7 +2617,7 @@ async function getAnime() {
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
-                      "/player=" +
+                      "/getTranslations=" +
                         item.kinopoisk_id +
                         `&${seasonIndex + 1}&${episodeIndex + 1}`,
                       (req, res) => {
@@ -2667,7 +2945,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
  //  в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
@@ -3160,7 +3438,7 @@ async function getFilms() {
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
-                      "/player=" +
+                      "/getTranslations=" +
                         item.kinopoisk_id +
                         `&${seasonIndex + 1}&${episodeIndex + 1}`,
                       (req, res) => {
@@ -3488,7 +3766,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
  //  в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
@@ -3982,7 +4260,7 @@ async function getSerials() {
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
-                      "/player=" +
+                      "/getTranslations=" +
                         item.kinopoisk_id +
                         `&${seasonIndex + 1}&${episodeIndex + 1}`,
                       (req, res) => {
@@ -4310,7 +4588,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
  //  в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
@@ -4807,7 +5085,7 @@ async function getCartoons() {
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
-                      "/player=" +
+                      "/getTranslations=" +
                         item.kinopoisk_id +
                         `&${seasonIndex + 1}&${episodeIndex + 1}`,
                       (req, res) => {
@@ -5135,7 +5413,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
  //  в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
@@ -5636,7 +5914,7 @@ p {
                 episodes.map((value, seasonIndex) => {
                   value.map((element, episodeIndex) => {
                     app.get(
-                      "/player=" +
+                      "/getTranslations=" +
                         item.kinopoisk_id +
                         `&${seasonIndex + 1}&${episodeIndex + 1}`,
                       (req, res) => {
@@ -5958,13 +6236,14 @@ h4,p {
     `
       );
       // создаю файл с обработкой сезонов и серий
+      
       fs.writeFileSync(
         "./js/scenes/filmSeasons.js",
         `(function () {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
  //  в конце переменной скрипт для перехода на страницу с плеером
-  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/player={{id}}"; $("#waitPopup_bg").show(); $$nav.off()});</script>')
+  var seasonItems = _.template('<div id="{{id}}" data-content="serialSeasons" class="episodeBlock navigation-item nav-item" data-season="{{season}}" data-episode="{{episode}}"><h4>{{season}}</h4><p>{{episode}}</p></div><script>var selectEpisode = document.getElementById("{{id}}"); selectEpisode.addEventListener("click", function (event) {document.location.href = "/getTranslations={{id}}"; $("#waitPopup_bg").show(); $$nav.off()});</script>')
   
   // создание сцены с сезонами и сериями
   window.App.scenes.SerialSeasons = {
