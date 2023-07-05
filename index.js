@@ -46,11 +46,10 @@ function getMp4Videos(item, season, episode, res, pageName) {
         .then((jsonResponse) => {
           console.log('serial', jsonResponse.results)
           // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
-          jsonResponse.results.forEach((elem) => {
+          jsonResponse.results.forEach((elem) => { //перебор массива озвучек и создание страницы для каждой
             app.get("/player=" + elem.kinopoisk_id + `&${season}` + `&${episode}` + `&${encodeURI(elem.translation.replace(/[\(\)\s]/g,""))}`, (req, res) => {
            const videoPlaylist = elem.playlists
            console.log(elem)
-          // --------------------------------------------------------------------------------------------------
 
           const seasonObj = videoPlaylist[`${season}`]; // получаю сезоны
           const episodeObj = seasonObj !== undefined ? seasonObj[`${episode}`] : 'no seasons' // проверка на присутствие эпизодов в запросе, если есть то получаю эпизод
@@ -151,17 +150,81 @@ h1 {
         })
         })
            // --------------------------- код для получения фильмов с озвучками ---------------------------
+              const showFilms = async () => {
+        try {
           let items = jsonResponse.results.map(
-            (element, i) =>
-              `<div id="${element.kinopoisk_id + i}" class="episodeBlock navigation-item nav-item">
-              <h4>${element.translation}</h4>
-              </div>
-              <script>
-              var selectEpisode${i} = document.getElementById("${element.kinopoisk_id + i}"); selectEpisode${i}.addEventListener("click", function (event) {document.location.href = "/player=${element.kinopoisk_id + `&${season}` + `&${episode}` + `${'&' + element.translation.replace(/[\(\)\s]/g,"")}`}"; $("#waitPopup_bg").show();$$nav.off()});
-              </script>`
+            (element, index) =>
+              `{
+            id: '${element.kinopoisk_id + index}',
+            translation: '${element.translation}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}',
+            playerUrl: '/player=${element.kinopoisk_id + `&${season}` + `&${episode}` + `${'&' + element.translation.replace(/[\(\)\s]/g,"")}`}',
+          },
+          `
           );
+          
+          return items;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+       async function sendFilms() {
+        const movies = await showFilms();
+        const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
+        fs.writeFileSync(
+          "./js/pagesFunctions/translationList.js",
+          `(function () {
+    "use strict" // страница создана в файле index.js
+
+    window.App.translations = [
+      ${movieItems}
+    ] 
+  })();
+  `
+        );
+      }
+      sendFilms()
+      fs.writeFileSync(
+        "./js/scenes/translations.js",
+        `(function () {
+  var _inited; // страница создана в файле index.js
+    _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+ //  в конце переменной скрипт для перехода на страницу с плеером
+  var translationItems = _.template('<div id="{{id}}" class="episodeBlock navigation-item nav-item"><h4>{{translation}}</h4></div><script>var selectEpisode{{id}} = document.getElementById("{{id}}"); selectEpisode{{id}}.addEventListener("click", function (event) {document.location.href = "{{playerUrl}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  
+  // создание сцены с сезонами и сериями
+  window.App.scenes.translations = {
+    init: function () {
+      this.$el = $(".js-scene-translation");
+      this.renderItems(App.translations);
+      _inited = true;
+    },
+
+    show: function () {
+      if (!_inited) {
+        this.init();
+      }
+      this.$el.show();
+    },
+    hide: function () {
+      this.$el.hide();
+    },
+    renderItems: function (items) {
+      var translationshtml = "";
+     console.log('items', items)
+      for (var i = 0, len = items.length; i < len; i++) {
+        translationshtml += translationItems(items[i]);
+      }
+      this.$el.empty().html(translationshtml);
+    },
+  };
+})();
+    `
+      );
+
          
-        const translationsPage = `<!DOCTYPE html>
+         const translationsPage = `<!DOCTYPE html>
 <html lang="">
 
 <head>
@@ -177,8 +240,10 @@ h1 {
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/mainApp.js"></script>
-        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+        <script type="text/javascript" src="../js/translationsMain.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/translationList.js"></script>
+        <script type="text/javascript" src="../js/scenes/translations.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script
         
 </head>
 <style>
@@ -276,8 +341,7 @@ h4,p {
         </div>
 </div>
   <div class="wrap">
-    <div class="selectTranslation navigation-items" data-nav_loop="true">
-    ${items}
+    <div class="selectTranslation navigation-items scene js-scene-translation" data-nav_loop="true">
     </div>
   </div>
  
@@ -298,7 +362,7 @@ h4,p {
 </script>
 </body>
 </html>`;
-        res.send(translationsPage)
+        res.send(translationsPage) // отправка html страницы
         
         })
         .catch((error) => console.error("getMp4Videos1", error));
@@ -313,7 +377,7 @@ h4,p {
           console.log('film', jsonResponse.results)
           // -------------------------- дальнейший код получает ссылку на видеофайл(ссылка в переменной video) -----------------------------
           
-          jsonResponse.results.forEach((elem) => {
+          jsonResponse.results.forEach((elem) => { //перебор массива озвучек и создание страницы для каждой
             app.get("/player=" + elem.kinopoisk_id + `&${encodeURI(elem.translation.replace(/[\(\)\s]/g,""))}`, (req, res) => {
            const videoPlaylist = elem.playlists
            console.log(elem)
@@ -343,7 +407,7 @@ h4,p {
 body {
   padding: 0;
   margin: 0;
-  background-image: ${(video) ? 'url(../images/stars.png)' : ''};
+  background-image: ${(video === undefined) ? 'url(../images/stars.png)' : ''};
 }
 h1 {
       color: #fff;
@@ -355,12 +419,12 @@ h1 {
 <body>
   <div class="wrap">
   <div class="No episodes">
-      <h1>${(video) ? 'Нет фильма с такой озвучкой' : ''}</h1> 
+      <h1>${(video === undefined) ? 'Нет фильма с такой озвучкой' : ''}</h1> 
     </div>
   </div>
   <script type="text/javascript">
     /* дает ссылку если есть серии, no url если нет серий и выдает что нет эпизодов если нет серий выше */
-    var url = '${video ? video.toString() : 'no url'}'; 
+    var url = '${video ? video.toString() : ''}'; 
     /* инициализация плеера */
     var stb = gSTB;
     /* обработка нажатых клавиш */
@@ -414,15 +478,79 @@ h1 {
         })
         })
           // --------------------------- код для получения фильма с лучшей озвучкой ---------------------------
+            const showFilms = async () => {
+        try {
           let items = jsonResponse.results.map(
-            (element, i) =>
-              `<div id="${element.kinopoisk_id + i}" class="episodeBlock navigation-item nav-item">
-              <h4>${element.translation}</h4>
-              </div>
-              <script>
-              var selectEpisode${i} = document.getElementById("${element.kinopoisk_id + i}"); selectEpisode${i}.addEventListener("click", function (event) {document.location.href = "/player=${element.kinopoisk_id + `${'&' + element.translation.replace(/[\(\)\s]/g,"")}`}"; $("#waitPopup_bg").show();$$nav.off()});
-              </script>`
+            (element, index) =>
+              `{
+            id: '${element.kinopoisk_id + index}',
+            translation: '${element.translation}',
+            status: '${element.serial === '1' ? 'serial' : 'film'}',
+            playerUrl: '/player=${element.kinopoisk_id + `${'&' + element.translation.replace(/[\(\)\s]/g,"")}`}',
+          },
+          `
           );
+          
+          return items;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+       async function sendFilms() {
+        const movies = await showFilms();
+        const movieItems = movies.join("");
+        // создаю файл с объектами постеров для отображения на странице
+        fs.writeFileSync(
+          "./js/pagesFunctions/translationList.js",
+          `(function () {
+    "use strict" // страница создана в файле index.js
+
+    window.App.translations = [
+      ${movieItems}
+    ] 
+  })();
+  `
+        );
+      }
+      sendFilms()
+      fs.writeFileSync(
+        "./js/scenes/translations.js",
+        `(function () {
+  var _inited; // страница создана в файле index.js
+    _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
+ //  в конце переменной скрипт для перехода на страницу с плеером
+  var translationItems = _.template('<div id="{{id}}" class="episodeBlock navigation-item nav-item"><h4>{{translation}}</h4></div><script>var selectEpisode{{id}} = document.getElementById("{{id}}"); selectEpisode{{id}}.addEventListener("click", function (event) {document.location.href = "{{playerUrl}}"; $("#waitPopup_bg").show();$$nav.off()});</script>')
+  
+  // создание сцены с сезонами и сериями
+  window.App.scenes.translations = {
+    init: function () {
+      this.$el = $(".js-scene-translation");
+      this.renderItems(App.translations);
+      _inited = true;
+    },
+
+    show: function () {
+      if (!_inited) {
+        this.init();
+      }
+      this.$el.show();
+    },
+    hide: function () {
+      this.$el.hide();
+    },
+    renderItems: function (items) {
+      var translationshtml = "";
+     console.log('items', items)
+      for (var i = 0, len = items.length; i < len; i++) {
+        translationshtml += translationItems(items[i]);
+      }
+      this.$el.empty().html(translationshtml);
+    },
+  };
+})();
+    `
+      );
+
          
          const translationsPage = `<!DOCTYPE html>
 <html lang="">
@@ -440,8 +568,10 @@ h1 {
         <script type="text/javascript" src="../src/libs/lodash.compat.min.js"></script>
         <script type="text/javascript" src="../src/libs/event_emitter.js"></script>
         <script type="text/javascript" src="../js/lib/smartbox.js"></script>
-        <script type="text/javascript" src="../js/mainApp.js"></script>
-        <script type="text/javascript" src="../js/scenes/navigation.js"></script>
+        <script type="text/javascript" src="../js/translationsMain.js"></script>
+        <script type="text/javascript" src="../js/pagesFunctions/translationList.js"></script>
+        <script type="text/javascript" src="../js/scenes/translations.js"></script>
+        <script type="text/javascript" src="../js/scenes/navigation.js"></script
         
 </head>
 <style>
@@ -539,8 +669,7 @@ h4,p {
         </div>
 </div>
   <div class="wrap">
-    <div class="selectTranslation navigation-items" data-nav_loop="true">
-    ${items}
+    <div class="selectTranslation navigation-items scene js-scene-translation" data-nav_loop="true">
     </div>
   </div>
  
@@ -562,8 +691,6 @@ h4,p {
 </body>
 </html>`;
         res.send(translationsPage)
-        
-         
         })
         .catch((error) => console.error("getMp4Videos2", error)); 
     }
