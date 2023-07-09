@@ -262,9 +262,19 @@ body {
   background-image: url(../images/stars.png);
   justify-content: center;
 }
+.wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  text-align: center;
+}
 
-h4,p {
+h4,p, h1 {
   color: white;
+  font-family: 'Inter', sans-serif;
 }
 .focus {
   outline: 3px solid yellow;
@@ -289,12 +299,12 @@ h4,p {
   background: #a200ff;
   border-radius: 5px;
   width: 250px;
-  height: 80px;
+  height: 50px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
   border-radius: 5px;
-  padding: 35px;
+  padding: 20px 35px;
   font-size: 24px;
   text-align: center;
 }
@@ -302,13 +312,14 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-    .waitPopup_block {
+   .waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -321,8 +332,6 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -331,26 +340,19 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
         </style>
   
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
         </div>
-        </div>
 </div>
   <div class="wrap">
+    <h1>Выберите, пожалуйста, озвучку</h1>
     <div class="selectTranslation navigation-items scene js-scene-translation" data-nav_loop="true">
     </div>
   </div>
@@ -600,9 +602,18 @@ body {
   background-image: url(../images/stars.png);
   justify-content: center;
 }
-
-h4,p {
+.wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  text-align: center;
+}
+h4,p, h1 {
   color: white;
+  font-family: 'Inter', sans-serif;
 }
 .focus {
   outline: 3px solid yellow;
@@ -627,12 +638,12 @@ h4,p {
   background: #a200ff;
   border-radius: 5px;
   width: 250px;
-  height: 80px;
+  height: 50px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
   border-radius: 5px;
-  padding: 35px;
+  padding: 20px 35px;
   font-size: 24px;
    text-align: center;
 }
@@ -640,27 +651,19 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-    .waitPopup_block {
+   .waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
-        }
-        .waitPopup_wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            margin: 180px 0 0 130px;
         }
 
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -669,26 +672,19 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
         </style>
   
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
         </div>
-        </div>
 </div>
   <div class="wrap">
+  <h1>Выберите, пожалуйста, озвучку</h1>
     <div class="selectTranslation navigation-items scene js-scene-translation" data-nav_loop="true">
     </div>
   </div>
@@ -845,6 +841,7 @@ async function getSearchedMovie() {
                   padding: 15px 0 0 0;
                   margin: 0;
                   align-items: center;
+                  background-image: url(../images/stars.png);
                   justify-content: center;
                   position: relative;
                 }
@@ -886,13 +883,14 @@ async function getSearchedMovie() {
                   font-weight: bold;
                   margin-right: 3px;
                 }
-                .waitPopup_block {
+               .waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -904,9 +902,8 @@ async function getSearchedMovie() {
 
         .waitPopupBackground {
             display: none;
+            top: 0;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -915,23 +912,15 @@ async function getSearchedMovie() {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
                 </style>
                 
                 <body>
                 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
                       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -1458,6 +1447,7 @@ p {
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -1468,10 +1458,9 @@ p {
         }
 
         .waitPopupBackground {
+            top: 0;
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -1480,13 +1469,7 @@ p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 
 </style>
 <body>
@@ -1494,12 +1477,10 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -2065,6 +2046,7 @@ h4,p {
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -2087,23 +2069,15 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
         </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -2619,6 +2593,7 @@ p {
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -2631,8 +2606,6 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -2641,13 +2614,7 @@ p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 
 
 </style>
@@ -2656,12 +2623,10 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -2891,13 +2856,14 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
-    .waitPopup_block {
+   .waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -2910,8 +2876,6 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -2920,23 +2884,15 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -3726,13 +3682,14 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
- .waitPopup_block {
+.waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -3745,8 +3702,6 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -3755,23 +3710,15 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -4562,13 +4509,14 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
- .waitPopup_block {
+.waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -4581,8 +4529,6 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -4591,23 +4537,15 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -5401,13 +5339,14 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
- .waitPopup_block {
+.waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -5420,8 +5359,6 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -5430,23 +5367,15 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -6244,13 +6173,14 @@ h4,p {
   font-weight: bold;
   margin-right: 3px;
 }
- .waitPopup_block {
+.waitPopup_block {
     width: 350px;
     height: 100px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
+            margin: 180px 0 0 130px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -6263,8 +6193,6 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
-            align-items:center;
-            justify-content: center;
             width: 1280px;
             height: 720px;
             z-index: 5;
@@ -6273,23 +6201,15 @@ h4,p {
           color: white;
           font-family: 'Inter', sans-serif;
         }
-        #waitpopup_wrap {
-          display:flex;
-          width: 100%;
-          height: 100%;
-          align-items:center;
-          justify-content: center;
-        }
+        
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
-        <div id="waitpopup_wrap">
-        <div class="waitPopup_block" id="waitPopup_block">
+       <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
-        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
