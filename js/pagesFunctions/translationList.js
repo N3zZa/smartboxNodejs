@@ -3,10 +3,10 @@
 
     window.App.translations = [
       {
-            id: '3776400',
+            id: '46458900',
             translation: 'Многоголосый',
             status: 'film',
-            playerUrl: '/player=377640&Многоголосый',
+            playerUrl: '/player=4645890&Многоголосый',
           },
           
     ] 

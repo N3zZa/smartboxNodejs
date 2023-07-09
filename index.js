@@ -259,9 +259,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -279,10 +278,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: center;
 }
@@ -328,8 +323,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -602,9 +597,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -622,10 +616,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: center;
 }
@@ -671,8 +661,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -874,10 +864,6 @@ async function getSearchedMovie() {
                   width: auto;
                   min-height: 300px
                   height: auto;
-                  background: rgba(0, 0, 0, 0.685);
-                    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-                  border: 2px solid #fff;
-                  border-radius: 10px;
                   flex-wrap: wrap;
                   align-content: flex-start;
                 }
@@ -921,8 +907,8 @@ async function getSearchedMovie() {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -1099,7 +1085,7 @@ async function getSearchedMovie() {
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   
   // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="350" height="100" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
  
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -1486,8 +1472,8 @@ p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -2031,9 +2017,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -2051,10 +2036,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -2098,8 +2079,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+           width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -2257,7 +2238,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="350" height="100" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -2652,8 +2633,8 @@ p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -2869,9 +2850,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -2889,10 +2869,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -2936,8 +2912,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -3100,7 +3076,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130"src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="350" height="100"src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -3499,8 +3475,8 @@ p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -3709,9 +3685,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -3729,10 +3704,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -3776,8 +3747,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -3940,7 +3911,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130"src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="350" height="100"src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -4339,8 +4310,8 @@ p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -4550,9 +4521,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -4570,10 +4540,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -4617,8 +4583,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -4781,7 +4747,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="350" height="100" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -5182,8 +5148,8 @@ p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -5394,9 +5360,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -5414,10 +5379,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -5461,8 +5422,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -5625,7 +5586,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="350" height="100" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -6027,8 +5988,8 @@ p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -6242,9 +6203,8 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  align-items: center;
+  background-image: url(../images/stars.png);
   justify-content: center;
-  position: relative;
 }
 
 h4,p {
@@ -6262,10 +6222,6 @@ h4,p {
   width: auto;
   min-height: 300px
   height: auto;
-  background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  border-radius: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
 }
@@ -6309,8 +6265,8 @@ h4,p {
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
@@ -6473,7 +6429,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="350" height="100" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -6876,8 +6832,8 @@ margin: 0 30px 30px 0;}
             position: absolute;
             align-items:center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 1280px;
+            height: 720px;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
