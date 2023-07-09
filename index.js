@@ -118,6 +118,14 @@ h1 {
         console.log('keydown: volume down');
         stb.SetVolume(stb.GetVolume() - 10)
       }
+       if (e.keyCode === 37) {
+        console.log('keydown: left');
+        stb.SetPosTime(stb.GetPosTime() - 10)
+      }
+      if (e.keyCode === 39) {
+        console.log('keydown: right');
+        stb.SetPosTime(stb.GetPosTime() + 10)
+      }
       if (e.keyCode === 13) {
         if (stb.IsPlaying()) {
           console.log('keydown: stop');
@@ -251,7 +259,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -266,18 +273,18 @@ h4,p {
 
 .selectTranslation {
   display:flex;
+  flex-direction: column;
   padding: 10px;
-  min-width: 500px;
   max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
   background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   border: 2px solid #fff;
   border-radius: 10px;
   flex-wrap: wrap;
-  align-content: flex-start;
+  align-content: center;
 }
 
 .episodeBlock {
@@ -286,13 +293,15 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 130px;
-  height: 30px;
+  width: 250px;
+  height: 80px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
   border-radius: 5px;
-
+  padding: 35px;
+  font-size: 24px;
+  text-align: center;
 }
 .episodeBlock h4 {
   font-weight: bold;
@@ -301,11 +310,6 @@ h4,p {
     .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -322,22 +326,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
         }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
+        }
         </style>
   
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
   <div class="wrap">
@@ -445,6 +460,14 @@ h1 {
       if (e.keyCode === 109) {
         console.log('keydown: volume down');
         stb.SetVolume(stb.GetVolume() - 10)
+      }
+       if (e.keyCode === 37) {
+        console.log('keydown: left');
+        stb.SetPosTime(stb.GetPosTime() - 10)
+      }
+      if (e.keyCode === 39) {
+        console.log('keydown: right');
+        stb.SetPosTime(stb.GetPosTime() + 10)
       }
       if (e.keyCode === 13) {
         if (stb.IsPlaying()) {
@@ -579,7 +602,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -594,18 +616,18 @@ h4,p {
 
 .selectTranslation {
   display:flex;
+  flex-direction: column;
   padding: 10px;
-  min-width: 500px;
   max-width: 980px;
   width: auto;
   min-height: 300px
   height: auto;
   background: rgba(0, 0, 0, 0.685);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   border: 2px solid #fff;
   border-radius: 10px;
   flex-wrap: wrap;
-  align-content: flex-start;
+  align-content: center;
 }
 
 .episodeBlock {
@@ -614,13 +636,15 @@ h4,p {
   justify-content: center;
   background: #a200ff;
   border-radius: 5px;
-  width: 130px;
-  height: 30px;
+  width: 250px;
+  height: 80px;
   margin-right: 10px;
   margin-bottom: 3px;
   margin-top: 3px;
   border-radius: 5px;
-
+  padding: 35px;
+  font-size: 24px;
+   text-align: center;
 }
 .episodeBlock h4 {
   font-weight: bold;
@@ -629,11 +653,6 @@ h4,p {
     .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -650,22 +669,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
         }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
+        }
         </style>
   
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
   <div class="wrap">
@@ -724,7 +754,8 @@ async function getSearchedMovie() {
               app.get(
                 "/searchedMovieEpisodes=" + searchedItem.kinopoisk_id + index,
                 (req, res) => {
-                  let videos = [];
+                  try {
+                    let videos = [];
                   // --------------------------------- проверка на серии(то есть проверка на сериал) ---------------------------------
                   let videoSeasonsArrays = searchedItem.episodes
                     ? searchedItem.episodes
@@ -823,7 +854,6 @@ async function getSearchedMovie() {
                   display: flex;
                   padding: 15px 0 0 0;
                   margin: 0;
-                  background-image: url(../images/stars.png);
                   align-items: center;
                   justify-content: center;
                   position: relative;
@@ -872,15 +902,11 @@ async function getSearchedMovie() {
                 }
                 .waitPopup_block {
     width: 350px;
-    height: 150px;
-    position: absolute;
-    top: 250px;
-    left: 380px;
-    right: 500px;
-    bottom: 500px;
+    height: 100px;
     padding: 20px;
-            border: 2px solid #fff;
-            background: black;
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
         .waitPopup_wrap {
             display: flex;
@@ -889,26 +915,37 @@ async function getSearchedMovie() {
             justify-content: center;
             text-align: center;
         }
-        .waitPopup_wrap h1 {
-          color: white;
-          font-family: 'Inter', sans-serif;
-        }
 
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
                 </style>
                 
                 <body>
                 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
                       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -956,6 +993,9 @@ async function getSearchedMovie() {
                             );
                           }
                         );
+                  }
+                  } catch (error) {
+                    console.log(error)
                   }
                 }
               );
@@ -1059,7 +1099,7 @@ async function getSearchedMovie() {
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   
   // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}"); if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/searchedMovieEpisodes={{id}}"});}</script>');
  
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -1428,11 +1468,6 @@ p {
     .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -1449,9 +1484,22 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 </style>
@@ -1460,10 +1508,12 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -1889,7 +1939,8 @@ loopIt(i)
               : "no episodes";
             // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdPremieres=" + item[0].kinopoisk_id, (req, res) => {
-              let episodes = [];
+              try {
+                let episodes = [];
               // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
@@ -1980,7 +2031,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -2030,11 +2080,6 @@ h4,p {
     .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -2051,22 +2096,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
         }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
+        }
         </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -2095,6 +2151,9 @@ h4,p {
               } else {
                 // если фильм то сразу создаю страницу с плеером
                 getMp4Videos(item[0], ...[, ,], res, 'premieres');
+              }
+              } catch (error) {
+                console.log('Ошибке в загрузке страницы', error)
               }
             });
           });
@@ -2198,7 +2257,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdPremieres={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -2575,11 +2634,6 @@ p {
     .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -2596,9 +2650,22 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 
@@ -2608,10 +2675,12 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -2708,7 +2777,8 @@ async function getAnime() {
               : "no episodes";
             // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdAnime=" + item.kinopoisk_id, (req, res) => {
-              let episodes = [];
+              try {
+                let episodes = [];
               // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
@@ -2799,7 +2869,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -2849,11 +2918,6 @@ h4,p {
     .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -2870,22 +2934,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
         }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -2918,6 +2993,9 @@ h4,p {
               } else {
                 // если фильм то сразу создаю страницу с плеером
                 getMp4Videos(item, ...[, ,], res, 'anime');
+              }
+              } catch (error) {
+                console.log(error)
               }
             });
           });
@@ -3022,7 +3100,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
   // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130"src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdAnime={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -3403,11 +3481,6 @@ p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -3424,9 +3497,22 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 </style>
@@ -3435,10 +3521,12 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -3529,7 +3617,8 @@ async function getFilms() {
               : "no episodes";
             // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdFilms=" + item.kinopoisk_id, (req, res) => {
-              let episodes = [];
+              try {
+                let episodes = [];
               // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
@@ -3620,7 +3709,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -3670,11 +3758,6 @@ h4,p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -3691,22 +3774,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
         }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -3739,6 +3833,9 @@ h4,p {
               } else {
                 // если фильм то сразу создаю страницу с плеером
                 getMp4Videos(item, ...[, ,], res, 'films');
+              }
+              } catch (error) {
+                console.log(error)
               }
             });
           });
@@ -3843,7 +3940,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130"src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdFilms={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -4224,11 +4321,6 @@ p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -4245,9 +4337,22 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 </style>
@@ -4256,10 +4361,12 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -4351,7 +4458,8 @@ async function getSerials() {
               : "no episodes";
             // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdSerial=" + item.kinopoisk_id, (req, res) => {
-              let episodes = [];
+              try {
+                let episodes = [];
               // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
@@ -4442,7 +4550,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -4492,11 +4599,6 @@ h4,p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -4513,22 +4615,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
         .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
         }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
+        }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -4561,6 +4674,9 @@ h4,p {
               } else {
                 // если фильм то сразу создаю страницу с плеером
                 getMp4Videos(item, ...[, ,], res, 'serials');
+              }
+              } catch (error) {
+                console.log(error)
               }
             });
           });
@@ -4665,7 +4781,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdSerial={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -5048,11 +5164,6 @@ p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -5069,9 +5180,22 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 
@@ -5081,10 +5205,12 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -5176,7 +5302,8 @@ async function getCartoons() {
               : "no episodes";
             // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdCartoons=" + item.kinopoisk_id, (req, res) => {
-              let episodes = [];
+              try {
+                let episodes = [];
               // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
@@ -5267,7 +5394,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -5317,11 +5443,6 @@ h4,p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -5338,22 +5459,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
-         .waitPopup_wrap h1 {
+        .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -5386,6 +5518,9 @@ h4,p {
               } else {
                 // если фильм то сразу создаю страницу с плеером
                 getMp4Videos(item, ...[, ,], res, 'cartoons');
+              }
+              } catch (error) {
+                console.log(error)
               }
             });
           });
@@ -5490,7 +5625,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCartoons={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -5871,14 +6006,9 @@ p {
   font-size: 24px;
 }
 
- .waitPopup_block {
+ ..waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -5895,9 +6025,22 @@ p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 
@@ -5907,10 +6050,12 @@ p {
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">
@@ -6005,7 +6150,8 @@ p {
               : "no episodes";
             // -----------------------------------------------------------------------------------------------------------------
             app.get("/selectepisodeIdCompilations=" + item.kinopoisk_id, (req, res) => {
-              let episodes = [];
+              try {
+                let episodes = [];
               // дальнейший код для получения серий и сезонов, тк идет проверка на эпизоды, фильмы будут обрабатывать после else
               if (videoSeasonsArrays !== "no episodes") {
                 const seasonsArr = [];
@@ -6096,7 +6242,6 @@ body {
   display: flex;
   padding: 15px 0 0 0;
   margin: 0;
-  background-image: url(../images/stars.png);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -6146,11 +6291,6 @@ h4,p {
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -6167,22 +6307,33 @@ h4,p {
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
         }
-         .waitPopup_wrap h1 {
+        .waitPopup_wrap h1 {
           color: white;
           font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 </style>
 
 <body>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
       <div class="selectEpisode selectEpisodeHidden navigation-items scene js-scene-serialSeasons" data-nav_loop="true">
@@ -6215,6 +6366,9 @@ h4,p {
               } else {
                 // если фильм то сразу создаю страницу с плеером
                 getMp4Videos(item, ...[, ,], res, 'compilations');
+              }
+              } catch (error) {
+                console.log(error)
               }
             });
           });
@@ -6319,7 +6473,7 @@ h4,p {
   var _inited; // страница создана в файле index.js
     _.templateSettings.interpolate = /\\{\\{([\\s\\S]+?)\\}\\}/g;
     // в конце переменной скрипт для перехода на страницу с сезонами и сериями
-  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img width="250" height="70" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
+  var filmPageHtml = _.template('<div id="{{filmPageId}}" class="filmInfoPage"><div class="film-info_inner"><div class="film-main"><div class="film-info"><div class="poster_blockImg" style="background: url({{imgurl}}); background-repeat:no-repeat;  background-size:cover;"></div><div class="film-dscrtn"><div><p class="actors">Актеры: {{actors}}</p><p>Страна: {{country}}</p><p>Год:{{created}}</p><p>Режиссер:{{director}}</p></div><h2 id="videotitle">{{title}}</h2></div></div><p class="description">{{text}}</p></div><nav class="film-nav"><div class="film-nav_logo"><div class="UconCinema_logo"><img  width="450" height="130" src="./images/UconCinemaLogo.png" alt="logoimg"></div></div><ul class="film-voiceover menu-items" data-nav_type="vbox" data-nav_loop="true"><li data-content="video" class="back menu-item nav-item"><img width="30" src="./images/arrowBack.svg" alt="arrow" /> Назад</li><li class="menu-item nav-item watchBtn" id="{{id}}"><h4>Смотреть</h4></li></ul></nav></div></div></div><script>var watchBtn = document.getElementById("{{id}}");  if("{{status}}" === "film") {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"; $("#waitPopup_bg").show();$$nav.off()})} else {watchBtn.addEventListener("click", function (event) {document.location.href = "/selectepisodeIdCompilations={{id}}"});}</script>');
   
   // создание сцены с информацией о фильме
   window.App.scenes.filmInfo = {
@@ -6704,11 +6858,6 @@ margin: 0 30px 30px 0;}
  .waitPopup_block {
     width: 350px;
     height: 100px;
-    position: absolute;
-    top: 270px;
-    left: 410px;
-    right: 470px;
-    bottom: 480px;
     padding: 20px;
             background: rgba(0, 0, 0, 0.685);
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -6725,9 +6874,22 @@ margin: 0 30px 30px 0;}
         .waitPopupBackground {
             display: none;
             position: absolute;
+            align-items:center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             z-index: 5;
+        }
+        .waitPopup_wrap h1 {
+          color: white;
+          font-family: 'Inter', sans-serif;
+        }
+        #waitpopup_wrap {
+          display:flex;
+          width: 100%;
+          height: 100%;
+          align-items:center;
+          justify-content: center;
         }
 
 
@@ -6738,10 +6900,12 @@ margin: 0 30px 30px 0;}
 <div class="bg"></div>
 <div class="bg2"></div>
 <div class="waitPopupBackground" id="waitPopup_bg">
+        <div id="waitpopup_wrap">
         <div class="waitPopup_block" id="waitPopup_block">
             <div class="waitPopup_wrap">
                 <h1>Загрузка...</h1>
             </div>
+        </div>
         </div>
 </div>
 <div id="app" class="wrap">

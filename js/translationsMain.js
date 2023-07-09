@@ -13,11 +13,10 @@
       this.setEvents();
 
       // start navigation
-      
+       $$nav.on();
     },
 
     setEvents: function () {
-        $$nav.on();
         window.App.showContent('translations');
       // click on menu item
 

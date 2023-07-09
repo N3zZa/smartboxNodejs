@@ -20,7 +20,7 @@
         var item = "#" + filmPage;
         $(".header").hide();
         $('.bg').hide();
-      $('.bg2').show();
+        $('.bg2').show();
         window.App.showContent(scene);
         $(".filmInfoPage").hide();
         $(item).show();
