@@ -16,7 +16,7 @@ const APIVIDEOS_URL = `https://bazon.cc/api/playlist?token=${API_TOKEN}&kp=`
 
 // ССЫЛКИ НА АПИ ДЛЯ КАЖДОЙ СТРАНИЦЫ
 const APIANIME_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1&cat=аниме`;
-const APIFILMS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&`;
+const APIFILMS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&year=${new Date().getFullYear()}`;
 const APISERIALS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=serial&page=1`;
 const APICARTOONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=film&page=1&cat=мультфильм`;
 const APICOMPILATIONS_URL = `https://bazon.cc/api/json?token=${API_TOKEN}&type=all&page=1`;
@@ -954,20 +954,12 @@ async function getSearchedMovie() {
                     videos.splice(0, videos.length); // обнуляю массив чтобы не было одних и тех же серий и не было ошибки
                   } else {
                     // если фильм то сразу создаю страницу с плеером
-                    console.log('ep')
-                    app.get(
-                          "/getTranslations=" +
-                            searchedItem.kinopoisk_id +
-                            `&${seasonIndex + 1}&${episodeIndex + 1}`,
-                          (req, res) => {
                             getMp4Videos(
                               searchedItem,
                               ...[, ,],
                               res,
                               `searchItem?${searchedItem.info.rus}`
                             );
-                          }
-                        );
                   }
                   } catch (error) {
                     console.log(error)
